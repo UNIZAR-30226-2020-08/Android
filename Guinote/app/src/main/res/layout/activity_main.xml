@@ -8,20 +8,27 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp"
-        android:text="Guiñote APP"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="35sp" />
+
+    <ImageView
+        android:id="@+id/imagen_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop = "true"
+         />
 
     <Button
-        android:id="@+id/button_start_quiz"
+        android:id="@+id/button_start_2vs2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below ="@+id/imagen_logo"
+        android:layout_centerHorizontal="true"
         android:text="Comenzar partida 2 vs 2" />
+
+    <Button
+        android:id="@+id/button_start_1vs1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below ="@+id/button_start_2vs2"
+        android:layout_centerHorizontal="true"
+        android:text="Comenzar partida 1 vs 1" />
 </RelativeLayout>
