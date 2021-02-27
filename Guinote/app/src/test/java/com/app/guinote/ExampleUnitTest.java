@@ -1,4 +1,4 @@
-package com.fernandoballester.guinote;
+package com.app.guinote;
 
 import org.junit.Test;
 

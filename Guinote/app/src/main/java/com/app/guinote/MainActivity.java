@@ -1,4 +1,4 @@
-package com.fernandoballester.guinote;
+package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageView myImageLogo = (ImageView) findViewById(R.id.imagen_logo);
-        myImageLogo.setImageResource(R.drawable.logo);
+        myImageLogo.setImageResource(R.drawable.imagen_logo);
     }
 }
