@@ -1,34 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorTapete"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    android:id="@+id/general_layout1"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-
-    <ImageView
-        android:id="@+id/imagen_logo"
+    <RelativeLayout
+        android:id="@+id/relative_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop = "true"
-         />
-
-    <Button
-        android:id="@+id/button_start_2vs2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below ="@+id/imagen_logo"
         android:layout_centerHorizontal="true"
-        android:text="Comenzar partida 2 vs 2" />
+        android:layout_weight = "1"
+        >
+        <ImageView
+            android:id="@+id/imagen_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop = "true"
+            android:src="@drawable/imagen_logo"
+            />
 
-    <Button
-        android:id="@+id/button_start_1vs1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below ="@+id/button_start_2vs2"
-        android:layout_centerHorizontal="true"
-        android:text="Comenzar partida 1 vs 1" />
-</RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relative_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below ="@+id/relative_1"
+        android:layout_weight = "1.2">
+        <Button
+            android:id="@+id/button_start_2vs2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Comenzar partida 2 vs 2" />
+
+        <Button
+            android:id="@+id/button_start_1vs1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below ="@+id/button_start_2vs2"
+            android:layout_centerHorizontal="true"
+            android:text="Comenzar partida 1 vs 1" />
+        <Button
+            android:id="@+id/button_start_offline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below ="@+id/button_start_1vs1"
+            android:layout_centerHorizontal="true"
+            android:text="Comenzar partida offline" />
+        <Button
+            android:id="@+id/button_start_private_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below ="@+id/button_start_offline"
+            android:layout_centerHorizontal="true"
+            android:text="Crear sala privada" />
+        <Button
+            android:id="@+id/button_join_private_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below ="@+id/button_start_private_room"
+            android:layout_centerHorizontal="true"
+            android:text="Unirse a sala privada" />
+    </RelativeLayout>
+</LinearLayout>
