@@ -6,6 +6,7 @@
     android:layout_height = "match_parent"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
+    android:background="@drawable/tapete"
     tools:context = ".Login">
 
     <LinearLayout
@@ -23,21 +24,23 @@
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="match_parent"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:hint="Enter Name"
+            android:textStyle="bold"
             android:layout_marginTop="30dp"
-            android:textColorHighlight="#ff7eff15"
-            android:textColorHint="#ffff25e6" />
+            android:textColorHint="#000000"
+            />
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textStyle="bold"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textColorHint="#ffff299f" />
+            android:textColorHint="#000000" />
 
 
         <RelativeLayout
@@ -58,6 +61,7 @@
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:textStyle="bold"
+                android:background="#F23D3D"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button"
                 android:text="Register" />
