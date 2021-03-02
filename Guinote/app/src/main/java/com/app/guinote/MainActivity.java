@@ -26,6 +26,17 @@ public class MainActivity extends AppCompatActivity {
                 openActivity2();
             }
         });
+        play1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity3();
+            }
+        });
+    }
+
+    public void openActivity3 (){
+        Intent intent = new Intent(this,Registro.class);
+        startActivity(intent);
     }
 
     public void openActivity2(){

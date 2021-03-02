@@ -2,8 +2,12 @@ package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,6 +19,11 @@ public class PantallaJuego extends AppCompatActivity {
 
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe;
     ArrayList<Carta> cards;
+    Carta[] cardsj1 = new Carta[6];
+    Carta[] cardsj2 = new Carta[6];
+    Carta[] cardsj3 = new Carta[6];
+    Carta[] cardsj4 = new Carta[6];
+    Integer iterator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +47,7 @@ public class PantallaJuego extends AppCompatActivity {
         triumphe.setVisibility(View.INVISIBLE);
 
         cards = new ArrayList<>();
+        iterator = 0;
 
         Carta asoros = new Carta(1,11,1,1);
         cards.add(asoros);
@@ -129,22 +139,43 @@ public class PantallaJuego extends AppCompatActivity {
         Carta doscopas = new Carta(40,0,4,10);
         cards.add(doscopas);
 
+
         reverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.shuffle(cards);
 
                 assignImages(cards.get(0), c1);
-                System.out.println(cards.get(0).getId());
                 assignImages(cards.get(1), c2);
-                System.out.println(cards.get(1).getId());
                 assignImages(cards.get(2), c3);
-                System.out.println(cards.get(2).getId());
-                assignImages(cards.get(3), c4);
-                assignImages(cards.get(4), c5);
-                assignImages(cards.get(5), c6);
+                cardsj1[0] = cards.get(0);
+                cardsj1[1] = cards.get(1);
+                cardsj1[2] = cards.get(2);
+                cardsj3[0] = cards.get(3);
+                cardsj3[1] = cards.get(4);
+                cardsj3[2] = cards.get(5);
+                cardsj2[0] = cards.get(6);
+                cardsj2[1] = cards.get(7);
+                cardsj2[2] = cards.get(8);
+                cardsj4[0] = cards.get(9);
+                cardsj4[1] = cards.get(10);
+                cardsj4[2] = cards.get(11);
+                assignImages(cards.get(12), c4);
+                assignImages(cards.get(13), c5);
+                assignImages(cards.get(14), c6);
+                cardsj1[3] = cards.get(12);
+                cardsj1[4] = cards.get(13);
+                cardsj1[5] = cards.get(14);
+                cardsj3[3] = cards.get(15);
+                cardsj3[4] = cards.get(16);
+                cardsj3[5] = cards.get(17);
+                cardsj2[3] = cards.get(18);
+                cardsj2[4] = cards.get(19);
+                cardsj2[5] = cards.get(20);
+                cardsj4[3] = cards.get(21);
+                cardsj4[4] = cards.get(22);
+                cardsj4[5] = cards.get(23);
                 assignImages(cards.get(39), triumphe);
-
 
                 c1.setVisibility(View.VISIBLE);
                 c2.setVisibility(View.VISIBLE);
@@ -153,6 +184,66 @@ public class PantallaJuego extends AppCompatActivity {
                 c5.setVisibility(View.VISIBLE);
                 c6.setVisibility(View.VISIBLE);
                 triumphe.setVisibility(View.VISIBLE);
+
+                iterator = 24;
+            }
+        });
+
+
+        c1.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                final int action = event.getAction();
+                switch (action){
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        break;
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        break;
+                    case DragEvent.ACTION_DROP:
+                        return (true);
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        final View where = (View) event.getLocalState();
+                        switch (where.getId()){
+                            case R.id.casilla_carta_2:
+                                Carta aux = cardsj1[1];
+                                cardsj1[1] = cardsj1[0];
+                                cardsj1[0] = aux;
+                                assignImages(cardsj1[0], c1);
+                                assignImages(cardsj1[1], c2);
+                                break;
+                            case R.id.casilla_carta_3:
+                                Carta aux2 = cardsj1[2];
+                                cardsj1[2] = cardsj1[0];
+                                cardsj1[0] = aux2;
+                                assignImages(cardsj1[0], c1);
+                                assignImages(cardsj1[2], c3);
+                                break;
+                            case R.id.casilla_carta_4:
+                                break;
+                            case R.id.casilla_carta_5:
+                                break;
+                            case R.id.casilla_carta_6:
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        c1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                    ClipData data = ClipData.newPlainText("","");
+                    View.DragShadowBuilder shadow = new View.DragShadowBuilder(c1);
+                    v.startDrag(data,shadow,null,0);
+                return false;
             }
         });
 
@@ -288,4 +379,5 @@ public class PantallaJuego extends AppCompatActivity {
         }
 
     }
+
 }
