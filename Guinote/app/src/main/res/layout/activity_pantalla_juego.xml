@@ -14,7 +14,7 @@
         android:id="@+id/relativelayout1_juego"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.3">
+        android:layout_weight="0.25">
         <TextView
             android:id="@+id/nombre_j2"
             android:layout_width="wrap_content"
@@ -22,25 +22,86 @@
             android:layout_centerHorizontal="true"
             android:text="Nombre2"/>
         <TextView
-            android:id="@+id/nombre_j3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:text="Nombre3"/>
-        <TextView
             android:id="@+id/nombre_j4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:text="Nombre4"/>
+        <TextView
+            android:id="@+id/nombre_j3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="Nombre3"/>
+
+        <ImageView
+            android:id="@+id/mazo_central_volteado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:rotation="90.0"
+            android:paddingLeft="100dp"/>
+
+        <ImageView
+        android:id="@+id/mazo_central"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="100dp"
+        android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/reverso" />
+
+        <ImageView
+            android:id="@+id/carta_jugador1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitEnd"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true" />
+
+        <ImageView
+            android:id="@+id/carta_jugador2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_below="@id/nombre_j2"/>
+
+        <ImageView
+            android:id="@+id/carta_jugador4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_below="@id/nombre_j4"/>
+
+        <ImageView
+            android:id="@+id/carta_jugador3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:layout_alignParentRight="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_below="@id/nombre_j3"/>
+
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativelayout2_juego"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.7">
+        android:layout_weight="0.75">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -49,7 +110,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="4dp"/>
             <ImageView
                 android:id="@+id/casilla_carta_2"
                 android:layout_width="match_parent"

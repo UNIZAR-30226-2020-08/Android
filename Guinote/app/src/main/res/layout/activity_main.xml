@@ -26,46 +26,73 @@
             />
 
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/relative_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below ="@+id/relative_1"
-        android:layout_weight = "1.2">
+        android:layout_weight = "1.2"
+        android:orientation="vertical">
         <Button
             android:id="@+id/button_start_2vs2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:text="Comenzar partida 2 vs 2" />
-
+            android:text="Comenzar partida 2 vs 2"
+            android:layout_weight = "1"/>
         <Button
             android:id="@+id/button_start_1vs1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below ="@+id/button_start_2vs2"
             android:layout_centerHorizontal="true"
-            android:text="Comenzar partida 1 vs 1" />
+            android:text="Comenzar partida 1 vs 1"
+            android:layout_weight = "1"/>
         <Button
             android:id="@+id/button_start_offline"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below ="@+id/button_start_1vs1"
             android:layout_centerHorizontal="true"
-            android:text="Comenzar partida offline" />
+            android:text="Comenzar partida offline"
+            android:layout_weight = "1"/>
         <Button
             android:id="@+id/button_start_private_room"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below ="@+id/button_start_offline"
             android:layout_centerHorizontal="true"
-            android:text="Crear sala privada" />
+            android:text="Crear sala privada"
+            android:layout_weight = "1"/>
         <Button
             android:id="@+id/button_join_private_room"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below ="@+id/button_start_private_room"
             android:layout_centerHorizontal="true"
-            android:text="Unirse a sala privada" />
-    </RelativeLayout>
+            android:text="Unirse a sala privada"
+            android:layout_weight = "1"/>
+        <RelativeLayout
+            android:id="@+id/perfil_y_ajustes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below ="@+id/button_join_private_room"
+            android:layout_centerHorizontal="true"
+            android:layout_weight = "1">
+            <Button
+                android:id="@+id/button_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentLeft="true"
+                android:text="Perfil" />
+            <Button
+                android:id="@+id/button_ajustes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
+                android:text="Ajustes" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
