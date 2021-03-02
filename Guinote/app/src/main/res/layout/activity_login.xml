@@ -6,66 +6,83 @@
     android:layout_height = "match_parent"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:background="@drawable/tapete"
+    android:background="#376734"
     tools:context = ".Login">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
             android:id="@+id/imageView"
-            android:src="@drawable/imagen_logo"
-            android:layout_centerHorizontal="true" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:hint="Enter Name"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            android:textColorHint="#000000"
-            />
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textStyle="bold"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColorHint="#000000" />
-
-
-        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" android:gravity="center">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:textStyle="bold"
-                android:background="#1492FF"
-                android:id="@+id/button"
-                android:layout_marginBottom="10dp"
-                />
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:src="@drawable/imagen_logo" />
 
-            <Button
-                android:id="@+id/button2"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/border_radio"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textFieldName"
                 android:layout_width="match_parent"
-                android:textStyle="bold"
-                android:background="#F23D3D"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button"
-                android:text="Register" />
-        </RelativeLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="20dp"
+                android:hint="Enter Name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textFieldP"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:hint="Password"
+                android:padding="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="20dp">
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:backgroundTint="#ffffff"
+                    android:textColor="#000000"
+                    android:text="Log In" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rippleColor="#ffffff"
+            android:background="@drawable/borde_arriba_menu"
+            app:menu="@menu/menu_inicio" />
 
     </LinearLayout>
 
