@@ -38,15 +38,12 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/textNombreUsuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
                 android:layout_weight="1"
-                android:text="NombreUsuario"
-                android:textColor="#ffffff"
-                android:textSize="21dp"
-                android:textStyle="bold"/>
+                app:srcCompat="@drawable/logo_username" />
 
             <EditText
                 android:id="@+id/NombreUsuario"
@@ -54,8 +51,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName" />
-                //android:text="Escribe su nombre de Usuario"
+                android:inputType="textPersonName"
+                android:hint="Write your username"
+                android:textStyle="bold"
+                android:textColorHint="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,15 +63,12 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/textCorreo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/image_correo"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
                 android:layout_weight="1"
-                android:text="Correo"
-                android:textColor="#ffffff"
-                android:textSize="21dp"
-                android:textStyle="bold"/>
+                app:srcCompat="@drawable/logo_gmail" />
 
             <EditText
                 android:id="@+id/Correo"
@@ -80,8 +76,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textEmailAddress"/>
-                //android:text="Escribe su correo electronico"/>
+                android:inputType="textEmailAddress"
+                android:hint="Write your email"
+                android:textStyle="bold"
+                android:textColorHint="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,15 +88,12 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/textPasswd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
                 android:layout_weight="1"
-                android:text="Password"
-                android:textColor="#ffffff"
-                android:textSize="21dp"
-                android:textStyle="bold"/>
+                app:srcCompat="@drawable/logo_passwd" />
 
             <EditText
                 android:id="@+id/Passwd"
@@ -106,8 +101,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPassword"/>
-                //android:text="Escribe su contraseña" />
+                android:inputType="textPassword"
+                android:hint="Write your password"
+                android:textStyle="bold"
+                android:textColorHint="#000000"/>
         </LinearLayout>
 
         <LinearLayout
