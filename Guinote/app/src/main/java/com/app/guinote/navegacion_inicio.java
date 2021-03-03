@@ -44,17 +44,28 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
 
         switch (item.getItemId()) {
             case R.id.page_1: {
-                Log.i("llego","llego");
                 getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out
+                        )
                         .setReorderingAllowed(true)
-                        .add(R.id.fragmento_opcion, Login.class, null)
+                        .replace(R.id.fragmento_opcion, Login.class, null)
                         .commit();
             }
             break;
             case R.id.page_2: {
                 getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out
+                        )
                         .setReorderingAllowed(true)
-                        .add(R.id.fragmento_opcion, Login.class, null)
+                        .replace(R.id.fragmento_opcion, Registro.class, null)
                         .commit();
             }
             break;
@@ -62,6 +73,7 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
         }
         return true;
     }
+
 
 
 }
