@@ -7,11 +7,14 @@ import android.content.ClipDescription;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +22,7 @@ import java.util.List;
 
 public class PantallaJuego extends AppCompatActivity {
 
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,c1back;
     ArrayList<Carta> cards;
     Carta[] cardsj1 = new Carta[6];
     Carta[] cardsj2 = new Carta[6];
@@ -34,20 +37,28 @@ public class PantallaJuego extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_juego);
 
         c1 = (ImageView) findViewById(R.id.casilla_carta_1);
+        c1back = (ImageView) findViewById(R.id.casilla_carta_1_back);
+        final EasyFlipView c1whole = (EasyFlipView) findViewById(R.id.easyFlipView1);
         c2 = (ImageView) findViewById(R.id.casilla_carta_2);
+        final EasyFlipView c2whole = (EasyFlipView) findViewById(R.id.easyFlipView2);
         c3 = (ImageView) findViewById(R.id.casilla_carta_3);
+        final EasyFlipView c3whole = (EasyFlipView) findViewById(R.id.easyFlipView3);
         c4 = (ImageView) findViewById(R.id.casilla_carta_4);
+        final EasyFlipView c4whole = (EasyFlipView) findViewById(R.id.easyFlipView4);
         c5 = (ImageView) findViewById(R.id.casilla_carta_5);
+        final EasyFlipView c5whole = (EasyFlipView) findViewById(R.id.easyFlipView5);
         c6 = (ImageView) findViewById(R.id.casilla_carta_6);
+        final EasyFlipView c6whole = (EasyFlipView) findViewById(R.id.easyFlipView6);
         reverse = (ImageView) findViewById(R.id.mazo_central);
         triumphe = (ImageView) findViewById(R.id.mazo_central_volteado);
-        c1.setVisibility(View.INVISIBLE);
-        c2.setVisibility(View.INVISIBLE);
-        c3.setVisibility(View.INVISIBLE);
-        c4.setVisibility(View.INVISIBLE);
-        c5.setVisibility(View.INVISIBLE);
-        c6.setVisibility(View.INVISIBLE);
-        triumphe.setVisibility(View.INVISIBLE);
+        final EasyFlipView triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe);
+        c1whole.setVisibility(View.INVISIBLE);
+        c2whole.setVisibility(View.INVISIBLE);
+        c3whole.setVisibility(View.INVISIBLE);
+        c4whole.setVisibility(View.INVISIBLE);
+        c5whole.setVisibility(View.INVISIBLE);
+        c6whole.setVisibility(View.INVISIBLE);
+        triumphewhole.setVisibility(View.INVISIBLE);
 
         cards = new ArrayList<>();
         iterator = 0;
@@ -188,14 +199,27 @@ public class PantallaJuego extends AppCompatActivity {
                 cardsj4[4] = cards.get(22);
                 cardsj4[5] = cards.get(23);
                 assignImages(cards.get(39), triumphe);
+                //SystemClock.sleep(1000);
+                c1whole.setVisibility(View.VISIBLE);
+                c2whole.setVisibility(View.VISIBLE);
+                c3whole.setVisibility(View.VISIBLE);
+                //SystemClock.sleep(1000);
+                c1whole.flipTheView();
+                c2whole.flipTheView();
+                c3whole.flipTheView();
+                //SystemClock.sleep(1500);
+                c4whole.setVisibility(View.VISIBLE);
+                c5whole.setVisibility(View.VISIBLE);
+                c6whole.setVisibility(View.VISIBLE);
+                //SystemClock.sleep(1000);
+                c4whole.flipTheView();
+                c5whole.flipTheView();
+                c6whole.flipTheView();
+                //SystemClock.sleep(1500);
 
-                c1.setVisibility(View.VISIBLE);
-                c2.setVisibility(View.VISIBLE);
-                c3.setVisibility(View.VISIBLE);
-                c4.setVisibility(View.VISIBLE);
-                c5.setVisibility(View.VISIBLE);
-                c6.setVisibility(View.VISIBLE);
-                triumphe.setVisibility(View.VISIBLE);
+                triumphewhole.setVisibility(View.VISIBLE);
+
+                triumphewhole.flipTheView();
 
                 iterator = 24;
             }
@@ -338,20 +362,14 @@ public class PantallaJuego extends AppCompatActivity {
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DROP:
-                    ClipData.Item item = event.getClipData().getItemAt(0);
-
-                    CharSequence dragData = item.getText();
-
-                    Toast.makeText(PantallaJuego.this, dragData, Toast.LENGTH_LONG).show();
-
+                    System.out.println(v.getId());
+                    intercambiocartas(IDcomienzo,v.getId());
                     v.setBackgroundColor(0);
                     v.invalidate();
-                    intercambioCartas(IDcomienzo,v.getId());
                     return true;
                 case DragEvent.ACTION_DRAG_ENDED:
                     v.setBackgroundColor(0);
                     v.invalidate();
-                    //queImagen(queID(IDcomienzo)).setVisibility(View.VISIBLE);
                     return true;
                 default:
                     break;
@@ -362,10 +380,12 @@ public class PantallaJuego extends AppCompatActivity {
         }
     }
 
-    private void intercambioCartas(Integer iDcomienzo, Integer iDfinal) {
+    private void intercambiocartas(Integer iDcomienzo, Integer iDfinal) {
         Integer a = queID(iDcomienzo);
         Integer b = queID(iDfinal);
+        System.out.println("MAMAHUEVO");
         if(a!=-1 && b!=-1){
+            System.out.println("HOLA HE LLEGAO GG");
             Carta aux = cardsj1[a];
             cardsj1[a] = cardsj1[b];
             cardsj1[b] = aux;
@@ -396,21 +416,20 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     private Integer queID(Integer id){
-        switch (id){
-            case 2131230827:
-                return 0;
-            case 2131230828:
-                return 1;
-            case 2131230829:
-                return 2;
-            case 2131230830:
-                return 3;
-            case 2131230831:
-                return 4;
-            case 2131230832:
-                return 5;
-            default:
-                return -1;
+        if (id ==c1.getId()) {
+            return 0;
+        }else if(id ==c2.getId()) {
+            return 1;
+        }else if(id ==c3.getId()) {
+            return 2;
+        }else if(id ==c4.getId()) {
+            return 3;
+        }else if(id ==c5.getId()) {
+            return 4;
+        }else if(id ==c6.getId()) {
+            return 5;
+        }else {
+            return -1;
         }
     }
 
