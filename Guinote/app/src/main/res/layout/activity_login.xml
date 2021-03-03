@@ -47,6 +47,7 @@
         android:padding="20dp">
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
+            android:id="@+id/login_boton"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:backgroundTint="#ffffff"
