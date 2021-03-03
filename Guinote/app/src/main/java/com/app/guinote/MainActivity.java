@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button play2 = findViewById(R.id.button_start_2vs2);
         Button play1 = findViewById(R.id.button_start_1vs1);
+        Button play3 = findViewById(R.id.button_start_offline);
         Button createroom = findViewById(R.id.button_start_private_room);
         Button joinroom = findViewById(R.id.button_join_private_room);
 
@@ -26,6 +27,14 @@ public class MainActivity extends AppCompatActivity {
                 openActivity2();
             }
         });
+
+        play3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity1();
+            }
+        });
+
         play1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity2(){
         Intent intent = new Intent(this, PantallaJuego.class);
+        startActivity(intent);
+    }
+
+    public void openActivity1(){
+        Intent intent = new Intent(this, navegacion_inicio.class);
         startActivity(intent);
     }
 
