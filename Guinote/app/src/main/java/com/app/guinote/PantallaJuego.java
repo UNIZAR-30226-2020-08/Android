@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +26,7 @@ public class PantallaJuego extends AppCompatActivity {
     Carta[] cardsj3 = new Carta[6];
     Carta[] cardsj4 = new Carta[6];
     Integer iterator;
+    Integer IDcomienzo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,15 @@ public class PantallaJuego extends AppCompatActivity {
 
         cards = new ArrayList<>();
         iterator = 0;
+        IDcomienzo = 0;
+        MyDragEventListener mDragListen = new MyDragEventListener();
+        c1.setOnDragListener(mDragListen);
+        c2.setOnDragListener(mDragListen);
+        c3.setOnDragListener(mDragListen);
+        c4.setOnDragListener(mDragListen);
+        c5.setOnDragListener(mDragListen);
+        c6.setOnDragListener(mDragListen);
+
 
         Carta asoros = new Carta(1,11,1,1);
         cards.add(asoros);
@@ -189,64 +201,217 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
 
-
-        c1.setOnDragListener(new View.OnDragListener() {
+        c1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onDrag(View v, DragEvent event) {
-                final int action = event.getAction();
-                switch (action){
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        break;
-                    case DragEvent.ACTION_DRAG_EXITED:
-                        break;
-                    case DragEvent.ACTION_DRAG_ENTERED:
-                        break;
-                    case DragEvent.ACTION_DROP:
-                        return (true);
-                    case DragEvent.ACTION_DRAG_ENDED:
-                        final View where = (View) event.getLocalState();
-                        switch (where.getId()){
-                            case R.id.casilla_carta_2:
-                                Carta aux = cardsj1[1];
-                                cardsj1[1] = cardsj1[0];
-                                cardsj1[0] = aux;
-                                assignImages(cardsj1[0], c1);
-                                assignImages(cardsj1[1], c2);
-                                break;
-                            case R.id.casilla_carta_3:
-                                Carta aux2 = cardsj1[2];
-                                cardsj1[2] = cardsj1[0];
-                                cardsj1[0] = aux2;
-                                assignImages(cardsj1[0], c1);
-                                assignImages(cardsj1[2], c3);
-                                break;
-                            case R.id.casilla_carta_4:
-                                break;
-                            case R.id.casilla_carta_5:
-                                break;
-                            case R.id.casilla_carta_6:
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+            public boolean onLongClick(View v) {
+                ClipData.Item item = new ClipData.Item("Cambio de cartas!");
+
+                ClipData dragData = new ClipData(
+                        (CharSequence) v.getTag(), new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN},
+                        item
+                );
+
+                IDcomienzo = v.getId();
+
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c1);
+                //c1.setVisibility(View.INVISIBLE);
+                //c1.invalidate();
+                v.startDrag(dragData,myShadow,null,0);
+
                 return true;
             }
         });
 
-        c1.setOnTouchListener(new View.OnTouchListener() {
+        c2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                    ClipData data = ClipData.newPlainText("","");
-                    View.DragShadowBuilder shadow = new View.DragShadowBuilder(c1);
-                    v.startDrag(data,shadow,null,0);
-                return false;
+            public boolean onLongClick(View v) {
+                ClipData.Item item = new ClipData.Item("Cambio de cartas!");
+
+                ClipData dragData = new ClipData(
+                        (CharSequence) v.getTag(), new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN},
+                        item
+                );
+                IDcomienzo = v.getId();
+
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c2);
+                //c2.setVisibility(View.INVISIBLE);
+                v.startDrag(dragData,myShadow,null,0);
+                return true;
             }
         });
 
+        c3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipData.Item item = new ClipData.Item("Cambio de cartas!");
+
+                ClipData dragData = new ClipData(
+                        (CharSequence) v.getTag(), new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN},
+                        item
+                );
+                IDcomienzo = v.getId();
+
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c3);
+                //c3.setVisibility(View.INVISIBLE);
+                v.startDrag(dragData,myShadow,null,0);
+                return true;
+            }
+        });
+
+        c4.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipData.Item item = new ClipData.Item("Cambio de cartas!");
+
+                ClipData dragData = new ClipData(
+                        (CharSequence) v.getTag(), new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN},
+                        item
+                );
+                IDcomienzo = v.getId();
+
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c4);
+                //c4.setVisibility(View.INVISIBLE);
+                v.startDrag(dragData,myShadow,null,0);
+                return true;
+            }
+        });
+
+        c5.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipData.Item item = new ClipData.Item("Cambio de cartas!");
+
+                ClipData dragData = new ClipData(
+                        (CharSequence) v.getTag(), new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN},
+                        item
+                );
+                IDcomienzo = v.getId();
+
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c5);
+                //c5.setVisibility(View.INVISIBLE);
+                v.startDrag(dragData,myShadow,null,0);
+                return true;
+            }
+        });
+
+        c6.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipData.Item item = new ClipData.Item("Cambio de cartas!");
+
+                ClipData dragData = new ClipData(
+                        (CharSequence) v.getTag(), new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN},
+                        item
+                );
+                IDcomienzo = v.getId();
+
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c6);
+                //c6.setVisibility(View.INVISIBLE);
+                v.startDrag(dragData,myShadow,null,0);
+                return true;
+            }
+        });
+
+    }
+
+    protected class MyDragEventListener implements View.OnDragListener {
+        public boolean onDrag(View v, DragEvent event) {
+            final int action = event.getAction();
+
+            switch (action){
+                case DragEvent.ACTION_DRAG_STARTED:
+                    if(event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                        v.setBackgroundColor(0);
+                        v.invalidate();
+                        return true;
+                    }
+
+                    return false;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.setBackgroundColor(Color.YELLOW);
+                    v.invalidate();
+                    return true;
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    return true;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.setBackgroundColor(0);
+                    v.invalidate();
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    ClipData.Item item = event.getClipData().getItemAt(0);
+
+                    CharSequence dragData = item.getText();
+
+                    Toast.makeText(PantallaJuego.this, dragData, Toast.LENGTH_LONG).show();
+
+                    v.setBackgroundColor(0);
+                    v.invalidate();
+                    intercambioCartas(IDcomienzo,v.getId());
+                    return true;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    v.setBackgroundColor(0);
+                    v.invalidate();
+                    //queImagen(queID(IDcomienzo)).setVisibility(View.VISIBLE);
+                    return true;
+                default:
+                    break;
+
+
+            }
+            return false;
+        }
+    }
+
+    private void intercambioCartas(Integer iDcomienzo, Integer iDfinal) {
+        Integer a = queID(iDcomienzo);
+        Integer b = queID(iDfinal);
+        if(a!=-1 && b!=-1){
+            Carta aux = cardsj1[a];
+            cardsj1[a] = cardsj1[b];
+            cardsj1[b] = aux;
+            ImageView aux1 = queImagen(a);
+            ImageView aux2 = queImagen(b);
+            assignImages(cardsj1[a],aux1);
+            assignImages(cardsj1[b],aux2);
+        }
+    }
+
+    private ImageView queImagen(Integer a) {
+        switch (a){
+            case 0:
+                return c1;
+            case 1:
+                return c2;
+            case 2:
+                return c3;
+            case 3:
+                return c4;
+            case 4:
+                return c5;
+            case 5:
+                return c6;
+            default:
+                return null;
+        }
+    }
+
+    private Integer queID(Integer id){
+        switch (id){
+            case 2131230827:
+                return 0;
+            case 2131230828:
+                return 1;
+            case 2131230829:
+                return 2;
+            case 2131230830:
+                return 3;
+            case 2131230831:
+                return 4;
+            case 2131230832:
+                return 5;
+            default:
+                return -1;
+        }
     }
 
     public void assignImages(Carta card, ImageView image){
