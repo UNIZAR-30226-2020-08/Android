@@ -1,13 +1,19 @@
 package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
         Button createroom = findViewById(R.id.button_start_private_room);
         Button joinroom = findViewById(R.id.button_join_private_room);
 
-        ScrollView mScrollView=(ScrollView) findViewById(R.id.deslizar);
-        mScrollView.setSmoothScrollingEnabled(true);
+
+        MaterialToolbar toolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        toolbar.setOverflowIcon(getDrawable(R.drawable.opt_icono));
 
         play2.setOnClickListener(new View.OnClickListener() {
             @Override
