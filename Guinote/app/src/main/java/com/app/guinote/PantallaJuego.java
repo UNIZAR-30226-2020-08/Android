@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.os.SystemClock;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,36 +24,59 @@ import java.util.List;
 
 public class PantallaJuego extends AppCompatActivity {
 
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,c1back;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image;
+    EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
+    Button cambiar7,cantar;
     ArrayList<Carta> cards;
     Carta[] cardsj1 = new Carta[6];
     Carta[] cardsj2 = new Carta[6];
     Carta[] cardsj3 = new Carta[6];
     Carta[] cardsj4 = new Carta[6];
-    Integer iterator;
-    Integer IDcomienzo;
-
+    Integer iterator;   //Cual es la siguiente carta a robar en el mazo
+    Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (cada jugador tiene su propio IDcomienzo)
+    boolean arrastre;   //Si estamos en arrastre o no
+    Integer triunfo;    //1 si el triunfo es oros, 2 espadas, 3 bastos y 4 copas
+    boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
+    Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
+    Integer puntosE1,puntosE2; //Puntos de cada equipo en general
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_juego);
 
+        j1image = (ImageView) findViewById(R.id.carta_jugador1);
+        j2image = (ImageView) findViewById(R.id.carta_jugador2);
+        j3image = (ImageView) findViewById(R.id.carta_jugador3);
+        j4image = (ImageView) findViewById(R.id.carta_jugador4);
         c1 = (ImageView) findViewById(R.id.casilla_carta_1);
-        c1back = (ImageView) findViewById(R.id.casilla_carta_1_back);
-        final EasyFlipView c1whole = (EasyFlipView) findViewById(R.id.easyFlipView1);
+        c1whole = (EasyFlipView) findViewById(R.id.easyFlipView1);
         c2 = (ImageView) findViewById(R.id.casilla_carta_2);
-        final EasyFlipView c2whole = (EasyFlipView) findViewById(R.id.easyFlipView2);
+        c2whole = (EasyFlipView) findViewById(R.id.easyFlipView2);
         c3 = (ImageView) findViewById(R.id.casilla_carta_3);
-        final EasyFlipView c3whole = (EasyFlipView) findViewById(R.id.easyFlipView3);
+        c3whole = (EasyFlipView) findViewById(R.id.easyFlipView3);
         c4 = (ImageView) findViewById(R.id.casilla_carta_4);
-        final EasyFlipView c4whole = (EasyFlipView) findViewById(R.id.easyFlipView4);
+        c4whole = (EasyFlipView) findViewById(R.id.easyFlipView4);
         c5 = (ImageView) findViewById(R.id.casilla_carta_5);
-        final EasyFlipView c5whole = (EasyFlipView) findViewById(R.id.easyFlipView5);
+        c5whole = (EasyFlipView) findViewById(R.id.easyFlipView5);
         c6 = (ImageView) findViewById(R.id.casilla_carta_6);
-        final EasyFlipView c6whole = (EasyFlipView) findViewById(R.id.easyFlipView6);
+        c6whole = (EasyFlipView) findViewById(R.id.easyFlipView6);
         reverse = (ImageView) findViewById(R.id.mazo_central);
         triumphe = (ImageView) findViewById(R.id.mazo_central_volteado);
-        final EasyFlipView triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe);
+        triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe);
+        cambiar7 = (Button) findViewById(R.id.button_cambiar_siete);
+        cambiar7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityCambio7();
+            }
+        });
+        cantar = (Button) findViewById(R.id.button_cantar);
+        cantar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityCantar();
+            }
+        });
         c1whole.setVisibility(View.INVISIBLE);
         c2whole.setVisibility(View.INVISIBLE);
         c3whole.setVisibility(View.INVISIBLE);
@@ -59,7 +84,9 @@ public class PantallaJuego extends AppCompatActivity {
         c5whole.setVisibility(View.INVISIBLE);
         c6whole.setVisibility(View.INVISIBLE);
         triumphewhole.setVisibility(View.INVISIBLE);
-
+        reverse.setVisibility(View.INVISIBLE);
+        arrastre = false;
+        baza = false;
         cards = new ArrayList<>();
         iterator = 0;
         IDcomienzo = 0;
@@ -162,68 +189,74 @@ public class PantallaJuego extends AppCompatActivity {
         Carta doscopas = new Carta(40,0,4,10);
         cards.add(doscopas);
 
+        c1whole.flipTheView();
+        c2whole.flipTheView();
+        c3whole.flipTheView();
+        c4whole.flipTheView();
+        c5whole.flipTheView();
+        c6whole.flipTheView();
+        triumphewhole.flipTheView();
 
-        reverse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Collections.shuffle(cards);
+        Collections.shuffle(cards);
 
-                assignImages(cards.get(0), c1);
-                assignImages(cards.get(1), c2);
-                assignImages(cards.get(2), c3);
-                cardsj1[0] = cards.get(0);
-                cardsj1[1] = cards.get(1);
-                cardsj1[2] = cards.get(2);
-                cardsj3[0] = cards.get(3);
-                cardsj3[1] = cards.get(4);
-                cardsj3[2] = cards.get(5);
-                cardsj2[0] = cards.get(6);
-                cardsj2[1] = cards.get(7);
-                cardsj2[2] = cards.get(8);
-                cardsj4[0] = cards.get(9);
-                cardsj4[1] = cards.get(10);
-                cardsj4[2] = cards.get(11);
-                assignImages(cards.get(12), c4);
-                assignImages(cards.get(13), c5);
-                assignImages(cards.get(14), c6);
-                cardsj1[3] = cards.get(12);
-                cardsj1[4] = cards.get(13);
-                cardsj1[5] = cards.get(14);
-                cardsj3[3] = cards.get(15);
-                cardsj3[4] = cards.get(16);
-                cardsj3[5] = cards.get(17);
-                cardsj2[3] = cards.get(18);
-                cardsj2[4] = cards.get(19);
-                cardsj2[5] = cards.get(20);
-                cardsj4[3] = cards.get(21);
-                cardsj4[4] = cards.get(22);
-                cardsj4[5] = cards.get(23);
-                assignImages(cards.get(39), triumphe);
-                //SystemClock.sleep(1000);
-                c1whole.setVisibility(View.VISIBLE);
-                c2whole.setVisibility(View.VISIBLE);
-                c3whole.setVisibility(View.VISIBLE);
-                //SystemClock.sleep(1000);
-                c1whole.flipTheView();
-                c2whole.flipTheView();
-                c3whole.flipTheView();
-                //SystemClock.sleep(1500);
-                c4whole.setVisibility(View.VISIBLE);
-                c5whole.setVisibility(View.VISIBLE);
-                c6whole.setVisibility(View.VISIBLE);
-                //SystemClock.sleep(1000);
-                c4whole.flipTheView();
-                c5whole.flipTheView();
-                c6whole.flipTheView();
-                //SystemClock.sleep(1500);
+        assignImages(cards.get(0), c1);
+        assignImages(cards.get(1), c2);
+        assignImages(cards.get(2), c3);
+        cardsj1[0] = cards.get(0);
+        cardsj1[1] = cards.get(1);
+        cardsj1[2] = cards.get(2);
+        cardsj3[0] = cards.get(3);
+        cardsj3[1] = cards.get(4);
+        cardsj3[2] = cards.get(5);
+        cardsj2[0] = cards.get(6);
+        cardsj2[1] = cards.get(7);
+        cardsj2[2] = cards.get(8);
+        cardsj4[0] = cards.get(9);
+        cardsj4[1] = cards.get(10);
+        cardsj4[2] = cards.get(11);
+        assignImages(cards.get(12), c4);
+        assignImages(cards.get(13), c5);
+        assignImages(cards.get(14), c6);
+        cardsj1[3] = cards.get(12);
+        cardsj1[4] = cards.get(13);
+        cardsj1[5] = cards.get(14);
+        cardsj3[3] = cards.get(15);
+        cardsj3[4] = cards.get(16);
+        cardsj3[5] = cards.get(17);
+        cardsj2[3] = cards.get(18);
+        cardsj2[4] = cards.get(19);
+        cardsj2[5] = cards.get(20);
+        cardsj4[3] = cards.get(21);
+        cardsj4[4] = cards.get(22);
+        cardsj4[5] = cards.get(23);
+        assignImages(cards.get(39), triumphe);
+        c1whole.setVisibility(View.VISIBLE);
+        c2whole.setVisibility(View.VISIBLE);
+        c3whole.setVisibility(View.VISIBLE);
+        c4whole.setVisibility(View.VISIBLE);
+        c5whole.setVisibility(View.VISIBLE);
+        c6whole.setVisibility(View.VISIBLE);
 
-                triumphewhole.setVisibility(View.VISIBLE);
+        triumphewhole.setVisibility(View.VISIBLE);
+        reverse.setVisibility(View.VISIBLE);
+        iterator = 24;
+        triunfo = cards.get(39).getPalo();
 
-                triumphewhole.flipTheView();
+        c1whole.setAutoFlipBack(true);
+        c2whole.setAutoFlipBack(true);
+        c3whole.setAutoFlipBack(true);
+        c4whole.setAutoFlipBack(true);
+        c5whole.setAutoFlipBack(true);
+        c6whole.setAutoFlipBack(true);
+        triumphewhole.setAutoFlipBack(true);
+        c1whole.setAutoFlipBackTime(1000);
+        c2whole.setAutoFlipBackTime(1000);
+        c3whole.setAutoFlipBackTime(1000);
+        c4whole.setAutoFlipBackTime(2000);
+        c5whole.setAutoFlipBackTime(2000);
+        c6whole.setAutoFlipBackTime(2000);
+        triumphewhole.setAutoFlipBackTime(3000);
 
-                iterator = 24;
-            }
-        });
 
         c1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -246,6 +279,13 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
 
+        c1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignImages(cardsj1[0],j1image);
+            }
+        });
+
         c2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -261,6 +301,13 @@ public class PantallaJuego extends AppCompatActivity {
                 //c2.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
+            }
+        });
+
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignImages(cardsj1[1],j1image);
             }
         });
 
@@ -282,6 +329,13 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
 
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignImages(cardsj1[2],j1image);
+            }
+        });
+
         c4.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -297,6 +351,12 @@ public class PantallaJuego extends AppCompatActivity {
                 //c4.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
+            }
+        });
+        c4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignImages(cardsj1[3],j1image);
             }
         });
 
@@ -317,7 +377,12 @@ public class PantallaJuego extends AppCompatActivity {
                 return true;
             }
         });
-
+        c5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignImages(cardsj1[4],j1image);
+            }
+        });
         c6.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -335,7 +400,63 @@ public class PantallaJuego extends AppCompatActivity {
                 return true;
             }
         });
+        c6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assignImages(cardsj1[5],j1image);
+            }
+        });
+    }
 
+    private void openActivityCantar() {
+        Integer num = 0;
+        for(int i = 1; i<5; i++){
+            for(int k=0; k<6; k++){
+                if(((cardsj1[k].getRanking() == 3) && (cardsj1[k].getPalo() == i))
+                || ((cardsj1[k].getRanking() == 4) && (cardsj1[k].getPalo() == i))){
+                    num++;
+                }
+            }
+            if(num == 2){
+                animacionCantar(i);
+            }
+            num = 0;
+        }
+    }
+
+    private void animacionCantar(int i) {
+        if(i == triunfo){
+            puntosE1 = puntosE1 + 40;
+        }else{
+            puntosE1 = puntosE1 + 20;
+        }
+    }
+
+    public void openActivityCambio7(){
+        if(!arrastre){
+            Integer siete =tiene7();
+            if( siete != 6){
+                if(!baza){
+                    flipViews(queImagenFlip(siete),triumphewhole);
+                    intercambiosiete(siete);
+                }
+            }
+        }
+    }
+    public Integer tiene7(){
+        for (int i = 0; i<6; i++){
+            if((cardsj1[i].getRanking() == 6) && (cardsj1[i].getPalo() == triunfo)){
+                return i;
+            }
+        }
+        return 6;
+    }
+
+    public void flipViews(EasyFlipView a, EasyFlipView b){
+        a.setAutoFlipBackTime(1500);
+        b.setAutoFlipBackTime(1500);
+        a.flipTheView();
+        b.flipTheView();
     }
 
     protected class MyDragEventListener implements View.OnDragListener {
@@ -383,9 +504,7 @@ public class PantallaJuego extends AppCompatActivity {
     private void intercambiocartas(Integer iDcomienzo, Integer iDfinal) {
         Integer a = queID(iDcomienzo);
         Integer b = queID(iDfinal);
-        System.out.println("MAMAHUEVO");
         if(a!=-1 && b!=-1){
-            System.out.println("HOLA HE LLEGAO GG");
             Carta aux = cardsj1[a];
             cardsj1[a] = cardsj1[b];
             cardsj1[b] = aux;
@@ -394,6 +513,16 @@ public class PantallaJuego extends AppCompatActivity {
             assignImages(cardsj1[a],aux1);
             assignImages(cardsj1[b],aux2);
         }
+    }
+
+    private void intercambiosiete(Integer a) {
+            Carta aux = cards.get(39);
+            cards.remove(39);
+            cards.add(cardsj1[a]);
+            cardsj1[a] = aux;
+            ImageView aux1 = queImagen(a);
+            assignImages(cardsj1[a],aux1);
+            assignImages(cards.get(39),triumphe);
     }
 
     private ImageView queImagen(Integer a) {
@@ -414,6 +543,25 @@ public class PantallaJuego extends AppCompatActivity {
                 return null;
         }
     }
+    private EasyFlipView queImagenFlip(Integer a) {
+        switch (a){
+            case 0:
+                return c1whole;
+            case 1:
+                return c2whole;
+            case 2:
+                return c3whole;
+            case 3:
+                return c4whole;
+            case 4:
+                return c5whole;
+            case 5:
+                return c6whole;
+            default:
+                return null;
+        }
+    }
+
 
     private Integer queID(Integer id){
         if (id ==c1.getId()) {
