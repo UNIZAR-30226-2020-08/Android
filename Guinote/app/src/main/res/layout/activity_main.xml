@@ -50,82 +50,91 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.2"
-        android:fillViewport="true"
-        android:padding="10dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/relative_2"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <Button
-                android:id="@+id/button_start_2vs2"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:backgroundTint="#ffffff"
-                android:fontFamily="@font/bungee_shade"
-                android:text="2 vs 2"
-                android:textColor="#F50210"
-                android:textSize="35sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button_start_1vs1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:backgroundTint="#ffffff"
-                android:fontFamily="@font/bungee_shade"
-                android:text="1 vs 1"
-                android:textColor="#5F93F5"
-                android:textSize="35sp"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/button_start_2vs2"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:backgroundTint="#ffffff"
+                    android:fontFamily="@font/bungee_shade"
+                    android:text="2 vs 2"
+                    android:textColor="#E61733"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/button_start_offline"
+                <Button
+                    android:id="@+id/button_start_1vs1"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:backgroundTint="#ffffff"
+                    android:fontFamily="@font/bungee_shade"
+                    android:text="1 vs 1"
+                    android:textColor="#E61733"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#ffffff"
-                android:fontFamily="@font/bungee_shade"
-                android:text="Partida offline"
-                android:textColor="#000000"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/button_start_offline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#99FFF9A4"
+                    android:fontFamily="@font/bungee_shade"
+                    android:text="Partida offline"
+                    android:textColor="#FA61EB"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/button_start_private_room"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:backgroundTint="#ffffff"
-                android:fontFamily="@font/bungee_shade"
-                android:text="Crear sala privada"
-                android:textColor="#000000"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/button_start_private_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#99FFF9A4"
+                    android:fontFamily="@font/bungee_shade"
+                    android:text="Crear sala privada"
+                    android:textColor="#FA61EB"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/button_join_private_room"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:backgroundTint="#ffffff"
-                android:fontFamily="@font/bungee_shade"
-                android:text="Unirse a sala privada"
-                android:textColor="#000000"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/button_join_private_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#99FFF9A4"
+                    android:fontFamily="@font/bungee_shade"
+                    android:text="Unirse a sala privada"
+                    android:textColor="#FA61EB"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navegacion_abajo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:rippleColor="#ffffff"
         android:background="@drawable/borde_arriba_menu"
-        app:menu="@menu/menu_juego" />
+        app:menu="@menu/menu_juego"
+        app:rippleColor="#ffffff" />
 </LinearLayout>
