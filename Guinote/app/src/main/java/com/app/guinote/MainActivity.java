@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         Button play2 = findViewById(R.id.button_start_2vs2);
         Button createroom = findViewById(R.id.button_start_private_room);
         Button joinroom = findViewById(R.id.button_join_private_room);
+
+        ScrollView mScrollView=(ScrollView) findViewById(R.id.deslizar);
+        mScrollView.setSmoothScrollingEnabled(true);
 
         play2.setOnClickListener(new View.OnClickListener() {
             @Override
