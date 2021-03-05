@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
                 openActivity2();
             }
         });
+        createroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity3();
+            }
+        });
 
 
     }
@@ -43,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity2(){
         Intent intent = new Intent(this, PantallaJuego.class);
+        startActivity(intent);
+    }
+    public void openActivity3(){
+        Intent intent = new Intent(this, Perfil.class);
         startActivity(intent);
     }
 
