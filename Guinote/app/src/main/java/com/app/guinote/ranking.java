@@ -43,10 +43,10 @@ public class ranking extends AppCompatActivity {
 
     private List<rank> GetData() {
         lista = new ArrayList<>();
-        lista.add(new rank(1,"fernando",R.drawable.asoros,"150"));
-        lista.add(new rank(2,"diego",R.drawable.dosoros,"140"));
-        lista.add(new rank(3,"andres",R.drawable.tresoros,"130"));
-        lista.add(new rank(4,"angel",R.drawable.cuatrooros,"120"));
+        lista.add(new rank(1,"FERNANDO07",R.drawable.asoros,"150"));
+        lista.add(new rank(2,"DIEGOL10",R.drawable.dosoros,"140"));
+        lista.add(new rank(3,"JAMONERO",R.drawable.tresoros,"130"));
+        lista.add(new rank(4,"DRESPIN",R.drawable.cuatrooros,"120"));
 
         return lista;
 

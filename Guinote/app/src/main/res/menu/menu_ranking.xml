@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/inicio_juego"
+        android:enabled="true"
+        android:icon="@drawable/inicio_icono"
+        android:title="Amigos"/>
+    <item
+        android:id="@+id/ranking_juego"
+        android:enabled="true"
+        android:icon="@drawable/rank_icono"
+        android:title="Global"/>
+</menu>
