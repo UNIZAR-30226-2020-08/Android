@@ -1,14 +1,24 @@
 package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Perfil extends AppCompatActivity {
+public class Perfil extends Fragment {
+
+    public Perfil(){
+        super(R.layout.activity_perfil);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_perfil,
+                container, false);
+        return view;
     }
 }

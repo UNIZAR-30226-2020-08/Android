@@ -22,6 +22,16 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
         mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_app);
         mBtmView.setOnNavigationItemSelectedListener(this);
         mBtmView.getMenu().findItem(R.id.inicio_juego).setChecked(true);
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, MainActivity.class, null)
+                .commit();
     }
 
     @Override
@@ -58,6 +68,19 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                         )
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_app, MainActivity.class, null)
+                        .commit();
+                return true;
+            }
+            case R.id.perfil_juego: {
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out
+                        )
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmento_app, Perfil.class, null)
                         .commit();
                 return true;
             }
