@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void openActivity3(){
-        Intent intent = new Intent(this, Perfil.class);
+        Intent intent = new Intent(this, ranking.class);
         startActivity(intent);
     }
 
