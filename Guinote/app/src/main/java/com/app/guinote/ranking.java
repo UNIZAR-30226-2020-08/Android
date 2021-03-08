@@ -3,6 +3,7 @@ package com.app.guinote;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,26 +20,34 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ranking extends AppCompatActivity {
+public class ranking extends Fragment {
 
     ListView listView;
     List<rank> lista;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
-        listView = findViewById(R.id.lv1);
 
-        RankAdapter adapter = new RankAdapter(this,GetData());
+
+    public ranking(){
+        super(R.layout.activity_ranking);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_ranking,
+                container, false);
+        listView = view.findViewById(R.id.lv1);
+
+        RankAdapter adapter = new RankAdapter(getActivity(),GetData());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 rank  ranking = lista.get(position);
-                Toast.makeText(getBaseContext(),ranking.name,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),ranking.name,Toast.LENGTH_SHORT).show();
 
             }
         });
+        return view;
     }
 
     private List<rank> GetData() {

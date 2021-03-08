@@ -129,12 +129,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navegacion_abajo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/borde_arriba_menu"
-        app:menu="@menu/menu_juego"
-        app:rippleColor="#ffffff" />
 </LinearLayout>
