@@ -24,9 +24,11 @@ import java.util.List;
 
 public class PantallaJuego extends AppCompatActivity {
 
+    private int mRemainingTime = 30;
+
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
-    Button cambiar7,cantar;
+    Button cantar;
     ArrayList<Carta> cards;
     Carta[] cardsj1 = new Carta[6];
     Carta[] cardsj2 = new Carta[6];
@@ -63,8 +65,7 @@ public class PantallaJuego extends AppCompatActivity {
         reverse = (ImageView) findViewById(R.id.mazo_central);
         triumphe = (ImageView) findViewById(R.id.mazo_central_volteado);
         triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe);
-        cambiar7 = (Button) findViewById(R.id.button_cambiar_siete);
-        cambiar7.setOnClickListener(new View.OnClickListener() {
+        triumphewhole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivityCambio7();
@@ -188,16 +189,15 @@ public class PantallaJuego extends AppCompatActivity {
         cards.add(dosbastos);
         Carta doscopas = new Carta(40,0,4,10);
         cards.add(doscopas);
-
-        c1whole.flipTheView();
-        c2whole.flipTheView();
-        c3whole.flipTheView();
-        c4whole.flipTheView();
-        c5whole.flipTheView();
-        c6whole.flipTheView();
-        triumphewhole.flipTheView();
-
+        System.out.println("Antes de barajar");
+        for (int i = 0; i<40; i++){
+            System.out.println(cards.get(i).getId());
+        }
         Collections.shuffle(cards);
+        System.out.println("Despues de barajar");
+        for (int i = 0; i<40; i++){
+            System.out.println(cards.get(i).getId());
+        }
 
         assignImages(cards.get(0), c1);
         assignImages(cards.get(1), c2);
@@ -230,32 +230,9 @@ public class PantallaJuego extends AppCompatActivity {
         cardsj4[4] = cards.get(22);
         cardsj4[5] = cards.get(23);
         assignImages(cards.get(39), triumphe);
-        c1whole.setVisibility(View.VISIBLE);
-        c2whole.setVisibility(View.VISIBLE);
-        c3whole.setVisibility(View.VISIBLE);
-        c4whole.setVisibility(View.VISIBLE);
-        c5whole.setVisibility(View.VISIBLE);
-        c6whole.setVisibility(View.VISIBLE);
 
-        triumphewhole.setVisibility(View.VISIBLE);
-        reverse.setVisibility(View.VISIBLE);
         iterator = 24;
         triunfo = cards.get(39).getPalo();
-
-        c1whole.setAutoFlipBack(true);
-        c2whole.setAutoFlipBack(true);
-        c3whole.setAutoFlipBack(true);
-        c4whole.setAutoFlipBack(true);
-        c5whole.setAutoFlipBack(true);
-        c6whole.setAutoFlipBack(true);
-        triumphewhole.setAutoFlipBack(true);
-        c1whole.setAutoFlipBackTime(1000);
-        c2whole.setAutoFlipBackTime(1000);
-        c3whole.setAutoFlipBackTime(1000);
-        c4whole.setAutoFlipBackTime(2000);
-        c5whole.setAutoFlipBackTime(2000);
-        c6whole.setAutoFlipBackTime(2000);
-        triumphewhole.setAutoFlipBackTime(3000);
 
 
         c1.setOnLongClickListener(new View.OnLongClickListener() {
@@ -406,6 +383,126 @@ public class PantallaJuego extends AppCompatActivity {
                 assignImages(cardsj1[5],j1image);
             }
         });
+
+        new Thread() {
+            @Override
+            public void run() {
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    setVisibility3firstcards();
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    updatefirst3cards();
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    setVisibility3secondcards();
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    updatelast3cards();
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    setVisibilitytriumphe();
+                    try{
+                        Thread.sleep(500);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    updatecenterCard();
+                    try{
+                        Thread.sleep(1000);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    setVisibilityreverse();
+            }
+        }.start();
+    }
+
+    private void setVisibility3firstcards() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                c1whole.setVisibility(View.VISIBLE);
+                c2whole.setVisibility(View.VISIBLE);
+                c3whole.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void setVisibility3secondcards() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                c4whole.setVisibility(View.VISIBLE);
+                c5whole.setVisibility(View.VISIBLE);
+                c6whole.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void setVisibilitytriumphe() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                triumphewhole.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void setVisibilityreverse() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                reverse.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void updatecenterCard() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                triumphewhole.flipTheView();
+            }
+        });
+
+    }
+
+    private void updatelast3cards() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                c4whole.flipTheView();
+                c5whole.flipTheView();
+                c6whole.flipTheView();
+            }
+        });
+    }
+
+    private void updatefirst3cards() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                c1whole.flipTheView();
+                c2whole.flipTheView();
+                c3whole.flipTheView();
+            }
+        });
     }
 
     private void openActivityCantar() {
@@ -418,13 +515,13 @@ public class PantallaJuego extends AppCompatActivity {
                 }
             }
             if(num == 2){
-                animacionCantar(i);
+                sumarPuntosCantar(i);
             }
             num = 0;
         }
     }
 
-    private void animacionCantar(int i) {
+    private void sumarPuntosCantar(int i) {
         if(i == triunfo){
             puntosE1 = puntosE1 + 40;
         }else{
@@ -434,11 +531,27 @@ public class PantallaJuego extends AppCompatActivity {
 
     public void openActivityCambio7(){
         if(!arrastre){
-            Integer siete =tiene7();
+            final Integer siete =tiene7();
             if( siete != 6){
                 if(!baza){
-                    flipViews(queImagenFlip(siete),triumphewhole);
-                    intercambiosiete(siete);
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            flipViews(queImagenFlip(siete),triumphewhole);
+                            try{
+                                Thread.sleep(1000);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            intercambiosiete(siete);
+                            try{
+                                Thread.sleep(1000);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            flipViews(queImagenFlip(siete),triumphewhole);
+                        }
+                    }.start();
                 }
             }
         }
@@ -452,15 +565,18 @@ public class PantallaJuego extends AppCompatActivity {
         return 6;
     }
 
-    public void flipViews(EasyFlipView a, EasyFlipView b){
-        a.setAutoFlipBackTime(1500);
-        b.setAutoFlipBackTime(1500);
-        a.flipTheView();
-        b.flipTheView();
+    public void flipViews(final EasyFlipView a, final EasyFlipView b){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                a.flipTheView();
+                b.flipTheView();
+            }
+        });
     }
 
     protected class MyDragEventListener implements View.OnDragListener {
-        public boolean onDrag(View v, DragEvent event) {
+        public boolean onDrag(final View v, DragEvent event) {
             final int action = event.getAction();
 
             switch (action){
@@ -484,7 +600,25 @@ public class PantallaJuego extends AppCompatActivity {
                     return true;
                 case DragEvent.ACTION_DROP:
                     System.out.println(v.getId());
-                    intercambiocartas(IDcomienzo,v.getId());
+                    final Integer idEvent = v.getId();
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            flipViews(queImagenFlip(queID(IDcomienzo)),queImagenFlip(queID(idEvent)));
+                            try{
+                                Thread.sleep(500);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            intercambiocartas(IDcomienzo,idEvent);
+                            try{
+                                Thread.sleep(500);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            flipViews(queImagenFlip(queID(IDcomienzo)),queImagenFlip(queID(idEvent)));
+                        }
+                    }.start();
                     v.setBackgroundColor(0);
                     v.invalidate();
                     return true;
@@ -501,18 +635,23 @@ public class PantallaJuego extends AppCompatActivity {
         }
     }
 
-    private void intercambiocartas(Integer iDcomienzo, Integer iDfinal) {
-        Integer a = queID(iDcomienzo);
-        Integer b = queID(iDfinal);
-        if(a!=-1 && b!=-1){
-            Carta aux = cardsj1[a];
-            cardsj1[a] = cardsj1[b];
-            cardsj1[b] = aux;
-            ImageView aux1 = queImagen(a);
-            ImageView aux2 = queImagen(b);
-            assignImages(cardsj1[a],aux1);
-            assignImages(cardsj1[b],aux2);
-        }
+    private void intercambiocartas(final Integer iDcomienzo, final Integer iDfinal) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Integer a = queID(iDcomienzo);
+                Integer b = queID(iDfinal);
+                if(a!=-1 && b!=-1){
+                    Carta aux = cardsj1[a];
+                    cardsj1[a] = cardsj1[b];
+                    cardsj1[b] = aux;
+                    ImageView aux1 = queImagen(a);
+                    ImageView aux2 = queImagen(b);
+                    assignImages(cardsj1[a],aux1);
+                    assignImages(cardsj1[b],aux2);
+                }
+            }
+        });
     }
 
     private void intercambiosiete(Integer a) {
@@ -634,7 +773,7 @@ public class PantallaJuego extends AppCompatActivity {
                 break;
             case 17:
                 image.setImageResource(R.drawable.caballooros);
-
+                break;
             case 18:
                 image.setImageResource(R.drawable.caballoespadas);
                 break;

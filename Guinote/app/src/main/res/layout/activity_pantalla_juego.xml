@@ -107,7 +107,13 @@
             app:flipType="vertical"
             app:flipFrom="front"
             >
-
+            <!-- Front Layout Goes Here -->
+            <ImageView
+                android:id="@+id/mazo_central_volteado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxHeight="100dp"
+                android:adjustViewBounds="true" />
             <!-- Back Layout Goes Here -->
             <ImageView
                 android:id="@+id/mazo_central_volteado_back"
@@ -116,15 +122,6 @@
                 android:maxHeight="100dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/reverso"/>
-
-
-            <!-- Front Layout Goes Here -->
-            <ImageView
-                android:id="@+id/mazo_central_volteado"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:maxHeight="100dp"
-                android:adjustViewBounds="true" />
 
         </com.wajahatkarim3.easyflipview.EasyFlipView>
 
@@ -176,11 +173,11 @@
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:layout_below="@id/layout_linear_j3"/>
-        <Button
-            android:id="@+id/button_cambiar_siete"
+        <TextView
+            android:id="@+id/text_puntos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cambiar 7"
+            android:text="Puntos: "
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             />
@@ -221,20 +218,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="4dp"
                 >
-
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/casilla_carta_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/casilla_carta_1_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/reverso"/>
-
-
-                <!-- Front Layout Goes Here -->
-                <ImageView
-                    android:id="@+id/casilla_carta_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
@@ -250,19 +244,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="4dp"
                 >
-
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/casilla_carta_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/casilla_carta_2_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/reverso"/>
-
-                <!-- Front Layout Goes Here -->
-                <ImageView
-                    android:id="@+id/casilla_carta_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
@@ -278,19 +270,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="4dp"
                 >
-
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/casilla_carta_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/casilla_carta_3_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/reverso"/>
-
-                <!-- Front Layout Goes Here -->
-                <ImageView
-                    android:id="@+id/casilla_carta_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
@@ -306,20 +296,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="4dp"
                 >
-
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/casilla_carta_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/casilla_carta_4_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/reverso"/>
-
-
-                <!-- Front Layout Goes Here -->
-                <ImageView
-                    android:id="@+id/casilla_carta_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
@@ -336,19 +323,15 @@
                 android:layout_marginLeft="4dp"
                 >
 
-                <!-- Back Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/casilla_carta_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <ImageView
                     android:id="@+id/casilla_carta_5_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/reverso"/>
-
-
-                <!-- Front Layout Goes Here -->
-                <ImageView
-                    android:id="@+id/casilla_carta_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
@@ -364,20 +347,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="4dp"
                 >
-
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/casilla_carta_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/casilla_carta_6_back"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/reverso"/>
-
-
-                <!-- Front Layout Goes Here -->
-                <ImageView
-                    android:id="@+id/casilla_carta_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
         </LinearLayout>
