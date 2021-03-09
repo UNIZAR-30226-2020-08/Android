@@ -1,4 +1,5 @@
-<menu xmlns:android = "http://schemas.android.com/apk/res/android">
+<menu xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:elevation="30dp">
     <item
         android:id="@+id/inicio_juego"
         android:enabled="true"

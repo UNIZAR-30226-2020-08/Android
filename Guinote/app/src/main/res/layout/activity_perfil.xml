@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Perfil"
-        android:orientation="vertical"
-        android:background="#376734">
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="405dp">
@@ -36,12 +35,13 @@
                     android:layout_gravity="center_horizontal"
                     android:text="Andres Gilgado"
                     android:textSize="35dp"
-                    android:textColor="#fff"
+                    android:textColor="#000000"
                     android:textStyle="bold" />
             </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="400dp"
+            android:backgroundTint="#349702"
             android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="275dp">
@@ -136,6 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
+                    android:textColor="#000000"
                     android:text="Andres Gilgado"/>
             </LinearLayout>
             <LinearLayout
@@ -150,6 +151,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#000000"
                     android:paddingLeft="20dp"
                     android:text="GilgaGilga@gmail.com"/>
             </LinearLayout>

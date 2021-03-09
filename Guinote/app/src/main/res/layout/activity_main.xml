@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#376734"
     android:id="@+id/general_layout1"
     tools:context=".MainActivity"
     android:orientation="vertical">
@@ -13,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:backgroundTint="#222222">
+        android:backgroundTint="#349702">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            android:backgroundTint="#222222"
+            android:backgroundTint="#349702"
             style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
