@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="drawable/b"
     android:padding="16dp">
 
     <ImageView
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="Name"
-            android:textColor="#FFFFFF"
+            android:textColor="#349702"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -31,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Puntuación"
-        android:textColor="#FFFFFF"
+        android:textColor="#349702"
         android:textStyle="bold"
         android:layout_margin="5dp"
         android:textSize="20dp" />

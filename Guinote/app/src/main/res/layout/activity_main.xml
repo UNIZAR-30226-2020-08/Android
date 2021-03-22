@@ -49,8 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.2"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -68,22 +66,23 @@
                     android:id="@+id/button_start_2vs2"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:backgroundTint="#ffffff"
+                    android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
                     android:text="2 vs 2"
-                    android:textColor="#E61733"
-                    android:textSize="35sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#FA61EB"
+                    android:textSize="45sp"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/button_start_1vs1"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:backgroundTint="#ffffff"
+                    android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
                     android:text="1 vs 1"
-                    android:textColor="#E61733"
-                    android:textSize="35sp"
+                    android:textColor="#FA61EB"
+                    android:textSize="45sp"
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
@@ -122,6 +121,7 @@
                     android:text="Unirse a sala privada"
                     android:textColor="#FA61EB"
                     android:textSize="25sp"
+                    android:layout_marginBottom="10dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
