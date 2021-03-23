@@ -11,36 +11,19 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:backgroundTint="#349702">
+        android:padding="2dp"
+        app:elevation="0dp"
+        android:backgroundTint="#00000000">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            android:backgroundTint="#349702"
+            android:backgroundTint="#00000000"
             style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/menu_opciones"
             app:title="Diegol000"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textColor="#F5CA02"
-                android:textStyle="bold"
-                android:text="30.000"
-                android:paddingTop="2dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ganar_icono"/>
-        </LinearLayout>
+            app:titleTextAppearance="?attr/textAppearanceHeadline6" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -50,6 +33,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1.2"
         android:scrollbars="none">
+
 
         <LinearLayout
             android:id="@+id/relative_2"

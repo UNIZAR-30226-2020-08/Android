@@ -33,13 +33,13 @@
                     android:layout_gravity="center_horizontal"
                     android:text="Andres Gilgado"
                     android:textSize="35dp"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textStyle="bold" />
             </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="400dp"
-            android:backgroundTint="#349702"
+            android:backgroundTint="#ffffff"
             android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="275dp">
@@ -58,12 +58,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2589"
+                        android:textColor="#000000"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp" />
@@ -78,6 +80,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#000000"
                         android:text="Victorias"
                         android:textSize="20sp"
                         />
@@ -85,6 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1205"
+                        android:textColor="#000000"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp" />
@@ -100,12 +104,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Puntuación"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
                         android:text="156"/>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/tapete2"
     android:id="@+id/general_layout1"
     tools:context=".MainActivity"
     android:orientation="vertical">
@@ -18,9 +18,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navegacion_app"
         android:layout_width="match_parent"
-        android:elevation="30dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/borde_arriba_menu"
-        app:menu="@menu/menu_juego"
-        app:rippleColor="#349702" />
+        app:elevation="0dp"
+        app:itemIconTint="#ffffff"
+        app:itemTextColor="#ffffff"
+        android:background="#00000000"
+        app:menu="@menu/menu_juego" />
 </LinearLayout>
