@@ -4,7 +4,7 @@
     tools:ignore="MissingDefaultResource">
     <item android:top="-7dp" android:left="-7dp" android:right="-7dp">
         <shape android:shape="rectangle">
-            <stroke android:width="6dp" android:color="#ffffff" />
+            <stroke android:width="3dp" android:color="#ffffff" />
             <solid android:color="#00000000" />
         </shape>
     </item>
