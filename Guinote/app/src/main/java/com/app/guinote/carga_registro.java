@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -31,6 +32,7 @@ public class carga_registro extends AppCompatActivity {
             public void onFinish() {
                 animacion.pauseAnimation();
                 animacion.setVisibility(View.INVISIBLE);
+                finish();
             }
         }.start();
     }

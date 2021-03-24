@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class navegacion_inicio extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -24,7 +26,7 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_abajo);
         mBtmView.setOnNavigationItemSelectedListener(this);
