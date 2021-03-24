@@ -75,6 +75,7 @@
         android:padding="0dp">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/registro_boton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
