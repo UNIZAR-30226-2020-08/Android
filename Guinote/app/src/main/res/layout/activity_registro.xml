@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="20dp"
-        app:boxBackgroundColor="#99349702"
+        app:boxBackgroundColor="#33ffffff"
         android:hint="Write your username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -28,7 +28,7 @@
         android:id="@+id/textCorre"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:boxBackgroundColor="#99349702"
+        app:boxBackgroundColor="#33ffffff"
         android:layout_weight="1"
         android:padding="20dp"
         android:hint="Write your email"
@@ -44,7 +44,7 @@
         android:id="@+id/textFieldP"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:boxBackgroundColor="#99349702"
+        app:boxBackgroundColor="#33ffffff"
         android:layout_weight="1"
         android:hint="Write your password"
         android:padding="20dp"
@@ -66,8 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:backgroundTint="#349702"
-            android:textColor="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:textColor="#349702"
             android:text="Sign Up" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

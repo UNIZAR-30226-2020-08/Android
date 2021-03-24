@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="20dp"
-        app:boxBackgroundColor="#99349702"
+        app:boxBackgroundColor="#33ffffff"
         android:hint="Enter Name"
         app:suffixTextColor="#ffffff"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:boxBackgroundColor="#99349702"
+        app:boxBackgroundColor="#33ffffff"
         android:hint="Password"
         android:padding="20dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -53,8 +53,8 @@
             android:id="@+id/login_boton"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:backgroundTint="#349702"
-            android:textColor="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:textColor="#349702"
             android:text="Log In" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
