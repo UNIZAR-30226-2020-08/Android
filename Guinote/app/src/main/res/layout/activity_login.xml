@@ -18,6 +18,8 @@
         app:boxBackgroundColor="#33ffffff"
         android:hint="Enter Name"
         app:suffixTextColor="#ffffff"
+        app:hintTextColor="#ffffff"
+        app:boxStrokeColor="#ffffff"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -34,7 +36,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:boxBackgroundColor="#33ffffff"
+        app:boxStrokeColor="#ffffff"
         android:hint="Password"
+        app:hintTextColor="#ffffff"
         android:layout_marginTop="3dp"
         android:padding="0dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
