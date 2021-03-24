@@ -14,13 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="20dp"
+        android:padding="0dp"
         app:boxBackgroundColor="#33ffffff"
         android:hint="Write your username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:padding="13dp"
             android:layout_height="wrap_content"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,12 +31,14 @@
         android:layout_height="0dp"
         app:boxBackgroundColor="#33ffffff"
         android:layout_weight="1"
-        android:padding="20dp"
+        android:layout_marginTop="3dp"
+        android:padding="0dp"
         android:hint="Write your email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:padding="13dp"
             android:layout_height="wrap_content"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -47,12 +50,14 @@
         app:boxBackgroundColor="#33ffffff"
         android:layout_weight="1"
         android:hint="Write your password"
-        android:padding="20dp"
+        android:layout_marginTop="3dp"
+        android:padding="0dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="13dp"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -60,12 +65,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="20dp">
+        android:layout_marginTop="10dp"
+        android:padding="0dp">
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:padding="13dp"
             android:backgroundTint="#ffffff"
             android:textColor="#349702"
             android:text="Sign Up" />
