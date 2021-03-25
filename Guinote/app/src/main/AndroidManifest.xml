@@ -12,6 +12,7 @@
         <activity android:name=".carga_registro"></activity>
         <activity android:name=".Pantalla_app" />
         <activity android:name=".Perfil" />
+        <activity android:name=".ranking2"/>
         <activity android:name=".ranking" />
         <activity android:name=".navegacion_inicio">
             <intent-filter>

@@ -6,14 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,22 +20,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ranking extends Fragment {
+public class ranking2 extends Fragment {
 
     ListView listView;
     List<rank> lista;
 
 
-    public ranking(){
-        super(R.layout.activity_ranking);
+    public ranking2(){
+        super(R.layout.activity_ranking2);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_ranking,
+        View view = inflater.inflate(R.layout.activity_ranking2,
                 container, false);
-        listView = view.findViewById(R.id.lv1);
+        listView = view.findViewById(R.id.lv2);
 
         RankAdapter adapter = new RankAdapter(getActivity(),GetData());
         listView.setAdapter(adapter);
@@ -49,21 +47,7 @@ public class ranking extends Fragment {
 
             }
         });
-
-        Button global = view.findViewById(R.id.GlobalBotton);
-
-        global.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity();
-            }
-        });
         return view;
-    }
-
-    public void openActivity(){
-        Intent intent = new Intent(getActivity(),ranking2.class);
-        startActivity(intent);
     }
 
     private List<rank> GetData() {
