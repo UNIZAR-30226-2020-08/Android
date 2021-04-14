@@ -10,7 +10,7 @@
     android:layout_centerVertical="true"
     tools:context=".Login">
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldName"
+        android:id="@+id/usernameRegister"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -28,7 +28,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textCorre"
+        android:id="@+id/emailRegister"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:boxBackgroundColor="#33ffffff"
@@ -48,7 +48,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldP"
+        android:id="@+id/passwdRegister"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:boxBackgroundColor="#33ffffff"
