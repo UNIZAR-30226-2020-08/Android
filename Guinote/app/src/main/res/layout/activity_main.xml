@@ -58,16 +58,26 @@
                     android:textSize="45sp"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/button_start_1vs1"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card1vs1"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:backgroundTint="#99FFF9A4"
-                    android:fontFamily="@font/bungee_shade"
-                    android:text="1 vs 1"
-                    android:textColor="#FA61EB"
-                    android:textSize="45sp"
-                    android:textStyle="bold" />
+                    app:cardElevation="0dp"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/button_start_1vs1"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:backgroundTint="#99FFF9A4"
+                        android:fontFamily="@font/bungee_shade"
+                        android:text="1 vs 1"
+                        android:textColor="#FA61EB"
+                        android:textSize="45sp"
+                        android:textStyle="bold" />
+                    <ListView
+                        android:id="@+id/lista1vs1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="Crear sala privada"
+                    android:text="Crear torneo privado"
                     android:textColor="#FA61EB"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -102,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="Unirse a sala privada"
+                    android:text="Unirse a torneo"
                     android:textColor="#FA61EB"
                     android:textSize="25sp"
                     android:layout_marginBottom="10dp"

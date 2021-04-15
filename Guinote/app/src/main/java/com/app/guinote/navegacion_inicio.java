@@ -30,8 +30,8 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
         super.onCreate(savedInstanceState);
         mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_abajo);
         mBtmView.setOnNavigationItemSelectedListener(this);
-        mBtmView.getMenu().findItem(R.id.page_1).setChecked(true);
-        mBtmView.getMenu().setGroupCheckable(0,false,true);
+        //mBtmView.getMenu().findItem(R.id.page_1).setChecked(true);
+        //mBtmView.getMenu().setGroupCheckable(0,false,true);
     }
 
 
@@ -56,7 +56,8 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
                                     R.anim.slide_out
                             )
                             .setReorderingAllowed(true)
-                            .hide(getSupportFragmentManager().getFragments().get(0))
+                            .remove(getSupportFragmentManager().getFragments().get(0))
+                            //.hide(getSupportFragmentManager().getFragments().get(0))
                             .commit();
                     mBtmView.getMenu().setGroupCheckable(0,false,true);
                     last=0;
@@ -86,7 +87,8 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
                                     R.anim.slide_out
                             )
                             .setReorderingAllowed(true)
-                            .hide(getSupportFragmentManager().getFragments().get(0))
+                            .remove(getSupportFragmentManager().getFragments().get(0))
+                            //.hide(getSupportFragmentManager().getFragments().get(0))
                             .commit();
                     mBtmView.getMenu().setGroupCheckable(0,false,true);
                     last=0;

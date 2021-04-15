@@ -2,6 +2,7 @@ package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -14,12 +15,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends Fragment {
+
+
+    String[] ListElements = new String[] {
+            "Android",
+            "PHP"
+    };
+    Button createroom;
+    ListView lista1vs1;
+    CardView cardvs1;
 
     public MainActivity(){
 
@@ -33,11 +48,15 @@ public class MainActivity extends Fragment {
                 container, false);
 
         Button play2 = view.findViewById(R.id.button_start_2vs2);
-        Button createroom = view.findViewById(R.id.button_start_private_room);
+        createroom = view.findViewById(R.id.button_start_1vs1);
         Button joinroom = view.findViewById(R.id.button_join_private_room);
-
-
+        lista1vs1 = (ListView) view.findViewById(R.id.lista1vs1);
+        cardvs1=view.findViewById(R.id.card1vs1);
+        final List< String > ListElementsArrayList = new ArrayList< String >
+                (Arrays.asList(ListElements));
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
+
+
         toolbar.setOverflowIcon(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.opt_icono,null));
 
         play2.setOnClickListener(new View.OnClickListener() {
@@ -59,12 +78,12 @@ public class MainActivity extends Fragment {
 
 
     public void openActivity2(){
-        Intent intent = new Intent(getActivity(), PantallaJuego.class);
-        startActivity(intent);
+
+
     }
     public void openActivity3(){
-        Intent intent = new Intent(getActivity(), ranking.class);
-        startActivity(intent);
+        createroom.setVisibility(View.INVISIBLE);
+        lista1vs1.setVisibility(View.VISIBLE);
     }
 
 
