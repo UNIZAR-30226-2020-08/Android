@@ -50,10 +50,6 @@ public class MainActivity extends Fragment {
         Button play2 = view.findViewById(R.id.button_start_2vs2);
         createroom = view.findViewById(R.id.button_start_1vs1);
         Button joinroom = view.findViewById(R.id.button_join_private_room);
-        lista1vs1 = (ListView) view.findViewById(R.id.lista1vs1);
-        cardvs1=view.findViewById(R.id.card1vs1);
-        final List< String > ListElementsArrayList = new ArrayList< String >
-                (Arrays.asList(ListElements));
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
 
 
@@ -78,12 +74,28 @@ public class MainActivity extends Fragment {
 
 
     public void openActivity2(){
-
-
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, Lista1vs1.class, null)
+                .commit();
     }
     public void openActivity3(){
-        createroom.setVisibility(View.INVISIBLE);
-        lista1vs1.setVisibility(View.VISIBLE);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, Lista1vs1.class, null)
+                .commit();
     }
 
 

@@ -58,26 +58,17 @@
                     android:textSize="45sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card1vs1"
+
+                <Button
+                    android:id="@+id/button_start_1vs1"
                     android:layout_width="match_parent"
-                    app:cardElevation="0dp"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/button_start_1vs1"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:backgroundTint="#99FFF9A4"
-                        android:fontFamily="@font/bungee_shade"
-                        android:text="1 vs 1"
-                        android:textColor="#FA61EB"
-                        android:textSize="45sp"
-                        android:textStyle="bold" />
-                    <ListView
-                        android:id="@+id/lista1vs1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </com.google.android.material.card.MaterialCardView>
+                    android:layout_height="180dp"
+                    android:backgroundTint="#99FFF9A4"
+                    android:fontFamily="@font/bungee_shade"
+                    android:text="1 vs 1"
+                    android:textColor="#FA61EB"
+                    android:textSize="45sp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
