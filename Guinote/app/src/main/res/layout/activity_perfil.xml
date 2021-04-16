@@ -163,6 +163,7 @@
             </LinearLayout>
             </LinearLayout>
         <Button
+            android:id="@+id/button_editar_perfil"
             android:textColor="#fff"
             android:layout_marginTop="35dp"
             android:layout_gravity="center_horizontal"
