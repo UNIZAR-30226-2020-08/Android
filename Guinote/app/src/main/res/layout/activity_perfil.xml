@@ -132,7 +132,16 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:layout_marginTop="20dp">
-
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigation_rail"
+                android:layout_width="match_parent"
+                app:itemShapeFillColor="@drawable/seleccion"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                app:itemIconTint="#ffffff"
+                app:itemTextColor="#ffffff"
+                app:elevation="0dp"
+                app:menu="@menu/navigation_rail_menu" />
 
         </LinearLayout>
 
