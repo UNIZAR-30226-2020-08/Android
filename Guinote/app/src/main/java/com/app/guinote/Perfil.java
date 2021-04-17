@@ -33,7 +33,11 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
         cartas=view.findViewById(R.id.navigation_rail);
 
         cartas.setOnNavigationItemSelectedListener(this);
-        cartas.getMenu().findItem(R.id.cartasItem).setChecked(true);
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.cartasContainer, cartas.class, null)
+                .commit();
         return view;
     }
 
@@ -51,27 +55,27 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out
+                                R.anim.side_in_left,
+                                R.anim.slide_out_left
                         )
                         .setReorderingAllowed(true)
-                        .replace(R.id.cartasContainer, ranking.class, null)
+                        .replace(R.id.cartasContainer, Tapete.class, null)
                         .commit();
                 return true;
             }
             case R.id.cartasItem: {
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out
+                                R.anim.side_in_left,
+                                R.anim.slide_out_left
                         )
                         .setReorderingAllowed(true)
                         .replace(R.id.cartasContainer, cartas.class, null)
                         .commit();
                 return true;
             }
+            default:
+                return false;
+        }
+    }
 }

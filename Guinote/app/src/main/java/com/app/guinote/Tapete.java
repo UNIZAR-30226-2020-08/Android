@@ -10,14 +10,13 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link cartas} factory method to
+ * Use the {@link Tapete} factory method to
  * create an instance of this fragment.
  */
-public class cartas extends Fragment {
+public class Tapete extends Fragment {
 
-
-    public cartas() {
-        super(R.layout.cartas);
+    public Tapete() {
+        super(R.layout.fragment_tapete);
     }
 
 
@@ -25,7 +24,7 @@ public class cartas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.cartas, container, false);
+        View view = inflater.inflate(R.layout.fragment_tapete, container, false);
         return view;
     }
 }
