@@ -144,7 +144,10 @@
                 app:menu="@menu/navigation_rail_menu" />
 
         </LinearLayout>
-
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/cartasContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </ScrollView>

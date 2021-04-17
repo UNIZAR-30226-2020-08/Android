@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/alarms"
+        android:id="@+id/cartasItem"
         android:enabled="true"
         android:icon="@drawable/cartas_icono"
         android:title="Cartas"/>
     <item
-        android:id="@+id/schedule"
+        android:id="@+id/tapeteItem"
         android:enabled="true"
         android:icon="@drawable/mesa_icono"
         android:title="Tapetes">@drawable/seleccion</item>
