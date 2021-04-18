@@ -1,0 +1,63 @@
+package com.app.guinote;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class HistAdapter extends BaseAdapter {
+    private static LayoutInflater inflater = null;
+    Context context;
+    String [][] datos;
+    int [] imagenes;
+
+    public HistAdapter(Context context, String[][] datos, int[] imagenes) {
+        this.context = context;
+        this.datos = datos;
+        this.imagenes = imagenes;
+        inflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    }
+
+
+
+    @Override
+    public int getCount() {
+        return imagenes.length;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final View vista = inflater.inflate(R.layout.historial, null);
+
+        TextView titulo = (TextView) vista.findViewById(R.id.Victoria);
+        TextView duracion = (TextView) vista.findViewById(R.id.Duracion);
+        TextView tapete = (TextView) vista.findViewById(R.id.Tapete);
+        TextView puntuacion = (TextView) vista.findViewById(R.id.Puntuación);
+        TextView jugadores = (TextView) vista.findViewById(R.id.Jugadores);
+
+        ImageView imagen = (ImageView) vista.findViewById(R.id.ImagenUsuario);
+
+        titulo.setText(datos[position][0]);
+        tapete.setText(datos[position][1]);
+        duracion.setText("Duración " + datos[position][4]);
+        puntuacion.setText(datos[position][3]);
+        jugadores.setText(datos[position][2]);
+        imagen.setImageResource(imagenes[position]);
+
+        return vista;
+
+    }
+}
