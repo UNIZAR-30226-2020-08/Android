@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,7 +23,7 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
     private BottomNavigationView cartas;
     private int mMenuId;
-
+    private SQLiteDatabase db;
     public Perfil(){
         super(R.layout.activity_perfil);
     }
@@ -34,6 +37,11 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
         cartas.setOnNavigationItemSelectedListener(this);
 
+        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+        db = dbHelper.getWritableDatabase();
+
+        TextView name=view.findViewById(R.id.nameUserPerfil);
+        name.setText(getName());
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.cartasContainer, cartas.class, null)
@@ -77,6 +85,13 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
             default:
                 return false;
         }
+    }
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 
 }
