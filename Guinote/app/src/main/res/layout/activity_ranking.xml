@@ -43,9 +43,6 @@
         android:layout_weight="1"/>
 
 
-
-
-
     <ListView
         android:background="#00000000"
         android:id="@+id/lv1"

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class ranking2 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_ranking2,
                 container, false);
-        listView = view.findViewById(R.id.lv2);
+        listView = view.findViewById(R.id.lv1);
 
         RankAdapter adapter = new RankAdapter(getActivity(),GetData());
         listView.setAdapter(adapter);
@@ -47,8 +48,10 @@ public class ranking2 extends Fragment {
 
             }
         });
+
         return view;
     }
+
 
     private List<rank> GetData() {
         lista = new ArrayList<>();

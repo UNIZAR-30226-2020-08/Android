@@ -51,12 +51,19 @@ public class ranking extends Fragment {
             }
         });
 
-       ImageButton global = view.findViewById(R.id.GlobalBotton);
+        ImageButton global = view.findViewById(R.id.GlobalBotton);
+        ImageButton amigos = view.findViewById(R.id.AmigosBotton);
 
        global.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity();
+            }
+        });
+       amigos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity2();
             }
         });
         return view;
@@ -69,7 +76,18 @@ public class ranking extends Fragment {
                         R.anim.slide_out_left
                 )
                 .setReorderingAllowed(true)
-                .replace(R.id.fragmento_ranking, ranking2.class, null)
+                .replace(R.id.fragmento_ranking,ranking2.class, null)
+                .commit();
+    }
+
+    public void openActivity2(){
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_ranking,ListRanking.class, null)
                 .commit();
     }
 
