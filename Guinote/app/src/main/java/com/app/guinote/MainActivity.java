@@ -8,6 +8,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +38,8 @@ public class MainActivity extends Fragment {
     ListView lista1vs1;
     CardView cardvs1;
 
+    private SQLiteDatabase db;
+
     public MainActivity(){
 
         super(R.layout.activity_main);
@@ -55,6 +59,10 @@ public class MainActivity extends Fragment {
 
         toolbar.setOverflowIcon(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.opt_icono,null));
 
+        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+        db = dbHelper.getWritableDatabase();
+
+        toolbar.setTitle(getName());
         play2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,5 +107,10 @@ public class MainActivity extends Fragment {
     }
 
 
-
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
 }

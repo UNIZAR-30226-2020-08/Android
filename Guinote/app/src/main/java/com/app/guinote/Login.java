@@ -68,7 +68,8 @@ public class Login extends Fragment {
                 animacion.playAnimation();
 
                 MyOpenHelper dbHelper = new MyOpenHelper(getContext());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                final SQLiteDatabase db = dbHelper.getWritableDatabase();
+                db.execSQL("DELETE FROM auth");
                 String url = "http://192.168.1.33:8080/api/auth/signin";
                 final List<String> jsonResponses = new ArrayList<>();
 
@@ -81,12 +82,21 @@ public class Login extends Fragment {
                     e.printStackTrace();
                 }
                 RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, postData, new Response.Listener<JSONObject>() {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject contenido = response.getJSONObject("data");
+                            String jsonArray = response.getString("accessToken");
+
                             Log.d("msg",jsonArray.toString());
+
+                            if (jsonArray != null){
+                                db.execSQL("INSERT INTO auth (user,copas,f_carta,f_tapete,token) VALUES "+
+                                        "('"+contenido.getString("username")+"','"+contenido.getString("copas")+"','"+
+                                        contenido.getString("f_carta")+"','"+contenido.getString("f_tapete")+"','"+
+                                        jsonArray+"')");
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -3,9 +3,13 @@ package com.app.guinote;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Pantalla_app extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +25,7 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_pantalla_app);
         mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_app);
         mBtmView.setOnNavigationItemSelectedListener(this);
+
         mBtmView.getMenu().findItem(R.id.inicio_juego).setChecked(true);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
@@ -82,4 +87,5 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                 return false;
         }
     }
+
 }
