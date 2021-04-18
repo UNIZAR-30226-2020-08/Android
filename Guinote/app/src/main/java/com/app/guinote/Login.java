@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,16 +43,20 @@ public class Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_login,
+        final View view = inflater.inflate(R.layout.activity_login,
                 container, false);
         final LottieAnimationView animacion = (LottieAnimationView) getActivity().findViewById(R.id.animation_carga_reg2);
         final RelativeLayout cuerpo = (RelativeLayout) getActivity().findViewById(R.id.pantalla_prin);
         final TextInputEditText nombre= (TextInputEditText) view.findViewById(R.id.username);
         final TextInputEditText passwd= (TextInputEditText) view.findViewById(R.id.passwd);
+        final TextInputLayout username= (TextInputLayout) view.findViewById(R.id.usernameLogin);
+        final TextInputLayout contra= (TextInputLayout) view.findViewById(R.id.passwdLogin);
         Button loggear = (Button) view.findViewById(R.id.login_boton);
         loggear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                String nombreUsername=username.getEditText().getText().toString();
+                String nombrePasswd=contra.getEditText().getText().toString();
                 nombre.setFocusable(false);
                 passwd.setFocusable(false);
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 2000) {
@@ -60,31 +66,27 @@ public class Login extends Fragment {
                 cuerpo.getBackground().setAlpha(20);
                 animacion.setVisibility(View.VISIBLE);
                 animacion.playAnimation();
+
+                MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
                 String url = "http://192.168.1.33:8080/api/auth/signin";
                 final List<String> jsonResponses = new ArrayList<>();
 
-                TextInputLayout username= (TextInputLayout) v.findViewById(R.id.usernameLogin);
-                TextInputLayout contra= (TextInputLayout) v.findViewById(R.id.passwdLogin);
                 JSONObject postData = new JSONObject();
                 try {
-                    postData.put("username", username);
-                    postData.put("password", contra);
+                    postData.put("username", nombreUsername);
+                    postData.put("password", nombrePasswd);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                RequestQueue requestQueue = Volley.newRequestQueue(v.getContext());
+                RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, postData, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray jsonArray = response.getJSONArray("data");
-                            for(int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                String email = jsonObject.getString("email");
-
-                                jsonResponses.add(email);
-                            }
+                            Log.d("msg",jsonArray.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

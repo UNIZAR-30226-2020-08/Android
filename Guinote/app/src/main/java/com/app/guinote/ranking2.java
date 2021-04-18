@@ -36,7 +36,7 @@ public class ranking2 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_ranking2,
                 container, false);
-        listView = view.findViewById(R.id.lv1);
+        listView = view.findViewById(R.id.lista_global);
 
         RankAdapter adapter = new RankAdapter(getActivity(),GetData());
         listView.setAdapter(adapter);

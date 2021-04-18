@@ -38,29 +38,29 @@ public class ranking extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_ranking,
                 container, false);
-        listView = view.findViewById(R.id.lv1);
 
-        RankAdapter adapter = new RankAdapter(getActivity(),GetData());
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                rank  ranking = lista.get(position);
-                Toast.makeText(getActivity(),ranking.name,Toast.LENGTH_SHORT).show();
 
-            }
-        });
 
         ImageButton global = view.findViewById(R.id.GlobalBotton);
         ImageButton amigos = view.findViewById(R.id.AmigosBotton);
 
-       global.setOnClickListener(new View.OnClickListener() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_ranking,ListRanking.class, null)
+                .commit();
+
+
+        global.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity();
             }
         });
-       amigos.setOnClickListener(new View.OnClickListener() {
+        amigos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity2();
@@ -89,17 +89,5 @@ public class ranking extends Fragment {
                 .setReorderingAllowed(true)
                 .replace(R.id.fragmento_ranking,ListRanking.class, null)
                 .commit();
-    }
-
-    private List<rank> GetData() {
-        lista = new ArrayList<>();
-        lista.add(new rank(1,"FERNANDO07",R.drawable.asoros,"150"));
-        lista.add(new rank(2,"DIEGOL10",R.drawable.dosoros,"140"));
-        lista.add(new rank(3,"JAMONERO",R.drawable.tresoros,"130"));
-        lista.add(new rank(4,"DRESPIN",R.drawable.cuatrooros,"120"));
-
-        return lista;
-
-
     }
 }

@@ -5,10 +5,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ListRanking#newInstance} factory method to
+ * Use the {@link ListRanking} factory method to
  * create an instance of this fragment.
  *
  */
@@ -16,48 +22,45 @@ public class ListRanking extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ListView listView;
+    List<rank> lista;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ListRanking.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ListRanking newInstance(String param1, String param2) {
-        ListRanking fragment = new ListRanking();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public ListRanking() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public ListRanking(){
+        super(R.layout.fragment_list_ranking);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_ranking, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_ranking,
+                container, false);
+        listView = view.findViewById(R.id.lista_amigos);
+
+        RankAdapter adapter = new RankAdapter(getActivity(),GetData());
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                rank  ranking = lista.get(position);
+                Toast.makeText(getActivity(),ranking.name,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        return view;
+    }
+
+
+    private List<rank> GetData() {
+        lista = new ArrayList<>();
+        lista.add(new rank(1,"FERNANDO08",R.drawable.asoros,"150"));
+        lista.add(new rank(2,"DIEGOL10",R.drawable.dosoros,"140"));
+        lista.add(new rank(3,"JAMONERO",R.drawable.tresoros,"130"));
+        lista.add(new rank(4,"DRESPIN",R.drawable.cuatrooros,"120"));
+
+        return lista;
+
+
     }
 }
