@@ -78,4 +78,5 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
                 return false;
         }
     }
+
 }

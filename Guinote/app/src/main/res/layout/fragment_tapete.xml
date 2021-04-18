@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             >
             <ImageView
-                android:id="@+id/cartasflechaizda"
+                android:id="@+id/tapeteflechaizda"
                 android:src="@drawable/flechaizq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,19 +36,19 @@
                 android:scaleType="fitXY"
                 />
             <ImageView
-                android:id="@+id/choosecartas"
+                android:id="@+id/choosetapete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:src="@drawable/reverso"
+                android:src="@drawable/tapete2"
                 android:maxHeight="100dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 />
             <ImageView
-                android:id="@+id/cartasflechadcha"
+                android:id="@+id/tapeteflechadcha"
                 android:src="@drawable/flechader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
