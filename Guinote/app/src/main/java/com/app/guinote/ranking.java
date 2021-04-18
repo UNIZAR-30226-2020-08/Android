@@ -50,14 +50,14 @@ public class ranking extends Fragment {
             }
         });
 
-        Button global = view.findViewById(R.id.GlobalBotton);
+       // Button global = view.findViewById(R.id.GlobalBotton);
 
-        global.setOnClickListener(new View.OnClickListener() {
+       /* global.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity();
             }
-        });
+        });*/
         return view;
     }
 

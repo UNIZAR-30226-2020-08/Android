@@ -8,40 +8,36 @@
     android:orientation="vertical"
     tools:context=".ranking">
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         app:elevation="0dp"
-        android:background="#00000000"
+        android:background="@drawable/borderbottom"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/AmigosBotton"
             android:layout_width="203dp"
             android:background="#00000000"
-            android:layout_height="wrap_content"
-            android:text="Amigos"
-            android:textColor="#ffffff"
+            android:layout_height="match_parent"
+            android:src="@drawable/amigo_icon"
+            android:tint="#ffffff"
             >
 
-        </Button>
+        </ImageButton>
 
-        <Button
+        <ImageButton
             android:id="@+id/GlobalBotton"
             android:layout_width="203dp"
             android:background="#00000000"
-            android:textColor="#ffffff"
-            android:layout_height="wrap_content"
-            android:text="Global">
+            android:tint="#ffffff"
+            android:layout_height="match_parent"
+            android:src="@drawable/tierra_icon">
 
-        </Button>
+        </ImageButton>
     </LinearLayout>
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/podio"/>
+
 
     <ListView
         android:background="#00000000"

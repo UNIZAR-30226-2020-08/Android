@@ -48,10 +48,8 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
 
                 getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out
+                                R.anim.side_in_left,
+                                R.anim.slide_out_left
                         )
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_app, ranking.class, null)
@@ -61,10 +59,8 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
             case R.id.inicio_juego: {
                 getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out
+                                R.anim.side_in_left,
+                                R.anim.slide_out_left
                         )
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_app, MainActivity.class, null)
@@ -74,10 +70,8 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
             case R.id.perfil_juego: {
                 getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out
+                                R.anim.side_in_left,
+                                R.anim.slide_out_left
                         )
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_app, Perfil.class, null)
