@@ -16,6 +16,16 @@
         android:layout_height="match_parent"
         android:layout_weight="0.25">
 
+        <ImageView
+            android:id="@+id/icono_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:maxHeight="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/chat" />
+
         <LinearLayout
             android:id="@+id/layout_linear_j2"
             android:layout_width="wrap_content"
@@ -195,7 +205,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmento_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativelayout2_juego"

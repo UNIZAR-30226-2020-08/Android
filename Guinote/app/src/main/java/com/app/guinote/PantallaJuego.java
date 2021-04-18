@@ -26,7 +26,7 @@ public class PantallaJuego extends AppCompatActivity {
 
     private int mRemainingTime = 30;
 
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
     Button cantar;
     ArrayList<Carta> cards;
@@ -46,6 +46,7 @@ public class PantallaJuego extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_juego);
 
+        chat = (ImageView) findViewById(R.id.icono_chat);
         j1image = (ImageView) findViewById(R.id.carta_jugador1);
         j2image = (ImageView) findViewById(R.id.carta_jugador2);
         j3image = (ImageView) findViewById(R.id.carta_jugador3);
@@ -233,6 +234,21 @@ public class PantallaJuego extends AppCompatActivity {
 
         iterator = 24;
         triunfo = cards.get(39).getPalo();
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.side_in_right,
+                                R.anim.slide_out_right
+                        )
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmento_chat, Chat.class, null)
+                        .commit();
+            }
+        });
+
 
 
         c1.setOnLongClickListener(new View.OnLongClickListener() {
