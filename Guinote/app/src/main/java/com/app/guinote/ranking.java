@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ public class ranking extends Fragment {
 
     ListView listView;
     List<rank> lista;
-
+    View view;
 
     public ranking(){
         super(R.layout.activity_ranking);
@@ -35,7 +36,7 @@ public class ranking extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_ranking,
+        view = inflater.inflate(R.layout.activity_ranking,
                 container, false);
         listView = view.findViewById(R.id.lv1);
 
@@ -50,20 +51,26 @@ public class ranking extends Fragment {
             }
         });
 
-       // Button global = view.findViewById(R.id.GlobalBotton);
+       ImageButton global = view.findViewById(R.id.GlobalBotton);
 
-       /* global.setOnClickListener(new View.OnClickListener() {
+       global.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity();
             }
-        });*/
+        });
         return view;
     }
 
     public void openActivity(){
-        Intent intent = new Intent(getActivity(),ranking2.class);
-        startActivity(intent);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_ranking, ranking2.class, null)
+                .commit();
     }
 
     private List<rank> GetData() {
