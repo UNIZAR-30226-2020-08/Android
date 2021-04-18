@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lista1vs1 extends Fragment {
 
+    View view;
 
     ListView listView;
     List<listItem> lista;
@@ -30,7 +44,7 @@ public class Lista1vs1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_lista1vs1,
+        view = inflater.inflate(R.layout.activity_lista1vs1,
                 container, false);
         listView = view.findViewById(R.id.lista1vs1);
 
@@ -51,21 +65,36 @@ public class Lista1vs1 extends Fragment {
 
     private List<listItem> GetData() {
         lista = new ArrayList<>();
-        lista.add(new listItem(1,"TABLERO SENCILLO",R.drawable.asoros));
-        lista.add(new listItem(2,"TABLERO SENCILLO",R.drawable.dosoros));
-        lista.add(new listItem(3,"TABLERO AMATEUR",R.drawable.tresoros));
-        lista.add(new listItem(4,"TABLERO AVANZADO",R.drawable.cuatrooros));
-        lista.add(new listItem(5,"TABLERO SENCILLO",R.drawable.asoros));
-        lista.add(new listItem(6,"TABLERO SENCILLO",R.drawable.dosoros));
-        lista.add(new listItem(7,"TABLERO AMATEUR",R.drawable.tresoros));
-        lista.add(new listItem(8,"TABLERO AVANZADO",R.drawable.cuatrooros));
-        lista.add(new listItem(9,"TABLERO SENCILLO",R.drawable.asoros));
-        lista.add(new listItem(10,"TABLERO SENCILLO",R.drawable.dosoros));
-        lista.add(new listItem(11,"TABLERO AMATEUR",R.drawable.tresoros));
-        lista.add(new listItem(12,"TABLERO AVANZADO",R.drawable.cuatrooros));
+
+
+        String url = "http://192.168.1.33:8080/api/partida/findAllGames/0";
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONArray contenido = response;
+                    for (int i=0;i<contenido.length();i++){
+                        JSONObject objeto=contenido.getJSONObject(i);
+                        String nombre=objeto.getString("nombre");
+                        Log.d("msg",nombre);
+                        lista.add(new listItem(i,nombre,R.drawable.sieteespadas));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
 
         return lista;
-
-
     }
 }

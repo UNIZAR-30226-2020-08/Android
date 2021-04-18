@@ -42,6 +42,8 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
         TextView name=view.findViewById(R.id.nameUserPerfil);
         name.setText(getName());
+        TextView puntos=view.findViewById(R.id.puntosPerfil);
+        puntos.setText(getPuntos());
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.cartasContainer, cartas.class, null)
@@ -89,6 +91,13 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
     public String getName() {
         String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
+
+    public String getPuntos() {
+        String query="SELECT copas FROM auth";
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
         return c.getString(0);

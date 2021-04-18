@@ -240,8 +240,8 @@ public class PantallaJuego extends AppCompatActivity {
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(
-                                R.anim.side_in_right,
-                                R.anim.slide_out_right
+                                R.anim.slide_in,
+                                R.anim.slide_out_left
                         )
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_chat, Chat.class, null)

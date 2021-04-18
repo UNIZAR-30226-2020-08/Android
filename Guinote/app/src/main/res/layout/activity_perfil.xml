@@ -102,13 +102,14 @@
                             android:textSize="20sp"
                             />
                         <TextView
+                            android:id="@+id/puntosPerfil"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textColor="#ffffff"
                             android:textSize="20sp"
                             android:paddingTop="10dp"
-                            android:text="156"/>
+                            />
 
                     </LinearLayout>
                 </LinearLayout>
