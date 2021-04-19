@@ -37,6 +37,8 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
         Cursor c=db.rawQuery(query,null);
+        mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_abajo);
+        mBtmView.setOnNavigationItemSelectedListener(this);
         if (c.moveToNext()){
             Intent intent = new Intent(this,Pantalla_app.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -44,8 +46,11 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
             intent.putExtra("EXIT",true);
             startActivity(intent);
         }else {
-            mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_abajo);
-            mBtmView.setOnNavigationItemSelectedListener(this);
+            Intent intent = new Intent(this,Pantalla_app.class);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.putExtra("EXIT",true);
+            startActivity(intent);
         }
         //mBtmView.getMenu().findItem(R.id.page_1).setChecked(true);
         //mBtmView.getMenu().setGroupCheckable(0,false,true);

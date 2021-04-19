@@ -26,6 +26,8 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
         mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_app);
         mBtmView.setOnNavigationItemSelectedListener(this);
 
+
+
         mBtmView.getMenu().findItem(R.id.inicio_juego).setChecked(true);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
@@ -92,6 +94,7 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_app, HistorialPartidas.class, null)
                         .commit();
+                return true;
             }
             default:
                 return false;
