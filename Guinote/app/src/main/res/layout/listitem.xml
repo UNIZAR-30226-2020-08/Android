@@ -22,8 +22,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0dp"
             android:textSize="20dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/participantes1vs1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="12dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
     </LinearLayout>

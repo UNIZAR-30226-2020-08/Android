@@ -40,6 +40,7 @@ public class listAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView ImageViewRank;
         TextView TextViewName;
+        TextView participantes;
         TextView TextViewPuntuacion;
         listItem item = lista.get(position);
 
@@ -48,10 +49,11 @@ public class listAdapter extends BaseAdapter {
         }
         ImageViewRank= convertView.findViewById(R.id.image1vs1);
         TextViewName = convertView.findViewById(R.id.namePartida1vs1);
+        participantes = convertView.findViewById(R.id.participantes1vs1);
 
         ImageViewRank.setImageResource(item.imagen);
         TextViewName.setText(item.name);
-
+        participantes.setText(item.participantes);
 
         return convertView;
     }

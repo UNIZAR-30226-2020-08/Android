@@ -96,36 +96,50 @@ public class Login extends Fragment {
                                         "('"+contenido.getString("username")+"','"+contenido.getString("copas")+"','"+
                                         contenido.getString("f_carta")+"','"+contenido.getString("f_tapete")+"','"+
                                         jsonArray+"')");
+                                new CountDownTimer(2000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        //animacion.cancelAnimation();
+                                    }
+
+                                    public void onFinish() {
+                                        animacion.pauseAnimation();
+                                        animacion.setVisibility(View.INVISIBLE);
+                                        cuerpo.getBackground().setAlpha(255);
+                                        Intent intent = new Intent(v.getContext(),Pantalla_app.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("EXIT",true);
+                                        startActivity(intent);
+                                        getActivity().overridePendingTransition( R.anim.side_in_left, R.anim.slide_out_left);
+                                    }
+                                }.start();
+                            }else{
+                                animacion.pauseAnimation();
+                                animacion.setVisibility(View.INVISIBLE);
+                                cuerpo.getBackground().setAlpha(0);
                             }
+
+
                         } catch (JSONException e) {
+                            animacion.pauseAnimation();
+                            animacion.setVisibility(View.INVISIBLE);
+                            cuerpo.getBackground().setAlpha(0);
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        animacion.pauseAnimation();
+                        animacion.setVisibility(View.INVISIBLE);
+                        cuerpo.getBackground().setAlpha(255);
+                        nombre.setFocusableInTouchMode(true);
+                        passwd.setFocusableInTouchMode(true);
                         error.printStackTrace();
                     }
                 });
 
                 requestQueue.add(jsonObjectRequest);
-                new CountDownTimer(2000, 1000) {
-                    public void onTick(long millisUntilFinished) {
-                        //animacion.cancelAnimation();
-                    }
-
-                    public void onFinish() {
-                        animacion.pauseAnimation();
-                        animacion.setVisibility(View.INVISIBLE);
-                        cuerpo.getBackground().setAlpha(255);
-                        Intent intent = new Intent(v.getContext(),Pantalla_app.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("EXIT",true);
-                        startActivity(intent);
-                        getActivity().overridePendingTransition( R.anim.side_in_left, R.anim.slide_out_left);
-                    }
-                }.start();
             }
         });
         return view;

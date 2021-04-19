@@ -83,6 +83,16 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                         .commit();
                 return true;
             }
+            case R.id.historial_juego_opt: {
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.side_in_left,
+                                R.anim.slide_out_left
+                        )
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmento_app, HistorialPartidas.class, null)
+                        .commit();
+            }
             default:
                 return false;
         }

@@ -24,6 +24,7 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
     private BottomNavigationView mBtmView;
     private int mMenuId;
     private static int last=0;
+    private SQLiteDatabase db;
 
     public navegacion_inicio() {
         super(R.layout.activity_navegacion_inicio);
@@ -32,8 +33,20 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_abajo);
-        mBtmView.setOnNavigationItemSelectedListener(this);
+        String query="SELECT copas FROM auth";
+        MyOpenHelper dbHelper = new MyOpenHelper(this);
+        db = dbHelper.getWritableDatabase();
+        Cursor c=db.rawQuery(query,null);
+        if (c.moveToNext()){
+            Intent intent = new Intent(this,Pantalla_app.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("EXIT",true);
+            startActivity(intent);
+        }else {
+            mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_abajo);
+            mBtmView.setOnNavigationItemSelectedListener(this);
+        }
         //mBtmView.getMenu().findItem(R.id.page_1).setChecked(true);
         //mBtmView.getMenu().setGroupCheckable(0,false,true);
     }

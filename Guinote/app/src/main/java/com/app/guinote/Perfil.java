@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -23,6 +25,7 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
     private BottomNavigationView cartas;
     private int mMenuId;
+    private View view;
     private SQLiteDatabase db;
     public Perfil(){
         super(R.layout.activity_perfil);
@@ -31,7 +34,7 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_perfil,
+        view = inflater.inflate(R.layout.activity_perfil,
                 container, false);
         cartas=view.findViewById(R.id.navigation_rail);
 
@@ -39,6 +42,14 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
 
         MyOpenHelper dbHelper = new MyOpenHelper(getContext());
         db = dbHelper.getWritableDatabase();
+
+        ImageButton cerrar=view.findViewById(R.id.apagarSesion);
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity();
+            }
+        });
 
         TextView name=view.findViewById(R.id.nameUserPerfil);
         name.setText(getName());
@@ -51,6 +62,14 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
         return view;
     }
 
+    public void openActivity(){
+        db.execSQL("DELETE FROM auth");
+        Intent intent = new Intent(view.getContext(),navegacion_inicio.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("EXIT",true);
+        startActivity(intent);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         mMenuId = item.getItemId();

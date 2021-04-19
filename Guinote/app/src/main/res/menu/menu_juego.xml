@@ -10,7 +10,7 @@
         android:icon="@drawable/rank_icono"
         android:title="Ranking"/>
     <item
-        android:id="@+id/historial_juego"
+        android:id="@+id/historial_juego_opt"
         android:enabled="true"
         android:icon="@drawable/historial_icono"
         android:title="Historial"/>

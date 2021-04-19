@@ -3,7 +3,9 @@ package com.app.guinote;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.AsyncQueryHandler;
 import android.content.Intent;
+import android.database.Observable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,8 +50,9 @@ public class Lista1vs1 extends Fragment {
                 container, false);
         listView = view.findViewById(R.id.lista1vs1);
 
-        listAdapter adapter = new listAdapter(getActivity(),GetData());
-        listView.setAdapter(adapter);
+
+        GetData();
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,16 +63,16 @@ public class Lista1vs1 extends Fragment {
 
             }
         });
+
+
         return view;
     }
 
-    private List<listItem> GetData() {
+    private void GetData() {
         lista = new ArrayList<>();
 
 
         String url = "http://192.168.1.33:8080/api/partida/findAllGames/0";
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -79,9 +82,12 @@ public class Lista1vs1 extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
+                        Integer puntuacion=objeto.getInt("jugadores_online");
                         Log.d("msg",nombre);
-                        lista.add(new listItem(i,nombre,R.drawable.sieteespadas));
+                        lista.add(new listItem(i,nombre,R.drawable.sieteespadas,puntuacion.toString()+"/2"));
                     }
+                    listAdapter adapter = new listAdapter(getActivity(),lista);
+                    listView.setAdapter(adapter);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -94,7 +100,5 @@ public class Lista1vs1 extends Fragment {
         });
 
         requestQueue.add(jsonObjectRequest);
-
-        return lista;
     }
 }

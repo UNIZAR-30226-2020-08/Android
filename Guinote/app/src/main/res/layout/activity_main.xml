@@ -41,30 +41,33 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:layout_weight="2"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/button_start_2vs2"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="2 vs 2"
-                    android:layout_marginTop="10dp"
+                    android:text="2\nvs\n2"
                     android:textColor="#FA61EB"
+                    android:layout_marginRight="5dp"
                     android:textSize="45sp"
                     android:textStyle="bold" />
 
 
                 <Button
                     android:id="@+id/button_start_1vs1"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_height="match_parent"
                     android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="1 vs 1"
+                    android:text="1\nvs\n1"
                     android:textColor="#FA61EB"
                     android:textSize="45sp"
                     android:textStyle="bold" />
@@ -80,9 +83,11 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="Partida offline"
+                    android:text="Partida\noffline"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="40dp"
                     android:textColor="#FA61EB"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <Button
@@ -90,10 +95,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#99FFF9A4"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="40dp"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="Crear torneo privado"
+                    android:text="Crear\ntorneo\nprivado"
                     android:textColor="#FA61EB"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <Button
@@ -102,9 +109,11 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#99FFF9A4"
                     android:fontFamily="@font/bungee_shade"
-                    android:text="Unirse a torneo"
+                    android:text="Unirse\na\ntorneo"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="40dp"
                     android:textColor="#FA61EB"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold" />
 

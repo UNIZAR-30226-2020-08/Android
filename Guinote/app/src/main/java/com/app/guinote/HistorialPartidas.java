@@ -1,14 +1,22 @@
 package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ListView;
 
 
-public class HistorialPartidas extends AppCompatActivity {
+public class HistorialPartidas extends Fragment {
     ListView lista;
+
+    public HistorialPartidas(){
+        super(R.layout.activity_historial_partidas);
+    }
 
     String[][] datos = {
             {"VICTORIA", "TAPETE ORO", "4 Jugadores", "59 BUENAS", "10:30"},
@@ -20,12 +28,15 @@ public class HistorialPartidas extends AppCompatActivity {
     };
     int[] datosImg = {R.drawable.asoros, R.drawable.asoros, R.drawable.asoros, R.drawable.asoros, R.drawable.asoros, R.drawable.asoros};
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_historial_partidas,
+                container, false);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_historial_partidas);
 
-        lista = (ListView) findViewById(R.id.lista_historial);
+        lista = (ListView) view.findViewById(R.id.lista_historial);
 
-        lista.setAdapter(new HistAdapter(this, datos, datosImg));
+        lista.setAdapter(new HistAdapter(getContext(), datos, datosImg));
+        return view;
     }
 }
