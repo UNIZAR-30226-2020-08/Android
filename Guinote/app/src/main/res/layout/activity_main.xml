@@ -17,11 +17,13 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            android:backgroundTint="#00000000"
             style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:backgroundTint="#00000000"
+            android:fontFamily="sans-serif-smallcaps"
             app:menu="@menu/menu_opciones"
+            app:title="Las10Ultimas"
             app:titleTextAppearance="?attr/textAppearanceHeadline6" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,83 +41,259 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/button_start_2vs2"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="#99FFF9A4"
-                    android:fontFamily="@font/bungee_shade"
-                    android:text="2\nvs\n2"
-                    android:textColor="#FA61EB"
-                    android:layout_marginRight="5dp"
-                    android:textSize="45sp"
-                    android:textStyle="bold" />
-
-
-                <Button
-                    android:id="@+id/button_start_1vs1"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="#99FFF9A4"
-                    android:fontFamily="@font/bungee_shade"
-                    android:text="1\nvs\n1"
-                    android:textColor="#FA61EB"
-                    android:textSize="45sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
-                <Button
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/button_start_2vs2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Media -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="194dp"
+                            app:srcCompat="@drawable/img2vs2"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:background="#ffffff">
+
+                            <!-- Title, secondary and supporting text -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dúos"
+                                android:textColor="#02590A"
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Juega 2 contra 2 y consigue la victoria"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="#349702"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/button_start_1vs1"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Media -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="194dp"
+                            app:srcCompat="@drawable/img1vs1"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:background="#ffffff">
+
+                            <!-- Title, secondary and supporting text -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Individual"
+                                android:textColor="#02590A"
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Juega 1 contra 1 y consigue la victoria"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="#349702"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/button_start_offline"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#99FFF9A4"
-                    android:fontFamily="@font/bungee_shade"
-                    android:text="Partida\noffline"
-                    android:paddingTop="40dp"
-                    android:paddingBottom="40dp"
-                    android:textColor="#FA61EB"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content">
 
-                <Button
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Media -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="194dp"
+                            app:srcCompat="@drawable/offline"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:background="#ffffff">
+
+                            <!-- Title, secondary and supporting text -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Partida offline"
+                                android:textColor="#02590A"
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Practica sin conexión contra el móvil"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="#349702"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/button_start_private_room"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#99FFF9A4"
-                    android:paddingTop="40dp"
-                    android:paddingBottom="40dp"
-                    android:fontFamily="@font/bungee_shade"
-                    android:text="Crear\ntorneo\nprivado"
-                    android:textColor="#FA61EB"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content">
 
-                <Button
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Media -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="194dp"
+                            app:srcCompat="@drawable/creatorneo"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:background="#ffffff">
+
+                            <!-- Title, secondary and supporting text -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Crear Torneo Privado"
+                                android:textColor="#02590A"
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Crea un torneo y desafía a tus amigos"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="#349702"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/button_join_private_room"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#99FFF9A4"
-                    android:fontFamily="@font/bungee_shade"
-                    android:text="Unirse\na\ntorneo"
-                    android:paddingTop="40dp"
-                    android:paddingBottom="40dp"
-                    android:textColor="#FA61EB"
-                    android:textSize="30sp"
-                    android:layout_marginBottom="10dp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="8dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Media -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="194dp"
+                            app:srcCompat="@drawable/unirsetorneo"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:background="#ffffff">
+
+                            <!-- Title, secondary and supporting text -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Unirse a Torneo"
+                                android:textColor="#02590A"
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Unete a un torneo ya creado con tus amigos"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="#349702"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
