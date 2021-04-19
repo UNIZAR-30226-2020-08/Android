@@ -34,7 +34,7 @@ public class MainActivity extends Fragment {
             "Android",
             "PHP"
     };
-    Button createroom;
+    CardView createroom;
     ListView lista1vs1;
     CardView cardvs1;
 
@@ -51,18 +51,15 @@ public class MainActivity extends Fragment {
         View view = inflater.inflate(R.layout.activity_main,
                 container, false);
 
-        Button play2 = view.findViewById(R.id.button_start_2vs2);
+        CardView play2 = view.findViewById(R.id.button_start_2vs2);
         createroom = view.findViewById(R.id.button_start_1vs1);
-        Button joinroom = view.findViewById(R.id.button_join_private_room);
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
 
-
-        toolbar.setOverflowIcon(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.opt_icono,null));
 
         MyOpenHelper dbHelper = new MyOpenHelper(getContext());
         db = dbHelper.getWritableDatabase();
 
-        toolbar.setTitle(getName());
+        //toolbar.setTitle(getName());
         play2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
