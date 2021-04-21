@@ -7,6 +7,7 @@ import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ import io.socket.emitter.Emitter;
 public class Mensajeria extends AppCompatActivity {
 
     private RecyclerView rv;
+    private String room="";
     private EditText bEscribirMensaje;
     private String nameUser;
     private Button bEnviarMensaje;
@@ -40,11 +42,6 @@ public class Mensajeria extends AppCompatActivity {
     private EditText mInputMessageView;
 
     private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://192.168.1.33:5000");
-        } catch (URISyntaxException e) {}
-    }
 
     @Override
     public void onDestroy() {
@@ -114,17 +111,37 @@ public class Mensajeria extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
         nameUser=getName();
 
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+            room = b.getString("room");
+
+
+
+        try {
+            mSocket = IO.socket("http://localhost:5000/");
+        } catch (URISyntaxException e) {
+            Log.d("mal","error");
+        }
+
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
             auxiliar.put("name", getName());
-            auxiliar.put("room", getName());
+            auxiliar.put("room", room);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+
+        if (mSocket.isActive()){
+            Log.d("holsdsda","hola");
+        }
+
+        if (mSocket.connected()){
+            Log.d("holsdsda","adios");
         }
         mSocket.emit("join",auxiliar);
 

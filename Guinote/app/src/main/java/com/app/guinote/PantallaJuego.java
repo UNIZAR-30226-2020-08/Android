@@ -26,6 +26,7 @@ import java.util.List;
 public class PantallaJuego extends AppCompatActivity {
 
     private int mRemainingTime = 30;
+    private String room="";
 
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
@@ -240,6 +241,9 @@ public class PantallaJuego extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Mensajeria.class);
+                Bundle b = new Bundle();
+                b.putString("room", room); //Your id
+                intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
             }
         });
@@ -446,11 +450,10 @@ public class PantallaJuego extends AppCompatActivity {
 
 
         Bundle b = getIntent().getExtras();
-        String value = ""; // or other values
         if(b != null)
-            value = b.getString("key");
+            room = b.getString("key");
 
-        Log.d("Hola ",value);
+
 
     }
 
