@@ -76,7 +76,7 @@ public class Mensajeria extends AppCompatActivity {
                     }
 
                     // add the message to view
-                    CreateMensaje(username, message);
+                    CreateMensaje(username, message,2);
                 }
             });
         }
@@ -99,7 +99,7 @@ public class Mensajeria extends AppCompatActivity {
                     }
 
                     // add the message to view
-                    CreateMensaje(room, participantes);
+                    CreateMensaje(room, participantes,2);
                 }
             });
         }
@@ -117,7 +117,16 @@ public class Mensajeria extends AppCompatActivity {
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.connect();
+        JSONObject auxiliar = new JSONObject();
+        try {
+            auxiliar.put("name", getName());
+            auxiliar.put("room", getName());
 
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        mSocket.emit("join",auxiliar);
 
         mensajeDeTextos = new ArrayList<>();
 
@@ -128,15 +137,6 @@ public class Mensajeria extends AppCompatActivity {
         rv = (RecyclerView) findViewById(R.id.rv_mensajes);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
-
-        /*for(int i = 0;i<10;i++){
-            MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto();
-            mensajeDeTextoAuxiliar.setId(""+i);
-            mensajeDeTextoAuxiliar.setMensaje("hola "+i);
-            mensajeDeTextoAuxiliar.setTipoMensaje(2);
-            mensajeDeTextoAuxiliar.setHoradelmensaje("10:34");
-            mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-        }*/
 
         adapter = new MensajesAdapter(mensajeDeTextos);
         rv.setAdapter(adapter);
@@ -165,7 +165,7 @@ public class Mensajeria extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
-                CreateMensaje(nameUser,bEscribirMensaje.getText().toString());
+                CreateMensaje(nameUser,bEscribirMensaje.getText().toString(),1);
                 attemptSend(texto);
             }
         });
@@ -179,11 +179,11 @@ public class Mensajeria extends AppCompatActivity {
         setScrollbarChat();
     }
 
-    public void CreateMensaje(String user, String mensaje){
+    public void CreateMensaje(String user, String mensaje, Integer tipo){
         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto();
         mensajeDeTextoAuxiliar.setId("0");
         mensajeDeTextoAuxiliar.setMensaje(mensaje);
-        mensajeDeTextoAuxiliar.setTipoMensaje(1);
+        mensajeDeTextoAuxiliar.setTipoMensaje(tipo);
         mensajeDeTextoAuxiliar.setHoradelmensaje(user);
         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
         adapter.notifyDataSetChanged();

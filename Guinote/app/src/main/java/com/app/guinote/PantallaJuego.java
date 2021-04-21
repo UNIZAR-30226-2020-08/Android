@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -441,6 +442,16 @@ public class PantallaJuego extends AppCompatActivity {
                     setVisibilityreverse();
             }
         }.start();
+
+
+
+        Bundle b = getIntent().getExtras();
+        String value = ""; // or other values
+        if(b != null)
+            value = b.getString("key");
+
+        Log.d("Hola ",value);
+
     }
 
     private void setVisibility3firstcards() {
