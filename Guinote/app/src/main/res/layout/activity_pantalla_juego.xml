@@ -205,16 +205,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmento_chat"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativelayout2_juego"

@@ -238,14 +238,8 @@ public class PantallaJuego extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(
-                                R.anim.slide_in,
-                                R.anim.slide_out_left
-                        )
-                        .setReorderingAllowed(true)
-                        .replace(R.id.fragmento_chat, Chat.class, null)
-                        .commit();
+                Intent intent = new Intent(v.getContext(),Mensajeria.class);
+                startActivity(intent);
             }
         });
 

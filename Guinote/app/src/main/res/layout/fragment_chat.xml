@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Chat">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <EditText
-        android:layout_width="match_parent"
+
+        <EditText
+            android:id="@+id/edittextchat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/buttonchat"
+            android:layout_toStartOf="@+id/buttonchat"
+
+            android:hint="Escribe un mensaje..." />
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Escribe un mensaje..."
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/edittextchat"/>
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:id="@+id/buttonchat"
-    android:hint="Enviar"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/buttonchat"
+        android:hint="Enviar"/>
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/appBarLayout">
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_back_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="?attr/homeAsUpIndicator"
@@ -38,6 +42,8 @@
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mensajes"
+            android:background="@color/chat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/appBarLayout"
@@ -51,4 +57,4 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+</LinearLayout>
