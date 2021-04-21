@@ -1,5 +1,7 @@
 package com.app.guinote;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Editable;
@@ -29,68 +31,92 @@ public class Mensajeria extends AppCompatActivity {
 
     private RecyclerView rv;
     private EditText bEscribirMensaje;
+    private String nameUser;
     private Button bEnviarMensaje;
+    private SQLiteDatabase db;
     private List<MensajeDeTexto> mensajeDeTextos;
     private MensajesAdapter adapter;
     private int TEXT_LINES=1;
     private EditText mInputMessageView;
 
-    /*private Socket mSocket;
+    private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://chat.socket.io");
+            mSocket = IO.socket("http://192.168.1.33:5000");
         } catch (URISyntaxException e) {}
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void onDestroy() {
         super.onDestroy();
 
         mSocket.disconnect();
-        mSocket.off("new message", onNewMessage);
-    }*/
+        mSocket.off("message", onNewMessage);
+    }
 
-    /*private void attemptSend() {
-        String message = mInputMessageView.getText().toString().trim();
-        if (TextUtils.isEmpty(message)) {
-            return;
-        }
+    private void attemptSend(String message) {
 
-        mInputMessageView.setText("");
-        mSocket.emit("new message", message);
-    }*/
+        mSocket.emit("sendMessage", message);
+    }
 
-    /*private Emitter.Listener onNewMessage = new Emitter.Listener() {
+    private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
+            runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
                     String username;
                     String message;
                     try {
-                        username = data.getString("username");
-                        message = data.getString("message");
+                        username = data.getString("user");
+                        message = data.getString("text");
                     } catch (JSONException e) {
                         return;
                     }
 
                     // add the message to view
-                    addMessage(username, message);
+                    CreateMensaje(username, message);
                 }
             });
         }
-    };*/
+    };
+
+    private Emitter.Listener roomInfo = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String room;
+                    String participantes;
+                    try {
+                        room = data.getString("room");
+                        participantes = data.getString("users");
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                    // add the message to view
+                    CreateMensaje(room, participantes);
+                }
+            });
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_chat);
 
+        MyOpenHelper dbHelper = new MyOpenHelper(this);
+        db = dbHelper.getWritableDatabase();
+        nameUser=getName();
 
-        //mSocket.on("new message", onNewMessage);
-        //mSocket.connect();
+        mSocket.on("message", onNewMessage);
+        mSocket.on("roomData", roomInfo);
+        mSocket.connect();
 
 
         mensajeDeTextos = new ArrayList<>();
@@ -103,14 +129,14 @@ public class Mensajeria extends AppCompatActivity {
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
 
-        for(int i = 0;i<10;i++){
+        /*for(int i = 0;i<10;i++){
             MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto();
             mensajeDeTextoAuxiliar.setId(""+i);
             mensajeDeTextoAuxiliar.setMensaje("hola "+i);
             mensajeDeTextoAuxiliar.setTipoMensaje(2);
             mensajeDeTextoAuxiliar.setHoradelmensaje("10:34");
             mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-        }
+        }*/
 
         adapter = new MensajesAdapter(mensajeDeTextos);
         rv.setAdapter(adapter);
@@ -138,7 +164,9 @@ public class Mensajeria extends AppCompatActivity {
         bEnviarMensaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateMensaje(bEscribirMensaje.getText().toString());
+                String texto=bEscribirMensaje.getText().toString();
+                CreateMensaje(nameUser,bEscribirMensaje.getText().toString());
+                attemptSend(texto);
             }
         });
 
@@ -151,12 +179,12 @@ public class Mensajeria extends AppCompatActivity {
         setScrollbarChat();
     }
 
-    public void CreateMensaje(String mensaje){
+    public void CreateMensaje(String user, String mensaje){
         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto();
         mensajeDeTextoAuxiliar.setId("0");
         mensajeDeTextoAuxiliar.setMensaje(mensaje);
         mensajeDeTextoAuxiliar.setTipoMensaje(1);
-        mensajeDeTextoAuxiliar.setHoradelmensaje("10:34");
+        mensajeDeTextoAuxiliar.setHoradelmensaje(user);
         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
         adapter.notifyDataSetChanged();
         bEscribirMensaje.setText("");
@@ -165,6 +193,13 @@ public class Mensajeria extends AppCompatActivity {
 
     public void setScrollbarChat(){
         rv.scrollToPosition(adapter.getItemCount()-1);
+    }
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 }
 
