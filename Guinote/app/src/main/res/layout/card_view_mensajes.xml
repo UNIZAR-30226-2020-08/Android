@@ -1,30 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5sp"
+    android:paddingRight="5sp"
+    >
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardElevation="0dp">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/out_message_bg"
-        android:orientation="vertical">
-        <TextView
+
+        <LinearLayout
+            android:id="@+id/mensajeBG"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hola mi nombre es fernando">
+            android:background="@drawable/out_message_bg"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/msTexto"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                android:paddingTop="@dimen/text_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de Usuario"
+                android:maxWidth="240dp">
+            </TextView>
+            <TextView
+                android:id="@+id/msHora"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                android:paddingBottom="@dimen/text_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mensaje de usuario"
+                android:textColor="@color/colorNegro"
+                android:maxWidth="240dp">
 
-        </TextView>
+            </TextView>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Que tal"
-            android:textAppearance="?android:attr/textAppearanceSmall">
+    </androidx.cardview.widget.CardView>
 
-        </TextView>
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
