@@ -36,11 +36,10 @@ import io.socket.emitter.Emitter;
 
 public class PantallaJuego extends AppCompatActivity {
 
-    private Mensajeria mensajeria;
     private int mRemainingTime = 30;
     private String room="";
     private Socket mSocket;
-    protected SQLiteDatabase db;
+    private SQLiteDatabase db;
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
@@ -57,7 +56,7 @@ public class PantallaJuego extends AppCompatActivity {
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
     Integer puntosE1,puntosE2; //Puntos de cada equipo en general
-    protected List<MensajeDeTexto> mensajeDeTextos;
+    public static List<MensajeDeTexto> mensajeDeTextos;
 
 
 
@@ -69,7 +68,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.off("message", onNewMessage);
     }
 
-    protected void attemptSend(String message) {
+    public void attemptSend(String message) {
 
         mSocket.emit("sendMessage", message, new Ack() {
             @Override
@@ -143,8 +142,6 @@ public class PantallaJuego extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
 
         mensajeDeTextos = new ArrayList<>();
-
-        mensajeria = new Mensajeria();
 
 
         nameUser=getName();
@@ -371,9 +368,6 @@ public class PantallaJuego extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Mensajeria.class);
-                Bundle b = new Bundle();
-                b.putString("room", room); //Your id
-                intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
             }
         });

@@ -26,7 +26,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mensajeria extends PantallaJuego {
+
+import static com.app.guinote.PantallaJuego.mensajeDeTextos;
+
+public class Mensajeria extends AppCompatActivity {
 
     private RecyclerView rv;
     private String room="";
@@ -35,7 +38,9 @@ public class Mensajeria extends PantallaJuego {
     private MensajesAdapter adapter;
     private int TEXT_LINES=1;
     private Toolbar toolbar;
+    private SQLiteDatabase db;
     private EditText mInputMessageView;
+    public PantallaJuego pantalla;
 
 
 
@@ -47,10 +52,14 @@ public class Mensajeria extends PantallaJuego {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_chat);
 
+        pantalla = new PantallaJuego();
         toolbar = (Toolbar) findViewById(R.id.toolbar_back_chat);
         bEscribirMensaje = (EditText) findViewById(R.id.edittextchat);
         bEnviarMensaje = (Button) findViewById(R.id.buttonchat);
 
+
+        MyOpenHelper dbHelper = new MyOpenHelper(this);
+        db = dbHelper.getWritableDatabase();
 
         Log.d("prueba",mensajeDeTextos.toString());
         adapter = new MensajesAdapter(mensajeDeTextos);
@@ -85,7 +94,7 @@ public class Mensajeria extends PantallaJuego {
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
                 CreateMensaje(getName(),bEscribirMensaje.getText().toString(),1);
-                attemptSend(texto);
+                pantalla.attemptSend(texto);
             }
         });
 
@@ -95,7 +104,7 @@ public class Mensajeria extends PantallaJuego {
                 finish();
             }
         });
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         setScrollbarChat();
     }
 
@@ -109,6 +118,14 @@ public class Mensajeria extends PantallaJuego {
 
     public void setScrollbarChat(){
         rv.scrollToPosition(adapter.getItemCount()-1);
+    }
+
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 
 }
