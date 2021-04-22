@@ -27,6 +27,7 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
     private int mMenuId;
     private View view;
     private SQLiteDatabase db;
+
     public Perfil(){
         super(R.layout.activity_perfil);
     }
@@ -36,6 +37,14 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_perfil,
                 container, false);
+        View editar = view.findViewById(R.id.editperfil);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent (v.getContext(), EditProfile.class);
+                startActivityForResult(intent2, 0);
+            }
+        });
         cartas=view.findViewById(R.id.navigation_rail);
 
         cartas.setOnNavigationItemSelectedListener(this);
