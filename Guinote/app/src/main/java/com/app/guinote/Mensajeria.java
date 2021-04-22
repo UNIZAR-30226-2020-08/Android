@@ -26,12 +26,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.socket.client.Ack;
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
-
-public class Mensajeria extends AppCompatActivity {
+public class Mensajeria extends PantallaJuego {
 
     private RecyclerView rv;
     private String room="";
@@ -44,75 +39,6 @@ public class Mensajeria extends AppCompatActivity {
     private int TEXT_LINES=1;
     private EditText mInputMessageView;
 
-    private Socket mSocket;
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mSocket.disconnect();
-        mSocket.off("message", onNewMessage);
-    }
-
-    private void attemptSend(String message) {
-
-        mSocket.emit("sendMessage", message, new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
-    }
-
-    private Emitter.Listener onNewMessage = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String username;
-                    String message;
-                    try {
-                        username = data.getString("user");
-                        message = data.getString("text");
-                    } catch (JSONException e) {
-                        return;
-                    }
-
-                    // add the message to view
-                    Log.d("username",username+" "+nameUser);
-                    if (!username.equals(nameUser)) {
-                        CreateMensaje(username, message, 2);
-                    }
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener roomInfo = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String room;
-                    String participantes;
-                    try {
-                        room = data.getString("room");
-                        participantes = data.getString("users");
-                    } catch (JSONException e) {
-                        return;
-                    }
-
-                    // add the message to view
-                    //CreateMensaje(room, participantes,2);
-                }
-            });
-        }
-    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,39 +47,6 @@ public class Mensajeria extends AppCompatActivity {
 
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
-        nameUser=getName();
-
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            room = b.getString("room");
-
-
-
-
-        mSocket = IO.socket(URI.create("http://192.168.1.33:5000"));
-
-
-        mSocket.on("message", onNewMessage);
-        mSocket.on("roomData", roomInfo);
-        mSocket.connect();
-        JSONObject auxiliar = new JSONObject();
-        try {
-            auxiliar.put("name", getName());
-            auxiliar.put("room", room);
-
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        Log.d("json",auxiliar.toString());
-        mSocket.emit("join", auxiliar, new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
 
         mensajeDeTextos = new ArrayList<>();
 

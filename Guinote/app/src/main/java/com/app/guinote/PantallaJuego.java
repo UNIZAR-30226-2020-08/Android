@@ -19,15 +19,26 @@ import android.widget.Toast;
 
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.socket.client.Ack;
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
 public class PantallaJuego extends AppCompatActivity {
 
+    private Mensajeria mensajeria;
     private int mRemainingTime = 30;
     private String room="";
-
+    private Socket mSocket;
+    private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
     Button cantar;
@@ -43,10 +54,114 @@ public class PantallaJuego extends AppCompatActivity {
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
     Integer puntosE1,puntosE2; //Puntos de cada equipo en general
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mSocket.disconnect();
+        mSocket.off("message", onNewMessage);
+    }
+
+    protected void attemptSend(String message) {
+
+        mSocket.emit("sendMessage", message, new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
+    }
+
+    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String username;
+                    String message;
+                    try {
+                        username = data.getString("user");
+                        message = data.getString("text");
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                    // add the message to view
+                    Log.d("username",username+" "+nameUser);
+                    if (!username.equals(nameUser)) {
+                        mensajeria.CreateMensaje(username, message, 2);
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener roomInfo = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String room;
+                    String participantes;
+                    try {
+                        room = data.getString("room");
+                        participantes = data.getString("users");
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                    // add the message to view
+                    //CreateMensaje(room, participantes,2);
+                }
+            });
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_juego);
+        mensajeria = new Mensajeria();
+
+        nameUser=mensajeria.getName();
+
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+            room = b.getString("key");
+
+        mSocket = IO.socket(URI.create("http://192.168.1.33:5000"));
+
+        mSocket.on("message", onNewMessage);
+        mSocket.on("roomData", roomInfo);
+        mSocket.connect();
+        JSONObject auxiliar = new JSONObject();
+        try {
+            auxiliar.put("name", mensajeria.getName());
+            auxiliar.put("room", room);
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Log.d("json",auxiliar.toString());
+        mSocket.emit("join", auxiliar, new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
+
 
         chat = (ImageView) findViewById(R.id.icono_chat);
         j1image = (ImageView) findViewById(R.id.carta_jugador1);
@@ -446,14 +561,6 @@ public class PantallaJuego extends AppCompatActivity {
                     setVisibilityreverse();
             }
         }.start();
-
-
-
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            room = b.getString("key");
-
-
 
     }
 
