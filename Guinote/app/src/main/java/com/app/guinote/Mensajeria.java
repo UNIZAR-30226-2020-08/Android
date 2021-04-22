@@ -21,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -53,7 +56,13 @@ public class Mensajeria extends AppCompatActivity {
 
     private void attemptSend(String message) {
 
-        mSocket.emit("sendMessage", message);
+        mSocket.emit("sendMessage", message, new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
     }
 
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
@@ -73,7 +82,9 @@ public class Mensajeria extends AppCompatActivity {
                     }
 
                     // add the message to view
-                    CreateMensaje(username, message,2);
+                    if (username!=nameUser) {
+                        CreateMensaje(username, message, 2);
+                    }
                 }
             });
         }
@@ -96,7 +107,7 @@ public class Mensajeria extends AppCompatActivity {
                     }
 
                     // add the message to view
-                    CreateMensaje(room, participantes,2);
+                    //CreateMensaje(room, participantes,2);
                 }
             });
         }
@@ -117,11 +128,9 @@ public class Mensajeria extends AppCompatActivity {
 
 
 
-        try {
-            mSocket = IO.socket("http://localhost:5000/");
-        } catch (URISyntaxException e) {
-            Log.d("mal","error");
-        }
+
+        mSocket = IO.socket(URI.create("http://192.168.1.33:5000"));
+
 
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
@@ -136,14 +145,14 @@ public class Mensajeria extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (mSocket.isActive()){
-            Log.d("holsdsda","hola");
-        }
-
-        if (mSocket.connected()){
-            Log.d("holsdsda","adios");
-        }
-        mSocket.emit("join",auxiliar);
+        Log.d("json",auxiliar.toString());
+        mSocket.emit("join", auxiliar, new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
 
         mensajeDeTextos = new ArrayList<>();
 
@@ -218,6 +227,7 @@ public class Mensajeria extends AppCompatActivity {
         c.moveToNext();
         return c.getString(0);
     }
+
 }
 
 
