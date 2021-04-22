@@ -31,13 +31,19 @@ public class Mensajeria extends PantallaJuego {
     private RecyclerView rv;
     private String room="";
     private EditText bEscribirMensaje;
-    private String nameUser;
     private Button bEnviarMensaje;
-    private SQLiteDatabase db;
     private List<MensajeDeTexto> mensajeDeTextos;
     private MensajesAdapter adapter;
     private int TEXT_LINES=1;
+    private Toolbar toolbar;
     private EditText mInputMessageView;
+
+
+
+    Mensajeria(){
+        mensajeDeTextos = new ArrayList<>();
+        adapter = new MensajesAdapter(mensajeDeTextos);
+    }
 
 
     @Override
@@ -45,12 +51,7 @@ public class Mensajeria extends PantallaJuego {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_chat);
 
-        MyOpenHelper dbHelper = new MyOpenHelper(this);
-        db = dbHelper.getWritableDatabase();
-
-        mensajeDeTextos = new ArrayList<>();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_back_chat);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_back_chat);
         bEscribirMensaje = (EditText) findViewById(R.id.edittextchat);
         bEnviarMensaje = (Button) findViewById(R.id.buttonchat);
 
@@ -58,7 +59,6 @@ public class Mensajeria extends PantallaJuego {
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
 
-        adapter = new MensajesAdapter(mensajeDeTextos);
         rv.setAdapter(adapter);
 
         bEscribirMensaje.addTextChangedListener(new TextWatcher() {
@@ -85,7 +85,7 @@ public class Mensajeria extends PantallaJuego {
             @Override
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
-                CreateMensaje(nameUser,bEscribirMensaje.getText().toString(),1);
+                CreateMensaje(getName(),bEscribirMensaje.getText().toString(),1);
                 attemptSend(texto);
             }
         });
@@ -113,13 +113,6 @@ public class Mensajeria extends PantallaJuego {
 
     public void setScrollbarChat(){
         rv.scrollToPosition(adapter.getItemCount()-1);
-    }
-
-    public String getName() {
-        String query="SELECT user FROM auth";
-        Cursor c=db.rawQuery(query,null);
-        c.moveToNext();
-        return c.getString(0);
     }
 
 }

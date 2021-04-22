@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ public class PantallaJuego extends AppCompatActivity {
     private int mRemainingTime = 30;
     private String room="";
     private Socket mSocket;
+    protected SQLiteDatabase db;
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
@@ -130,9 +133,16 @@ public class PantallaJuego extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_juego);
+
+
+        MyOpenHelper dbHelper = new MyOpenHelper(this);
+        db = dbHelper.getWritableDatabase();
+
+
         mensajeria = new Mensajeria();
 
-        nameUser=mensajeria.getName();
+
+        nameUser=getName();
 
         Bundle b = getIntent().getExtras();
         if(b != null)
@@ -145,7 +155,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
-            auxiliar.put("name", mensajeria.getName());
+            auxiliar.put("name", getName());
             auxiliar.put("room", room);
 
         } catch (JSONException e) {
@@ -980,6 +990,14 @@ public class PantallaJuego extends AppCompatActivity {
 
         }
 
+    }
+
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 
 }
