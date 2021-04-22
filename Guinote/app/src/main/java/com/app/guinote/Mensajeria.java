@@ -32,7 +32,6 @@ public class Mensajeria extends PantallaJuego {
     private String room="";
     private EditText bEscribirMensaje;
     private Button bEnviarMensaje;
-    private List<MensajeDeTexto> mensajeDeTextos;
     private MensajesAdapter adapter;
     private int TEXT_LINES=1;
     private Toolbar toolbar;
@@ -100,11 +99,7 @@ public class Mensajeria extends PantallaJuego {
     }
 
     public void CreateMensaje(String user, String mensaje, Integer tipo){
-        MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto();
-        mensajeDeTextoAuxiliar.setId("0");
-        mensajeDeTextoAuxiliar.setMensaje(mensaje);
-        mensajeDeTextoAuxiliar.setTipoMensaje(tipo);
-        mensajeDeTextoAuxiliar.setHoradelmensaje(user);
+        MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",mensaje,tipo,user);
         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
         adapter.notifyDataSetChanged();
         bEscribirMensaje.setText("");

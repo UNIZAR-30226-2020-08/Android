@@ -57,6 +57,7 @@ public class PantallaJuego extends AppCompatActivity {
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
     Integer puntosE1,puntosE2; //Puntos de cada equipo en general
+    protected List<MensajeDeTexto> mensajeDeTextos;
 
 
 
@@ -98,7 +99,8 @@ public class PantallaJuego extends AppCompatActivity {
                     // add the message to view
                     Log.d("username",username+" "+nameUser);
                     if (!username.equals(nameUser)) {
-                        mensajeria.CreateMensaje(username, message, 2);
+                        MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
+                        mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                     }
                 }
             });
