@@ -6,7 +6,11 @@ public class MensajeDeTexto {
     private int tipoMensaje;
     private String Horadelmensaje;
 
-    public MensajeDeTexto() {
+    public MensajeDeTexto(String id, String mensaje, int tipoMensaje, String horadelmensaje) {
+        this.id = id;
+        this.mensaje = mensaje;
+        this.tipoMensaje = tipoMensaje;
+        Horadelmensaje = horadelmensaje;
     }
 
     public String getId() {
