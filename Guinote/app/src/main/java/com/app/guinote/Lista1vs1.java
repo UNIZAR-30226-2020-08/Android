@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +54,18 @@ public class Lista1vs1 extends Fragment {
 
         GetData();
 
+
+        FloatingActionButton anadir= view.findViewById(R.id.anadirPartida);
+
+        anadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragmento_anadir_partida, anadir_partida.class, null)
+                        .commit();
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

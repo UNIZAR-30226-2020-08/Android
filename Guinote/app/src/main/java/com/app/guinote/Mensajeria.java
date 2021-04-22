@@ -82,7 +82,8 @@ public class Mensajeria extends AppCompatActivity {
                     }
 
                     // add the message to view
-                    if (username!=nameUser) {
+                    Log.d("username",username+" "+nameUser);
+                    if (!username.equals(nameUser)) {
                         CreateMensaje(username, message, 2);
                     }
                 }
