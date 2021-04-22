@@ -11,4 +11,36 @@ public class listItem {
         this.imagen = imagen;
         this.participantes=participantes;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(String participantes) {
+        this.participantes = participantes;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
+    }
 }

@@ -25,7 +25,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:paddingLeft="@dimen/text_margin"
                 android:paddingRight="@dimen/text_margin"
-                android:paddingTop="@dimen/text_margin"
+                android:paddingTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre de Usuario"

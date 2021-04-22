@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,13 +55,31 @@ public class Lista1vs1 extends Fragment {
         GetData();
 
 
+        FloatingActionButton anadir= view.findViewById(R.id.anadirPartida);
+
+        anadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragmento_anadir_partida, anadir_partida.class, null)
+                        .commit();
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listItem ranking = lista.get(position);
-                Intent intent = new Intent(getActivity(),PantallaJuego.class);
-                startActivity(intent);
+                listItem item = lista.get(position);
 
+
+                String ranking=item.getName();
+                Intent intent = new Intent(getActivity(),PantallaJuego.class);
+
+                Bundle b = new Bundle();
+                b.putString("key", ranking); //Your id
+                intent.putExtras(b); //Put your id to your next Intent
+                startActivity(intent);
             }
         });
 
@@ -72,7 +91,7 @@ public class Lista1vs1 extends Fragment {
         lista = new ArrayList<>();
 
 
-        String url = "http://192.168.43.6:8080/api/partida/findAllGames/0";
+        String url = "http://192.168.1.33:8080/api/partida/findAllGames/0";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
