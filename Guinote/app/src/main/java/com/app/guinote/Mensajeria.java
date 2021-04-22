@@ -39,10 +39,7 @@ public class Mensajeria extends PantallaJuego {
 
 
 
-    Mensajeria(){
-        mensajeDeTextos = new ArrayList<>();
-        adapter = new MensajesAdapter(mensajeDeTextos);
-    }
+
 
 
     @Override
@@ -54,6 +51,9 @@ public class Mensajeria extends PantallaJuego {
         bEscribirMensaje = (EditText) findViewById(R.id.edittextchat);
         bEnviarMensaje = (Button) findViewById(R.id.buttonchat);
 
+
+        Log.d("prueba",mensajeDeTextos.toString());
+        adapter = new MensajesAdapter(mensajeDeTextos);
         rv = (RecyclerView) findViewById(R.id.rv_mensajes);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
@@ -95,6 +95,7 @@ public class Mensajeria extends PantallaJuego {
                 finish();
             }
         });
+        adapter.notifyDataSetChanged();
         setScrollbarChat();
     }
 

@@ -101,6 +101,8 @@ public class PantallaJuego extends AppCompatActivity {
                     if (!username.equals(nameUser)) {
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
                         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                        Log.d("prueba2",mensajeDeTextoAuxiliar.toString());
+                        Log.d("prueba2",mensajeDeTextos.get(0).toString());
                     }
                 }
             });
@@ -140,6 +142,7 @@ public class PantallaJuego extends AppCompatActivity {
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
 
+        mensajeDeTextos = new ArrayList<>();
 
         mensajeria = new Mensajeria();
 
@@ -165,7 +168,7 @@ public class PantallaJuego extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.d("json",auxiliar.toString());
+        Log.d("jsonDePrueba",auxiliar.toString());
         mSocket.emit("join", auxiliar, new Ack() {
             @Override
             public void call(Object... args) {
