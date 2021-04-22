@@ -117,6 +117,7 @@
         </RelativeLayout>
         <Button
             android:textColor="#349702"
+            android:id="@+id/editperfil"
             android:layout_marginTop="10dp"
             android:layout_marginRight="12dp"
             android:layout_width="match_parent"
