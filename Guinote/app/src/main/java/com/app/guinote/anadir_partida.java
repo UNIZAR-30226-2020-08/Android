@@ -99,6 +99,10 @@ public class anadir_partida extends Fragment {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragmento_app, Lista1vs1.class, null)
+                                .commit();
                         System.out.println(response);
                     }
                 }, new Response.ErrorListener() {
