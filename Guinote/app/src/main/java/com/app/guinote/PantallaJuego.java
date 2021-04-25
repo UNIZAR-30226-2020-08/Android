@@ -1,6 +1,9 @@
 package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -11,12 +14,17 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -36,6 +44,14 @@ import io.socket.emitter.Emitter;
 
 public class PantallaJuego extends AppCompatActivity {
 
+
+    private RecyclerView rv;
+    private EditText bEscribirMensaje;
+    private Button bEnviarMensaje;
+    private MensajesAdapter adapter;
+    private int TEXT_LINES=1;
+    private Toolbar toolbar;
+
     private int mRemainingTime = 30;
     private String room="";
     private Socket mSocket;
@@ -44,6 +60,7 @@ public class PantallaJuego extends AppCompatActivity {
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
     Button cantar;
+    LinearLayout linearLayoutJuego,linearLayoutChat;
     ArrayList<Carta> cards;
     Carta[] cardsj1 = new Carta[6];
     Carta[] cardsj2 = new Carta[6];
@@ -136,10 +153,63 @@ public class PantallaJuego extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_juego);
+        //////////////////////////////////////////////////////////////////////aqui empieza el OnCreate de Mensajeria
+        toolbar = (Toolbar) findViewById(R.id.toolbar_back_chat);
+        bEscribirMensaje = (EditText) findViewById(R.id.edittextchat);
+        bEnviarMensaje = (Button) findViewById(R.id.buttonchat);
 
 
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
+
+        Log.d("prueba",mensajeDeTextos.toString());
+        adapter = new MensajesAdapter(mensajeDeTextos);
+        rv = (RecyclerView) findViewById(R.id.rv_mensajes);
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        rv.setLayoutManager(lm);
+
+        rv.setAdapter(adapter);
+
+        bEscribirMensaje.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(bEscribirMensaje.getLayout().getLineCount() != TEXT_LINES){
+                    setScrollbarChat();
+                    TEXT_LINES = bEscribirMensaje.getLayout().getLineCount();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        bEnviarMensaje.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String texto=bEscribirMensaje.getText().toString();
+                CreateMensaje(getName(),bEscribirMensaje.getText().toString(),1);
+                attemptSend(texto);
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeVisibilityJuego();
+            }
+        });
+        //adapter.notifyDataSetChanged();
+        setScrollbarChat();
+
+        ////////////////////////////////////////////////////////////////////////aqui acaba el Oncreate de mensajeria
+
 
         mensajeDeTextos = new ArrayList<>();
 
@@ -174,7 +244,9 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
 
-
+        linearLayoutJuego = (LinearLayout) findViewById(R.id.juego_layout);
+        linearLayoutChat = (LinearLayout) findViewById(R.id.linear_chat);
+        changeVisibilityJuego();
         chat = (ImageView) findViewById(R.id.icono_chat);
         j1image = (ImageView) findViewById(R.id.carta_jugador1);
         j2image = (ImageView) findViewById(R.id.carta_jugador2);
@@ -367,8 +439,7 @@ public class PantallaJuego extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Mensajeria.class);
-                startActivity(intent);
+                changeVisibilityChat();
             }
         });
 
@@ -621,6 +692,16 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void changeVisibilityJuego(){
+        linearLayoutChat.setVisibility(View.GONE);
+        linearLayoutJuego.setVisibility(View.VISIBLE);
+    }
+
+    private void changeVisibilityChat(){
+        linearLayoutJuego.setVisibility(View.GONE);
+        linearLayoutChat.setVisibility(View.VISIBLE);
     }
 
     private void updatelast3cards() {
@@ -989,6 +1070,18 @@ public class PantallaJuego extends AppCompatActivity {
 
         }
 
+    }
+
+    public void CreateMensaje(String user, String mensaje, Integer tipo){
+        MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",mensaje,tipo,user);
+        mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+        adapter.notifyDataSetChanged();
+        bEscribirMensaje.setText("");
+        setScrollbarChat();
+    }
+
+    public void setScrollbarChat(){
+        rv.scrollToPosition(adapter.getItemCount()-1);
     }
 
 
