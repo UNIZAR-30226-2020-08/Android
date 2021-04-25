@@ -2,6 +2,8 @@ package com.app.guinote;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,10 +48,7 @@ public class PantallaJuego extends AppCompatActivity {
 
 
     private RecyclerView rv;
-    private EditText bEscribirMensaje;
-    private Button bEnviarMensaje;
-    private MensajesAdapter adapter;
-    private int TEXT_LINES=1;
+    public int TEXT_LINES=1;
     private Toolbar toolbar;
 
     private int mRemainingTime = 30;
@@ -73,7 +72,7 @@ public class PantallaJuego extends AppCompatActivity {
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
     Integer puntosE1,puntosE2; //Puntos de cada equipo en general
-    public static List<MensajeDeTexto> mensajeDeTextos;
+    public List<MensajeDeTexto> mensajeDeTextos;
 
 
 
@@ -117,8 +116,14 @@ public class PantallaJuego extends AppCompatActivity {
                     if (!username.equals(nameUser)) {
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
                         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-                        Log.d("prueba2",mensajeDeTextoAuxiliar.toString());
-                        Log.d("prueba2",mensajeDeTextos.get(0).toString());
+                        FragmentManager fm = getSupportFragmentManager();
+
+
+                        Chat fragment = (Chat) fm.findFragmentById(R.id.fragmento_chat);
+
+                        if (fragment != null) {
+                            fragment.CreateMensaje(username, message, 2);
+                        }
                     }
                 }
             });
@@ -153,63 +158,13 @@ public class PantallaJuego extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_juego);
-        //////////////////////////////////////////////////////////////////////aqui empieza el OnCreate de Mensajeria
-        toolbar = (Toolbar) findViewById(R.id.toolbar_back_chat);
-        bEscribirMensaje = (EditText) findViewById(R.id.edittextchat);
-        bEnviarMensaje = (Button) findViewById(R.id.buttonchat);
+
+        FragmentManager fm = getSupportFragmentManager();
+        Chat fragmentoChat = (Chat) fm.findFragmentById(R.id.fragmento_chat);
 
 
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
-
-        Log.d("prueba",mensajeDeTextos.toString());
-        adapter = new MensajesAdapter(mensajeDeTextos);
-        rv = (RecyclerView) findViewById(R.id.rv_mensajes);
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        rv.setLayoutManager(lm);
-
-        rv.setAdapter(adapter);
-
-        bEscribirMensaje.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(bEscribirMensaje.getLayout().getLineCount() != TEXT_LINES){
-                    setScrollbarChat();
-                    TEXT_LINES = bEscribirMensaje.getLayout().getLineCount();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        bEnviarMensaje.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String texto=bEscribirMensaje.getText().toString();
-                CreateMensaje(getName(),bEscribirMensaje.getText().toString(),1);
-                attemptSend(texto);
-            }
-        });
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeVisibilityJuego();
-            }
-        });
-        //adapter.notifyDataSetChanged();
-        setScrollbarChat();
-
-        ////////////////////////////////////////////////////////////////////////aqui acaba el Oncreate de mensajeria
-
 
         mensajeDeTextos = new ArrayList<>();
 
@@ -220,7 +175,7 @@ public class PantallaJuego extends AppCompatActivity {
         if(b != null)
             room = b.getString("key");
 
-        mSocket = IO.socket(URI.create("http://192.168.1.33:5000"));
+        mSocket = IO.socket(URI.create("http://192.168.1.36:5000"));
 
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
@@ -439,7 +394,11 @@ public class PantallaJuego extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeVisibilityChat();
+                Log.d("holapulsa","hoas");
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmento_chat, Chat.class, null)
+                        .commit();
             }
         });
 
@@ -694,14 +653,9 @@ public class PantallaJuego extends AppCompatActivity {
 
     }
 
-    private void changeVisibilityJuego(){
+    public void changeVisibilityJuego(){
         linearLayoutChat.setVisibility(View.GONE);
         linearLayoutJuego.setVisibility(View.VISIBLE);
-    }
-
-    private void changeVisibilityChat(){
-        linearLayoutJuego.setVisibility(View.GONE);
-        linearLayoutChat.setVisibility(View.VISIBLE);
     }
 
     private void updatelast3cards() {
@@ -1072,17 +1026,6 @@ public class PantallaJuego extends AppCompatActivity {
 
     }
 
-    public void CreateMensaje(String user, String mensaje, Integer tipo){
-        MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",mensaje,tipo,user);
-        mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-        adapter.notifyDataSetChanged();
-        bEscribirMensaje.setText("");
-        setScrollbarChat();
-    }
-
-    public void setScrollbarChat(){
-        rv.scrollToPosition(adapter.getItemCount()-1);
-    }
 
 
     public String getName() {

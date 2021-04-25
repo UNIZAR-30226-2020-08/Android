@@ -1,12 +1,22 @@
 package com.app.guinote;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +29,13 @@ public class Chat extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private View view;
+    private EditText bEscribirMensaje;
+    private Button bEnviarMensaje;
+    private MensajesAdapter adapter;
+    private RecyclerView rv;
+    private SQLiteDatabase db;
+    private Toolbar toolbar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,6 +76,78 @@ public class Chat extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        view= inflater.inflate(R.layout.fragment_chat, container, false);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar_back_chat);
+        bEscribirMensaje = (EditText) view.findViewById(R.id.edittextchat);
+        bEnviarMensaje = (Button) view.findViewById(R.id.buttonchat);
+
+
+
+
+        adapter = new MensajesAdapter(((PantallaJuego)getActivity()).mensajeDeTextos);
+        rv = (RecyclerView) view.findViewById(R.id.rv_mensajes);
+        LinearLayoutManager lm = new LinearLayoutManager(getContext());
+        rv.setLayoutManager(lm);
+
+        rv.setAdapter(adapter);
+
+        bEscribirMensaje.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(bEscribirMensaje.getLayout().getLineCount() != ((PantallaJuego)getActivity()).TEXT_LINES){
+                    setScrollbarChat();
+                    ((PantallaJuego)getActivity()).TEXT_LINES = bEscribirMensaje.getLayout().getLineCount();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        bEnviarMensaje.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String texto=bEscribirMensaje.getText().toString();
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",bEscribirMensaje.getText().toString(),1,((PantallaJuego)getActivity()).getName());
+                ((PantallaJuego)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego)getActivity()).getName(),bEscribirMensaje.getText().toString(),1);
+                ((PantallaJuego)getActivity()).attemptSend(texto);
+                bEscribirMensaje.setText("");
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
+                Chat fragment = (Chat) fm.findFragmentById(R.id.fragmento_chat);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .hide(fragment)
+                        .commit();
+            }
+        });
+        //adapter.notifyDataSetChanged();
+        setScrollbarChat();
+        return view;
+    }
+
+    public void CreateMensaje(String user, String mensaje, Integer tipo){
+        adapter.notifyDataSetChanged();
+        //bEscribirMensaje.setText("");
+        setScrollbarChat();
+    }
+
+    public void setScrollbarChat(){
+        rv.scrollToPosition(adapter.getItemCount()-1);
     }
 }
