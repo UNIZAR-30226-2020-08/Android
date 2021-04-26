@@ -153,6 +153,46 @@ public class PantallaJuego extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onRepartirCartas = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String todo;
+                    String username;
+                    String partida;
+                    Integer equipo;
+                    String carta1;
+                    String carta2;
+                    String carta3;
+                    String carta4;
+                    String carta5;
+                    String carta6;
+                    try {
+                        JSONObject comoquieras = data.getJSONObject("repartidas");
+                        username = comoquieras.getString("jugador");
+                        /*
+                        username = data.getString("jugador");
+                        partida = data.getString("partida");
+                        equipo = data.getInt("equipo");
+                        carta1 = data.getString("c1");
+                        carta2 = data.getString("c2");
+                        carta3 = data.getString("c3");
+                        carta4 = data.getString("c4");
+                        carta5 = data.getString("c5");
+                        carta6 = data.getString("c6");*/
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    // add the message to view
+                    Log.d("Cartas bb",username.toString());
+                }
+            });
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,24 +201,17 @@ public class PantallaJuego extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         Chat fragmentoChat = (Chat) fm.findFragmentById(R.id.fragmento_chat);
-
-
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
-
         mensajeDeTextos = new ArrayList<>();
-
-
         nameUser=getName();
-
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
-
-        mSocket = IO.socket(URI.create("http://192.168.1.36:5000"));
-
+        mSocket = IO.socket(URI.create("http://192.168.56.1:5000"));
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
+        mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -189,7 +222,6 @@ public class PantallaJuego extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         Log.d("jsonDePrueba",auxiliar.toString());
         mSocket.emit("join", auxiliar, new Ack() {
             @Override
@@ -222,19 +254,8 @@ public class PantallaJuego extends AppCompatActivity {
         reverse = (ImageView) findViewById(R.id.mazo_central);
         triumphe = (ImageView) findViewById(R.id.mazo_central_volteado);
         triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe);
-        triumphewhole.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivityCambio7();
-            }
-        });
         cantar = (Button) findViewById(R.id.button_cantar);
-        cantar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivityCantar();
-            }
-        });
+
         c1whole.setVisibility(View.INVISIBLE);
         c2whole.setVisibility(View.INVISIBLE);
         c3whole.setVisibility(View.INVISIBLE);
@@ -243,11 +264,13 @@ public class PantallaJuego extends AppCompatActivity {
         c6whole.setVisibility(View.INVISIBLE);
         triumphewhole.setVisibility(View.INVISIBLE);
         reverse.setVisibility(View.INVISIBLE);
+        
         arrastre = false;
         baza = false;
-        cards = new ArrayList<>();
         iterator = 0;
         IDcomienzo = 0;
+
+        cards = new ArrayList<>();
         MyDragEventListener mDragListen = new MyDragEventListener();
         c1.setOnDragListener(mDragListen);
         c2.setOnDragListener(mDragListen);
@@ -346,10 +369,12 @@ public class PantallaJuego extends AppCompatActivity {
         cards.add(dosbastos);
         Carta doscopas = new Carta(40,0,4,10);
         cards.add(doscopas);
+        /*
         System.out.println("Antes de barajar");
         for (int i = 0; i<40; i++){
             System.out.println(cards.get(i).getId());
         }
+
         Collections.shuffle(cards);
         System.out.println("Despues de barajar");
         for (int i = 0; i<40; i++){
@@ -390,7 +415,7 @@ public class PantallaJuego extends AppCompatActivity {
 
         iterator = 24;
         triunfo = cards.get(39).getPalo();
-
+        */
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -401,9 +426,6 @@ public class PantallaJuego extends AppCompatActivity {
                         .commit();
             }
         });
-
-
-
         c1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -424,14 +446,12 @@ public class PantallaJuego extends AppCompatActivity {
                 return true;
             }
         });
-
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 assignImages(cardsj1[0],j1image);
             }
         });
-
         c2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -449,14 +469,12 @@ public class PantallaJuego extends AppCompatActivity {
                 return true;
             }
         });
-
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 assignImages(cardsj1[1],j1image);
             }
         });
-
         c3.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -474,14 +492,12 @@ public class PantallaJuego extends AppCompatActivity {
                 return true;
             }
         });
-
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 assignImages(cardsj1[2],j1image);
             }
         });
-
         c4.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -505,7 +521,6 @@ public class PantallaJuego extends AppCompatActivity {
                 assignImages(cardsj1[3],j1image);
             }
         });
-
         c5.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -552,57 +567,72 @@ public class PantallaJuego extends AppCompatActivity {
                 assignImages(cardsj1[5],j1image);
             }
         });
+        triumphewhole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityCambio7();
+            }
+        });
+        cantar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityCantar();
+            }
+        });
 
+    }
+    //Animación de iniciar la partida;
+    private void iniciarPartida(){
         new Thread() {
             @Override
             public void run() {
-                    try{
-                        Thread.sleep(1000);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    setVisibility3firstcards();
-                    try{
-                        Thread.sleep(1000);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    updatefirst3cards();
-                    try{
-                        Thread.sleep(1000);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    setVisibility3secondcards();
-                    try{
-                        Thread.sleep(1000);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    updatelast3cards();
-                    try{
-                        Thread.sleep(1000);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    setVisibilitytriumphe();
-                    try{
-                        Thread.sleep(500);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    updatecenterCard();
-                    try{
-                        Thread.sleep(1000);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    setVisibilityreverse();
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                setVisibility3firstcards();
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatefirst3cards();
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                setVisibility3secondcards();
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatelast3cards();
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                setVisibilitytriumphe();
+                try{
+                    Thread.sleep(500);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatecenterCard();
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                setVisibilityreverse();
             }
         }.start();
-
     }
 
+    //Set visibilities
     private void setVisibility3firstcards() {
         runOnUiThread(new Runnable() {
             @Override
@@ -613,7 +643,6 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
     }
-
     private void setVisibility3secondcards() {
         runOnUiThread(new Runnable() {
             @Override
@@ -624,7 +653,6 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
     }
-
     private void setVisibilitytriumphe() {
         runOnUiThread(new Runnable() {
             @Override
@@ -633,7 +661,6 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
     }
-
     private void setVisibilityreverse() {
         runOnUiThread(new Runnable() {
             @Override
@@ -642,7 +669,6 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
     }
-
     private void updatecenterCard() {
         runOnUiThread(new Runnable() {
             @Override
@@ -652,12 +678,10 @@ public class PantallaJuego extends AppCompatActivity {
         });
 
     }
-
     public void changeVisibilityJuego(){
         linearLayoutChat.setVisibility(View.GONE);
         linearLayoutJuego.setVisibility(View.VISIBLE);
     }
-
     private void updatelast3cards() {
         runOnUiThread(new Runnable() {
             @Override
@@ -668,7 +692,6 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
     }
-
     private void updatefirst3cards() {
         runOnUiThread(new Runnable() {
             @Override
@@ -679,7 +702,6 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
     }
-
     private void openActivityCantar() {
         Integer num = 0;
         for(int i = 1; i<5; i++){
@@ -695,7 +717,6 @@ public class PantallaJuego extends AppCompatActivity {
             num = 0;
         }
     }
-
     private void sumarPuntosCantar(int i) {
         if(i == triunfo){
             puntosE1 = puntosE1 + 40;
@@ -875,8 +896,6 @@ public class PantallaJuego extends AppCompatActivity {
                 return null;
         }
     }
-
-
     private Integer queID(Integer id){
         if (id ==c1.getId()) {
             return 0;
@@ -1025,8 +1044,6 @@ public class PantallaJuego extends AppCompatActivity {
         }
 
     }
-
-
 
     public String getName() {
         String query="SELECT user FROM auth";

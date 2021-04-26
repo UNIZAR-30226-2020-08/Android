@@ -87,7 +87,7 @@ public class MainActivity extends Fragment {
                         R.anim.slide_out
                 )
                 .setReorderingAllowed(true)
-                .replace(R.id.fragmento_app, Lista1vs1.class, null)
+                .replace(R.id.fragmento_app, Lista2vs2.class, null)
                 .commit();
     }
     public void openActivity3(){
