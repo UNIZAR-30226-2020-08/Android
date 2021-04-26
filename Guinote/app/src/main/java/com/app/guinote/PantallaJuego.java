@@ -183,16 +183,45 @@ public class PantallaJuego extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    if (!username.equals(nameUser)) {
+                    if (username.equals(nameUser)) {
+                        Log.d("username", username);
+                        Log.d("nameuser", nameUser);
                         cardsj1[0] = new Carta(carta1);
                         cardsj1[1] = new Carta(carta2);
                         cardsj1[2] = new Carta(carta3);
                         cardsj1[3] = new Carta(carta4);
                         cardsj1[4] = new Carta(carta5);
                         cardsj1[5] = new Carta(carta6);
-                        iniciarPartida();
+                        assignImages(cardsj1[0], c1);
+                        assignImages(cardsj1[1], c2);
+                        assignImages(cardsj1[2], c3);
+                        assignImages(cardsj1[3], c4);
+                        assignImages(cardsj1[4], c5);
+                        assignImages(cardsj1[5], c6);
                     }
 
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRepartirTriunfo = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String triunfo;
+                    try {
+                        triunfo = data.getString("triunfoRepartido");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    cartaTriunfo = new Carta(triunfo);
+                    assignImages(cartaTriunfo, triumphe);
+                    iniciarPartida();
                 }
             });
         }
@@ -209,6 +238,7 @@ public class PantallaJuego extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
         mensajeDeTextos = new ArrayList<>();
         nameUser=getName();
+        Log.d("holaaaaaaaa ",nameUser);
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
@@ -216,11 +246,13 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);
+        mSocket.on("RepartirTriunfo", onRepartirTriunfo);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
             auxiliar.put("name", getName());
             auxiliar.put("room", room);
+            auxiliar.put("tipo", 1);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
