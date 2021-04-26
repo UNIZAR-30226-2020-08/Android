@@ -6,7 +6,7 @@
     tools:context=".ranking">
 
     <ListView
-        android:background="#ffffff"
+        android:background="#E6EBEF"
         android:id="@+id/lista_global"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

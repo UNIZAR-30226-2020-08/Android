@@ -56,7 +56,6 @@ public class ranking extends Fragment {
                 .replace(R.id.fragmento_ranking,ListRanking.class, null)
                 .commit();
 
-        amigos.setBackgroundColor(Color.parseColor("#02590A"));
         global.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +72,6 @@ public class ranking extends Fragment {
     }
 
     public void openActivity(){
-        amigos.setBackgroundColor(Color.parseColor("#00000000"));
-        global.setBackgroundColor(Color.parseColor("#02590A"));
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
                         R.anim.side_in_left,
@@ -86,8 +83,6 @@ public class ranking extends Fragment {
     }
 
     public void openActivity2(){
-        global.setBackgroundColor(Color.parseColor("#00000000"));
-        amigos.setBackgroundColor(Color.parseColor("#02590A"));
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
                         R.anim.side_in_left,
