@@ -62,12 +62,10 @@ public class PantallaJuego extends AppCompatActivity {
     LinearLayout linearLayoutJuego,linearLayoutChat;
     ArrayList<Carta> cards;
     Carta[] cardsj1 = new Carta[6];
-    Carta[] cardsj2 = new Carta[6];
-    Carta[] cardsj3 = new Carta[6];
-    Carta[] cardsj4 = new Carta[6];
     Integer iterator;   //Cual es la siguiente carta a robar en el mazo
     Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (cada jugador tiene su propio IDcomienzo)
     boolean arrastre;   //Si estamos en arrastre o no
+    Carta cartaTriunfo;
     Integer triunfo;    //1 si el triunfo es oros, 2 espadas, 3 bastos y 4 copas
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
@@ -171,24 +169,30 @@ public class PantallaJuego extends AppCompatActivity {
                     String carta5;
                     String carta6;
                     try {
-                        JSONObject comoquieras = data.getJSONObject("repartidas");
-                        username = comoquieras.getString("jugador");
-                        /*
-                        username = data.getString("jugador");
-                        partida = data.getString("partida");
-                        equipo = data.getInt("equipo");
-                        carta1 = data.getString("c1");
-                        carta2 = data.getString("c2");
-                        carta3 = data.getString("c3");
-                        carta4 = data.getString("c4");
-                        carta5 = data.getString("c5");
-                        carta6 = data.getString("c6");*/
+                        JSONObject datos = data.getJSONObject("repartidas");
+                        username = datos.getString("jugador");
+                        partida = datos.getString("partida");
+                        equipo = datos.getInt("equipo");
+                        carta1 = datos.getString("c1");
+                        carta2 = datos.getString("c2");
+                        carta3 = datos.getString("c3");
+                        carta4 = datos.getString("c4");
+                        carta5 = datos.getString("c5");
+                        carta6 = datos.getString("c6");
 
                     } catch (JSONException e) {
                         return;
                     }
-                    // add the message to view
-                    Log.d("Cartas bb",username.toString());
+                    if (!username.equals(nameUser)) {
+                        cardsj1[0] = new Carta(carta1);
+                        cardsj1[1] = new Carta(carta2);
+                        cardsj1[2] = new Carta(carta3);
+                        cardsj1[3] = new Carta(carta4);
+                        cardsj1[4] = new Carta(carta5);
+                        cardsj1[5] = new Carta(carta6);
+                        iniciarPartida();
+                    }
+
                 }
             });
         }
@@ -280,95 +284,7 @@ public class PantallaJuego extends AppCompatActivity {
         c6.setOnDragListener(mDragListen);
 
 
-        Carta asoros = new Carta(1,11,1,1);
-        cards.add(asoros);
-        Carta asespadas = new Carta(2,11,2,1);
-        cards.add(asespadas);
-        Carta asbastos = new Carta(3,11,3,1);
-        cards.add(asbastos);
-        Carta ascopas = new Carta(4,11,4,1);
-        cards.add(ascopas);
 
-        Carta tresoros = new Carta(5,10,1,2);
-        cards.add(tresoros);
-        Carta tresespadas = new Carta(6,10,2,2);
-        cards.add(tresespadas);
-        Carta tresbastos = new Carta(7,10,3,2);
-        cards.add(tresbastos);
-        Carta trescopas = new Carta(8,10,4,2);
-        cards.add(trescopas);
-
-        Carta reyoros = new Carta(9,4,1,3);
-        cards.add(reyoros);
-        Carta reyespadas = new Carta(10,4,2,3);
-        cards.add(reyespadas);
-        Carta reybastos = new Carta(11,4,3,3);
-        cards.add(reybastos);
-        Carta reycopas = new Carta(12,4,4,3);
-        cards.add(reycopas);
-
-        Carta sotaoros = new Carta(13,3,1,4);
-        cards.add(sotaoros);
-        Carta sotaespadas = new Carta(14,3,2,4);
-        cards.add(sotaespadas);
-        Carta sotabastos = new Carta(15,3,3,4);
-        cards.add(sotabastos);
-        Carta sotacopas = new Carta(16,3,4,4);
-        cards.add(sotacopas);
-
-        Carta caballooros = new Carta(17,2,1,5);
-        cards.add(caballooros);
-        Carta caballoespadas = new Carta(18,2,2,5);
-        cards.add(caballoespadas);
-        Carta caballobastos = new Carta(19,2,3,5);
-        cards.add(caballobastos);
-        Carta caballocopas = new Carta(20,2,4,5);
-        cards.add(caballocopas);
-
-        Carta sieteoros = new Carta(21,0,1,6);
-        cards.add(sieteoros);
-        Carta sieteespadas = new Carta(22,0,2,6);
-        cards.add(sieteespadas);
-        Carta sietebastos = new Carta(23,0,3,6);
-        cards.add(sietebastos);
-        Carta sietecopas = new Carta(24,0,4,6);
-        cards.add(sietecopas);
-
-        Carta seisoros = new Carta(25,0,1,7);
-        cards.add(seisoros);
-        Carta seisespadas = new Carta(26,0,2,7);
-        cards.add(seisespadas);
-        Carta seisbastos = new Carta(27,0,3,7);
-        cards.add(seisbastos);
-        Carta seiscopas = new Carta(28,0,4,7);
-        cards.add(seiscopas);
-
-        Carta cincooros = new Carta(29,0,1,8);
-        cards.add(cincooros);
-        Carta cincoespadas = new Carta(30,0,2,8);
-        cards.add(cincoespadas);
-        Carta cincobastos = new Carta(31,0,3,8);
-        cards.add(cincobastos);
-        Carta cincocopas = new Carta(32,0,4,8);
-        cards.add(cincocopas);
-
-        Carta cuatrooros = new Carta(33,0,1,9);
-        cards.add(cuatrooros);
-        Carta cuatroespadas = new Carta(34,0,2,9);
-        cards.add(cuatroespadas);
-        Carta cuatrobastos = new Carta(35,0,3,9);
-        cards.add(cuatrobastos);
-        Carta cuatrocopas = new Carta(36,0,4,9);
-        cards.add(cuatrocopas);
-
-        Carta dosoros = new Carta(37,0,1,10);
-        cards.add(dosoros);
-        Carta dosespadas = new Carta(38,0,2,10);
-        cards.add(dosespadas);
-        Carta dosbastos = new Carta(39,0,3,10);
-        cards.add(dosbastos);
-        Carta doscopas = new Carta(40,0,4,10);
-        cards.add(doscopas);
         /*
         System.out.println("Antes de barajar");
         for (int i = 0; i<40; i++){
@@ -915,126 +831,126 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     public void assignImages(Carta card, ImageView image){
-        int cual = card.getId();
+        String cual = card.getId();
         switch (cual){
-            case 1:
+            case "0O":
                 image.setImageResource(R.drawable.asoros);
                 break;
-            case 2:
+            case "0E":
                 image.setImageResource(R.drawable.asespadas);
                 break;
-            case 3:
+            case "0B":
                 image.setImageResource(R.drawable.asbastos);
                 break;
-            case 4:
+            case "0C":
                 image.setImageResource(R.drawable.ascopas);
                 break;
-            case 5:
+            case "2O":
                 image.setImageResource(R.drawable.tresoros);
                 break;
-            case 6:
+            case "2E":
                 image.setImageResource(R.drawable.tresespadas);
                 break;
-            case 7:
+            case "2B":
                 image.setImageResource(R.drawable.tresbastos);
                 break;
-            case 8:
+            case "2C":
                 image.setImageResource(R.drawable.trescopas);
                 break;
-            case 9:
+            case "9O":
                 image.setImageResource(R.drawable.reyoros);
                 break;
-            case 10:
+            case "9E":
                 image.setImageResource(R.drawable.reyespadas);
                 break;
-            case 11:
+            case "9B":
                 image.setImageResource(R.drawable.reybastos);
                 break;
-            case 12:
+            case "9C":
                 image.setImageResource(R.drawable.reycopas);
                 break;
-            case 13:
+            case "7O":
                 image.setImageResource(R.drawable.sotaoros);
                 break;
-            case 14:
+            case "7E":
                 image.setImageResource(R.drawable.sotaespadas);
                 break;
-            case 15:
+            case "7B":
                 image.setImageResource(R.drawable.sotabastos);
                 break;
-            case 16:
+            case "7C":
                 image.setImageResource(R.drawable.sotacopas);
                 break;
-            case 17:
+            case "8O":
                 image.setImageResource(R.drawable.caballooros);
                 break;
-            case 18:
+            case "8E":
                 image.setImageResource(R.drawable.caballoespadas);
                 break;
-            case 19:
+            case "8B":
                 image.setImageResource(R.drawable.caballobastos);
                 break;
-            case 20:
+            case "8C":
                 image.setImageResource(R.drawable.caballocopas);
                 break;
-            case 21:
+            case "6O":
                 image.setImageResource(R.drawable.sieteoros);
                 break;
-            case 22:
+            case "6E":
                 image.setImageResource(R.drawable.sieteespadas);
                 break;
-            case 23:
+            case "6B":
                 image.setImageResource(R.drawable.sietebastos);
                 break;
-            case 24:
+            case "6C":
                 image.setImageResource(R.drawable.sietecopas);
                 break;
-            case 25:
+            case "5O":
                 image.setImageResource(R.drawable.seisoros);
                 break;
-            case 26:
+            case "5E":
                 image.setImageResource(R.drawable.seisespadas);
                 break;
-            case 27:
+            case "5B":
                 image.setImageResource(R.drawable.seisbastos);
                 break;
-            case 28:
+            case "5C":
                 image.setImageResource(R.drawable.seiscopas);
                 break;
-            case 29:
+            case "4O":
                 image.setImageResource(R.drawable.cincooros);
                 break;
-            case 30:
+            case "4E":
                 image.setImageResource(R.drawable.cincoespadas);
                 break;
-            case 31:
+            case "4B":
                 image.setImageResource(R.drawable.cincobastos);
                 break;
-            case 32:
+            case "4C":
                 image.setImageResource(R.drawable.cincocopas);
                 break;
-            case 33:
+            case "3O":
                 image.setImageResource(R.drawable.cuatrooros);
                 break;
-            case 34:
+            case "3E":
                 image.setImageResource(R.drawable.cuatroespadas);
                 break;
-            case 35:
+            case "3B":
                 image.setImageResource(R.drawable.cuatrobastos);
                 break;
-            case 36:
+            case "3C":
                 image.setImageResource(R.drawable.cuatrocopas);
                 break;
-            case 37:
+            case "1O":
                 image.setImageResource(R.drawable.dosoros);
                 break;
-            case 38:
+            case "1E":
                 image.setImageResource(R.drawable.dosespadas);
                 break;
-            case 39:
+            case "1B":
                 image.setImageResource(R.drawable.dosbastos);
                 break;
-            case 40:
+            case "1C":
                 image.setImageResource(R.drawable.doscopas);
                 break;
             default:
