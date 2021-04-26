@@ -4,10 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,6 +41,7 @@ public class anadir_partida extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Integer cual;
 
     public anadir_partida() {
         // Required empty public constructor
@@ -75,13 +78,17 @@ public class anadir_partida extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         final View view =inflater.inflate(R.layout.fragment_anadir_partida, container, false);
         Button creacion= view.findViewById(R.id.boton_anadir);
 
+
+        cual = getArguments().getInt("tipoPartida");
+        Log.d("cual",cual.toString());
         creacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                String postUrl = "http://192.168.1.36:8080/api/partida/";
+                String postUrl = "http://192.168.56.1:8080/api/partida/";
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                 TextInputLayout cajaNombre= (TextInputLayout) view.findViewById(R.id.cajaPartidaAnadir);
                 String nombreUsername=cajaNombre.getEditText().getText().toString();
@@ -90,7 +97,7 @@ public class anadir_partida extends Fragment {
                     postData.put("nombre", nombreUsername);
                     postData.put("triunfo", "");
                     postData.put("estado", 0);
-                    postData.put("tipo", 0);
+                    postData.put("tipo", cual);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -99,10 +106,17 @@ public class anadir_partida extends Fragment {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmento_app, Lista1vs1.class, null)
-                                .commit();
+                        if(cual == 0){
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmento_app, Lista1vs1.class, null)
+                                    .commit();
+                        }else{
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmento_app, Lista2vs2.class, null)
+                                    .commit();
+                        }
                         System.out.println(response);
                     }
                 }, new Response.ErrorListener() {

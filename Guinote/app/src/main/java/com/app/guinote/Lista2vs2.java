@@ -32,14 +32,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lista1vs1 extends Fragment {
+public class Lista2vs2 extends Fragment {
 
     View view;
 
     ListView listView;
     List<listItem> lista;
 
-    public Lista1vs1(){
+    public Lista2vs2(){
         super(R.layout.activity_lista1vs1);
     }
 
@@ -52,6 +52,7 @@ public class Lista1vs1 extends Fragment {
         listView = view.findViewById(R.id.lista1vs1);
 
 
+
         GetData();
 
 
@@ -61,11 +62,12 @@ public class Lista1vs1 extends Fragment {
             @Override
             public void onClick(final View v) {
                 Bundle tipo = new Bundle();
-                tipo.putInt("tipoPartida", 0 ); //Your id
+                tipo.putInt("tipoPartida", 1 );
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .add(R.id.fragmento_anadir_partida, anadir_partida.class, tipo)
                         .commit();
+
             }
         });
 
@@ -93,7 +95,7 @@ public class Lista1vs1 extends Fragment {
         lista = new ArrayList<>();
 
 
-        String url = "http://192.168.56.1:8080/api/partida/findAllGames/0";
+        String url = "http://192.168.56.1:8080/api/partida/findAllGames/1";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -105,7 +107,7 @@ public class Lista1vs1 extends Fragment {
                         String nombre=objeto.getString("nombre");
                         Integer puntuacion=objeto.getInt("jugadores_online");
                         Log.d("msg",nombre);
-                        lista.add(new listItem(i,nombre,R.drawable.sieteespadas,puntuacion.toString()+"/2"));
+                        lista.add(new listItem(i,nombre,R.drawable.sieteespadas,puntuacion.toString()+"/4"));
                     }
                     listAdapter adapter = new listAdapter(getActivity(),lista);
                     listView.setAdapter(adapter);
