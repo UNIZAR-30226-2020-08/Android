@@ -1,12 +1,15 @@
 package com.app.guinote;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 public class HistAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
@@ -57,6 +60,14 @@ public class HistAdapter extends BaseAdapter {
         jugadores.setText(datos[position][2]);
         imagen.setImageResource(imagenes[position]);
 
+
+        if (datos[position][0]=="VICTORIA"){
+            int myColor = ContextCompat.getColor(context, R.color.ganada);
+            vista.setBackgroundColor(myColor);
+        }else{
+            int myColor2 = ContextCompat.getColor(context, R.color.perdida);
+            vista.setBackgroundColor(myColor2);
+        }
         return vista;
 
     }
