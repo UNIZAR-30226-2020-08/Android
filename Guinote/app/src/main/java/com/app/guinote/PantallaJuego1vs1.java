@@ -120,6 +120,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
                     // add the message to view
                     Log.d("username",username+" "+nameUser);
+                    chat.setImageResource(R.drawable.chat_new_msg);
                     if (!username.equals(nameUser)) {
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
                         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
@@ -338,6 +339,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                chat.setImageResource(R.drawable.chat);
                 Log.d("holapulsa","hoas");
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
