@@ -6,32 +6,55 @@
     android:background="#E6EBEF"
     tools:context=".ListRanking">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <ListView
-        android:background="#00000000"
-        android:id="@+id/lista_amigos"
-        android:layout_width="match_parent"
-        android:padding="8dp"
-        android:divider="#00000000"
-        android:dividerHeight="8dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-    <Button
-        android:id="@+id/anadir_amigo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#ECD31E"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:paddingVertical="13dp"
-        android:layout_marginRight="8dp"
-        android:text="Añadir amigo"
-        android:layout_gravity="center"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/solicitudes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Solicitudes de amistad (0)"
+            android:layout_alignParentTop="true"/>
+        <ListView
+            android:background="#00000000"
+            android:id="@+id/lista_amigos"
+            android:layout_width="match_parent"
+            android:layout_below="@id/solicitudes"
+            android:padding="8dp"
+            android:divider="#00000000"
+            android:dividerHeight="8dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmento_form_anadir"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/anadir_amigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ECD31E"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:paddingVertical="13dp"
+                android:text="Añadir amigo"
+                />
+        </LinearLayout>
 
-    </LinearLayout>
+
+    </RelativeLayout>
 </FrameLayout>
