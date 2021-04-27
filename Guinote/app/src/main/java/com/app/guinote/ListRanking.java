@@ -1,5 +1,6 @@
 package com.app.guinote;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -49,6 +52,8 @@ public class ListRanking extends Fragment {
     ListView listView;
     List<rank> lista;
     TextView contextMenuTextView;
+    RankAdapter adapter;
+    TextView noamigos;
     private View view;
 
     private SQLiteDatabase db;
@@ -72,8 +77,7 @@ public class ListRanking extends Fragment {
         db = dbHelper.getWritableDatabase();
 
 
-        RankAdapter adapter = new RankAdapter(getActivity(),GetData());
-        listView.setAdapter(adapter);
+        adapter = new RankAdapter(getActivity(),GetData());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,6 +94,7 @@ public class ListRanking extends Fragment {
 
 
         contextMenuTextView = view.findViewById(R.id.solicitudes);
+        noamigos = view.findViewById(R.id.usuariosNoencontrados);
         registerForContextMenu(contextMenuTextView);
 
         anadir.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +116,35 @@ public class ListRanking extends Fragment {
         }
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        super.onContextItemSelected(item);
+
+        MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
+        builder.setTitle("Solicitud de amistad");
+        final String name=item.toString();
+        builder.setMessage(item.toString());
+
+
+        builder.setNegativeButton("Rechazar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                aceptarSolicitud(name);
+                dialog.dismiss();
+            }
+            });
+        builder.show();
+        Log.d("user",item.toString());
+        return true;
+    }
 
     @Override
     public void onOptionsMenuClosed(@NonNull Menu menu) {
@@ -127,10 +161,50 @@ public class ListRanking extends Fragment {
 
     private List<rank> GetData() {
         lista = new ArrayList<>();
-        lista.add(new rank(1,"FERNANDO08",R.drawable.asoros,"150"));
+
+        String postUrl = "http://192.168.1.36:8080/api/amigo/findAll/"+getName();
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, postUrl, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                if (response.length()!=0) {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject dato;
+                        try {
+                            dato = response.getJSONObject(i);
+                            Integer copas = dato.getInt("copas");
+                            lista.add(new rank(i, dato.getString("username"), R.drawable.ascopas, copas.toString()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else{
+                    String titulo="No tienes amigos";
+                    noamigos.setText(titulo);
+                }
+                listView.setAdapter(adapter);
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String titulo="No tienes amigos";
+                noamigos.setText(titulo);
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+
+
+        /*lista.add(new rank(1,"FERNANDO08",R.drawable.asoros,"150"));
         lista.add(new rank(2,"DIEGOL10",R.drawable.dosoros,"140"));
         lista.add(new rank(3,"JAMONERO",R.drawable.tresoros,"130"));
-        lista.add(new rank(4,"DRESPIN",R.drawable.cuatrooros,"120"));
+        lista.add(new rank(4,"DRESPIN",R.drawable.cuatrooros,"120"));*/
 
         return lista;
 
@@ -158,6 +232,27 @@ public class ListRanking extends Fragment {
                 }
                 String titulo="Solicitudes de amistad ("+solicitudes.size()+")";
                 contextMenuTextView.setText(titulo);
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void aceptarSolicitud(String amigo){
+        String postUrl = "http://192.168.1.36:8080/api/amigo/acceptFriend/"+getName()+"/"+amigo;
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, postUrl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
                 System.out.println(response);
             }
         }, new Response.ErrorListener() {
