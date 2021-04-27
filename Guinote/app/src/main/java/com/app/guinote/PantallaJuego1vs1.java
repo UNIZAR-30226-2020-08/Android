@@ -27,10 +27,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +46,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-public class PantallaJuego extends AppCompatActivity {
+public class PantallaJuego1vs1 extends AppCompatActivity {
 
 
     private RecyclerView rv;
@@ -56,19 +58,27 @@ public class PantallaJuego extends AppCompatActivity {
     private Socket mSocket;
     private SQLiteDatabase db;
     private String nameUser;
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,chat;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
+    TextView nombreOponente;
     Button cantar;
-    ArrayList<Carta> cards;
-    Carta[] cardsj1 = new Carta[6];
+
+    Integer queEquipo;                 // En que equipo estoy, 1 o 0.
+    Carta[] cardsj1 = new Carta[6]; //Las 6 cartas de nuestra mano
+    Carta cartaTriunfo;             //La carta que esta en medio
+    Integer nronda = 0;
+
+    Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (solo para intercambio de cartas)
+    Integer queOrden;
+
+
     Integer iterator;   //Cual es la siguiente carta a robar en el mazo
-    Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (cada jugador tiene su propio IDcomienzo)
     boolean arrastre;   //Si estamos en arrastre o no
-    Carta cartaTriunfo;
     Integer triunfo;    //1 si el triunfo es oros, 2 espadas, 3 bastos y 4 copas
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
     Integer puntosE1,puntosE2; //Puntos de cada equipo en general
+
     public List<MensajeDeTexto> mensajeDeTextos;
 
 
@@ -116,7 +126,7 @@ public class PantallaJuego extends AppCompatActivity {
                         FragmentManager fm = getSupportFragmentManager();
 
 
-                        Chat fragment = (Chat) fm.findFragmentById(R.id.fragmento_chat);
+                        Chat1vs1 fragment = (Chat1vs1) fm.findFragmentById(R.id.fragmento_chat1vs1);
 
                         if (fragment != null) {
                             fragment.CreateMensaje(username, message, 2);
@@ -135,16 +145,11 @@ public class PantallaJuego extends AppCompatActivity {
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
                     String room;
-                    String participantes;
                     try {
                         room = data.getString("room");
-                        participantes = data.getString("users");
                     } catch (JSONException e) {
                         return;
                     }
-
-                    // add the message to view
-                    //CreateMensaje(room, participantes,2);
                 }
             });
         }
@@ -160,15 +165,17 @@ public class PantallaJuego extends AppCompatActivity {
                     String todo;
                     String username;
                     String partida;
-                    Integer equipo;
                     String carta1;
                     String carta2;
                     String carta3;
                     String carta4;
                     String carta5;
                     String carta6;
+                    Integer orden;
+                    Integer equipo;
                     try {
                         JSONObject datos = data.getJSONObject("repartidas");
+                        todo = data.getString("repartidas");
                         username = datos.getString("jugador");
                         partida = datos.getString("partida");
                         equipo = datos.getInt("equipo");
@@ -178,13 +185,15 @@ public class PantallaJuego extends AppCompatActivity {
                         carta4 = datos.getString("c4");
                         carta5 = datos.getString("c5");
                         carta6 = datos.getString("c6");
+                        orden = datos.getInt("orden");
 
                     } catch (JSONException e) {
                         return;
                     }
                     if (username.equals(nameUser)) {
-                        Log.d("username", username);
-                        Log.d("nameuser", nameUser);
+                        queEquipo = equipo;
+                        queOrden = orden;
+                        Log.d("todo", todo.toString());
                         cardsj1[0] = new Carta(carta1);
                         cardsj1[1] = new Carta(carta2);
                         cardsj1[2] = new Carta(carta3);
@@ -197,6 +206,8 @@ public class PantallaJuego extends AppCompatActivity {
                         assignImages(cardsj1[3], c4);
                         assignImages(cardsj1[4], c5);
                         assignImages(cardsj1[5], c6);
+                    }else {
+                        nombreOponente.setText(username);
                     }
 
                 }
@@ -226,18 +237,38 @@ public class PantallaJuego extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onJugada = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String datos;
+                    try {
+                        datos = data.getString("dataPlay");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("jugada: ", datos.toString());
+                    queOrden--;
+                }
+            });
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla_juego);
+        setContentView(R.layout.activity_pantalla_juego1vs1);
 
         FragmentManager fm = getSupportFragmentManager();
-        Chat fragmentoChat = (Chat) fm.findFragmentById(R.id.fragmento_chat);
+        Chat1vs1 fragmentoChat = (Chat1vs1) fm.findFragmentById(R.id.fragmento_chat1vs1);
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
         mensajeDeTextos = new ArrayList<>();
         nameUser=getName();
-        Log.d("holaaaaaaaa ",nameUser);
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
@@ -246,12 +277,13 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
+        mSocket.on("jugada", onJugada);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
             auxiliar.put("name", getName());
             auxiliar.put("room", room);
-            auxiliar.put("tipo", 1);
+            auxiliar.put("tipo", 0);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -265,27 +297,26 @@ public class PantallaJuego extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
-        chat = (ImageView) findViewById(R.id.icono_chat);
-        j1image = (ImageView) findViewById(R.id.carta_jugador1);
-        j2image = (ImageView) findViewById(R.id.carta_jugador2);
-        j3image = (ImageView) findViewById(R.id.carta_jugador3);
-        j4image = (ImageView) findViewById(R.id.carta_jugador4);
-        c1 = (ImageView) findViewById(R.id.casilla_carta_1);
-        c1whole = (EasyFlipView) findViewById(R.id.easyFlipView1);
-        c2 = (ImageView) findViewById(R.id.casilla_carta_2);
-        c2whole = (EasyFlipView) findViewById(R.id.easyFlipView2);
-        c3 = (ImageView) findViewById(R.id.casilla_carta_3);
-        c3whole = (EasyFlipView) findViewById(R.id.easyFlipView3);
-        c4 = (ImageView) findViewById(R.id.casilla_carta_4);
-        c4whole = (EasyFlipView) findViewById(R.id.easyFlipView4);
-        c5 = (ImageView) findViewById(R.id.casilla_carta_5);
-        c5whole = (EasyFlipView) findViewById(R.id.easyFlipView5);
-        c6 = (ImageView) findViewById(R.id.casilla_carta_6);
-        c6whole = (EasyFlipView) findViewById(R.id.easyFlipView6);
-        reverse = (ImageView) findViewById(R.id.mazo_central);
-        triumphe = (ImageView) findViewById(R.id.mazo_central_volteado);
-        triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe);
-        cantar = (Button) findViewById(R.id.button_cantar);
+        nombreOponente = (TextView) findViewById(R.id.nombre_j21vs1);
+        chat = (ImageView) findViewById(R.id.icono_chat1vs1);
+        j1image = (ImageView) findViewById(R.id.carta_jugador11vs1);
+        j2image = (ImageView) findViewById(R.id.carta_jugador21vs1);
+        c1 = (ImageView) findViewById(R.id.casilla_carta_11vs1);
+        c1whole = (EasyFlipView) findViewById(R.id.easyFlipView11vs1);
+        c2 = (ImageView) findViewById(R.id.casilla_carta_21vs1);
+        c2whole = (EasyFlipView) findViewById(R.id.easyFlipView21vs1);
+        c3 = (ImageView) findViewById(R.id.casilla_carta_31vs1);
+        c3whole = (EasyFlipView) findViewById(R.id.easyFlipView31vs1);
+        c4 = (ImageView) findViewById(R.id.casilla_carta_41vs1);
+        c4whole = (EasyFlipView) findViewById(R.id.easyFlipView41vs1);
+        c5 = (ImageView) findViewById(R.id.casilla_carta_51vs1);
+        c5whole = (EasyFlipView) findViewById(R.id.easyFlipView51vs1);
+        c6 = (ImageView) findViewById(R.id.casilla_carta_61vs1);
+        c6whole = (EasyFlipView) findViewById(R.id.easyFlipView61vs1);
+        reverse = (ImageView) findViewById(R.id.mazo_central1vs1);
+        triumphe = (ImageView) findViewById(R.id.mazo_central_volteado1vs1);
+        triumphewhole = (EasyFlipView) findViewById(R.id.easyFlipViewtriumphe1vs1);
+        cantar = (Button) findViewById(R.id.button_cantar1vs1);
 
         c1whole.setVisibility(View.INVISIBLE);
         c2whole.setVisibility(View.INVISIBLE);
@@ -295,13 +326,7 @@ public class PantallaJuego extends AppCompatActivity {
         c6whole.setVisibility(View.INVISIBLE);
         triumphewhole.setVisibility(View.INVISIBLE);
         reverse.setVisibility(View.INVISIBLE);
-        
-        arrastre = false;
-        baza = false;
-        iterator = 0;
-        IDcomienzo = 0;
 
-        cards = new ArrayList<>();
         MyDragEventListener mDragListen = new MyDragEventListener();
         c1.setOnDragListener(mDragListen);
         c2.setOnDragListener(mDragListen);
@@ -310,62 +335,13 @@ public class PantallaJuego extends AppCompatActivity {
         c5.setOnDragListener(mDragListen);
         c6.setOnDragListener(mDragListen);
 
-
-
-        /*
-        System.out.println("Antes de barajar");
-        for (int i = 0; i<40; i++){
-            System.out.println(cards.get(i).getId());
-        }
-
-        Collections.shuffle(cards);
-        System.out.println("Despues de barajar");
-        for (int i = 0; i<40; i++){
-            System.out.println(cards.get(i).getId());
-        }
-
-        assignImages(cards.get(0), c1);
-        assignImages(cards.get(1), c2);
-        assignImages(cards.get(2), c3);
-        cardsj1[0] = cards.get(0);
-        cardsj1[1] = cards.get(1);
-        cardsj1[2] = cards.get(2);
-        cardsj3[0] = cards.get(3);
-        cardsj3[1] = cards.get(4);
-        cardsj3[2] = cards.get(5);
-        cardsj2[0] = cards.get(6);
-        cardsj2[1] = cards.get(7);
-        cardsj2[2] = cards.get(8);
-        cardsj4[0] = cards.get(9);
-        cardsj4[1] = cards.get(10);
-        cardsj4[2] = cards.get(11);
-        assignImages(cards.get(12), c4);
-        assignImages(cards.get(13), c5);
-        assignImages(cards.get(14), c6);
-        cardsj1[3] = cards.get(12);
-        cardsj1[4] = cards.get(13);
-        cardsj1[5] = cards.get(14);
-        cardsj3[3] = cards.get(15);
-        cardsj3[4] = cards.get(16);
-        cardsj3[5] = cards.get(17);
-        cardsj2[3] = cards.get(18);
-        cardsj2[4] = cards.get(19);
-        cardsj2[5] = cards.get(20);
-        cardsj4[3] = cards.get(21);
-        cardsj4[4] = cards.get(22);
-        cardsj4[5] = cards.get(23);
-        assignImages(cards.get(39), triumphe);
-
-        iterator = 24;
-        triunfo = cards.get(39).getPalo();
-        */
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("holapulsa","hoas");
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.fragmento_chat, Chat.class, null)
+                        .replace(R.id.fragmento_chat1vs1, Chat1vs1.class, null)
                         .commit();
             }
         });
@@ -382,8 +358,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c1);
-                //c1.setVisibility(View.INVISIBLE);
-                //c1.invalidate();
                 v.startDrag(dragData,myShadow,null,0);
 
                 return true;
@@ -392,7 +366,7 @@ public class PantallaJuego extends AppCompatActivity {
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[0],j1image);
+                puedeLanzar(0);
             }
         });
         c2.setOnLongClickListener(new View.OnLongClickListener() {
@@ -407,7 +381,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c2);
-                //c2.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -415,7 +388,7 @@ public class PantallaJuego extends AppCompatActivity {
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[1],j1image);
+                puedeLanzar(1);
             }
         });
         c3.setOnLongClickListener(new View.OnLongClickListener() {
@@ -430,7 +403,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c3);
-                //c3.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -438,7 +410,7 @@ public class PantallaJuego extends AppCompatActivity {
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[2],j1image);
+                puedeLanzar(2);
             }
         });
         c4.setOnLongClickListener(new View.OnLongClickListener() {
@@ -461,7 +433,7 @@ public class PantallaJuego extends AppCompatActivity {
         c4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[3],j1image);
+                puedeLanzar(3);
             }
         });
         c5.setOnLongClickListener(new View.OnLongClickListener() {
@@ -484,7 +456,7 @@ public class PantallaJuego extends AppCompatActivity {
         c5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[4],j1image);
+                puedeLanzar(4);
             }
         });
         c6.setOnLongClickListener(new View.OnLongClickListener() {
@@ -507,7 +479,7 @@ public class PantallaJuego extends AppCompatActivity {
         c6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[5],j1image);
+                puedeLanzar(5);
             }
         });
         triumphewhole.setOnClickListener(new View.OnClickListener() {
@@ -523,6 +495,34 @@ public class PantallaJuego extends AppCompatActivity {
             }
         });
 
+    }
+    private boolean puedeLanzar(Integer i){
+        if(queOrden == 1){
+                assignImages(cardsj1[i],j1image);
+
+                JSONObject aux = new JSONObject();
+                try {
+                    aux.put("jugador", getName());
+                    aux.put("partida", room);
+                    aux.put("nronda", nronda);
+                    aux.put("carta", cardsj1[i].getId());
+
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                Log.d("jsonDePrueba",aux.toString());
+                mSocket.emit("lanzarCarta", aux, new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
+                queOrden--;
+                return true;
+        }
+        return false;
     }
     //Animación de iniciar la partida;
     private void iniciarPartida(){
@@ -646,7 +646,7 @@ public class PantallaJuego extends AppCompatActivity {
         for(int i = 1; i<5; i++){
             for(int k=0; k<6; k++){
                 if(((cardsj1[k].getRanking() == 3) && (cardsj1[k].getPalo() == i))
-                || ((cardsj1[k].getRanking() == 4) && (cardsj1[k].getPalo() == i))){
+                        || ((cardsj1[k].getRanking() == 4) && (cardsj1[k].getPalo() == i))){
                     num++;
                 }
             }
@@ -790,13 +790,12 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     private void intercambiosiete(Integer a) {
-            Carta aux = cards.get(39);
-            cards.remove(39);
-            cards.add(cardsj1[a]);
-            cardsj1[a] = aux;
-            ImageView aux1 = queImagen(a);
-            assignImages(cardsj1[a],aux1);
-            assignImages(cards.get(39),triumphe);
+        Carta aux = cartaTriunfo;
+        cartaTriunfo = cardsj1[a];
+        cardsj1[a] = aux;
+        ImageView aux1 = queImagen(a);
+        assignImages(cardsj1[a],aux1);
+        assignImages(cartaTriunfo,triumphe);
     }
 
     private ImageView queImagen(Integer a) {

@@ -10,17 +10,17 @@
         android:layout_height="match_parent"
         android:background="#349702"
         android:padding="0dp"
-        android:id="@+id/juego_layout"
-        tools:context=".PantallaJuego"
+        android:id="@+id/juego_layout1vs1"
+        tools:context=".PantallaJuego1vs1"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/relativelayout1_juego"
+            android:id="@+id/relativelayout1_juego1vs1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.25">
             <ImageView
-                android:id="@+id/icono_chat"
+                android:id="@+id/icono_chat1vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -32,13 +32,13 @@
                 android:src="@drawable/chat" />
 
             <LinearLayout
-                android:id="@+id/layout_linear_j2"
+                android:id="@+id/layout_linear_j21vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true">
                 <TextView
-                    android:id="@+id/nombre_j2"
+                    android:id="@+id/nombre_j21vs1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -57,60 +57,8 @@
                     android:layout_marginLeft="1dp"
                     android:src="@drawable/ganar_icono" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layout_linear_j4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true">
-                <TextView
-                    android:id="@+id/nombre_j4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre4"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dorado"
-                    android:textStyle="bold"
-                    android:text="30"
-                    android:paddingTop="2dp"
-                    android:layout_marginLeft="4dp"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
-                    android:src="@drawable/ganar_icono" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layout_linear_j3"
-                android:layout_width="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true">
-                <TextView
-                    android:id="@+id/nombre_j3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre3"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dorado"
-                    android:textStyle="bold"
-                    android:text="30"
-                    android:paddingTop="2dp"
-                    android:layout_marginLeft="4dp"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
-                    android:src="@drawable/ganar_icono" />
-            </LinearLayout>
             <com.wajahatkarim3.easyflipview.EasyFlipView
-                android:id="@+id/easyFlipViewtriumphe"
+                android:id="@+id/easyFlipViewtriumphe1vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxHeight="100dp"
@@ -127,14 +75,14 @@
                 >
                 <!-- Front Layout Goes Here -->
                 <ImageView
-                    android:id="@+id/mazo_central_volteado"
+                    android:id="@+id/mazo_central_volteado1vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxHeight="100dp"
                     android:adjustViewBounds="true" />
                 <!-- Back Layout Goes Here -->
                 <ImageView
-                    android:id="@+id/mazo_central_volteado_back"
+                    android:id="@+id/mazo_central_volteado_back1vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxHeight="100dp"
@@ -144,17 +92,17 @@
             </com.wajahatkarim3.easyflipview.EasyFlipView>
 
             <ImageView
-            android:id="@+id/mazo_central"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxHeight="100dp"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/reverso" />
+                android:id="@+id/mazo_central1vs1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="100dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/reverso" />
 
             <ImageView
-                android:id="@+id/carta_jugador1"
+                android:id="@+id/carta_jugador11vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxHeight="100dp"
@@ -164,33 +112,14 @@
                 android:layout_alignParentBottom="true" />
 
             <ImageView
-                android:id="@+id/carta_jugador2"
+                android:id="@+id/carta_jugador21vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxHeight="100dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:layout_below="@id/layout_linear_j2"/>
-
-            <ImageView
-                android:id="@+id/carta_jugador4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxHeight="100dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_below="@id/layout_linear_j4"/>
-
-            <ImageView
-                android:id="@+id/carta_jugador3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxHeight="100dp"
-                android:layout_alignParentRight="true"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_below="@id/layout_linear_j3"/>
+                android:layout_below="@id/layout_linear_j21vs1"/>
             <TextView
                 android:id="@+id/text_puntos"
                 android:layout_width="wrap_content"
@@ -200,7 +129,7 @@
                 android:layout_alignParentRight="true"
                 />
             <Button
-                android:id="@+id/button_cantar"
+                android:id="@+id/button_cantar1vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -210,7 +139,7 @@
                 />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/relativelayout2_juego"
+            android:id="@+id/relativelayout2_juego1vs1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.75">
@@ -218,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <com.wajahatkarim3.easyflipview.EasyFlipView
-                    android:id="@+id/easyFlipView1"
+                    android:id="@+id/easyFlipView11vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:flipOnTouch="false"
@@ -232,19 +161,19 @@
                     >
                     <!-- Front Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_1"
+                        android:id="@+id/casilla_carta_11vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <!-- Back Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_1_back"
+                        android:id="@+id/casilla_carta_1_back1vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/reverso"/>
 
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
-                    android:id="@+id/easyFlipView2"
+                    android:id="@+id/easyFlipView21vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:flipOnTouch="false"
@@ -258,19 +187,19 @@
                     >
                     <!-- Front Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_2"
+                        android:id="@+id/casilla_carta_21vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <!-- Back Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_2_back"
+                        android:id="@+id/casilla_carta_2_back1vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/reverso"/>
 
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
-                    android:id="@+id/easyFlipView3"
+                    android:id="@+id/easyFlipView31vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:flipOnTouch="false"
@@ -284,19 +213,19 @@
                     >
                     <!-- Front Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_3"
+                        android:id="@+id/casilla_carta_31vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <!-- Back Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_3_back"
+                        android:id="@+id/casilla_carta_3_back1vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/reverso"/>
 
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
-                    android:id="@+id/easyFlipView4"
+                    android:id="@+id/easyFlipView41vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:flipOnTouch="false"
@@ -310,19 +239,19 @@
                     >
                     <!-- Front Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_4"
+                        android:id="@+id/casilla_carta_41vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <!-- Back Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_4_back"
+                        android:id="@+id/casilla_carta_4_back1vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/reverso"/>
 
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
-                    android:id="@+id/easyFlipView5"
+                    android:id="@+id/easyFlipView51vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:flipOnTouch="false"
@@ -336,18 +265,18 @@
                     >
 
                     <ImageView
-                        android:id="@+id/casilla_carta_5"
+                        android:id="@+id/casilla_carta_51vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <ImageView
-                        android:id="@+id/casilla_carta_5_back"
+                        android:id="@+id/casilla_carta_5_back1vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/reverso"/>
 
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
-                    android:id="@+id/easyFlipView6"
+                    android:id="@+id/easyFlipView61vs1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:flipOnTouch="false"
@@ -361,12 +290,12 @@
                     >
                     <!-- Front Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_6"
+                        android:id="@+id/casilla_carta_61vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <!-- Back Layout Goes Here -->
                     <ImageView
-                        android:id="@+id/casilla_carta_6_back"
+                        android:id="@+id/casilla_carta_6_back1vs1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/reverso"/>
@@ -376,7 +305,7 @@
         </RelativeLayout>
     </LinearLayout>
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmento_chat"
+        android:id="@+id/fragmento_chat1vs1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

@@ -27,6 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PantallaJuego" />
+        <activity android:name=".PantallaJuego1vs1" />
         <activity android:name=".MainActivity" />
 
     </application>

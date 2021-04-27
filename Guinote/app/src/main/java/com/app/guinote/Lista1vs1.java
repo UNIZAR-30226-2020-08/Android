@@ -76,7 +76,7 @@ public class Lista1vs1 extends Fragment {
 
 
                 String ranking=item.getName();
-                Intent intent = new Intent(getActivity(),PantallaJuego.class);
+                Intent intent = new Intent(getActivity(),PantallaJuego1vs1.class);
 
                 Bundle b = new Bundle();
                 b.putString("key", ranking); //Your id
