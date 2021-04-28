@@ -41,8 +41,7 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent (v.getContext(), EditProfile.class);
-                startActivityForResult(intent2, 0);
+                openActivity2();
             }
         });
         cartas=view.findViewById(R.id.navigation_rail);
@@ -69,6 +68,17 @@ public class Perfil extends Fragment implements BottomNavigationView.OnNavigatio
                 .replace(R.id.cartasContainer, cartas.class, null)
                 .commit();
         return view;
+    }
+
+    public void openActivity2(){
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app,EditProfile.class,null)
+                .commit();
     }
 
     public void openActivity(){
