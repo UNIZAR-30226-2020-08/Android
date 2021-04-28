@@ -58,18 +58,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private Socket mSocket;
     private SQLiteDatabase db;
     private String nameUser;
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,chat;
-    EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
+    EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
     TextView nombreOponente;
     Button cantar;
 
     Integer queEquipo;                 // En que equipo estoy, 1 o 0.
     Carta[] cardsj1 = new Carta[6]; //Las 6 cartas de nuestra mano
     Carta cartaTriunfo;             //La carta que esta en medio
-    Integer nronda = 0;
+    Integer nronda = 0;             //Rondas en las que nos encontramos
+    Integer QueCarta;               //Que i de carta estoy lanzando a los adversarios (para robar)
 
     Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (solo para intercambio de cartas)
     Integer queOrden;
+    Boolean ultimo = false;
 
 
     Integer iterator;   //Cual es la siguiente carta a robar en el mazo
@@ -118,10 +120,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
 
-                    // add the message to view
-                    Log.d("username",username+" "+nameUser);
-                    chat.setImageResource(R.drawable.chat_new_msg);
                     if (!username.equals(nameUser)) {
+                        chat.setImageResource(R.drawable.chat_new_msg);
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
                         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                         FragmentManager fm = getSupportFragmentManager();
@@ -194,7 +194,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     if (username.equals(nameUser)) {
                         queEquipo = equipo;
                         queOrden = orden;
-                        Log.d("todo", todo.toString());
+                        if(queOrden == 2){
+                            ultimo = true;
+                            estrella2.setVisibility(View.VISIBLE);
+                        }
+                        if(queOrden == 1){
+                            estrella1.setVisibility(View.VISIBLE);
+                        }
                         cardsj1[0] = new Carta(carta1);
                         cardsj1[1] = new Carta(carta2);
                         cardsj1[2] = new Carta(carta3);
@@ -238,22 +244,127 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
     };
 
-    private Emitter.Listener onJugada = new Emitter.Listener() {
+    private Emitter.Listener oncartaJugada = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-                    String datos;
+                    JSONObject todo;
+                    String carta;
+                    String quien;
                     try {
-                        datos = data.getString("dataPlay");
+                        carta = data.getString("cartaJugada");
+                        quien = data.getString("jugador");
 
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("jugada: ", datos.toString());
-                    queOrden--;
+                    Log.d("carta",carta);
+                    Log.d("quien",quien);
+
+                    if (!quien.equals(nameUser)){
+                        queOrden--;
+                        if(queOrden == 1){
+                           estrella1.setVisibility(View.VISIBLE);
+                           estrella2.setVisibility(View.INVISIBLE);
+                        }
+                        animacionCartaFront();
+                        Carta aux = new Carta(carta);
+                        assignImages(aux,j2imagefront);
+                    }else{
+                        estrella1.setVisibility(View.INVISIBLE);
+                        estrella2.setVisibility(View.VISIBLE);
+                        if(ultimo){
+                            ultimo = false;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            JSONObject aux = new JSONObject();
+                            try {
+                                aux.put("partida", room);
+                                aux.put("nronda", nronda);
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            mSocket.emit("contarPuntos", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                            mSocket.emit("robarCarta", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRecuento = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String ganador;
+                    try {
+                        ganador = data.getString("winner");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (!ganador.equals(nameUser)){
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.VISIBLE);
+                            queOrden=2;
+                            nronda++;
+                            ultimo = true;
+
+                    }else{
+                        estrella1.setVisibility(View.VISIBLE);
+                        estrella2.setVisibility(View.INVISIBLE);
+                        queOrden=1;
+                        nronda++;
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRobo = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String card;
+                    String usuario;
+                    try {
+                        card = data.getString("carta");
+                        usuario = data.getString("jugador");
+
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (usuario.equals(nameUser)) {
+                            Carta nueva = new Carta(card);
+                            cardsj1[QueCarta] = nueva;
+                            assignImages(nueva, queImagen(QueCarta));
+                            animacionRobarCarta(QueCarta);
+                            disolverCartas();
+                    }
                 }
             });
         }
@@ -273,12 +384,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
-        mSocket = IO.socket(URI.create("http://192.168.56.1:5000"));
+        mSocket = IO.socket(URI.create("http://148.3.47.50:5000"));
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
-        mSocket.on("jugada", onJugada);
+        mSocket.on("cartaJugada", oncartaJugada);
+        mSocket.on("winner", onRecuento);
+        mSocket.on("roba", onRobo);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -298,10 +411,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+        estrella1 = (ImageView) findViewById(R.id.estrella_turnoj1);
+        estrella2 = (ImageView) findViewById(R.id.estrella_turnoj2);
         nombreOponente = (TextView) findViewById(R.id.nombre_j21vs1);
         chat = (ImageView) findViewById(R.id.icono_chat1vs1);
         j1image = (ImageView) findViewById(R.id.carta_jugador11vs1);
-        j2image = (ImageView) findViewById(R.id.carta_jugador21vs1);
+        j2image = (EasyFlipView) findViewById(R.id.carta_jugador21vs1);
+        j2imagefront = (ImageView) findViewById(R.id.frontcartaj21vs1);
+        j2imageback = (ImageView) findViewById(R.id.backcartaj21vs1);
         c1 = (ImageView) findViewById(R.id.casilla_carta_11vs1);
         c1whole = (EasyFlipView) findViewById(R.id.easyFlipView11vs1);
         c2 = (ImageView) findViewById(R.id.casilla_carta_21vs1);
@@ -327,6 +444,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         c6whole.setVisibility(View.INVISIBLE);
         triumphewhole.setVisibility(View.INVISIBLE);
         reverse.setVisibility(View.INVISIBLE);
+        j1image.setVisibility(View.INVISIBLE);
+        j2image.setVisibility(View.INVISIBLE);
+        estrella1.setVisibility(View.INVISIBLE);
+        estrella2.setVisibility(View.INVISIBLE);
 
         MyDragEventListener mDragListen = new MyDragEventListener();
         c1.setOnDragListener(mDragListen);
@@ -340,7 +461,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chat.setImageResource(R.drawable.chat);
-                Log.d("holapulsa","hoas");
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_chat1vs1, Chat1vs1.class, null)
@@ -500,8 +620,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
     private boolean puedeLanzar(Integer i){
         if(queOrden == 1){
+                QueCarta = i;
                 assignImages(cardsj1[i],j1image);
-
+                j1image.setVisibility(View.VISIBLE);
                 JSONObject aux = new JSONObject();
                 try {
                     aux.put("jugador", getName());
@@ -522,6 +643,26 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                 });
                 queOrden--;
+                if(i == 0){
+                    c1whole.setVisibility(View.INVISIBLE);
+                    c1whole.flipTheView();
+                }else if(i == 1){
+                    c2whole.setVisibility(View.INVISIBLE);
+                    c2whole.flipTheView();
+                }else if(i == 2){
+                    c3whole.setVisibility(View.INVISIBLE);
+                    c3whole.flipTheView();
+                }else if(i == 3){
+                    c4whole.setVisibility(View.INVISIBLE);
+                    c4whole.flipTheView();
+                }else if(i == 4){
+                    c5whole.setVisibility(View.INVISIBLE);
+                    c5whole.flipTheView();
+                }else if(i == 5){
+                    c6whole.setVisibility(View.INVISIBLE);
+                    c6whole.flipTheView();
+                }
+                estrella1.setVisibility(View.INVISIBLE);
                 return true;
         }
         return false;
@@ -577,7 +718,102 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }.start();
     }
 
+    private void disolverCartas(){
+        new Thread() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(2000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                setNotVisibilityLanzadasCard();
+
+            }
+        }.start();
+    }
+
+    private void animacionCartaFront(){
+        new Thread() {
+            @Override
+            public void run() {
+                setVisibilityFrontCard();
+                try{
+                    Thread.sleep(400);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatej2Card();
+            }
+        }.start();
+    }
+
+    private void animacionRobarCarta(final Integer i){
+        new Thread() {
+            @Override
+            public void run() {
+                setVisibilityCard(i);
+                try{
+                    Thread.sleep(500);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                girarCarta(i);
+
+            }
+        }.start();
+    }
+
     //Set visibilities
+
+    private void setNotVisibilityLanzadasCard() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j2image.setVisibility(View.INVISIBLE);
+                updatej2Card();
+                j1image.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void setVisibilityFrontCard() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j2image.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void updatej2Card() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j2image.flipTheView();
+            }
+        });
+
+    }
+    private void setVisibilityCard(final Integer i){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                queImagenFlip(i).setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    private void girarCarta(final Integer i) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                queImagenFlip(i).flipTheView();
+            }
+        });
+
+    }
+
+
     private void setVisibility3firstcards() {
         runOnUiThread(new Runnable() {
             @Override

@@ -241,7 +241,7 @@ public class PantallaJuego extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
-        mSocket = IO.socket(URI.create("http://192.168.56.1:5000"));
+        mSocket = IO.socket(URI.create("http://148.3.47.50:5000"));
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);

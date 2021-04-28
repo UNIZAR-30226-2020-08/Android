@@ -93,7 +93,7 @@ public class Lista1vs1 extends Fragment {
         lista = new ArrayList<>();
 
 
-        String url = "http://192.168.56.1:8080/api/partida/findAllGames/0";
+        String url = "http://148.3.47.50:8000/api/partida/findAllGames/0";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override

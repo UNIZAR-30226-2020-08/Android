@@ -52,6 +52,7 @@
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
+                    android:id="@+id/estrella_turnoj2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
@@ -111,7 +112,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true" />
 
-            <ImageView
+
+            <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/carta_jugador21vs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,7 +121,36 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
+                android:layout_below="@id/layout_linear_j21vs1"
+                app:flipOnTouch="false"
+                app:flipEnabled="true"
+                app:flipDuration="400"
+                app:flipType="horizontal"
+                app:flipFrom="right"
+                >
+            <!-- Front Layout Goes Here -->
+            <ImageView
+                android:id="@+id/frontcartaj21vs1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="100dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:layout_below="@id/layout_linear_j21vs1"/>
+            <!-- Back Layout Goes Here -->
+            <ImageView
+                android:id="@+id/backcartaj21vs1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/reverso"
+                android:maxHeight="100dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_below="@id/layout_linear_j21vs1"
+                />
+            </com.wajahatkarim3.easyflipview.EasyFlipView>
             <TextView
                 android:id="@+id/text_puntos"
                 android:layout_width="wrap_content"
@@ -128,6 +159,14 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 />
+            <ImageView
+                android:id="@+id/estrella_turnoj1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/ganar_icono"
+                android:layout_above="@+id/text_puntos"
+                android:layout_alignStart="@+id/text_puntos"/>
             <Button
                 android:id="@+id/button_cantar1vs1"
                 android:layout_width="wrap_content"
