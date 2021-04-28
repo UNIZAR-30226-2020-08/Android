@@ -52,6 +52,7 @@
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
+                    android:id="@+id/estrella_turnj2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
@@ -78,6 +79,7 @@
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
+                    android:id="@+id/estrella_turnj4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
@@ -104,6 +106,7 @@
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
+                    android:id="@+id/estrella_turnj3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
@@ -163,26 +166,45 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true" />
 
-            <ImageView
-                android:id="@+id/carta_jugador2"
+            <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxHeight="100dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:layout_below="@id/layout_linear_j2"/>
-
-            <ImageView
-                android:id="@+id/carta_jugador4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxHeight="100dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_below="@id/layout_linear_j4"/>
-
-            <ImageView
+                android:layout_below="@id/layout_linear_j2"
+                android:id="@+id/carta_jugador2"
+                app:flipOnTouch="false"
+                app:flipEnabled="true"
+                app:flipDuration="400"
+                app:flipType="horizontal"
+                app:flipFrom="right"
+                >
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/frontcartaj2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="100dp"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/layout_linear_j2"/>
+                <!-- Back Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/backcartaj2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/reverso"
+                    android:maxHeight="100dp"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/layout_linear_j2"
+                    />
+            </com.wajahatkarim3.easyflipview.EasyFlipView>
+            <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/carta_jugador3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,7 +212,72 @@
                 android:layout_alignParentRight="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:layout_below="@id/layout_linear_j3"/>
+                android:layout_below="@id/layout_linear_j3"
+                app:flipOnTouch="false"
+                app:flipEnabled="true"
+                app:flipDuration="400"
+                app:flipType="horizontal"
+                app:flipFrom="right"
+                >
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/frontcartaj3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="100dp"
+                    android:layout_alignParentRight="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/layout_linear_j3"/>
+                <!-- Back Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/backcartaj3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/reverso"
+                    android:maxHeight="100dp"
+                    android:layout_alignParentRight="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/layout_linear_j3"
+                    />
+            </com.wajahatkarim3.easyflipview.EasyFlipView>
+            <com.wajahatkarim3.easyflipview.EasyFlipView
+                android:id="@+id/carta_jugador4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_below="@id/layout_linear_j4"
+                app:flipOnTouch="false"
+                app:flipEnabled="true"
+                app:flipDuration="400"
+                app:flipType="horizontal"
+                app:flipFrom="right"
+                >
+                <!-- Front Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/frontcartaj4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="100dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/layout_linear_j4"/>
+                <!-- Back Layout Goes Here -->
+                <ImageView
+                    android:id="@+id/backcartaj4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/reverso"
+                    android:maxHeight="100dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_below="@id/layout_linear_j4"
+                    />
+            </com.wajahatkarim3.easyflipview.EasyFlipView>
+
             <TextView
                 android:id="@+id/text_puntos"
                 android:layout_width="wrap_content"
@@ -199,6 +286,14 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 />
+            <ImageView
+                android:id="@+id/estrella_turnj1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/ganar_icono"
+                android:layout_above="@+id/text_puntos"
+                android:layout_alignStart="@+id/text_puntos"/>
             <Button
                 android:id="@+id/button_cantar"
                 android:layout_width="wrap_content"

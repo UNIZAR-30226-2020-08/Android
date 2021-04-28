@@ -176,7 +176,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Integer equipo;
                     try {
                         JSONObject datos = data.getJSONObject("repartidas");
-                        todo = data.getString("repartidas");
                         username = datos.getString("jugador");
                         partida = datos.getString("partida");
                         equipo = datos.getInt("equipo");

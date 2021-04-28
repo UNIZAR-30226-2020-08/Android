@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -56,15 +57,30 @@ public class PantallaJuego extends AppCompatActivity {
     private Socket mSocket;
     private SQLiteDatabase db;
     private String nameUser;
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,j2image,j3image,j4image,chat;
-    EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,
+            j2imagefront,j2imageback,j3imagefront,
+            j3imageback,j4imagefront,j4imageback,estrella1,estrella2,estrella3,estrella4;
+    EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image,j3image,j4image;
+    TextView nombreOponente2, nombreOponente3, nombreOponente4;
     Button cantar;
-    ArrayList<Carta> cards;
+
+    Integer queEquipo;
     Carta[] cardsj1 = new Carta[6];
-    Integer iterator;   //Cual es la siguiente carta a robar en el mazo
-    Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (cada jugador tiene su propio IDcomienzo)
-    boolean arrastre;   //Si estamos en arrastre o no
     Carta cartaTriunfo;
+    Integer nronda = 0;
+    Integer QueCarta;
+
+    Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (cada jugador tiene su propio IDcomienzo)
+    Integer queOrden;
+    Boolean ultimo = false;
+
+    String name1,name2,name3;
+    Integer orden1,orden2,orden3;
+    Integer cuentaNombres = 0;
+    Integer cuentaVeces = 0;
+
+    Integer iterator;   //Cual es la siguiente carta a robar en el mazo
+    boolean arrastre;   //Si estamos en arrastre o no
     Integer triunfo;    //1 si el triunfo es oros, 2 espadas, 3 bastos y 4 copas
     boolean baza;       //Quien se ha llevado la ultima baza, tu equipo o el de los demas(uno para cada uno)
     Integer personaBaza; //Quien se ha llevado la ultima baza, 1 representa j1, 2 a j2, 3 a j3 y 4 a j4
@@ -135,16 +151,11 @@ public class PantallaJuego extends AppCompatActivity {
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
                     String room;
-                    String participantes;
                     try {
                         room = data.getString("room");
-                        participantes = data.getString("users");
                     } catch (JSONException e) {
                         return;
                     }
-
-                    // add the message to view
-                    //CreateMensaje(room, participantes,2);
                 }
             });
         }
@@ -161,6 +172,7 @@ public class PantallaJuego extends AppCompatActivity {
                     String username;
                     String partida;
                     Integer equipo;
+                    Integer orden;
                     String carta1;
                     String carta2;
                     String carta3;
@@ -178,13 +190,27 @@ public class PantallaJuego extends AppCompatActivity {
                         carta4 = datos.getString("c4");
                         carta5 = datos.getString("c5");
                         carta6 = datos.getString("c6");
+                        orden = datos.getInt("orden");
 
                     } catch (JSONException e) {
                         return;
                     }
                     if (username.equals(nameUser)) {
-                        Log.d("username", username);
-                        Log.d("nameuser", nameUser);
+                        queEquipo = equipo;
+                        queOrden = orden;
+                        if(queOrden == 1){
+                            ultimo = true;
+                            estrella1.setVisibility(View.VISIBLE);
+                        }
+                        if(queOrden == 2){
+                            estrella4.setVisibility(View.VISIBLE);
+                        }
+                        if(queOrden == 3){
+                            estrella2.setVisibility(View.VISIBLE);
+                        }
+                        if(queOrden == 4){
+                            estrella3.setVisibility(View.VISIBLE);
+                        }
                         cardsj1[0] = new Carta(carta1);
                         cardsj1[1] = new Carta(carta2);
                         cardsj1[2] = new Carta(carta3);
@@ -197,8 +223,198 @@ public class PantallaJuego extends AppCompatActivity {
                         assignImages(cardsj1[3], c4);
                         assignImages(cardsj1[4], c5);
                         assignImages(cardsj1[5], c6);
+                        cuentaVeces++;
+                    }else{
+                        if(cuentaNombres == 0){
+                            name1 = username;
+                            orden1 = orden;
+                        }else if(cuentaNombres == 1){
+                            name2 = username;
+                            orden2 = orden;
+                        }else if(cuentaNombres == 2){
+                            name3 = username;
+                            orden3 = orden;
+                        }
+                        cuentaNombres++;
+                        cuentaVeces++;
+                        //////////////ACORDARSE DE LUEGO HACER EL SETTEXT CON MI NOMBRE Y MI ORDEN
                     }
-
+                    if(cuentaVeces == 4){
+                        switch (queOrden){
+                            case 1:
+                                switch (orden1){
+                                    case 2:
+                                        nombreOponente3.setText(name1);
+                                        switch (orden2){
+                                            case 3:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                            case 4:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                    case 3:
+                                        nombreOponente2.setText(name1);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        nombreOponente4.setText(name1);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                break;
+                                            case 3:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (orden1){
+                                    case 1:
+                                        nombreOponente4.setText(name1);
+                                        switch (orden2){
+                                            case 3:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                    case 3:
+                                        nombreOponente3.setText(name1);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                            case 4:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        nombreOponente4.setText(name1);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                break;
+                                            case 3:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (orden1){
+                                    case 1:
+                                        nombreOponente2.setText(name1);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                        }
+                                        break;
+                                    case 2:
+                                        nombreOponente4.setText(name1);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        nombreOponente3.setText(name1);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                            case 2:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (orden1){
+                                    case 1:
+                                        nombreOponente3.setText(name1);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                            case 3:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                    case 2:
+                                        nombreOponente2.setText(name1);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                break;
+                                            case 3:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                    case 3:
+                                        nombreOponente4.setText(name1);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                break;
+                                            case 2:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+                    }
                 }
             });
         }
@@ -226,6 +442,174 @@ public class PantallaJuego extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener oncartaJugada = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    JSONObject todo;
+                    String carta;
+                    String quien;
+                    try {
+                        carta = data.getString("cartaJugada");
+                        quien = data.getString("jugador");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("carta",carta);
+                    Log.d("quien",quien);
+
+                    if (!quien.equals(nameUser)){
+                        queOrden--;
+                        if(queOrden == 1){
+                            animacionCartaj4Front();
+                            Carta aux = new Carta(carta);
+                            assignImages(aux,j4imagefront);
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }
+                        if(queOrden == 2){
+                            animacionCartaj2Front();
+                            Carta aux = new Carta(carta);
+                            assignImages(aux,j2imagefront);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.VISIBLE);
+                        }
+                        if(queOrden == 3){
+                            animacionCartaj3Front();
+                            Carta aux = new Carta(carta);
+                            assignImages(aux,j3imagefront);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.VISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }
+                    }else{
+                        estrella1.setVisibility(View.INVISIBLE);
+                        estrella2.setVisibility(View.INVISIBLE);
+                        estrella3.setVisibility(View.VISIBLE);
+                        estrella4.setVisibility(View.INVISIBLE);
+                        if(ultimo){
+                            ultimo = false;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                            JSONObject aux = new JSONObject();
+                            try {
+                                aux.put("partida", room);
+                                aux.put("nronda", nronda);
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            mSocket.emit("contarPuntos", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                            mSocket.emit("robarCarta", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRecuento = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String ganador;
+                    try {
+                        ganador = data.getString("winner");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (!ganador.equals(nameUser)){
+                        if(ganador.equals(nombreOponente2.getText().toString())){
+                            queOrden=3;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.VISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+
+                        }else if(ganador.equals(nombreOponente3.getText().toString())){
+                            ultimo = true;
+                            queOrden=4;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.VISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(ganador.equals(nombreOponente4.getText().toString())){
+                            queOrden=2;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.VISIBLE);
+                        }
+                        nronda++;
+                    }else{
+                        estrella1.setVisibility(View.VISIBLE);
+                        estrella2.setVisibility(View.INVISIBLE);
+                        estrella3.setVisibility(View.INVISIBLE);
+                        estrella4.setVisibility(View.INVISIBLE);
+                        queOrden=1;
+                        nronda++;
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRobo = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String card;
+                    String usuario;
+                    try {
+                        card = data.getString("carta");
+                        usuario = data.getString("jugador");
+
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (usuario.equals(nameUser)) {
+                        Carta nueva = new Carta(card);
+                        cardsj1[QueCarta] = nueva;
+                        assignImages(nueva, queImagen(QueCarta));
+                        animacionRobarCarta(QueCarta);
+                        disolverCartas();
+                    }
+                }
+            });
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,7 +621,6 @@ public class PantallaJuego extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
         mensajeDeTextos = new ArrayList<>();
         nameUser=getName();
-        Log.d("holaaaaaaaa ",nameUser);
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
@@ -246,6 +629,9 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
+        mSocket.on("cartaJugada", oncartaJugada);
+        mSocket.on("winner", onRecuento);
+        mSocket.on("roba", onRobo);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -265,11 +651,24 @@ public class PantallaJuego extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+        estrella1 = (ImageView) findViewById(R.id.estrella_turnj1);
+        estrella2 = (ImageView) findViewById(R.id.estrella_turnj2);
+        estrella3 = (ImageView) findViewById(R.id.estrella_turnj3);
+        estrella4 = (ImageView) findViewById(R.id.estrella_turnj4);
+        nombreOponente2 = (TextView) findViewById(R.id.nombre_j2);
+        nombreOponente3 = (TextView) findViewById(R.id.nombre_j3);
+        nombreOponente4 = (TextView) findViewById(R.id.nombre_j4);
         chat = (ImageView) findViewById(R.id.icono_chat);
         j1image = (ImageView) findViewById(R.id.carta_jugador1);
-        j2image = (ImageView) findViewById(R.id.carta_jugador2);
-        j3image = (ImageView) findViewById(R.id.carta_jugador3);
-        j4image = (ImageView) findViewById(R.id.carta_jugador4);
+        j2image = (EasyFlipView) findViewById(R.id.carta_jugador2);
+        j3image = (EasyFlipView) findViewById(R.id.carta_jugador3);
+        j4image = (EasyFlipView) findViewById(R.id.carta_jugador4);
+        j2imagefront = (ImageView) findViewById(R.id.frontcartaj2);
+        j2imageback = (ImageView) findViewById(R.id.backcartaj2);
+        j3imagefront = (ImageView) findViewById(R.id.frontcartaj3);
+        j3imageback = (ImageView) findViewById(R.id.backcartaj3);
+        j4imagefront = (ImageView) findViewById(R.id.frontcartaj4);
+        j4imageback = (ImageView) findViewById(R.id.backcartaj4);
         c1 = (ImageView) findViewById(R.id.casilla_carta_1);
         c1whole = (EasyFlipView) findViewById(R.id.easyFlipView1);
         c2 = (ImageView) findViewById(R.id.casilla_carta_2);
@@ -295,13 +694,15 @@ public class PantallaJuego extends AppCompatActivity {
         c6whole.setVisibility(View.INVISIBLE);
         triumphewhole.setVisibility(View.INVISIBLE);
         reverse.setVisibility(View.INVISIBLE);
-        
-        arrastre = false;
-        baza = false;
-        iterator = 0;
-        IDcomienzo = 0;
+        j1image.setVisibility(View.INVISIBLE);
+        j2image.setVisibility(View.INVISIBLE);
+        j3image.setVisibility(View.INVISIBLE);
+        j4image.setVisibility(View.INVISIBLE);
+        estrella1.setVisibility(View.INVISIBLE);
+        estrella2.setVisibility(View.INVISIBLE);
+        estrella3.setVisibility(View.INVISIBLE);
+        estrella4.setVisibility(View.INVISIBLE);
 
-        cards = new ArrayList<>();
         MyDragEventListener mDragListen = new MyDragEventListener();
         c1.setOnDragListener(mDragListen);
         c2.setOnDragListener(mDragListen);
@@ -310,59 +711,9 @@ public class PantallaJuego extends AppCompatActivity {
         c5.setOnDragListener(mDragListen);
         c6.setOnDragListener(mDragListen);
 
-
-
-        /*
-        System.out.println("Antes de barajar");
-        for (int i = 0; i<40; i++){
-            System.out.println(cards.get(i).getId());
-        }
-
-        Collections.shuffle(cards);
-        System.out.println("Despues de barajar");
-        for (int i = 0; i<40; i++){
-            System.out.println(cards.get(i).getId());
-        }
-
-        assignImages(cards.get(0), c1);
-        assignImages(cards.get(1), c2);
-        assignImages(cards.get(2), c3);
-        cardsj1[0] = cards.get(0);
-        cardsj1[1] = cards.get(1);
-        cardsj1[2] = cards.get(2);
-        cardsj3[0] = cards.get(3);
-        cardsj3[1] = cards.get(4);
-        cardsj3[2] = cards.get(5);
-        cardsj2[0] = cards.get(6);
-        cardsj2[1] = cards.get(7);
-        cardsj2[2] = cards.get(8);
-        cardsj4[0] = cards.get(9);
-        cardsj4[1] = cards.get(10);
-        cardsj4[2] = cards.get(11);
-        assignImages(cards.get(12), c4);
-        assignImages(cards.get(13), c5);
-        assignImages(cards.get(14), c6);
-        cardsj1[3] = cards.get(12);
-        cardsj1[4] = cards.get(13);
-        cardsj1[5] = cards.get(14);
-        cardsj3[3] = cards.get(15);
-        cardsj3[4] = cards.get(16);
-        cardsj3[5] = cards.get(17);
-        cardsj2[3] = cards.get(18);
-        cardsj2[4] = cards.get(19);
-        cardsj2[5] = cards.get(20);
-        cardsj4[3] = cards.get(21);
-        cardsj4[4] = cards.get(22);
-        cardsj4[5] = cards.get(23);
-        assignImages(cards.get(39), triumphe);
-
-        iterator = 24;
-        triunfo = cards.get(39).getPalo();
-        */
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("holapulsa","hoas");
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_chat, Chat.class, null)
@@ -382,8 +733,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c1);
-                //c1.setVisibility(View.INVISIBLE);
-                //c1.invalidate();
                 v.startDrag(dragData,myShadow,null,0);
 
                 return true;
@@ -392,7 +741,7 @@ public class PantallaJuego extends AppCompatActivity {
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[0],j1image);
+                puedeLanzar(0);
             }
         });
         c2.setOnLongClickListener(new View.OnLongClickListener() {
@@ -407,7 +756,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c2);
-                //c2.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -415,7 +763,7 @@ public class PantallaJuego extends AppCompatActivity {
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[1],j1image);
+                puedeLanzar(1);
             }
         });
         c3.setOnLongClickListener(new View.OnLongClickListener() {
@@ -430,7 +778,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c3);
-                //c3.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -438,7 +785,7 @@ public class PantallaJuego extends AppCompatActivity {
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[2],j1image);
+                puedeLanzar(2);
             }
         });
         c4.setOnLongClickListener(new View.OnLongClickListener() {
@@ -453,7 +800,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c4);
-                //c4.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -461,7 +807,7 @@ public class PantallaJuego extends AppCompatActivity {
         c4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[3],j1image);
+                puedeLanzar(3);
             }
         });
         c5.setOnLongClickListener(new View.OnLongClickListener() {
@@ -476,7 +822,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c5);
-                //c5.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -484,7 +829,7 @@ public class PantallaJuego extends AppCompatActivity {
         c5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[4],j1image);
+                puedeLanzar(4);
             }
         });
         c6.setOnLongClickListener(new View.OnLongClickListener() {
@@ -499,7 +844,6 @@ public class PantallaJuego extends AppCompatActivity {
                 IDcomienzo = v.getId();
 
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(c6);
-                //c6.setVisibility(View.INVISIBLE);
                 v.startDrag(dragData,myShadow,null,0);
                 return true;
             }
@@ -507,7 +851,7 @@ public class PantallaJuego extends AppCompatActivity {
         c6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignImages(cardsj1[5],j1image);
+                puedeLanzar(6);
             }
         });
         triumphewhole.setOnClickListener(new View.OnClickListener() {
@@ -524,6 +868,58 @@ public class PantallaJuego extends AppCompatActivity {
         });
 
     }
+
+    private boolean puedeLanzar(Integer i){
+        if(queOrden == 1){
+            QueCarta = i;
+            assignImages(cardsj1[i],j1image);
+            j1image.setVisibility(View.VISIBLE);
+            JSONObject aux = new JSONObject();
+            try {
+                aux.put("jugador", getName());
+                aux.put("partida", room);
+                aux.put("nronda", nronda);
+                aux.put("carta", cardsj1[i].getId());
+
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Log.d("jsonDePrueba",aux.toString());
+            mSocket.emit("lanzarCarta", aux, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+            queOrden--;
+            if(i == 0){
+                c1whole.setVisibility(View.INVISIBLE);
+                c1whole.flipTheView();
+            }else if(i == 1){
+                c2whole.setVisibility(View.INVISIBLE);
+                c2whole.flipTheView();
+            }else if(i == 2){
+                c3whole.setVisibility(View.INVISIBLE);
+                c3whole.flipTheView();
+            }else if(i == 3){
+                c4whole.setVisibility(View.INVISIBLE);
+                c4whole.flipTheView();
+            }else if(i == 4){
+                c5whole.setVisibility(View.INVISIBLE);
+                c5whole.flipTheView();
+            }else if(i == 5){
+                c6whole.setVisibility(View.INVISIBLE);
+                c6whole.flipTheView();
+            }
+            estrella1.setVisibility(View.INVISIBLE);
+            return true;
+        }
+        return false;
+    }
+
+
     //Animación de iniciar la partida;
     private void iniciarPartida(){
         new Thread() {
@@ -576,6 +972,174 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     //Set visibilities
+    private void disolverCartas(){
+        new Thread() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(2000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                setNotVisibilityLanzadasCard();
+
+            }
+        }.start();
+    }
+
+    private void animacionCartaj2Front(){
+        new Thread() {
+            @Override
+            public void run() {
+                setVisibilityFrontCard();
+                try{
+                    Thread.sleep(400);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatej2Card();
+            }
+        }.start();
+    }
+
+    private void animacionCartaj3Front(){
+        new Thread() {
+            @Override
+            public void run() {
+                setVisibilityj3Card();
+                try{
+                    Thread.sleep(400);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatej3Card();
+            }
+        }.start();
+    }
+
+    private void animacionCartaj4Front(){
+        new Thread() {
+            @Override
+            public void run() {
+                setVisibilityj4Card();
+                try{
+                    Thread.sleep(400);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                updatej4Card();
+            }
+        }.start();
+    }
+
+    private void animacionRobarCarta(final Integer i){
+        new Thread() {
+            @Override
+            public void run() {
+                setVisibilityCard(i);
+                try{
+                    Thread.sleep(500);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                girarCarta(i);
+
+            }
+        }.start();
+    }
+
+    //Set visibilities
+
+    private void setNotVisibilityLanzadasCard() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j2image.setVisibility(View.INVISIBLE);
+                updatej2Card();
+                j3image.setVisibility(View.INVISIBLE);
+                updatej3Card();
+                j4image.setVisibility(View.INVISIBLE);
+                updatej4Card();
+                j1image.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void setVisibilityFrontCard() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j2image.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    private void setVisibilityj3Card() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j3image.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    private void setVisibilityj4Card() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j4image.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void updatej2Card() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j2image.flipTheView();
+            }
+        });
+
+    }
+    private void updatej3Card() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j3image.flipTheView();
+            }
+        });
+
+    }
+    private void updatej4Card() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                j4image.flipTheView();
+            }
+        });
+
+    }
+    private void setVisibilityCard(final Integer i){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                queImagenFlip(i).setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    private void girarCarta(final Integer i) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                queImagenFlip(i).flipTheView();
+            }
+        });
+
+    }
+
+
+
+
+
+
     private void setVisibility3firstcards() {
         runOnUiThread(new Runnable() {
             @Override
@@ -790,13 +1354,12 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     private void intercambiosiete(Integer a) {
-            Carta aux = cards.get(39);
-            cards.remove(39);
-            cards.add(cardsj1[a]);
-            cardsj1[a] = aux;
-            ImageView aux1 = queImagen(a);
-            assignImages(cardsj1[a],aux1);
-            assignImages(cards.get(39),triumphe);
+        Carta aux = cartaTriunfo;
+        cartaTriunfo = cardsj1[a];
+        cardsj1[a] = aux;
+        ImageView aux1 = queImagen(a);
+        assignImages(cardsj1[a],aux1);
+        assignImages(cartaTriunfo,triumphe);
     }
 
     private ImageView queImagen(Integer a) {
