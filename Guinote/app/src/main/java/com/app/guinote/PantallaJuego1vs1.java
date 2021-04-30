@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import org.json.JSONArray;
@@ -326,14 +327,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             estrella1.setVisibility(View.INVISIBLE);
                             estrella2.setVisibility(View.VISIBLE);
                             queOrden=2;
-                            nronda++;
                             ultimo = true;
 
                     }else{
                         estrella1.setVisibility(View.VISIBLE);
                         estrella2.setVisibility(View.INVISIBLE);
                         queOrden=1;
-                        nronda++;
                     }
                 }
             });
@@ -363,7 +362,81 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             assignImages(nueva, queImagen(QueCarta));
                             animacionRobarCarta(QueCarta);
                             disolverCartas();
+                            nronda++;
                     }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onCambio = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String card;
+                    try {
+                        card = data.getString("tuya");
+
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("cambio7",card.toString());
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onMedio = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String card;
+                    try {
+                        card = data.getString("medio");
+
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("medio7",card.toString());
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onCante = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String room;
+                    String o_20;
+                    String e_20;
+                    String b_20;
+                    String c_20;
+                    try {
+                        room = data.getString("nombre");
+                        o_20 = data.getString("o_20");
+                        e_20 = data.getString("e_20");
+                        b_20 = data.getString("b_20");
+                        c_20 = data.getString("c_20");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("o_20",o_20);
+                    Log.d("e_20",e_20);
+                    Log.d("b_20",b_20);
+                    Log.d("c_20",c_20);
                 }
             });
         }
@@ -391,6 +464,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("cartaJugada", oncartaJugada);
         mSocket.on("winner", onRecuento);
         mSocket.on("roba", onRobo);
+        mSocket.on("cartaMedio", onMedio);
+        mSocket.on("cartaCambio", onCambio);
+        mSocket.on("cante", onCante);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -606,13 +682,41 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         triumphewhole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivityCambio7();
+                JSONObject aux = new JSONObject();
+                try {
+                    aux.put("jugador", nameUser);
+                    aux.put("nombre", room);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                mSocket.emit("cambiar7", aux, new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
             }
         });
         cantar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivityCantar();
+                JSONObject aux = new JSONObject();
+                try {
+                    aux.put("jugador", nameUser);
+                    aux.put("nombre", room);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                mSocket.emit("cantar", aux, new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
             }
         });
 
@@ -878,63 +982,25 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
     }
-    private void openActivityCantar() {
-        Integer num = 0;
-        for(int i = 1; i<5; i++){
-            for(int k=0; k<6; k++){
-                if(((cardsj1[k].getRanking() == 3) && (cardsj1[k].getPalo() == i))
-                        || ((cardsj1[k].getRanking() == 4) && (cardsj1[k].getPalo() == i))){
-                    num++;
+    public void animacion7(final Integer i){
+        new Thread(){
+            @Override
+            public void run() {
+                flipViews(queImagenFlip(i),triumphewhole);
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
-            }
-            if(num == 2){
-                sumarPuntosCantar(i);
-            }
-            num = 0;
-        }
-    }
-    private void sumarPuntosCantar(int i) {
-        if(i == triunfo){
-            puntosE1 = puntosE1 + 40;
-        }else{
-            puntosE1 = puntosE1 + 20;
-        }
-    }
-
-    public void openActivityCambio7(){
-        if(!arrastre){
-            final Integer siete =tiene7();
-            if( siete != 6){
-                if(!baza){
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            flipViews(queImagenFlip(siete),triumphewhole);
-                            try{
-                                Thread.sleep(1000);
-                            } catch (Exception e){
-                                e.printStackTrace();
-                            }
-                            intercambiosiete(siete);
-                            try{
-                                Thread.sleep(1000);
-                            } catch (Exception e){
-                                e.printStackTrace();
-                            }
-                            flipViews(queImagenFlip(siete),triumphewhole);
-                        }
-                    }.start();
+                intercambiosiete(i);
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
+                flipViews(queImagenFlip(i),triumphewhole);
             }
-        }
-    }
-    public Integer tiene7(){
-        for (int i = 0; i<6; i++){
-            if((cardsj1[i].getRanking() == 6) && (cardsj1[i].getPalo() == triunfo)){
-                return i;
-            }
-        }
-        return 6;
+        }.start();
     }
 
     public void flipViews(final EasyFlipView a, final EasyFlipView b){
