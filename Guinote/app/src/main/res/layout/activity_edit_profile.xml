@@ -132,7 +132,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:id="@+id/usuario2"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:drawablePadding="10dp" />
 
 
@@ -154,6 +156,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:id="@+id/emailfino"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp" />
 
@@ -175,6 +178,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:id="@+id/contraseña2"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp" />
 
