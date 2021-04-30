@@ -51,6 +51,13 @@ public class EditProfile extends Fragment {
         MyOpenHelper dbHelper = new MyOpenHelper(getContext());
         db = dbHelper.getWritableDatabase();
         GetData();
+        View actualizar = view.findViewById(R.id.Actualizar);
+        actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity();
+            }
+        });
         //Button actualizar = (Button)view.findViewById(R.id.Actualizar);
         /*actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,18 +94,20 @@ public class EditProfile extends Fragment {
     }
     
     private void GetData() {
-        Log.d("hola", "hola");
-        String url = "http://192.168.56.1:8081/api/usuario/findUser/"+getName();
+        String url = "http://148.3.47.50:8000/api/usuario/findUser/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    //Log.d("contenido de response",response.toString());
                     JSONObject contenido = response;
-                    final TextInputEditText correo= (TextInputEditText) view.findViewById(R.id.full_email);
-                    correo.setText(response.getString("email"));
-                    Log.d("hola", response.toString());
-
+                    final TextInputEditText correo= (TextInputEditText) view.findViewById(R.id.emailfino);
+                    final TextInputEditText name= (TextInputEditText) view.findViewById(R.id.usuario2);
+                    final TextView puntos = (TextView) view.findViewById(R.id.puntosPerfil);
+                    name.setText(contenido.getString("username"));
+                    correo.setText(contenido.getString("email"));
+                    puntos.setText(contenido.getString("copas"));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -113,6 +122,17 @@ public class EditProfile extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public void openActivity(){
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app,Perfil.class,null)
+                .commit();
+    }
+
 
 
 
@@ -122,6 +142,7 @@ public class EditProfile extends Fragment {
             Cursor c=db.rawQuery(query,null);
             c.moveToNext();
             return c.getString(0);
+
         }
 
 }
