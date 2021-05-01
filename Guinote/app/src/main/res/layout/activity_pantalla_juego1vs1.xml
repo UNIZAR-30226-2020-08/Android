@@ -151,22 +151,13 @@
                 android:layout_below="@id/layout_linear_j21vs1"
                 />
             </com.wajahatkarim3.easyflipview.EasyFlipView>
-            <TextView
-                android:id="@+id/text_puntos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Puntos: "
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                />
             <ImageView
                 android:id="@+id/estrella_turnoj1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
                 android:src="@drawable/ganar_icono"
-                android:layout_above="@+id/text_puntos"
-                android:layout_alignStart="@+id/text_puntos"/>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
             <Button
                 android:id="@+id/button_cantar1vs1"
                 android:layout_width="wrap_content"
