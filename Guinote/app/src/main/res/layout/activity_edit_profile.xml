@@ -10,11 +10,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Perfil"
         android:orientation="vertical">
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,164 +31,116 @@
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="120dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_height="120dp"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:src="@drawable/fotoperfil"
+                        android:layout_gravity="center"
                         app:civ_border_width="2dp"
                         app:civ_border_color="#FF000000"/>
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total"
-                            android:textColor="#ffffff"
-                            android:textSize="20sp"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2589"
-                            android:textColor="#ffffff"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#ffffff"
-                            android:text="Victorias"
-                            android:textSize="20sp"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1205"
-                            android:textColor="#ffffff"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Puntos"
-                            android:textColor="#ffffff"
-                            android:textSize="20sp"
-                            />
-                        <TextView
-                            android:id="@+id/puntosPerfil"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textColor="#ffffff"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp"
-                            />
-
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </RelativeLayout>
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="75dp"
-            android:padding="40dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nombreusuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:id="@+id/usuario2"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:drawablePadding="10dp" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="40dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/full_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:id="@+id/emailfino"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="40dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/contraseña"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="**************">
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nombreusuario"
                     android:layout_width="match_parent"
-                    android:id="@+id/contraseña2"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="10dp" />
+                    android:padding="10dp"
+                    app:boxBackgroundColor="#60ffffff"
+                    app:suffixTextColor="#000000"
+                    app:hintTextColor="#000000"
+                    app:boxStrokeColor="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:textColorHighlight="#349702"
+                        android:padding="15dp"
+                        android:id="@+id/usuario2"
+                        android:enabled="false"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
 
-            </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/full_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    app:boxBackgroundColor="#60ffffff"
+                    app:suffixTextColor="#000000"
+                    app:hintTextColor="#000000"
+                    app:boxStrokeColor="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:textColorHighlight="#349702"
+                        android:padding="15dp"
+                        android:id="@+id/emailfino"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/contraseña"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    app:boxBackgroundColor="#60ffffff"
+                    app:suffixTextColor="#000000"
+                    app:hintTextColor="#000000"
+                    app:boxStrokeColor="#000000"
+                    android:hint="**************"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:textColorHighlight="#349702"
+                        android:padding="15dp"
+                        android:id="@+id/contraseña2"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

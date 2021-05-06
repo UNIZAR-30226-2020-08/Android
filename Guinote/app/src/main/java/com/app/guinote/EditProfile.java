@@ -3,6 +3,7 @@ package com.app.guinote;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -52,6 +53,8 @@ public class EditProfile extends Fragment {
         db = dbHelper.getWritableDatabase();
         GetData();
         View actualizar = view.findViewById(R.id.Actualizar);
+        TextView namePerf = view.findViewById(R.id.nameUserPerfil);
+        namePerf.setText(getName());
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +97,7 @@ public class EditProfile extends Fragment {
     }
     
     private void GetData() {
-        String url = "http://192.168.1.36:8080/api/usuario/findUser/"+getName();
+        String url = "http://10.1.59.140:8080/api/usuario/findUser/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -123,6 +126,22 @@ public class EditProfile extends Fragment {
     }
 
     public void openActivity(){
+        final TextInputEditText correo= (TextInputEditText) view.findViewById(R.id.full_email);
+        final TextInputEditText password= (TextInputEditText) view.findViewById(R.id.contraseña);
+        String email= correo.getText().toString();
+        String passwd=password.getText().toString();
+
+        String url = "http://10.1.59.140:8080/api/auth/signin";
+        final List<String> jsonResponses = new ArrayList<>();
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("email", email);
+            postData.put("password", passwd);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
                         R.anim.side_in_left,
