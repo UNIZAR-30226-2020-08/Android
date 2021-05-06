@@ -399,10 +399,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    if(username.equals(nameUser)){
-                        animacion7(sitio);
-                    }
-                    Log.d("cambio7",card.toString());
+                  //  if(username.equals(nameUser)){
+//                        animacion7(sitio);
+                  //  }
+                //    Log.d("cambio7",card.toString());
                     String texto = "El usuario "+card+ " ha cambiado el 7";
                     Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
                 }

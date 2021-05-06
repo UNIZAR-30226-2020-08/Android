@@ -129,6 +129,7 @@ public class ListRanking extends Fragment {
         builder.setNegativeButton("Rechazar",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                denegarSolicitud(name);
                 dialog.dismiss();
             }
         });
@@ -251,6 +252,27 @@ public class ListRanking extends Fragment {
 
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, postUrl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void denegarSolicitud(String amigo){
+        String postUrl = "http://192.168.1.36:8080/api/amigo/dropFriend/"+getName()+"/"+amigo;
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, postUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 System.out.println(response);

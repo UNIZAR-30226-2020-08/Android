@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link cartas} factory method to
@@ -16,6 +19,9 @@ import android.widget.ImageView;
  */
 public class cartas extends Fragment {
 
+
+    CarouselView carouselView;
+    int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     ImageView fizqtapete, fdertapete, fizqreverso, fderreverso, fizqcartas,fdercartas, choosetapete, choosereverso, choosecartas;
     Integer idtapete = 0, idreverso=0, idcartas=0;
     public cartas() {
@@ -29,6 +35,12 @@ public class cartas extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.cartas, container, false);
 
+
+
+        carouselView = view.findViewById(R.id.carouselView);
+        carouselView.stopCarousel();
+        carouselView.setPageCount(sampleImages.length);
+        carouselView.setImageListener(imageListener);
         /*fizqtapete = (ImageView) getActivity().findViewById(R.id.tapeteflechaizda);
         fdertapete = (ImageView) getActivity().findViewById(R.id.tapeteflechadcha);
         fizqreverso = (ImageView) getActivity().findViewById(R.id.reversoflechaizda);
@@ -42,6 +54,13 @@ public class cartas extends Fragment {
         return view;
     }
 
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
 
     public void openActivity1(){
         switch (idtapete){

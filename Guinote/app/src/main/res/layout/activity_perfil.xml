@@ -1,82 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/deslizar"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deslizar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1.2"
     android:scrollbars="none"
+    tools:context=".Perfil"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Perfil"
-        android:orientation="vertical">
-        <RelativeLayout
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/nameUserPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/nameUserPerfil"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_gravity="center"
+                    android:layout_width="200dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="35dp"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
+                    android:layout_height="200dp"
+                    android:src="@drawable/fotoperfil"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FF000000"/>
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
                     android:weightSum="3">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="120dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_height="120dp"
-                        android:src="@drawable/fotoperfil"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="#FF000000"/>
                     <LinearLayout
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total"
                             android:textColor="#ffffff"
-                            android:textSize="20sp"
+                            android:text="PARTIDAS"
+                            android:textStyle="bold"
+                            android:textSize="25sp"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2589"
+                            android:text="1205"
                             android:textColor="#ffffff"
                             android:textStyle="bold"
                             android:textSize="20sp"
                             android:paddingTop="10dp" />
-
                     </LinearLayout>
                     <LinearLayout
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#ffffff"
-                            android:text="Victorias"
-                            android:textSize="20sp"
+                            android:text="VICTORIAS"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="25sp"
                             />
                         <TextView
                             android:layout_width="wrap_content"
@@ -88,79 +98,223 @@
                             android:paddingTop="10dp" />
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Puntos"
+                            android:text="PUNTOS"
+                            android:textStyle="bold"
                             android:textColor="#ffffff"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="25sp" />
+
                         <TextView
                             android:id="@+id/puntosPerfil"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
+                            android:paddingTop="10dp"
                             android:textColor="#ffffff"
                             android:textSize="20sp"
-                            android:paddingTop="10dp"
-                            />
+                            android:textStyle="bold" />
 
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </RelativeLayout>
-        <Button
-            android:textColor="#349702"
-            android:id="@+id/editperfil"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="12dp"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:backgroundTint="#ffffff"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:background="#00000000"
             android:layout_height="wrap_content"
-            android:text="Editar Perfil"/>
+            android:paddingBottom="20dp">
+            <Button
+                android:textColor="#349702"
+                android:id="@+id/editperfil"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="12dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:backgroundTint="#ffffff"
+                android:layout_height="wrap_content"
+                android:text="Editar Perfil"/>
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="#349702"
+            android:padding="10dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp">
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/navigation_rail"
-                android:layout_width="match_parent"
-                app:itemShapeFillColor="@drawable/seleccion"
+            >
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
-                app:itemIconTint="#ffffff"
-                app:itemTextColor="#ffffff"
-                app:elevation="0dp"
-                app:menu="@menu/navigation_rail_menu" />
+                android:text="PERSONALIZACIÓN"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"/>
+
 
         </LinearLayout>
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/cartasContainer"
-            android:background="@drawable/borderbottom_2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:paddingBottom="70dp"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:layout_width="70dp"
-            android:id="@+id/apagarSesion"
-            android:adjustViewBounds="true"
-            android:layout_height="70dp"
-            android:background="#00000000"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/apagar"
-            android:layout_gravity="center"/>
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:background="#ffffff"
+            android:orientation="vertical">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/Cartascambio"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="#349702">
+
+                    <!-- Title, secondary and supporting text -->
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/cartas_icono"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cartas"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#ffffff"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/Tapetecambio"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="#349702">
+
+                    <!-- Title, secondary and supporting text -->
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/mesa_icono"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tapetes"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#ffffff"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Media -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="194dp"
+                        app:srcCompat="@drawable/reglasjuego"
+                        android:scaleType="centerCrop"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:background="#349702">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Información del juego"
+                            android:textColor="#ffffff"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Aprende las normas de cómo jugar"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="#ffffff"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <Button
+                android:textColor="#ffffff"
+                android:id="@+id/apagarSesion"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:backgroundTint="#FF0C08"
+                android:layout_height="wrap_content"
+                android:text="Cerrar sesión"/>
+
+        </LinearLayout>
     </LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:id="@+id/animation_carga_perf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_fileName="loading2.json"
+        app:lottie_loop="true"/>
+</RelativeLayout>
 </ScrollView>

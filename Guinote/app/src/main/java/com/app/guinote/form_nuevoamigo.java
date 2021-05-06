@@ -96,7 +96,7 @@ public class form_nuevoamigo extends Fragment {
     private void botonAmigo(){
 
 
-        String postUrl = "http://148.3.47.50:8000/api/amigo/";
+        String postUrl = "http://192.168.1.36:8080/api/amigo/";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         TextInputLayout cajaNombre= (TextInputLayout) view.findViewById(R.id.cajaAmigoAnadir);
         String nombreUsername=cajaNombre.getEditText().getText().toString();

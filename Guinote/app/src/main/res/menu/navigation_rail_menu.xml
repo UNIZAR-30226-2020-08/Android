@@ -4,10 +4,11 @@
         android:id="@+id/cartasItem"
         android:enabled="true"
         android:icon="@drawable/cartas_icono"
-        android:title="Cartas"/>
+
+        android:title=""/>
     <item
         android:id="@+id/tapeteItem"
         android:enabled="true"
         android:icon="@drawable/mesa_icono"
-        android:title="Tapetes">@drawable/seleccion</item>
+        android:title=""/>
 </menu>

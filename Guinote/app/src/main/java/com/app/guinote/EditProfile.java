@@ -94,7 +94,7 @@ public class EditProfile extends Fragment {
     }
     
     private void GetData() {
-        String url = "http://148.3.47.50:8000/api/usuario/findUser/"+getName();
+        String url = "http://192.168.1.36:8080/api/usuario/findUser/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
