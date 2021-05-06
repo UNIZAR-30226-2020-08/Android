@@ -126,22 +126,42 @@ public class EditProfile extends Fragment {
     }
 
     public void openActivity(){
-        final TextInputEditText correo= (TextInputEditText) view.findViewById(R.id.full_email);
-        final TextInputEditText password= (TextInputEditText) view.findViewById(R.id.contraseña);
-        String email= correo.getText().toString();
-        String passwd=password.getText().toString();
+        final TextInputLayout correo= (TextInputLayout) view.findViewById(R.id.full_email);
+        final TextInputLayout password= (TextInputLayout) view.findViewById(R.id.contraseña);
+        String email= correo.getEditText().getText().toString();
+        String passwd="";
+        if (password.getEditText().getText()!=null) {
+            Log.d("hola",password.getEditText().getText().toString());
+            passwd = password.getEditText().getText().toString();
+        }
 
-        String url = "http://10.1.59.140:8080/api/auth/signin";
-        final List<String> jsonResponses = new ArrayList<>();
+        String url = "http://10.1.59.140:8080/api/usuario/updateUser/"+getName();
 
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JSONObject postData = new JSONObject();
         try {
             postData.put("email", email);
-            postData.put("password", passwd);
+            if (passwd !="") {
+                postData.put("password", passwd);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
                         R.anim.side_in_left,
