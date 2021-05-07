@@ -37,6 +37,7 @@ public class MainActivity extends Fragment {
     CardView createroom;
     ListView lista1vs1;
     CardView cardvs1;
+    CardView fd;
 
     private SQLiteDatabase db;
 
@@ -53,6 +54,7 @@ public class MainActivity extends Fragment {
 
         CardView play2 = view.findViewById(R.id.button_start_2vs2);
         createroom = view.findViewById(R.id.button_start_1vs1);
+        fd = view.findViewById(R.id.button_start_private_room);
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
 
 
@@ -72,9 +74,21 @@ public class MainActivity extends Fragment {
                 openActivity3();
             }
         });
+        fd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity4();
+            }
+        });
+
 
         return view;
 
+    }
+
+    public void openActivity4(){
+        Intent intent = new Intent (getContext(), Torneo.class);
+        startActivityForResult(intent, 0);
     }
 
 
