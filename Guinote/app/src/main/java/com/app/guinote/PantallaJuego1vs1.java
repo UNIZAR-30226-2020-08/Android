@@ -391,41 +391,35 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-                    String card;
+                    JSONObject hola;
+                    String jugador;
+                    String carta;
                     try {
-                        card = data.getString("tuya");
-
+                        hola = data.getJSONObject("tuya");
+                        jugador = hola.getString("jugador");
+                        carta = hola.getString("carta");
 
                     } catch (JSONException e) {
                         return;
                     }
-                  //  if(username.equals(nameUser)){
-//                        animacion7(sitio);
-                  //  }
-                //    Log.d("cambio7",card.toString());
-                    String texto = "El usuario "+card+ " ha cambiado el 7";
+                    if(jugador.equals(nameUser)){
+                        animacion7(find7());
+                    }else{
+                        Carta aux = null;
+                        if(cartaTriunfo.getPalo() == 1){
+                            aux = new Carta("6O");
+                        }else if(cartaTriunfo.getPalo() == 2){
+                            aux = new Carta("6E");
+                        }else if(cartaTriunfo.getPalo() == 3){
+                            aux = new Carta("6B");
+                        }else if(cartaTriunfo.getPalo() == 4){
+                            aux = new Carta("6C");
+                        }
+                        assignImages(aux,triumphe);
+                    }
+                    Log.d("cambio7",jugador.toString());
+                    String texto = "El usuario "+jugador+ " ha cambiado el 7";
                     Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener onMedio = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String card;
-                    try {
-                        card = data.getString("medio");
-
-
-                    } catch (JSONException e) {
-                        return;
-                    }
-                    Log.d("medio7",card.toString());
                 }
             });
         }
@@ -440,18 +434,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     JSONArray data = (JSONArray) args[0];
                     JSONObject datos;
                     String username = "";
-                    String o_20 = "";
-                    String e_20 = "";
-                    String b_20 = "";
-                    String c_20 = "";
+                    String[] palo = new String[4];
+                    String partida = "";
                     try {
                         for (int i=0;i<data.length();i++){
-                            datos=data.getJSONObject(i);
-                            username=datos.getString("nombre");
-                            o_20 = datos.getString("o_20");
-                            e_20 = datos.getString("e_20");
-                            b_20 = datos.getString("b_20");
-                            c_20 = datos.getString("c_20");
+                            datos=data.getJSONObject( i);
+                            username=datos.getString("usuario");
+                            palo[i] = datos.getString("palo");
+                            partida = datos.getString("partida");
                         }
 
                     } catch (JSONException e) {
@@ -459,58 +449,58 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     boolean ha_entrado = false;
                     String texto = "";
-                    if(!o_20.equals(null)){
-                        texto = "El usuario ";
-                        texto = texto+o_20;
-                        texto = texto + " ha cantado";
-                        ha_entrado = true;
-                        if(cartaTriunfo.getPalo() == 1){
-                            texto = texto + " las 40";
-                        }else{
-                            texto = texto + " las 20 en oros";
-                        }
-                        ha_entrado = true;
-                    }
-                    if(!e_20.equals(null)){
-                        if(!ha_entrado){
-                            texto = "El usuario ";
-                            texto = texto+e_20;
-                            ha_entrado = true;
-                        }
-                        if(cartaTriunfo.getPalo() == 2){
-                            texto = texto + " las 40";
-                        }else{
-                            texto = texto + " las 20 en espadas";
-                        }
-                    }
-                    if(!b_20.equals(null)){
-                        if(!ha_entrado){
-                            texto = "El usuario ";
-                            texto = texto+b_20;
-                            ha_entrado = true;
-                        }
-                        if(cartaTriunfo.getPalo() == 3){
-                            texto = texto + " las 40";
-                        }else{
-                            texto = texto + " las 20 en bastos";
-                        }
-                    }
-                    if(!c_20.equals(null)){
-                        if(!ha_entrado){
-                            texto = "El usuario ";
-                            texto = texto+c_20;
-                        }
-                        if(cartaTriunfo.getPalo() == 4){
-                            texto = texto + " las 40";
-                        }else{
-                            texto = texto + " las 20 en copas";
+                    for (int i = 0; i<palo.length;i++){
+                        if(palo[i] != null) {
+                            if (palo[i].equals("o_20")) {
+                                texto = "El usuario ";
+                                texto = texto + username;
+                                texto = texto + " ha cantado";
+                                ha_entrado = true;
+                                if (cartaTriunfo.getPalo() == 1) {
+                                    texto = texto + " las 40";
+                                } else {
+                                    texto = texto + " las 20 en oros";
+                                }
+                                ha_entrado = true;
+                            }
+                            if (palo[i].equals("e_20")) {
+                                if (!ha_entrado) {
+                                    texto = "El usuario ";
+                                    texto = texto + username;
+                                    ha_entrado = true;
+                                }
+                                if (cartaTriunfo.getPalo() == 2) {
+                                    texto = texto + " las 40";
+                                } else {
+                                    texto = texto + " las 20 en espadas";
+                                }
+                            }
+                            if (palo[i].equals("b_20")) {
+                                if (!ha_entrado) {
+                                    texto = "El usuario ";
+                                    texto = texto + username;
+                                    ha_entrado = true;
+                                }
+                                if (cartaTriunfo.getPalo() == 3) {
+                                    texto = texto + " las 40";
+                                } else {
+                                    texto = texto + " las 20 en bastos";
+                                }
+                            }
+                            if (palo[i].equals("c_20")) {
+                                if (!ha_entrado) {
+                                    texto = "El usuario ";
+                                    texto = texto + username;
+                                }
+                                if (cartaTriunfo.getPalo() == 4) {
+                                    texto = texto + " las 40";
+                                } else {
+                                    texto = texto + " las 20 en copas";
+                                }
+                            }
                         }
                     }
                     Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
-                    Log.d("o_20",o_20);
-                    Log.d("e_20",e_20);
-                    Log.d("b_20",b_20);
-                    Log.d("c_20",c_20);
                 }
             });
         }
@@ -538,7 +528,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("cartaJugada", oncartaJugada);
         mSocket.on("winner", onRecuento);
         mSocket.on("roba", onRobo);
-        mSocket.on("cartaMedio", onMedio);
         mSocket.on("cartaCambio", onCambio);
         mSocket.on("cante", onCante);
         mSocket.connect();
@@ -1161,6 +1150,16 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 flipViews(queImagenFlip(i),triumphewhole);
             }
         }.start();
+    }
+
+    public int find7(){
+        int cual = 0;
+        for(int i = 0; i<6;i++ ){
+            if(cardsj1[i].getPalo() == cartaTriunfo.getPalo() && cardsj1[i].getRanking() == 6){
+                cual = i;
+            }
+        }
+        return cual;
     }
 
     public void flipViews(final EasyFlipView a, final EasyFlipView b){
