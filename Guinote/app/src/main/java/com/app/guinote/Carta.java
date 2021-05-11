@@ -2,9 +2,9 @@ package com.app.guinote;
 
 public class Carta {
     private String id;
-    private int valor;
-    private int palo;
-    private int ranking;
+    private Integer valor;
+    private Integer palo;
+    private Integer ranking;
 
     public Carta(String id) {
         this.id = id;
@@ -209,18 +209,23 @@ public class Carta {
                 this.palo = 4;
                 this.ranking = 10;
                 break;
+            default:
+                this.valor = 0;
+                this.palo = 5;
+                this.ranking = 15;
+                break;
         }
 
         }
 
-    public int getValor(){
+    public Integer getValor(){
         return this.valor;
     }
-    public int getPalo(){
+    public Integer getPalo(){
         return this.palo;
     }
 
-    public int getRanking(){
+    public Integer getRanking(){
         return this.ranking;
     }
     public String getId(){

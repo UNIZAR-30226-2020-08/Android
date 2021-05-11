@@ -191,6 +191,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     if (username.equals(nameUser)) {
+                        arrastre = false;
+                        paloArrastre = 0;
+                        RondaArrastre = 0;
+                        RankingArrastre = 11;
                         queEquipo = equipo;
                         queOrden = orden;
                         if(queOrden == 2){
@@ -272,10 +276,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         animacionCartaFront();
                         Carta aux = new Carta(carta);
                         assignImages(aux,j2imagefront);
-                        if(arrastre){
+                        if(arrastre == true){
                             actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
                         }
                     }else{
+                        Carta aux2 = new Carta("F");
+                        cardsj1[QueCarta] = aux2;
                         estrella1.setVisibility(View.INVISIBLE);
                         estrella2.setVisibility(View.VISIBLE);
                         if(ultimo){
@@ -341,11 +347,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     disolverCartas();
                     nronda++;
                     if(nronda == 14){
-                        arrastre =true;
+                        arrastre = true;
                         triumphewhole.setVisibility(View.GONE);
                         reverse.setVisibility(View.GONE);
                     }
-                    if(arrastre){
+                    if(arrastre == true){
                         RondaArrastre = 0;
                         paloArrastre = 0;
                         RankingArrastre = 11;
@@ -587,11 +593,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         estrella1.setVisibility(View.INVISIBLE);
         estrella2.setVisibility(View.INVISIBLE);
 
-        arrastre = false;
-        RondaArrastre = 0;
-        paloArrastre = 0;
-        RankingArrastre = 11;
-
         MyDragEventListener mDragListen = new MyDragEventListener();
         c1.setOnDragListener(mDragListen);
         c2.setOnDragListener(mDragListen);
@@ -804,12 +805,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             paloArrastre = palo;
             RondaArrastre = 1;
             RankingArrastre = ranking;
+            Log.d("palo", palo.toString());
+            Log.d("ranking", ranking.toString());
         }else{
-            if(palo == paloArrastre){
+            if(palo.equals(paloArrastre)){
                 if( ranking < RankingArrastre){
                     RankingArrastre = ranking;
                 }
-            }else if((palo == cartaTriunfo.getPalo()) && (paloArrastre != cartaTriunfo.getPalo())){
+            }else if((palo.equals(cartaTriunfo.getPalo())) && !(paloArrastre.equals(cartaTriunfo.getPalo()))){
                 paloArrastre = palo;
                 RankingArrastre = ranking;
             }
@@ -817,14 +820,22 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private boolean arrastre_y_puede(Integer i){
-        if(arrastre){
+        Log.d("ronda", RondaArrastre.toString());
+        Log.d("palo", paloArrastre.toString());
+        Log.d("ranking", RankingArrastre.toString());
+        Log.d("---------------------","hola");
+        Log.d("hola", cardsj1[i].getId());
+        if(arrastre == true){
+            Log.d("dpsarrastre", "");
             if(RondaArrastre == 0){
                 paloArrastre = cardsj1[i].getPalo();
                 RondaArrastre = 1;
                 RankingArrastre = cardsj1[i].getRanking();
                 return true;
             }else{
-                if(cardsj1[i].getPalo() == paloArrastre){
+                Log.d("else obvio", "");
+                if(paloArrastre.equals(cardsj1[i].getPalo())){
+                    Log.d("es igual el palo", "");
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getRanking() < RankingArrastre){
@@ -835,7 +846,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     if(cardsj1[i].getRanking() < RankingArrastre){
                         RankingArrastre = cardsj1[i].getRanking();
                     }
-                }else if((cardsj1[i].getPalo() == cartaTriunfo.getPalo()) && (paloArrastre != cartaTriunfo.getPalo())){
+                }else if((cardsj1[i].getPalo() == cartaTriunfo.getPalo()) && (!paloArrastre.equals(cartaTriunfo.getPalo()))){
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getPalo() == paloArrastre){
