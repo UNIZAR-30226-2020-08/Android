@@ -30,6 +30,15 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/chat" />
+            <TextView
+                android:id="@+id/cuentatras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:drawableTop="@drawable/timer" />
 
             <LinearLayout
                 android:id="@+id/layout_linear_j21vs1"

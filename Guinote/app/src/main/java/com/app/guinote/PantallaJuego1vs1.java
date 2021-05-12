@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,11 +37,14 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import io.socket.client.Ack;
 import io.socket.client.IO;
@@ -61,7 +65,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
-    TextView nombreOponente;
+    TextView nombreOponente,cuentaatras;
     Button cantar;
 
     Integer queEquipo;                 // En que equipo estoy, 1 o 0.
@@ -80,6 +84,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Integer paloArrastre;
     Integer RondaArrastre;
     Integer RankingArrastre;
+
+    long duration = TimeUnit.MINUTES.toMillis(1);
+    CountDownTimer contador;
 
     public List<MensajeDeTexto> mensajeDeTextos;
 
@@ -202,6 +209,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             estrella2.setVisibility(View.VISIBLE);
                         }
                         if(queOrden == 1){
+                            contador.start();
                             estrella1.setVisibility(View.VISIBLE);
                         }
                         cardsj1[0] = new Carta(carta1);
@@ -270,6 +278,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     if (!quien.equals(nameUser)){
                         queOrden--;
                         if(queOrden == 1){
+                            contador.start();
                            estrella1.setVisibility(View.VISIBLE);
                            estrella2.setVisibility(View.INVISIBLE);
                         }
@@ -355,6 +364,24 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         RondaArrastre = 0;
                         paloArrastre = 0;
                         RankingArrastre = 11;
+                    }
+
+                    if(nronda == 20){
+                        arrastre = false;
+                        JSONObject aux = new JSONObject();
+                        try {
+                            aux.put("partida", room);
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        mSocket.emit("finalizarPartida", aux, new Ack() {
+                            @Override
+                            public void call(Object... args) {
+                                //JSONObject response = (JSONObject) args[0];
+                                //System.out.println(response); // "ok"
+                            }
+                        });
                     }
 
                 }
@@ -512,6 +539,47 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onResultado = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    Integer eq1;
+                    Integer eq2;
+                    try {
+                        eq1 = data.getInt("puntos_e0");
+                        eq2 = data.getInt("puntos_e1");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onVueltas = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String vueltas;
+                    try {
+                        vueltas = data.getString("mensaje");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                }
+            });
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -536,6 +604,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("roba", onRobo);
         mSocket.on("cartaCambio", onCambio);
         mSocket.on("cante", onCante);
+        mSocket.on("Resultado", onResultado);
+        mSocket.on("Vueltas", onVueltas);
         mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -555,6 +625,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+        cuentaatras = (TextView) findViewById(R.id.cuentatras);
         estrella1 = (ImageView) findViewById(R.id.estrella_turnoj1);
         estrella2 = (ImageView) findViewById(R.id.estrella_turnoj2);
         nombreOponente = (TextView) findViewById(R.id.nombre_j21vs1);
@@ -593,6 +664,33 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         estrella1.setVisibility(View.INVISIBLE);
         estrella2.setVisibility(View.INVISIBLE);
 
+        contador = new CountDownTimer(duration, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d",
+                        TimeUnit.MILLISECONDS.toMinutes(1) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1)));
+                cuentaatras.setText(sDuration);
+            }
+
+            @Override
+            public void onFinish() {
+                cuentaatras.setVisibility(View.GONE);
+                if(arrastre_y_puede(0)){
+                    puedeLanzar(0);
+                }else if(arrastre_y_puede(1)){
+                    puedeLanzar(1);
+                }else if(arrastre_y_puede(2)){
+                    puedeLanzar(2);
+                }else if(arrastre_y_puede(3)){
+                    puedeLanzar(3);
+                }else if(arrastre_y_puede(4)){
+                    puedeLanzar(4);
+                }else if(arrastre_y_puede(5)){
+                    puedeLanzar(5);
+                }
+            }
+        };
         MyDragEventListener mDragListen = new MyDragEventListener();
         c1.setOnDragListener(mDragListen);
         c2.setOnDragListener(mDragListen);
@@ -926,6 +1024,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     c6whole.flipTheView();
                 }
                 estrella1.setVisibility(View.INVISIBLE);
+                contador.cancel();
                 return true;
         }
         return false;
