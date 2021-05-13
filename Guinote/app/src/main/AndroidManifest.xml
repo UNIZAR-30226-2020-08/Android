@@ -13,18 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TorneoViewHolder.BracketsCellViewHolder"></activity>
-        <activity android:name=".Torneo" />
-        <activity android:name=".carga_registro" />
-        <activity android:name=".Pantalla_app" />
-        <activity android:name=".navegacion_inicio">
+        <activity android:name=".Torneo" android:theme ="@style/AppTheme"/>
+        <activity android:name=".carga_registro" android:theme ="@style/AppTheme"/>
+        <activity android:name=".Pantalla_app" android:theme ="@style/AppTheme" />
+        <activity android:name=".navegacion_inicio" android:theme ="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PantallaJuego" />
-        <activity android:name=".PantallaJuego1vs1" />
+        <activity android:name=".PantallaJuego" android:theme ="@style/AppTheme" />
+        <activity android:name=".PantallaJuego1vs1" android:theme ="@style/AppTheme"/>
     </application>
 
 </manifest>
