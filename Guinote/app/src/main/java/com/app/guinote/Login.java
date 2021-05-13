@@ -70,7 +70,7 @@ public class Login extends Fragment {
                 MyOpenHelper dbHelper = new MyOpenHelper(getContext());
                 final SQLiteDatabase db = dbHelper.getWritableDatabase();
                 db.execSQL("DELETE FROM auth");
-                String url = "http://148.3.47.50:8000/api/auth/signin";
+                String url = "https://las10ultimas-backend.herokuapp.com/api/auth/signin";
                 final List<String> jsonResponses = new ArrayList<>();
 
                 JSONObject postData = new JSONObject();

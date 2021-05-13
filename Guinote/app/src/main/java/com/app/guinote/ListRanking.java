@@ -163,7 +163,7 @@ public class ListRanking extends Fragment {
     private List<rank> GetData() {
         lista = new ArrayList<>();
 
-        String postUrl = "http://192.168.1.36:8080/api/amigo/findAll/"+getName();
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/amigo/findAll/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
 
@@ -213,7 +213,7 @@ public class ListRanking extends Fragment {
     }
 
     private void getSolicitudes(){
-        String postUrl = "http://192.168.1.36:8080/api/amigo/listRequest/"+getName();
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/amigo/listRequest/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
 
@@ -246,7 +246,7 @@ public class ListRanking extends Fragment {
     }
 
     private void aceptarSolicitud(String amigo){
-        String postUrl = "http://192.168.1.36:8080/api/amigo/acceptFriend/"+getName()+"/"+amigo;
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/amigo/acceptFriend/"+getName()+"/"+amigo;
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
 
@@ -267,7 +267,7 @@ public class ListRanking extends Fragment {
     }
 
     private void denegarSolicitud(String amigo){
-        String postUrl = "http://192.168.1.36:8080/api/amigo/dropFriend/"+getName()+"/"+amigo;
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/amigo/dropFriend/"+getName()+"/"+amigo;
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
 

@@ -30,6 +30,15 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/chat" />
+            <TextView
+                android:id="@+id/cuentatras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:drawableTop="@drawable/timer" />
 
             <LinearLayout
                 android:id="@+id/layout_linear_j21vs1"
@@ -37,6 +46,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/foto_perfil_j2"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:maxHeight="30dp"
+                    android:src="@drawable/timer"/>
                 <TextView
                     android:id="@+id/nombre_j21vs1"
                     android:layout_width="wrap_content"
@@ -91,7 +106,21 @@
                     android:src="@drawable/reverso"/>
 
             </com.wajahatkarim3.easyflipview.EasyFlipView>
-
+            <TextView
+                android:id="@+id/cartasrestantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/mazo_central1vs1"
+                android:layout_centerInParent="true"
+                android:text="Cartas restantes: "/>
+            <TextView
+                android:id="@+id/cuantascartas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/mazo_central1vs1"
+                android:layout_toRightOf="@+id/cartasrestantes"
+                android:layout_centerInParent="true"
+                android:text="28"/>
             <ImageView
                 android:id="@+id/mazo_central1vs1"
                 android:layout_width="wrap_content"
@@ -158,15 +187,44 @@
                 android:src="@drawable/ganar_icono"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"/>
-            <Button
-                android:id="@+id/button_cantar1vs1"
+            <TextView
+                android:id="@+id/puntosmiostext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Cantar"
-                android:layout_alignParentBottom="true"
+                android:layout_above="@id/puntosrivaltext"
+                android:layout_toLeftOf="@id/estrella_turnoj1"
+                android:text="Puntos:  "/>
+            <TextView
+                android:id="@+id/puntosrivaltext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/estrella_turnoj1"
+                android:layout_toLeftOf="@id/estrella_turnoj1"
+                android:text="Puntos rival:  "/>
+            <TextView
+                android:id="@+id/puntosrival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/estrella_turnoj1"
+                android:layout_toRightOf="@id/puntosrivaltext"
+                android:text="0"/>
+            <TextView
+                android:id="@+id/puntosmios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/puntosrivaltext"
+                android:layout_toRightOf="@id/puntosmiostext"
+                android:text="0"/>
+
+            <Button
+                android:id="@+id/button_cantar1vs1"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                />
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:text="Cantar" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/relativelayout2_juego1vs1"

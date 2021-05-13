@@ -95,7 +95,7 @@ public class Lista2vs2 extends Fragment {
         lista = new ArrayList<>();
 
 
-        String url = "http://148.3.47.50:8000/api/partida/findAllGames/1";
+        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/findAllGames/1";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
