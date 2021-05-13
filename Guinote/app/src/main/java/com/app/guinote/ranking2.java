@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +36,8 @@ public class ranking2 extends Fragment {
 
     ListView listView;
     List<rank> lista;
+    RankAdapter adapter;
+
 
 
     public ranking2(){
@@ -38,8 +51,7 @@ public class ranking2 extends Fragment {
                 container, false);
         listView = view.findViewById(R.id.lista_global);
 
-        RankAdapter adapter = new RankAdapter(getActivity(),GetData());
-        listView.setAdapter(adapter);
+        adapter = new RankAdapter(getActivity(),GetData());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -55,11 +67,44 @@ public class ranking2 extends Fragment {
 
     private List<rank> GetData() {
         lista = new ArrayList<>();
-        lista.add(new rank(1,"FERNANDO07",R.drawable.asoros,"150"));
-        lista.add(new rank(2,"DIEGOL10",R.drawable.dosoros,"140"));
-        lista.add(new rank(3,"JAMONERO",R.drawable.tresoros,"130"));
-        lista.add(new rank(4,"DRESPIN",R.drawable.cuatrooros,"120"));
 
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/usuario/findAll/";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, postUrl, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                if (response.length()!=0) {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject dato;
+                        try {
+                            dato = response.getJSONObject(i);
+                            if(!dato.getString("username").equals("IA")) {
+                                Log.d("username",dato.getString("username"));
+                                Integer copas = dato.getInt("copas");
+                                lista.add(new rank(i, dato.getString("username"), R.drawable.ascopas, copas.toString()));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    listView.setAdapter(adapter);
+                }
+
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
         return lista;
 
 
