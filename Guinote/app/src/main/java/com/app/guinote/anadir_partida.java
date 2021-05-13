@@ -1,5 +1,6 @@
 package com.app.guinote;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -106,17 +107,29 @@ public class anadir_partida extends Fragment {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(cual == 0){
-                            getActivity().getSupportFragmentManager().beginTransaction()
-                                    .setReorderingAllowed(true)
-                                    .replace(R.id.fragmento_app, Lista1vs1.class, null)
-                                    .commit();
-                        }else{
-                            getActivity().getSupportFragmentManager().beginTransaction()
-                                    .setReorderingAllowed(true)
-                                    .replace(R.id.fragmento_app, Lista2vs2.class, null)
-                                    .commit();
+                        try {
+                            if(cual == 0){
+                                String ranking=response.getString("nombre");
+                                Intent intent = new Intent(getActivity(),PantallaJuego1vs1.class);
+
+                                Bundle b = new Bundle();
+                                b.putString("key", ranking); //Your id
+                                intent.putExtras(b); //Put your id to your next Intent
+                                startActivity(intent);
+                            }else{
+
+                                String ranking=response.getString("nombre");
+                                Intent intent = new Intent(getActivity(),PantallaJuego.class);
+
+                                Bundle b = new Bundle();
+                                b.putString("key", ranking);
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+                        } catch (Exception e){
+                            e.printStackTrace();
                         }
+
                         System.out.println(response);
                     }
                 }, new Response.ErrorListener() {
