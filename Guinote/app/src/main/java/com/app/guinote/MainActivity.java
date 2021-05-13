@@ -38,6 +38,7 @@ public class MainActivity extends Fragment {
     ListView lista1vs1;
     CardView cardvs1;
     CardView fd;
+    CardView jointorneo;
 
     private SQLiteDatabase db;
 
@@ -55,6 +56,7 @@ public class MainActivity extends Fragment {
         CardView play2 = view.findViewById(R.id.button_start_2vs2);
         createroom = view.findViewById(R.id.button_start_1vs1);
         fd = view.findViewById(R.id.button_start_private_room);
+        jointorneo = view.findViewById(R.id.button_join_private_room);
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
 
 
@@ -72,6 +74,12 @@ public class MainActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 openActivity3();
+            }
+        });
+        jointorneo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity5();
             }
         });
         fd.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +110,18 @@ public class MainActivity extends Fragment {
                 )
                 .setReorderingAllowed(true)
                 .replace(R.id.fragmento_app, Lista2vs2.class, null)
+                .commit();
+    }
+    public void openActivity5(){
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, ListaTorneo.class, null)
                 .commit();
     }
     public void openActivity3(){
