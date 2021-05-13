@@ -107,22 +107,16 @@ public class EditProfile extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JSONObject postData = new JSONObject();
+
         try {
             postData.put("email", email);
-            if (passwd !="") {
+            if (passwd !="" && passwd!=null) {
                 Log.d("passwd",passwd);
                 postData.put("password", passwd);
             }
+            Log.d("request2",postData.toString());
 
         } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            if (postData.get("password")==""){
-                postData.remove("password");
-            }
-        }catch (Exception e){
             e.printStackTrace();
         }
 
