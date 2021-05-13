@@ -61,43 +61,11 @@ public class EditProfile extends Fragment {
                 openActivity();
             }
         });
-        //Button actualizar = (Button)view.findViewById(R.id.Actualizar);
-        /*actualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final TextInputEditText correo= (TextInputEditText) view.findViewById(R.id.full_email);
-                final TextInputEditText password= (TextInputEditText) view.findViewById(R.id.contraseña);
-                String email= correo.getText().toString();
-                String passwd=password.getText().toString();
-
-                MyOpenHelper dbHelper = new MyOpenHelper(getContext());
-                final SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("DELETE FROM auth");
-                String url = "http://192.168.56.1:8081/api/auth/signin";
-                final List<String> jsonResponses = new ArrayList<>();
-
-                JSONObject postData = new JSONObject();
-                try {
-                    postData.put("email", email);
-                    postData.put("password", passwd);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-
-
-
-                Intent intent = new Intent(getActivity(),Perfil.class);
-                startActivity(intent);
-            }
-        });*/
         return view;
     }
     
     private void GetData() {
-        String url = "http://10.1.59.140:8080/api/usuario/findUser/"+getName();
+        String url = "http://192.168.1.36:8080/api/usuario/findUser/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -142,12 +110,23 @@ public class EditProfile extends Fragment {
         try {
             postData.put("email", email);
             if (passwd !="") {
+                Log.d("passwd",passwd);
                 postData.put("password", passwd);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        try{
+            if (postData.get("password")==""){
+                postData.remove("password");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Log.d("request",postData.toString());
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
             @Override

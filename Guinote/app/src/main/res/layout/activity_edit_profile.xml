@@ -58,6 +58,16 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
+                <TextView
+                    android:id="@+id/nameUserPerfillabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Nombre de usuario"
+                    android:textSize="15dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nombreusuario"
                     android:layout_width="match_parent"
@@ -89,6 +99,15 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Email"
+                    android:textSize="15dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/full_email"
                     android:layout_width="match_parent"
@@ -118,6 +137,15 @@
                 android:paddingRight="15dp">
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Nueva contraseña"
+                    android:textSize="15dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/contraseña"
                     android:layout_width="match_parent"
@@ -132,6 +160,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
+                        android:inputType="textPassword"
                         android:textColorHighlight="#349702"
                         android:padding="15dp"
                         android:id="@+id/contraseña2"
