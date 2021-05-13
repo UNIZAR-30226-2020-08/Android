@@ -25,9 +25,19 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -127,6 +137,14 @@ public class Perfil extends Fragment{
         });
 
 
+        Button eliminar=view.findViewById(R.id.eliminarSesion);
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eliminarCuenta();
+            }
+        });
+
         TextView name=view.findViewById(R.id.nameUserPerfil);
         name.setText(getName());
         TextView puntos=view.findViewById(R.id.puntosPerfil);
@@ -167,6 +185,54 @@ public class Perfil extends Fragment{
         intent.putExtra("EXIT",true);
         startActivity(intent);
     }
+
+    public void eliminarCuenta(){
+
+
+        final String postUrl = "https://las10ultimas-backend.herokuapp.com/api/usuario/dropUser/"+getName();
+        final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+
+        final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
+        builder.setTitle("¿Desea eliminar su cuenta?");
+        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, postUrl, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        db.execSQL("DELETE FROM auth");
+                        Intent intent = new Intent(view.getContext(),navegacion_inicio.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("EXIT",true);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+                requestQueue.add(jsonObjectRequest);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setMessage("Si elimina su cuenta, perderá todos sus datos.");
+        builder.show();
+
+
+
+
+    }
+
     public void Cartas(){
 
                 Log.d("hola","jejej");

@@ -301,9 +301,29 @@
                 android:textStyle="bold"
                 android:padding="10dp"
                 android:textSize="15dp"
-                android:backgroundTint="#FF0C08"
+                android:backgroundTint="#7FA7FA"
                 android:layout_height="wrap_content"
                 android:text="Cerrar sesión"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#000000">
+            </LinearLayout>
+            <Button
+                android:textColor="#ffffff"
+                android:id="@+id/eliminarSesion"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:backgroundTint="#FF0C08"
+                android:layout_height="wrap_content"
+                android:text="Borrar cuenta"/>
 
         </LinearLayout>
     </LinearLayout>
