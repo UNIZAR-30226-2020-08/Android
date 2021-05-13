@@ -50,20 +50,18 @@
                     android:id="@+id/foto_perfil_j2"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
-                    android:maxHeight="30dp"
-                    android:src="@drawable/timer"/>
+                    android:maxHeight="30dp" />
                 <TextView
                     android:id="@+id/nombre_j21vs1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Nombre2"/>
+                    android:layout_centerHorizontal="true"/>
                 <TextView
+                    android:id="@+id/copasadversario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dorado"
                     android:textStyle="bold"
-                    android:text="30"
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
