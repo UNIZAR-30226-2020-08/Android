@@ -88,7 +88,7 @@ public class anadir_partida extends Fragment {
         creacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                String postUrl = "http://148.3.47.50:8000/api/partida/";
+                String postUrl = "https://las10ultimas-backend.herokuapp.com/api/partida/";
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                 TextInputLayout cajaNombre= (TextInputLayout) view.findViewById(R.id.cajaPartidaAnadir);
                 String nombreUsername=cajaNombre.getEditText().getText().toString();

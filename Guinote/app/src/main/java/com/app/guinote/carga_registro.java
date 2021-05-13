@@ -38,7 +38,7 @@ public class carga_registro extends AppCompatActivity {
         String email=b.getString("email");
         String password=b.getString("passwd");
 
-        String postUrl = "http://192.168.1.36:8080/api/auth/signup";
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/auth/signup";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JSONObject postData = new JSONObject();

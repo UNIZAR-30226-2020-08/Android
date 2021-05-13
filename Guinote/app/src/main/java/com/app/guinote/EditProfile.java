@@ -97,7 +97,7 @@ public class EditProfile extends Fragment {
     }
     
     private void GetData() {
-        String url = "http://10.1.59.140:8080/api/usuario/findUser/"+getName();
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/findUser/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -135,7 +135,7 @@ public class EditProfile extends Fragment {
             passwd = password.getEditText().getText().toString();
         }
 
-        String url = "http://10.1.59.140:8080/api/usuario/updateUser/"+getName();
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getName();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JSONObject postData = new JSONObject();

@@ -65,8 +65,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
-    TextView nombreOponente,cuentaatras;
+    TextView nombreOponente,cuentaatras, cuantascartas;
     Button cantar;
+    Integer cuantascartasint = 28;
 
     Integer queEquipo;                 // En que equipo estoy, 1 o 0.
     Carta[] cardsj1 = new Carta[6]; //Las 6 cartas de nuestra mano
@@ -84,8 +85,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Integer paloArrastre;
     Integer RondaArrastre;
     Integer RankingArrastre;
+    boolean deVueltas;
 
-    long duration = TimeUnit.MINUTES.toMillis(1);
+    long duration = TimeUnit.MINUTES.toMillis(2);
     CountDownTimer contador;
 
     public List<MensajeDeTexto> mensajeDeTextos;
@@ -352,13 +354,23 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         estrella1.setVisibility(View.VISIBLE);
                         estrella2.setVisibility(View.INVISIBLE);
                         queOrden=1;
+                        contador.start();
                     }
                     disolverCartas();
                     nronda++;
+                    cuantascartasint = cuantascartasint -2;
+                    cuantascartas.setText(cuantascartasint.toString());
                     if(nronda == 14){
                         arrastre = true;
                         triumphewhole.setVisibility(View.GONE);
                         reverse.setVisibility(View.GONE);
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                updatecenterCard();
+                            }
+                        }.start();
+                        cuantascartas.setVisibility(View.GONE);
                     }
                     if(arrastre == true){
                         RondaArrastre = 0;
@@ -500,6 +512,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 if (!ha_entrado) {
                                     texto = "El usuario ";
                                     texto = texto + username;
+                                    texto = texto + " ha cantado";
                                     ha_entrado = true;
                                 }
                                 if (cartaTriunfo.getPalo() == 2) {
@@ -512,6 +525,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 if (!ha_entrado) {
                                     texto = "El usuario ";
                                     texto = texto + username;
+                                    texto = texto + " ha cantado";
                                     ha_entrado = true;
                                 }
                                 if (cartaTriunfo.getPalo() == 3) {
@@ -524,6 +538,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 if (!ha_entrado) {
                                     texto = "El usuario ";
                                     texto = texto + username;
+                                    texto = texto + " ha cantado";
                                 }
                                 if (cartaTriunfo.getPalo() == 4) {
                                     texto = texto + " las 40";
@@ -575,6 +590,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
+                    deVueltas = true;
                 }
             });
         }
@@ -594,7 +610,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
-        mSocket = IO.socket(URI.create("http://148.3.47.50:5000"));
+        mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);
@@ -625,6 +641,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+        cuantascartas = (TextView) findViewById(R.id.cuantascartas);
         cuentaatras = (TextView) findViewById(R.id.cuentatras);
         estrella1 = (ImageView) findViewById(R.id.estrella_turnoj1);
         estrella2 = (ImageView) findViewById(R.id.estrella_turnoj2);
@@ -664,13 +681,15 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         estrella1.setVisibility(View.INVISIBLE);
         estrella2.setVisibility(View.INVISIBLE);
 
+        deVueltas = false;
+
         contador = new CountDownTimer(duration, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d",
-                        TimeUnit.MILLISECONDS.toMinutes(1) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1)));
+                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d", TimeUnit.MILLISECONDS.toMinutes(1),
+                        (TimeUnit.MILLISECONDS.toSeconds(1)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1))));
                 cuentaatras.setText(sDuration);
+                cuentaatras.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -932,11 +951,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 return true;
             }else{
                 Log.d("else obvio", "");
-                if(paloArrastre.equals(cardsj1[i].getPalo())){
+                if(paloArrastre.equals(cardsj1[i].getPalo()) && (cardsj1[i].getRanking() > RankingArrastre)){
                     Log.d("es igual el palo", "");
                     for(int j = 0; j<6;j++){
                         if(j!=i){
-                            if(cardsj1[j].getRanking() < RankingArrastre){
+                            if(cardsj1[j].getRanking() < RankingArrastre && cardsj1[j].getPalo() == paloArrastre){
+                                String texto = "Debes superar la carta que han echado";
+                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
                                 return false;
                             }
                         }
@@ -948,19 +969,25 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getPalo() == paloArrastre){
+                                String texto = "Debes echar del palo que se pide";
+                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
                                 return false;
                             }
                         }
                     }
                     paloArrastre = cardsj1[i].getPalo();
                     RankingArrastre = cardsj1[i].getRanking();
-                }else if(cardsj1[i].getPalo() != paloArrastre && paloArrastre != cartaTriunfo.getPalo()){
+                }else if((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre != cartaTriunfo.getPalo())){
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getPalo() == paloArrastre){
+                                String texto = "Tienes del palo al que vamos";
+                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
                                 return false;
                             }
                             if(cardsj1[j].getPalo() == cartaTriunfo.getPalo()){
+                                String texto = "Tienes triunfo por lo que tienes que echarlo";
+                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
                                 return false;
                             }
                         }
@@ -969,6 +996,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getPalo() == cartaTriunfo.getPalo()){
+                                String texto = "Tienes triunfo, debes echarlo";
+                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
                                 return false;
                             }
                         }
@@ -1025,6 +1054,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
                 estrella1.setVisibility(View.INVISIBLE);
                 contador.cancel();
+                cuentaatras.setVisibility(View.GONE);
                 return true;
         }
         return false;
