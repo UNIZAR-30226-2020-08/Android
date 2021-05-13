@@ -74,6 +74,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Carta cartaTriunfo;             //La carta que esta en medio
     Integer nronda = 0;             //Rondas en las que nos encontramos
     Integer QueCarta;               //Que i de carta estoy lanzando a los adversarios (para robar)
+    long numeroTimer = 0;
 
     Integer IDcomienzo; //Que carta estoy comenzando a arrastrar (solo para intercambio de cartas)
     Integer queOrden;
@@ -87,7 +88,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Integer RankingArrastre;
     boolean deVueltas;
 
-    long duration = TimeUnit.MINUTES.toMillis(2);
+    long duration = TimeUnit.SECONDS.toMillis(20);
     CountDownTimer contador;
 
     public List<MensajeDeTexto> mensajeDeTextos;
@@ -686,15 +687,16 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         contador = new CountDownTimer(duration, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d", TimeUnit.MILLISECONDS.toMinutes(1),
-                        (TimeUnit.MILLISECONDS.toSeconds(1)-TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1))));
-                cuentaatras.setText(sDuration);
+                long sDuration = (TimeUnit.MILLISECONDS.toSeconds(duration)-numeroTimer);
+                cuentaatras.setText(String.valueOf(sDuration));
                 cuentaatras.setVisibility(View.VISIBLE);
+                numeroTimer++;
             }
 
             @Override
             public void onFinish() {
                 cuentaatras.setVisibility(View.GONE);
+                numeroTimer = 0;
                 if(arrastre_y_puede(0)){
                     puedeLanzar(0);
                 }else if(arrastre_y_puede(1)){
@@ -942,69 +944,72 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Log.d("ranking", RankingArrastre.toString());
         Log.d("---------------------","hola");
         Log.d("hola", cardsj1[i].getId());
-        if(arrastre == true){
-            Log.d("dpsarrastre", "");
-            if(RondaArrastre == 0){
-                paloArrastre = cardsj1[i].getPalo();
-                RondaArrastre = 1;
-                RankingArrastre = cardsj1[i].getRanking();
-                return true;
-            }else{
-                Log.d("else obvio", "");
-                if(paloArrastre.equals(cardsj1[i].getPalo()) && (cardsj1[i].getRanking() > RankingArrastre)){
-                    Log.d("es igual el palo", "");
-                    for(int j = 0; j<6;j++){
-                        if(j!=i){
-                            if(cardsj1[j].getRanking() < RankingArrastre && cardsj1[j].getPalo() == paloArrastre){
-                                String texto = "Debes superar la carta que han echado";
-                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                        }
-                    }
-                    if(cardsj1[i].getRanking() < RankingArrastre){
-                        RankingArrastre = cardsj1[i].getRanking();
-                    }
-                }else if((cardsj1[i].getPalo() == cartaTriunfo.getPalo()) && (!paloArrastre.equals(cartaTriunfo.getPalo()))){
-                    for(int j = 0; j<6;j++){
-                        if(j!=i){
-                            if(cardsj1[j].getPalo() == paloArrastre){
-                                String texto = "Debes echar del palo que se pide";
-                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                        }
-                    }
+        if(arrastre == true) {
+            if (cardsj1[i].getPalo() == 5) {
+                return false;
+            }
+                Log.d("dpsarrastre", "");
+                if (RondaArrastre == 0) {
                     paloArrastre = cardsj1[i].getPalo();
+                    RondaArrastre = 1;
                     RankingArrastre = cardsj1[i].getRanking();
-                }else if((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre != cartaTriunfo.getPalo())){
-                    for(int j = 0; j<6;j++){
-                        if(j!=i){
-                            if(cardsj1[j].getPalo() == paloArrastre){
-                                String texto = "Tienes del palo al que vamos";
-                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                            if(cardsj1[j].getPalo() == cartaTriunfo.getPalo()){
-                                String texto = "Tienes triunfo por lo que tienes que echarlo";
-                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
-                                return false;
+                    return true;
+                } else {
+                    Log.d("else obvio", "");
+                    if (paloArrastre.equals(cardsj1[i].getPalo()) && (cardsj1[i].getRanking() > RankingArrastre)) {
+                        Log.d("es igual el palo", "");
+                        for (int j = 0; j < 6; j++) {
+                            if (j != i) {
+                                if (cardsj1[j].getRanking() < RankingArrastre && cardsj1[j].getPalo() == paloArrastre) {
+                                    String texto = "Debes superar la carta que han echado";
+                                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }
                             }
                         }
-                    }
-                }else if(cardsj1[i].getPalo() != paloArrastre && paloArrastre == cartaTriunfo.getPalo()){
-                    for(int j = 0; j<6;j++){
-                        if(j!=i){
-                            if(cardsj1[j].getPalo() == cartaTriunfo.getPalo()){
-                                String texto = "Tienes triunfo, debes echarlo";
-                                Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_SHORT).show();
-                                return false;
+                        if (cardsj1[i].getRanking() < RankingArrastre) {
+                            RankingArrastre = cardsj1[i].getRanking();
+                        }
+                    } else if ((cardsj1[i].getPalo() == cartaTriunfo.getPalo()) && (!paloArrastre.equals(cartaTriunfo.getPalo()))) {
+                        for (int j = 0; j < 6; j++) {
+                            if (j != i) {
+                                if (cardsj1[j].getPalo() == paloArrastre) {
+                                    String texto = "Debes echar del palo que se pide";
+                                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }
+                            }
+                        }
+                        paloArrastre = cardsj1[i].getPalo();
+                        RankingArrastre = cardsj1[i].getRanking();
+                    } else if ((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre != cartaTriunfo.getPalo())) {
+                        for (int j = 0; j < 6; j++) {
+                            if (j != i) {
+                                if (cardsj1[j].getPalo() == paloArrastre) {
+                                    String texto = "Tienes del palo al que vamos";
+                                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }
+                                if (cardsj1[j].getPalo() == cartaTriunfo.getPalo()) {
+                                    String texto = "Tienes triunfo por lo que tienes que echarlo";
+                                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }
+                            }
+                        }
+                    } else if (cardsj1[i].getPalo() != paloArrastre && paloArrastre == cartaTriunfo.getPalo()) {
+                        for (int j = 0; j < 6; j++) {
+                            if (j != i) {
+                                if (cardsj1[j].getPalo() == cartaTriunfo.getPalo()) {
+                                    String texto = "Tienes triunfo, debes echarlo";
+                                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
         return true;
     }
 
@@ -1055,6 +1060,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 estrella1.setVisibility(View.INVISIBLE);
                 contador.cancel();
                 cuentaatras.setVisibility(View.GONE);
+                numeroTimer = 0;
                 return true;
         }
         return false;
