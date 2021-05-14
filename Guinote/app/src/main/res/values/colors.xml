@@ -6,6 +6,7 @@
     <color name="ganada">#607FF74F</color>
     <color name="colorBackground">#BCAAA4</color>
     <color name="colorTapete">#008f39</color>
+    <color name="transparente">#00000000</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorNegro">#000000</color>
     <color name="dorado">#F5CA02</color>

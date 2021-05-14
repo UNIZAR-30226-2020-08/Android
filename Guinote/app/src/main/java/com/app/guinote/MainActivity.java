@@ -1,10 +1,6 @@
 package com.app.guinote;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -12,20 +8,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
-import com.google.android.material.appbar.AppBarLayout;
+import com.app.guinote.ActivityTorneo.Torneo;
 import com.google.android.material.appbar.MaterialToolbar;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends Fragment {
 
@@ -95,8 +83,18 @@ public class MainActivity extends Fragment {
     }
 
     public void openActivity4(){
-        Intent intent = new Intent (getContext(), Torneo.class);
-        startActivityForResult(intent, 0);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, FormularioPartida.class, null)
+                .commit();
+        //Intent intent = new Intent(getContext(), Torneo.class);
+        //startActivity(intent);
     }
 
 
