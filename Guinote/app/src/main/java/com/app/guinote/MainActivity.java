@@ -83,8 +83,18 @@ public class MainActivity extends Fragment {
     }
 
     public void openActivity4(){
-        Intent intent = new Intent(getContext(), Torneo.class);
-        startActivity(intent);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, FormularioPartida.class, null)
+                .commit();
+        //Intent intent = new Intent(getContext(), Torneo.class);
+        //startActivity(intent);
     }
 
 
