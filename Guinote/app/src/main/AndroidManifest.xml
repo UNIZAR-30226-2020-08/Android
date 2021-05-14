@@ -11,9 +11,9 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".TorneoApp.App1"
         android:theme="@style/AppTheme">
-        <activity android:name=".TorneoViewHolder.BracketsCellViewHolder"></activity>
-        <activity android:name=".Torneo" android:theme ="@style/AppTheme"/>
+        <activity android:name=".ActivityTorneo.Torneo" android:theme ="@style/AppTheme"/>
         <activity android:name=".carga_registro" android:theme ="@style/AppTheme"/>
         <activity android:name=".Pantalla_app" android:theme ="@style/AppTheme" />
         <activity android:name=".navegacion_inicio" android:theme ="@style/AppTheme">
@@ -26,5 +26,4 @@
         <activity android:name=".PantallaJuego" android:theme ="@style/AppTheme" />
         <activity android:name=".PantallaJuego1vs1" android:theme ="@style/AppTheme"/>
     </application>
-
 </manifest>

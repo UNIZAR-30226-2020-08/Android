@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +39,7 @@ public class ranking2 extends Fragment {
     ListView listView;
     List<rank> lista;
     RankAdapter adapter;
-
+    private SQLiteDatabase db;
 
 
     public ranking2(){
@@ -50,6 +52,9 @@ public class ranking2 extends Fragment {
         View view = inflater.inflate(R.layout.activity_ranking2,
                 container, false);
         listView = view.findViewById(R.id.lista_global);
+
+        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+        db = dbHelper.getWritableDatabase();
 
         adapter = new RankAdapter(getActivity(),GetData());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,7 +87,7 @@ public class ranking2 extends Fragment {
                         JSONObject dato;
                         try {
                             dato = response.getJSONObject(i);
-                            if(!dato.getString("username").equals("IA")) {
+                            if(!dato.getString("username").equals("IA") && !dato.getString("username").equals(getName())) {
                                 Log.d("username",dato.getString("username"));
                                 Integer copas = dato.getInt("copas");
                                 lista.add(new rank(i, dato.getString("username"), R.drawable.ascopas, copas.toString()));
@@ -108,5 +113,12 @@ public class ranking2 extends Fragment {
         return lista;
 
 
+    }
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 }
