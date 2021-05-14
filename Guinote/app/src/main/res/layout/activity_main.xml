@@ -55,38 +55,42 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        >
 
-                        <!-- Media -->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="194dp"
-                            app:srcCompat="@drawable/img2vs2"
-                            android:scaleType="centerCrop"
-                            />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="16dp"
-                            android:background="#ffffff">
+                            android:background="#30349702">
 
-                            <!-- Title, secondary and supporting text -->
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Dúos"
-                                android:textColor="#02590A"
-                                android:textAppearance="?attr/textAppearanceHeadline6"
-                                />
+                                android:layout_gravity="center"
+                                android:background="@drawable/borderinicio"
+                                android:padding="50dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Por parejas"
+                                    android:layout_gravity="center"
+                                    android:textColor="#ffffff"
+                                    android:textSize="30dp"
+                                    android:textAppearance="?attr/textAppearanceHeadline6"
+                                    />
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:layout_gravity="center"
                                 android:text="Juega 2 contra 2 y consigue la victoria"
                                 android:textAppearance="?attr/textAppearanceBody2"
-                                android:textColor="#349702"
+                                android:textColor="#ffffff"
                                 />
 
 
@@ -107,35 +111,40 @@
                         android:orientation="vertical">
 
                         <!-- Media -->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="194dp"
-                            app:srcCompat="@drawable/img1vs1"
-                            android:scaleType="centerCrop"
-                            />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="16dp"
-                            android:background="#ffffff">
+                            android:background="#30349702">
 
                             <!-- Title, secondary and supporting text -->
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Individual"
-                                android:textColor="#02590A"
-                                android:textAppearance="?attr/textAppearanceHeadline6"
-                                />
+                                android:layout_gravity="center"
+                                android:background="@drawable/borderinicio"
+                                android:padding="50dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Individual"
+                                    android:layout_gravity="center"
+                                    android:textColor="#ffffff"
+                                    android:textSize="30dp"
+                                    android:textAppearance="?attr/textAppearanceHeadline6"
+                                    />
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:layout_gravity="center"
                                 android:text="Juega 1 contra 1 y consigue la victoria"
                                 android:textAppearance="?attr/textAppearanceBody2"
-                                android:textColor="#349702"
+                                android:textColor="#ffffff"
                                 />
 
 
@@ -157,35 +166,39 @@
                         android:orientation="vertical">
 
                         <!-- Media -->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="194dp"
-                            app:srcCompat="@drawable/offline"
-                            android:scaleType="centerCrop"
-                            />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="16dp"
-                            android:background="#ffffff">
+                            android:background="#30349702">
 
-                            <!-- Title, secondary and supporting text -->
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Partida offline"
-                                android:textColor="#02590A"
-                                android:textAppearance="?attr/textAppearanceHeadline6"
-                                />
+                                android:layout_gravity="center"
+                                android:background="@drawable/borderinicio"
+                                android:padding="50dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Contra la máquina"
+                                    android:layout_gravity="center"
+                                    android:textColor="#ffffff"
+                                    android:textSize="30dp"
+                                    android:textAppearance="?attr/textAppearanceHeadline6"
+                                    />
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:layout_gravity="center"
                                 android:text="Practica sin conexión contra el móvil"
                                 android:textAppearance="?attr/textAppearanceBody2"
-                                android:textColor="#349702"
+                                android:textColor="#ffffff"
                                 />
 
 
