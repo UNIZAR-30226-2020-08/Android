@@ -38,7 +38,7 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:gravity="center"
-                android:drawableTop="@drawable/timer" />
+                android:drawableTop="@drawable/baseline_timer_black_24dp" />
 
             <LinearLayout
                 android:id="@+id/layout_linear_j21vs1"
