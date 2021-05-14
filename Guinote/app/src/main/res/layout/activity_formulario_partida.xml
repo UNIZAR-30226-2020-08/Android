@@ -56,7 +56,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="Nombre del torneo"
-                    android:textSize="15dp"
+                    android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
@@ -95,8 +95,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="Password"
-                    android:textSize="15dp"
+                    android:text="Contraseña (Opcional)"
+                    android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
@@ -134,49 +134,46 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="Elije un tipo de torneo"
-                    android:textSize="15dp"
+                    android:text="Elige un tipo de torneo"
+                    android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
 
-                <RadioGroup
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_marginTop="15dp"
+                    android:padding="10dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
+                    android:layout_height="wrap_content"
+                    android:hint="Modalidad">
 
-                    <RadioButton
-                        android:id="@+id/Individual8"
+                    <AutoCompleteTextView
+                        android:id="@+id/menuModalidad"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Torneo Individual 8"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"/>
+                        android:inputType="none"
+                        />
 
-                    <RadioButton
-                        android:id="@+id/Individual16"
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_marginTop="6dp"
+                    android:padding="10dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Participantes">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/menuNumGente"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Torneo Individual 16"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"/>
+                        android:inputType="none"
+                        />
 
-                    <RadioButton
-                        android:id="@+id/Dobles8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Torneo Dobles 8"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <RadioButton
-                        android:id="@+id/Dobles16"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Torneo Dobles 16"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"/>
-                </RadioGroup>
 
             </LinearLayout>
 
@@ -194,7 +191,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#f44336"
+                android:backgroundTint="#ffffff"
+                android:textColor="#349702"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:paddingVertical="13dp"

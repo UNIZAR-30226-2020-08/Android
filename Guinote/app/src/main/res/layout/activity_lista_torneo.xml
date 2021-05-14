@@ -78,6 +78,18 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="#ffffff"
+            android:layout_marginRight="10dp">
+            <ListView
+                android:id="@+id/lista_torneo16_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/Tapetecambio"
         android:layout_width="match_parent"
@@ -125,6 +137,18 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="#ffffff"
+            android:layout_marginRight="10dp">
+            <ListView
+                android:id="@+id/lista_torneo8_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/torneo16_individual"
             android:layout_width="match_parent"
             android:layout_marginLeft="10dp"
@@ -169,6 +193,18 @@
                 </LinearLayout>
 
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="#ffffff"
+            android:layout_marginRight="10dp">
+            <ListView
+                android:id="@+id/lista_torneo16_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/torneo16_parejas"
@@ -216,12 +252,19 @@
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="#ffffff"
+            android:layout_marginRight="10dp">
+            <ListView
+                android:id="@+id/lista_torneo8_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
 
-    <ListView
-        android:id="@+id/lista_torneo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
 </LinearLayout>

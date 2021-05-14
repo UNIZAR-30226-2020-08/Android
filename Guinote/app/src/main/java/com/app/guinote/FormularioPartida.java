@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 public class FormularioPartida extends Fragment {
 
@@ -22,6 +27,17 @@ public class FormularioPartida extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_formulario_partida,
                 container, false);
+
+        AutoCompleteTextView menumodalidad=  view.findViewById(R.id.menuModalidad);
+        String lista[]={"Parejas","Individual"};
+        ArrayAdapter adaptador= new ArrayAdapter(getContext(),R.layout.itemdropdown,lista);
+        menumodalidad.setAdapter(adaptador);
+
+        AutoCompleteTextView menuparticipantes=  view.findViewById(R.id.menuNumGente);
+        String lista2[]={"16 equipos","8 equipos"};
+        ArrayAdapter adaptadorGente= new ArrayAdapter(getContext(),R.layout.itemdropdown,lista2);
+        menuparticipantes.setAdapter(adaptador);
         return view;
     }
+
 }
