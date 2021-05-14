@@ -51,20 +51,6 @@ public class ListaTorneo extends Fragment {
         GetData();
 
 
-        FloatingActionButton anadir= view.findViewById(R.id.anadirPartida_torneo);
-
-        anadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Bundle tipo = new Bundle();
-                tipo.putInt("tipoPartida", 1 );
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .add(R.id.fragmento_anadir_partida_torneo, anadir_partida.class, tipo)
-                        .commit();
-
-            }
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

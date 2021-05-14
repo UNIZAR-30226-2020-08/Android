@@ -12,6 +12,8 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -26,13 +28,15 @@ public class navegacion_inicio extends AppCompatActivity implements BottomNaviga
     private static int last=0;
     private SQLiteDatabase db;
 
-    public navegacion_inicio() {
-        super(R.layout.activity_navegacion_inicio);
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        setContentView(R.layout.activity_navegacion_inicio);
         String query="SELECT copas FROM auth";
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();

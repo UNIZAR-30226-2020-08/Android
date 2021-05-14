@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -16,12 +18,11 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
 
     private BottomNavigationView mBtmView;
     private int mMenuId;
-    public Pantalla_app(){
-        super(R.layout.activity_pantalla_app);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pantalla_app);
         mBtmView = (BottomNavigationView) findViewById(R.id.navegacion_app);
         mBtmView.setOnNavigationItemSelectedListener(this);
