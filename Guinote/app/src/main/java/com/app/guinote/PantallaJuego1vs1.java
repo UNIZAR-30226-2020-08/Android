@@ -68,7 +68,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
-    TextView nombreOponente,cuentaatras, cuantascartas, copasadversario, ptmio, ptrival;
+    TextView nombreOponente,cuentaatras, cuantascartas, copasadversario, ptmio, ptrival, cartasrestantes, ptmiotext, ptorivaltext;
     Button cantar;
     Integer cuantascartasint = 28;
     CircleImageView fperfiladversario;
@@ -85,6 +85,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Integer queOrden;
     Boolean ultimo = false;
 
+    boolean aun_no = false;
 
     //Variables para el arrastre
     boolean arrastre;   //Si estamos en arrastre o no
@@ -137,7 +138,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
 
                     if (!username.equals(nameUser)) {
-                        chat.setImageResource(R.drawable.chat_new_msg);
+                        chat.setImageResource(R.drawable.baseline_announcement_black_48);
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
                         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                         FragmentManager fm = getSupportFragmentManager();
@@ -264,6 +265,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
+                    aun_no = true;
                     iniciarPartida();
                 }
             });
@@ -297,6 +299,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                            estrella1.setVisibility(View.VISIBLE);
                            estrella2.setVisibility(View.INVISIBLE);
                         }
+                        aun_no = true;
                         animacionCartaFront();
                         Carta aux = new Carta(carta);
                         assignImages(aux,j2imagefront);
@@ -435,6 +438,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             Carta nueva = new Carta(card);
                             cardsj1[QueCarta] = nueva;
                             assignImages(nueva, queImagen(QueCarta));
+                            aun_no = true;
                             animacionRobarCarta(QueCarta);
                     }
                 }
@@ -461,6 +465,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     if(jugador.equals(nameUser)){
+                        aun_no = true;
                         animacion7(find7());
                     }else{
                         Carta aux = null;
@@ -594,6 +599,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         resultado = "¡Has ganado!\n";
                     }
                     openGanador();
+                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
             });
         }
@@ -716,6 +723,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+        cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
+        ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext);
+        ptmiotext = (TextView) findViewById(R.id.puntosmiostext);
         ptmio = (TextView) findViewById(R.id.puntosmios);
         ptrival = (TextView) findViewById(R.id.puntosrival);
         fperfiladversario = (CircleImageView) findViewById(R.id.foto_perfil_j2);
@@ -759,6 +769,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         j2image.setVisibility(View.INVISIBLE);
         estrella1.setVisibility(View.INVISIBLE);
         estrella2.setVisibility(View.INVISIBLE);
+        ptmiotext.setVisibility(View.INVISIBLE);
+        ptmio.setVisibility(View.INVISIBLE);
+        ptorivaltext.setVisibility(View.INVISIBLE);
+        ptrival.setVisibility(View.INVISIBLE);
+        cuantascartas.setVisibility(View.INVISIBLE);
+        cartasrestantes.setVisibility(View.INVISIBLE);
+        cuentaatras.setVisibility(View.INVISIBLE);
 
         deVueltas = false;
 
@@ -801,7 +818,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chat.setImageResource(R.drawable.chat);
+                chat.setImageResource(R.drawable.baseline_chat_black_48);
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_chat1vs1, Chat1vs1.class, null)
@@ -1108,9 +1125,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private boolean puedeLanzar(Integer i){
-        if(queOrden == 1){
+        if(aun_no == false) {
+            if (queOrden == 1) {
                 QueCarta = i;
-                assignImages(cardsj1[i],j1image);
+                assignImages(cardsj1[i], j1image);
                 j1image.setVisibility(View.VISIBLE);
                 JSONObject aux = new JSONObject();
                 try {
@@ -1123,7 +1141,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                Log.d("jsonDePrueba",aux.toString());
+                Log.d("jsonDePrueba", aux.toString());
                 mSocket.emit("lanzarCarta", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
@@ -1132,22 +1150,22 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                 });
                 queOrden--;
-                if(i == 0){
+                if (i == 0) {
                     c1whole.setVisibility(View.INVISIBLE);
                     c1whole.flipTheView();
-                }else if(i == 1){
+                } else if (i == 1) {
                     c2whole.setVisibility(View.INVISIBLE);
                     c2whole.flipTheView();
-                }else if(i == 2){
+                } else if (i == 2) {
                     c3whole.setVisibility(View.INVISIBLE);
                     c3whole.flipTheView();
-                }else if(i == 3){
+                } else if (i == 3) {
                     c4whole.setVisibility(View.INVISIBLE);
                     c4whole.flipTheView();
-                }else if(i == 4){
+                } else if (i == 4) {
                     c5whole.setVisibility(View.INVISIBLE);
                     c5whole.flipTheView();
-                }else if(i == 5){
+                } else if (i == 5) {
                     c6whole.setVisibility(View.INVISIBLE);
                     c6whole.flipTheView();
                 }
@@ -1156,6 +1174,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 cuentaatras.setVisibility(View.GONE);
                 numeroTimer = 0;
                 return true;
+            }
         }
         return false;
     }
@@ -1206,6 +1225,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 setVisibilityreverse();
+                setlotsVisibilities();
+                try{
+                    Thread.sleep(100);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                aun_no = false;
             }
         }.start();
     }
@@ -1236,6 +1262,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 updatej2Card();
+                try{
+                    Thread.sleep(200);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                aun_no = false;
             }
         }.start();
     }
@@ -1251,7 +1283,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 girarCarta(i);
-
+                try{
+                    Thread.sleep(200);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                aun_no = false;
             }
         }.start();
     }
@@ -1326,6 +1363,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
     }
+    private void setlotsVisibilities() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ptmiotext.setVisibility(View.VISIBLE);
+                ptmio.setVisibility(View.VISIBLE);
+                ptorivaltext.setVisibility(View.VISIBLE);
+                ptrival.setVisibility(View.VISIBLE);
+                cuantascartas.setVisibility(View.VISIBLE);
+                cartasrestantes.setVisibility(View.VISIBLE);
+                cuentaatras.setVisibility(View.VISIBLE);
+            }
+        });
+    }
     private void setVisibilitytriumphe() {
         runOnUiThread(new Runnable() {
             @Override
@@ -1388,6 +1439,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 flipViews(queImagenFlip(i),triumphewhole);
+                try{
+                    Thread.sleep(200);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                aun_no = false;
             }
         }.start();
     }
