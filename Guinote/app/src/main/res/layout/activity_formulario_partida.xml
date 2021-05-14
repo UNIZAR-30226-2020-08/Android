@@ -91,7 +91,7 @@
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/contraseñatorneo"
+                    android:id="@+id/contrasenatorneo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -191,7 +191,7 @@
             android:paddingRight="15dp">
 
             <Button
-                android:id="@+id/Crear"
+                android:id="@+id/CrearTorneo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
