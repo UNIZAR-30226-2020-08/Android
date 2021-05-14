@@ -1,153 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/tapete2"
     android:orientation="vertical">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#349702"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Torneos disponibles"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="#ffffff"/>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp"
-        android:background="#00000000"
-        android:orientation="vertical">
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/Cartascambio"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="#ffffff">
-
-            <!-- Title, secondary and supporting text -->
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/amigo_icon_torneos_ind"/>
-
+            android:orientation="vertical"
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/titulotorneos"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="15dp">
+                android:background="#349702"
+                android:padding="10dp"
+                android:layout_gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="16 equipos"
+                    android:text="Torneos disponibles"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
                     android:layout_gravity="center"
+                    android:textColor="#ffffff"/>
 
-                    android:textColor="#349702"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Individual"
-                    android:textColor="#80349702"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
-                    />
             </LinearLayout>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="#ffffff"
-            android:layout_marginRight="10dp">
-            <ListView
-                android:id="@+id/lista_torneo16_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </com.google.android.material.card.MaterialCardView>
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/Tapetecambio"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="#ffffff">
-
-            <!-- Title, secondary and supporting text -->
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/amigo_icon_torneos_ind"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="15dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8 equipos"
-                    android:layout_gravity="center"
-
-                    android:textColor="#349702"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Individual"
-                    android:textColor="#80349702"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="#ffffff"
-            android:layout_marginRight="10dp">
-            <ListView
-                android:id="@+id/lista_torneo8_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_height="match_parent"
+            android:layout_below="@id/titulotorneos"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:background="#00000000"
+            android:orientation="vertical">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/torneo16_individual"
             android:layout_width="match_parent"
@@ -167,7 +58,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/amigo_icon_torneos"/>
+                    android:src="@drawable/amigo_icon_torneos_ind"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -186,32 +77,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Por parejas"
+                        android:text="Individual"
                         android:textColor="#80349702"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
-                    />
+                        />
                 </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="#ffffff"
-            android:layout_marginRight="10dp">
-            <ListView
-                android:id="@+id/lista_torneo16_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/torneo16_parejas"
+            android:id="@+id/torneo8_individual"
             android:layout_width="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -225,7 +105,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/amigo_icon_torneos"/>
+                    android:src="@drawable/amigo_icon_torneos_ind"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -244,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Por parejas"
+                        android:text="Individual"
                         android:textColor="#80349702"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         />
@@ -252,19 +132,103 @@
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="#ffffff"
-            android:layout_marginRight="10dp">
-            <ListView
-                android:id="@+id/lista_torneo8_2"
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/torneo16_parejas"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content">
-            </ListView>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="#ffffff">
 
+                    <!-- Title, secondary and supporting text -->
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/amigo_icon_torneos"/>
 
-</LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="16 equipos"
+                            android:layout_gravity="center"
+
+                            android:textColor="#349702"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Por parejas"
+                            android:textColor="#80349702"
+                            android:textAppearance="?attr/textAppearanceSubtitle2"
+                        />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/torneo8_parejas"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:background="#ffffff">
+
+                            <!-- Title, secondary and supporting text -->
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/amigo_icon_torneos"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="15dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="8 equipos"
+                                    android:layout_gravity="center"
+
+                                    android:textColor="#349702"
+                                    android:textAppearance="?attr/textAppearanceHeadline6"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Por parejas"
+                                    android:textColor="#80349702"
+                                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
