@@ -36,7 +36,7 @@ public class FormularioPartida extends Fragment {
         AutoCompleteTextView menuparticipantes=  view.findViewById(R.id.menuNumGente);
         String lista2[]={"16 equipos","8 equipos"};
         ArrayAdapter adaptadorGente= new ArrayAdapter(getContext(),R.layout.itemdropdown,lista2);
-        menuparticipantes.setAdapter(adaptador);
+        menuparticipantes.setAdapter(adaptadorGente);
         return view;
     }
 
