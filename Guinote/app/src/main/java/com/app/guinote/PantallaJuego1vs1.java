@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.DialogInterface;
@@ -698,7 +699,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
-        mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
+        mSocket= Pantalla_app.mSocket;
+        //mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
@@ -710,7 +712,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("Resultado", onResultado);
         mSocket.on("Vueltas", onVueltas);
         mSocket.on("puntos",onPuntos);
-        mSocket.connect();
+        //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
             auxiliar.put("name", getName());

@@ -778,7 +778,8 @@ public class PantallaJuego extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
-        mSocket = IO.socket(URI.create("http://148.3.47.50:5000"));
+        //mSocket = IO.socket(URI.create("http://148.3.47.50:5000"));
+        mSocket=Pantalla_app.mSocket;
         mSocket.on("message", onNewMessage);
         mSocket.on("roomData", roomInfo);
         mSocket.on("RepartirCartas", onRepartirCartas);
@@ -789,7 +790,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.on("cartaMedio", onMedio);
         mSocket.on("cartaCambio", onCambio);
         mSocket.on("cante", onCante);
-        mSocket.connect();
+        //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
             auxiliar.put("name", getName());

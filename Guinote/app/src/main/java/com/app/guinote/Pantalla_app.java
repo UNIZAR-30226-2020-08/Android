@@ -14,13 +14,23 @@ import android.widget.Toolbar;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.net.URI;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+
 public class Pantalla_app extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView mBtmView;
     private int mMenuId;
+    public static Socket mSocket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
+        mSocket.connect();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pantalla_app);

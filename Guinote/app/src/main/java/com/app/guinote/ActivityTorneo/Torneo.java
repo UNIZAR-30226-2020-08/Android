@@ -44,7 +44,6 @@ public class Torneo extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.containerTorneo, bracketFragment, "brackets_home_fragment");
         transaction.commit();
-        Log.d("hola","sdasdsd");
         manager.executePendingTransactions();
     }
 

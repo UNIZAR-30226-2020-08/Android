@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.app.guinote.ActivityTorneo.Torneo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -130,7 +131,21 @@ public class ListaTorneo extends Fragment {
                     builder.setSingleChoiceItems(adapter8_2,1,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Log.d("cual",lista8_2.get(which).get_subjectName());
+                            Intent intent = new Intent(getContext(), Torneo.class);
+                            Bundle b = new Bundle();
+                            b.putString("key", lista8_2.get(which).get_subjectName()); //Your id
+                            intent.putExtras(b); //Put your id to your next Intent
+                            startActivity(intent);
+                            dialog.dismiss();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .setCustomAnimations(
+                                            R.anim.side_in_left,
+                                            R.anim.slide_out_left
+                                    )
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmento_app, MainActivity.class, null)
+                                    .commit();
                         }
                     });
 
@@ -184,7 +199,21 @@ public class ListaTorneo extends Fragment {
                     builder.setSingleChoiceItems(adapter16_2,1,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Log.d("cual",lista16_2.get(which).get_subjectName());
+                            Intent intent = new Intent(getContext(), Torneo.class);
+                            Bundle b = new Bundle();
+                            b.putString("key", lista16_2.get(which).get_subjectName()); //Your id
+                            intent.putExtras(b); //Put your id to your next Intent
+                            startActivity(intent);
+                            dialog.dismiss();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .setCustomAnimations(
+                                            R.anim.side_in_left,
+                                            R.anim.slide_out_left
+                                    )
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmento_app, MainActivity.class, null)
+                                    .commit();
                         }
                     });
 
@@ -239,7 +268,21 @@ public class ListaTorneo extends Fragment {
                     builder.setSingleChoiceItems(adapter8_1,1,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Log.d("cual",lista8_1.get(which).get_subjectName());
+                            Intent intent = new Intent(getContext(), Torneo.class);
+                            Bundle b = new Bundle();
+                            b.putString("key", lista8_1.get(which).get_subjectName()); //Your id
+                            intent.putExtras(b); //Put your id to your next Intent
+                            startActivity(intent);
+                            dialog.dismiss();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .setCustomAnimations(
+                                            R.anim.side_in_left,
+                                            R.anim.slide_out_left
+                                    )
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmento_app, MainActivity.class, null)
+                                    .commit();
                         }
                     });
 
@@ -292,7 +335,21 @@ public class ListaTorneo extends Fragment {
                     builder.setSingleChoiceItems(adapter16_1,1,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Log.d("cual",lista16_1.get(which).get_subjectName());
+                            Intent intent = new Intent(getContext(), Torneo.class);
+                            Bundle b = new Bundle();
+                            b.putString("key", lista16_1.get(which).get_subjectName()); //Your id
+                            intent.putExtras(b); //Put your id to your next Intent
+                            startActivity(intent);
+                            dialog.dismiss();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .setCustomAnimations(
+                                            R.anim.side_in_left,
+                                            R.anim.slide_out_left
+                                    )
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmento_app, MainActivity.class, null)
+                                    .commit();
                         }
                     });
 
