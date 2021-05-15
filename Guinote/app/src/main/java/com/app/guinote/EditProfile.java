@@ -53,12 +53,17 @@ public class EditProfile extends Fragment {
         db = dbHelper.getWritableDatabase();
         GetData();
         View actualizar = view.findViewById(R.id.Actualizar);
-        TextView namePerf = view.findViewById(R.id.nameUserPerfil);
-        namePerf.setText(getName());
+        View denegar = view.findViewById(R.id.Cancelarperfil);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivity();
+            }
+        });
+        denegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity2();
             }
         });
         return view;
@@ -135,6 +140,16 @@ public class EditProfile extends Fragment {
         });
 
         requestQueue.add(jsonObjectRequest);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app,Perfil.class,null)
+                .commit();
+    }
+    public void openActivity2(){
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
                         R.anim.side_in_left,

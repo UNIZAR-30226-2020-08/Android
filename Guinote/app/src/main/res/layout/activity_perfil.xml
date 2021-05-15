@@ -151,7 +151,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#349702"
+            android:background="#ffffff"
             android:padding="10dp"
             android:layout_gravity="center"
             >
@@ -162,7 +162,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="#ffffff"/>
+                android:textColor="#349702"/>
 
 
         </LinearLayout>
@@ -170,8 +170,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="20dp"
+            android:background="#19580A"
             android:paddingBottom="10dp"
-            android:background="#ffffff"
             android:orientation="vertical">
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/Cartascambio"
@@ -186,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp"
-                    android:background="#349702">
+                    android:background="#ffffff">
 
                     <!-- Title, secondary and supporting text -->
                     <ImageView
@@ -200,7 +200,7 @@
                         android:text="Cartas"
                         android:layout_gravity="center"
                         android:layout_marginLeft="20dp"
-                        android:textColor="#ffffff"
+                        android:textColor="#349702"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         />
 
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp"
-                    android:background="#349702">
+                    android:background="#ffffff">
 
                     <!-- Title, secondary and supporting text -->
                     <ImageView
@@ -233,7 +233,7 @@
                         android:text="Tapetes"
                         android:layout_gravity="center"
                         android:layout_marginLeft="20dp"
-                        android:textColor="#ffffff"
+                        android:textColor="#349702"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         />
 
@@ -265,14 +265,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        android:background="#349702">
+                        android:background="#ffffff">
 
                         <!-- Title, secondary and supporting text -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Información del juego"
-                            android:textColor="#ffffff"
+                            android:textColor="#349702"
                             android:textAppearance="?attr/textAppearanceHeadline6"
                             />
                         <TextView
@@ -281,7 +281,7 @@
                             android:layout_marginTop="8dp"
                             android:text="Aprende las normas de cómo jugar"
                             android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="#ffffff"
+                            android:textColor="#349702"
                             />
 
 
@@ -308,7 +308,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="#000000">
+                android:background="#ffffff">
             </LinearLayout>
             <Button
                 android:textColor="#ffffff"

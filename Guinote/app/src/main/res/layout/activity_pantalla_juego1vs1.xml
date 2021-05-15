@@ -38,13 +38,8 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:gravity="center"
-<<<<<<< HEAD
                 android:drawableTop="@drawable/baseline_timer_black_48" />
-=======
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:drawableTop="@drawable/baseline_timer_black_24dp" />
->>>>>>> b0c21092ac6364cb3f7d7bb07d1af81990200b5e
+
 
             <LinearLayout
                 android:id="@+id/layout_linear_j21vs1"

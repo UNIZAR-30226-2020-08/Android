@@ -12,6 +12,40 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="right"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/Cancelarperfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancelar"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/Actualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
+            </LinearLayout>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,15 +55,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/nameUserPerfil"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="35dp"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,8 +64,8 @@
                     android:orientation="horizontal">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:src="@drawable/fotoperfil"
                         android:layout_gravity="center"
                         app:civ_border_width="2dp"
@@ -53,31 +78,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="15dp"
+                android:weightSum="2"
                 android:paddingRight="15dp">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="bottom"
+                    android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/nameUserPerfillabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="Nombre de usuario"
-                    android:textSize="15dp"
+                    android:text="Nombre"
+                    android:textSize="17dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/borderbottomfino"
+                    android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nombreusuario"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    app:boxBackgroundColor="#60ffffff"
-                    app:suffixTextColor="#000000"
-                    app:hintTextColor="#000000"
-                    app:boxStrokeColor="#000000"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:boxBackgroundMode="none"
+                    android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -88,36 +118,45 @@
                         android:layout_height="wrap_content"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
-
+                </RelativeLayout>
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
                 android:paddingLeft="15dp"
+                android:weightSum="2"
                 android:paddingRight="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="Email"
-                    android:textSize="15dp"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="bottom"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textSize="17dp"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/borderbottomfino"
+                    android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/full_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    app:boxBackgroundColor="#60ffffff"
+                    android:layout_height="match_parent"
+                    app:boxBackgroundMode="none"
                     app:suffixTextColor="#000000"
                     app:hintTextColor="#000000"
-                    app:boxStrokeColor="#000000"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:boxStrokeColor="#000000">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -127,36 +166,43 @@
                         android:layout_height="wrap_content"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
-
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:weightSum="2"
                 android:paddingRight="15dp">
 
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="bottom"
+                    android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
                     android:text="Nueva contraseña"
-                    android:textSize="15dp"
+                    android:textSize="17dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/borderbottomfino"
+                    android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/contraseña"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    app:boxBackgroundColor="#60ffffff"
-                    app:suffixTextColor="#000000"
-                    app:hintTextColor="#000000"
-                    app:boxStrokeColor="#000000"
-                    android:hint="**************"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    app:boxBackgroundMode="none"
+                    android:hint="**************">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -167,27 +213,8 @@
                         android:layout_height="wrap_content"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
-
+                </RelativeLayout>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/Actualizar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="#0091EA"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingVertical="13dp"
-                android:layout_marginRight="8dp"
-                android:text="ACTUALIZAR"
-                android:layout_gravity="center" />
         </LinearLayout>
 
 
