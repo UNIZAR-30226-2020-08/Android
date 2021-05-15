@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#349702"
+        android:background="@drawable/tapete2"
         android:padding="0dp"
         android:id="@+id/juego_layout1vs1"
         tools:context=".PantallaJuego1vs1"
@@ -29,18 +29,22 @@
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/chat" />
+                android:src="@drawable/baseline_chat_black_48" />
             <TextView
                 android:id="@+id/cuentatras"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:gravity="center"
+<<<<<<< HEAD
+                android:drawableTop="@drawable/baseline_timer_black_48" />
+=======
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:drawableTop="@drawable/baseline_timer_black_24dp" />
+>>>>>>> b0c21092ac6364cb3f7d7bb07d1af81990200b5e
 
             <LinearLayout
                 android:id="@+id/layout_linear_j21vs1"
@@ -217,8 +221,9 @@
                 android:text="0"/>
 
             <Button
+                android:backgroundTint="@color/colorNegro"
+                android:textColor="@color/cardview_light_background"
                 android:id="@+id/button_cantar1vs1"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
