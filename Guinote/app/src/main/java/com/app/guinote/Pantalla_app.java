@@ -23,7 +23,16 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
 
     private BottomNavigationView mBtmView;
     private int mMenuId;
+    public  static String enPartidaIndividual="";
     public static Socket mSocket;
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSocket.disconnect();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

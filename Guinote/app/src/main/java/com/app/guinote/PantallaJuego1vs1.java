@@ -109,8 +109,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        mSocket.disconnect();
+        mSocket.emit("disconnect", new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
         mSocket.off("message", onNewMessage);
     }
 
@@ -699,6 +704,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
             room = b.getString("key");
+
+        Pantalla_app.enPartidaIndividual=room;
         mSocket= Pantalla_app.mSocket;
         //mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
         mSocket.on("message", onNewMessage);
