@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:orientation="vertical"
-                android:background="#349702">
+                android:background="#19580A">
 
                <TextView
                    android:layout_width="wrap_content"
@@ -183,10 +183,12 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
+            android:paddingBottom="20dp"
             android:layout_alignParentBottom="true"
             android:paddingRight="15dp">
 
@@ -196,8 +198,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#349702"
-                android:textColor="#ffffff"
+                android:backgroundTint="#ffffff"
+                android:textColor="#349702"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:paddingVertical="13dp"

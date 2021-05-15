@@ -40,6 +40,7 @@
             android:id="@+id/relative_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#02590A"
             android:orientation="vertical">
 
             <LinearLayout
@@ -68,20 +69,24 @@
                             android:background="#30349702">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="240dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@drawable/borderinicio"
-                                android:padding="50dp">
+                                android:padding="30dp">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Por parejas"
-                                    android:layout_gravity="center"
+                                    android:layout_centerHorizontal="true"
                                     android:textColor="#ffffff"
-                                    android:textSize="30dp"
+                                    android:textSize="20dp"
                                     android:textAppearance="?attr/textAppearanceHeadline6"
                                     />
+                                </RelativeLayout>
                             </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -101,7 +106,6 @@
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/button_start_1vs1"
-                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -122,20 +126,25 @@
 
                             <!-- Title, secondary and supporting text -->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="240dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@drawable/borderinicio"
-                                android:padding="50dp">
+                                android:padding="30dp">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Individual"
-                                    android:layout_gravity="center"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
                                     android:textColor="#ffffff"
-                                    android:textSize="30dp"
+                                    android:textSize="20dp"
                                     android:textAppearance="?attr/textAppearanceHeadline6"
                                     />
+                                </RelativeLayout>
                             </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -157,7 +166,6 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/button_start_offline"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="8dp"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -176,18 +184,18 @@
                             android:background="#30349702">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="240dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@drawable/borderinicio"
-                                android:padding="50dp">
+                                android:padding="30dp">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Contra la máquina"
                                     android:layout_gravity="center"
                                     android:textColor="#ffffff"
-                                    android:textSize="30dp"
+                                    android:textSize="20dp"
                                     android:textAppearance="?attr/textAppearanceHeadline6"
                                     />
                             </LinearLayout>
@@ -211,7 +219,6 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/button_start_private_room"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="8dp"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -219,36 +226,43 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Media -->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="194dp"
-                            app:srcCompat="@drawable/creatorneo"
-                            android:scaleType="centerCrop"
-                            />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="16dp"
-                            android:background="#ffffff">
+                            android:background="#30349702">
 
-                            <!-- Title, secondary and supporting text -->
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="240dp"
                                 android:layout_height="wrap_content"
-                                android:text="Crear Torneo"
-                                android:textColor="#02590A"
-                                android:textAppearance="?attr/textAppearanceHeadline6"
-                                />
+                                android:layout_gravity="center"
+                                android:background="@drawable/borderinicio"
+                                android:padding="30dp">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Crear torneo"
+                                    android:layout_centerHorizontal="true"
+                                    android:textColor="#ffffff"
+                                    android:textSize="20dp"
+                                    android:textAppearance="?attr/textAppearanceHeadline6"
+                                    />
+                                </RelativeLayout>
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:layout_gravity="center"
                                 android:text="Crea un torneo y desafía a tus amigos"
                                 android:textAppearance="?attr/textAppearanceBody2"
-                                android:textColor="#349702"
+                                android:textColor="#ffffff"
                                 />
 
 
@@ -261,7 +275,6 @@
                     android:id="@+id/button_join_private_room"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     >
 
                     <LinearLayout
@@ -269,36 +282,43 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Media -->
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="194dp"
-                            app:srcCompat="@drawable/unirsetorneo"
-                            android:scaleType="centerCrop"
-                            />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="16dp"
-                            android:background="#ffffff">
+                            android:background="#30349702">
 
-                            <!-- Title, secondary and supporting text -->
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="240dp"
                                 android:layout_height="wrap_content"
-                                android:text="Unirse a Torneo"
-                                android:textColor="#02590A"
-                                android:textAppearance="?attr/textAppearanceHeadline6"
-                                />
+                                android:layout_gravity="center"
+                                android:background="@drawable/borderinicio"
+                                android:padding="30dp">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Unirse a torneo"
+                                    android:layout_centerHorizontal="true"
+                                    android:textColor="#ffffff"
+                                    android:textSize="20dp"
+                                    android:textAppearance="?attr/textAppearanceHeadline6"
+                                    />
+                                </RelativeLayout>
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:layout_gravity="center"
                                 android:text="Unete a un torneo ya creado con tus amigos"
                                 android:textAppearance="?attr/textAppearanceBody2"
-                                android:textColor="#349702"
+                                android:textColor="#ffffff"
                                 />
 
 
