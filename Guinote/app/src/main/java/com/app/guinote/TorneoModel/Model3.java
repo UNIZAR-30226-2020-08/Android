@@ -10,6 +10,7 @@ public class Model3 implements Serializable{
 
     private Model2 competitorOne;
     private Model2 competitorTwo;
+    private String competicion;
     private int height;
 
     public int getHeight() {
@@ -20,13 +21,18 @@ public class Model3 implements Serializable{
         this.height = height;
     }
 
-    public Model3(Model2 competitorOne, Model2 competitorTwo) {
+    public Model3(Model2 competitorOne, Model2 competitorTwo, String partida) {
         this.competitorOne = competitorOne;
         this.competitorTwo = competitorTwo;
+        competicion=partida;
     }
 
     public Model2 getCompetitorTwo() {
         return competitorTwo;
+    }
+
+    public String getCompeticion(){
+        return competicion;
     }
 
     public void setCompetitorTwo(Model2 competitorTwo) {

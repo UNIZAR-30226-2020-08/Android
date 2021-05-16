@@ -1,6 +1,7 @@
 package com.app.guinote.ActivityTorneo;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.app.guinote.MyOpenHelper;
+import com.app.guinote.PantallaJuego;
+import com.app.guinote.PantallaJuego1vs1;
 import com.app.guinote.R;
 import com.app.guinote.TorneoFragment.BracketsFragment;
 import com.app.guinote.TorneoApp.App1;
@@ -40,8 +43,8 @@ public class Torneo extends AppCompatActivity {
 
     private BracketsFragment bracketFragment;
     private String nombrePartida="";
-    private SQLiteDatabase db;
-    private int modalidad=0;
+    public static SQLiteDatabase db;
+    public static int modalidad=0;
     private static int ronda=1;
     LottieAnimationView animacion;
     private int participantes=0;
@@ -97,10 +100,12 @@ public class Torneo extends AppCompatActivity {
                 public void run(){
                     Log.d("hola",args[0].toString());
                     List<String> lista=new ArrayList<>();
+                    List<String> listaPartidas=new ArrayList<>();
                     JSONArray data = (JSONArray) args[0];
                     for (int i=0;i<data.length();i++){
                         try {
                             lista.add(((JSONObject)data.get(i)).getString("jugador"));
+                            listaPartidas.add(((JSONObject)data.get(i)).getString("partida"));
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -108,9 +113,9 @@ public class Torneo extends AppCompatActivity {
 
                     Log.d("holatete",lista.toString());
                     if(participantes==16){
-                        bracketFragment.modifyData(ronda,lista,modalidad);
+                        bracketFragment.modifyData(ronda,lista,modalidad,listaPartidas);
                     }else{
-                        bracketFragment.modifyData(ronda-1,lista,modalidad);
+                        bracketFragment.modifyData(ronda-1,lista,modalidad,listaPartidas);
                     }
 
                     ronda++;
@@ -146,6 +151,11 @@ public class Torneo extends AppCompatActivity {
 
         }
 
+        if (participantes==16){
+            ronda=0;
+        }else{
+            ronda=1;
+        }
         initialiseBracketsFragment();
 
         JSONObject auxiliar = new JSONObject();
@@ -198,10 +208,29 @@ public class Torneo extends AppCompatActivity {
     }
 
 
-    public String getName() {
+    public static String getName() {
         String query="SELECT user FROM auth";
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
         return c.getString(0);
+    }
+
+    public void actividad(String nameMatch){
+
+        if(modalidad==0){
+            Intent intent = new Intent(this, PantallaJuego1vs1.class);
+
+            Bundle b = new Bundle();
+            b.putString("key", nameMatch); //Your id
+            intent.putExtras(b); //Put your id to your next Intent
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, PantallaJuego.class);
+
+            Bundle b = new Bundle();
+            b.putString("key", nameMatch); //Your id
+            intent.putExtras(b); //Put your id to your next Intent
+            startActivity(intent);
+        }
     }
 }

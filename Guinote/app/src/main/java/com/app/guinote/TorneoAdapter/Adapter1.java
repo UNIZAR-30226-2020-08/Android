@@ -60,6 +60,7 @@ public class Adapter1 extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         viewHolder.getTeamTwoName().setText(list.get(position).getCompetitorTwo().getName());
         viewHolder.getTeamOneScore().setText(list.get(position).getCompetitorOne().getScore());
         viewHolder.getTeamTwoScore().setText(list.get(position).getCompetitorTwo().getScore());
+        viewHolder.getTeamTitle().setText(list.get(position).getCompeticion());
     }
 
     @Override

@@ -63,10 +63,10 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             Model2 competitorSix = new Model2("", "-");
             Model2 competitorSeven = new Model2(" ", "-");
             Model2 competitorEight = new Model2("", "-");
-            Model3 model31 = new Model3(competitorOne, competitorTwo);
-            Model3 model32 = new Model3(competitorThree, competitorFour);
-            Model3 model33 = new Model3(competitorFive, competitorSix);
-            Model3 model34 = new Model3(competitorSeven, competitorEight);
+            Model3 model31 = new Model3(competitorOne, competitorTwo,"Enfrentamiento");
+            Model3 model32 = new Model3(competitorThree, competitorFour,"Enfrentamiento" );
+            Model3 model33 = new Model3(competitorFive, competitorSix,"Enfrentamiento");
+            Model3 model34 = new Model3(competitorSeven, competitorEight,"Enfrentamiento");
             Colomn1matchesList.add(model31);
             Colomn1matchesList.add(model32);
             Colomn1matchesList.add(model33);
@@ -77,15 +77,15 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             Model2 competitorTen = new Model2("", "-");
             Model2 competitorEleven = new Model2("", "-");
             Model2 competitorTwelve = new Model2("", "-");
-            Model3 model35 = new Model3(competitorNine, competitorTen);
-            Model3 model36 = new Model3(competitorEleven, competitorTwelve);
+            Model3 model35 = new Model3(competitorNine, competitorTen,"Enfrentamiento");
+            Model3 model36 = new Model3(competitorEleven, competitorTwelve,"Enfrentamiento");
             colomn2MatchesList.add(model35);
             colomn2MatchesList.add(model36);
             Model1 model12 = new Model1(colomn2MatchesList);
             sectionList.add(model12);
             Model2 competitorThirteen = new Model2("", "-");
             Model2 competitorForteen = new Model2("-", "-");
-            Model3 model37 = new Model3(competitorThirteen, competitorForteen);
+            Model3 model37 = new Model3(competitorThirteen, competitorForteen,"Enfrentamiento");
             colomn3MatchesList.add(model37);
             Model1 model13 = new Model1(colomn3MatchesList);
             sectionList.add(model13);
@@ -100,7 +100,7 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             for (int i=0;i<numParticipantes/2;i++){
                 Model2 competitorOne = new Model2("", "-");
                 Model2 competitorTwo = new Model2("", "-");
-                Model3 model31 = new Model3(competitorOne, competitorTwo);
+                Model3 model31 = new Model3(competitorOne, competitorTwo,"Enfrentamiento");
 
                 Colomn1matchesList.add(model31);
             }
@@ -112,7 +112,7 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             for (int i=0;i<numParticipantes/4;i++){
                 Model2 competitorOne = new Model2("", "-");
                 Model2 competitorTwo = new Model2("", "-");
-                Model3 model31 = new Model3(competitorOne, competitorTwo);
+                Model3 model31 = new Model3(competitorOne, competitorTwo,"Enfrentamiento");
 
                 colomn2MatchesList.add(model31);
             }
@@ -123,7 +123,7 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             for (int i=0;i<numParticipantes/8;i++){
                 Model2 competitorOne = new Model2("", "-");
                 Model2 competitorTwo = new Model2("", "-");
-                Model3 model31 = new Model3(competitorOne, competitorTwo);
+                Model3 model31 = new Model3(competitorOne, competitorTwo,"Enfrentamiento");
 
                 colomn3MatchesList.add(model31);
             }
@@ -133,7 +133,7 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
 
             Model2 competitorThirteen = new Model2("", "-");
             Model2 competitorForteen = new Model2("-", "-");
-            Model3 model37 = new Model3(competitorThirteen, competitorForteen);
+            Model3 model37 = new Model3(competitorThirteen, competitorForteen,"Enfrentamiento");
             colomn4MatchesList.add(model37);
 
 
@@ -143,14 +143,14 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
 
     }
 
-    public void modifyData(int ronda, List<String> lista, int modalidad){
+    public void modifyData(int ronda, List<String> lista, int modalidad,  List<String> partidas){
 
         if(modalidad==0){
             ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
-            for (int i=0;i<(lista.size()/2);i++){
+            for (int i=0;i<lista.size();i+=2){
                 Model2 competitorOne = new Model2(lista.get(i), "-");
                 Model2 competitordos = new Model2(lista.get(i+1), "-");
-                Model3 model31 = new Model3(competitorOne, competitordos);
+                Model3 model31 = new Model3(competitorOne, competitordos,partidas.get(i));
                 Colomn1matchesList.add(model31);
             }
             Model1 model11 = new Model1(Colomn1matchesList);
@@ -158,16 +158,17 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             sectionList.add(ronda,model11);
         }else {
             ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
-            for (int i=0;i<(lista.size()/4);i++){
+            for (int i=0;i<lista.size();i+=4){
                 Model2 competitorOne = new Model2(lista.get(i)+" "+lista.get(i+1), "-");
                 Model2 competitordos = new Model2(lista.get(i+2)+" "+lista.get(i+3), "-");
-                Model3 model31 = new Model3(competitorOne, competitordos);
+                Model3 model31 = new Model3(competitorOne, competitordos,partidas.get(i));
                 Colomn1matchesList.add(model31);
             }
             Model1 model11 = new Model1(Colomn1matchesList);
             sectionList.remove(ronda);
             sectionList.add(ronda,model11);
         }
+        intialiseViewPagerAdapter();
     }
 
     private void intialiseViewPagerAdapter() {
