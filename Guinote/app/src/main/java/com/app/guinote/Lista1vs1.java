@@ -49,14 +49,6 @@ public class Lista1vs1 extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_lista1vs1,
                 container, false);
-        if (Pantalla_app.enPartidaIndividual!=""){
-            Intent intent = new Intent(getActivity(),PantallaJuego1vs1.class);
-
-            Bundle b = new Bundle();
-            b.putString("key", Pantalla_app.enPartidaIndividual); //Your id
-            intent.putExtras(b); //Put your id to your next Intent
-            startActivity(intent);
-        }
         listView = view.findViewById(R.id.lista1vs1);
 
 

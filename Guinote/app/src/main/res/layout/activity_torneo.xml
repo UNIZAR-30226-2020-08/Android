@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/tapete2"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ActivityTorneo.Torneo">
@@ -20,4 +21,14 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:id="@+id/animation_carga_perf_torneo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_fileName="loading2.json"
+        app:lottie_loop="true"/>
 </RelativeLayout>

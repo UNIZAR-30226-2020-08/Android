@@ -18,8 +18,7 @@ import com.app.guinote.TorneoUtility.Utility1;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Map;
 
 
 public class BracketsFragment extends Fragment implements ViewPager.OnPageChangeListener {
@@ -29,8 +28,13 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
     private ArrayList<Model1> sectionList;
     private int mNextSelectedScreen;
     private int mCurrentPagerState;
+    private int numParticipantes;
 
 
+
+    public BracketsFragment(int numeroParticipantes){
+        numParticipantes=numeroParticipantes;
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,45 +50,124 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
     }
 
     private void setData() {
-        sectionList = new ArrayList<>();
-        ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
-        ArrayList<Model3> colomn2MatchesList = new ArrayList<>();
-        ArrayList<Model3> colomn3MatchesList = new ArrayList<>();
-        Model2 competitorOne = new Model2("Arxn", "59");
-        Model2 competitorTwo = new Model2("Andres200gb", "30");
-        Model2 competitorThree = new Model2("DIEGOL", "44");
-        Model2 competitorFour = new Model2("nibi", "19");
-        Model2 competitorFive = new Model2("Bichooo", "34");
-        Model2 competitorSix = new Model2("Azueless", "89");
-        Model2 competitorSeven = new Model2("Moraddd ", "78");
-        Model2 competitorEight = new Model2("MDLR", "45");
-        Model3 model31 = new Model3(competitorOne,competitorTwo);
-        Model3 model32 = new Model3(competitorThree, competitorFour);
-        Model3 model33 = new Model3(competitorFive,competitorSix);
-        Model3 model34 = new Model3(competitorSeven, competitorEight);
-        Colomn1matchesList.add(model31);
-        Colomn1matchesList.add(model32);
-        Colomn1matchesList.add(model33);
-        Colomn1matchesList.add(model34);
-        Model1 model11 = new Model1(Colomn1matchesList);
-        sectionList.add(model11);
-        Model2 competitorNine = new Model2("Arxn", "56");
-        Model2 competitorTen = new Model2("bichoo", "45");
-        Model2 competitorEleven = new Model2("Moradd", "43");
-        Model2 competitorTwelve = new Model2("MDLR", "34");
-        Model3 model35 = new Model3(competitorNine,competitorTen);
-        Model3 model36 = new Model3(competitorEleven, competitorTwelve);
-        colomn2MatchesList.add(model35);
-        colomn2MatchesList.add(model36);
-        Model1 model12 = new Model1(colomn2MatchesList);
-        sectionList.add(model12);
-        Model2 competitorThirteen = new Model2("arxn", "2");
-        Model2 competitorForteen = new Model2("MDLR", "1");
-        Model3 model37 = new Model3(competitorThirteen, competitorForteen);
-        colomn3MatchesList.add(model37);
-        Model1 model13 = new Model1(colomn3MatchesList);
-        sectionList.add(model13);
+        if (numParticipantes==8) {
+            sectionList = new ArrayList<>();
+            ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
+            ArrayList<Model3> colomn2MatchesList = new ArrayList<>();
+            ArrayList<Model3> colomn3MatchesList = new ArrayList<>();
+            Model2 competitorOne = new Model2("", "-");
+            Model2 competitorTwo = new Model2("", "-");
+            Model2 competitorThree = new Model2("", "-");
+            Model2 competitorFour = new Model2("", "-");
+            Model2 competitorFive = new Model2("", "-");
+            Model2 competitorSix = new Model2("", "-");
+            Model2 competitorSeven = new Model2(" ", "-");
+            Model2 competitorEight = new Model2("", "-");
+            Model3 model31 = new Model3(competitorOne, competitorTwo);
+            Model3 model32 = new Model3(competitorThree, competitorFour);
+            Model3 model33 = new Model3(competitorFive, competitorSix);
+            Model3 model34 = new Model3(competitorSeven, competitorEight);
+            Colomn1matchesList.add(model31);
+            Colomn1matchesList.add(model32);
+            Colomn1matchesList.add(model33);
+            Colomn1matchesList.add(model34);
+            Model1 model11 = new Model1(Colomn1matchesList);
+            sectionList.add(model11);
+            Model2 competitorNine = new Model2("", "-");
+            Model2 competitorTen = new Model2("", "-");
+            Model2 competitorEleven = new Model2("", "-");
+            Model2 competitorTwelve = new Model2("", "-");
+            Model3 model35 = new Model3(competitorNine, competitorTen);
+            Model3 model36 = new Model3(competitorEleven, competitorTwelve);
+            colomn2MatchesList.add(model35);
+            colomn2MatchesList.add(model36);
+            Model1 model12 = new Model1(colomn2MatchesList);
+            sectionList.add(model12);
+            Model2 competitorThirteen = new Model2("", "-");
+            Model2 competitorForteen = new Model2("-", "-");
+            Model3 model37 = new Model3(competitorThirteen, competitorForteen);
+            colomn3MatchesList.add(model37);
+            Model1 model13 = new Model1(colomn3MatchesList);
+            sectionList.add(model13);
+        }else{
+            sectionList = new ArrayList<>();
+            ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
+            ArrayList<Model3> colomn2MatchesList = new ArrayList<>();
+            ArrayList<Model3> colomn3MatchesList = new ArrayList<>();
+            ArrayList<Model3> colomn4MatchesList = new ArrayList<>();
 
+
+            for (int i=0;i<numParticipantes/2;i++){
+                Model2 competitorOne = new Model2("", "-");
+                Model2 competitorTwo = new Model2("", "-");
+                Model3 model31 = new Model3(competitorOne, competitorTwo);
+
+                Colomn1matchesList.add(model31);
+            }
+
+
+            Model1 model11 = new Model1(Colomn1matchesList);
+            sectionList.add(model11);
+
+            for (int i=0;i<numParticipantes/4;i++){
+                Model2 competitorOne = new Model2("", "-");
+                Model2 competitorTwo = new Model2("", "-");
+                Model3 model31 = new Model3(competitorOne, competitorTwo);
+
+                colomn2MatchesList.add(model31);
+            }
+
+            Model1 model12 = new Model1(colomn2MatchesList);
+            sectionList.add(model12);
+
+            for (int i=0;i<numParticipantes/8;i++){
+                Model2 competitorOne = new Model2("", "-");
+                Model2 competitorTwo = new Model2("", "-");
+                Model3 model31 = new Model3(competitorOne, competitorTwo);
+
+                colomn3MatchesList.add(model31);
+            }
+
+            Model1 model13 = new Model1(colomn3MatchesList);
+            sectionList.add(model13);
+
+            Model2 competitorThirteen = new Model2("", "-");
+            Model2 competitorForteen = new Model2("-", "-");
+            Model3 model37 = new Model3(competitorThirteen, competitorForteen);
+            colomn4MatchesList.add(model37);
+
+
+            Model1 modelultimo = new Model1(colomn4MatchesList);
+            sectionList.add(modelultimo);
+        }
+
+    }
+
+    public void modifyData(int ronda, List<String> lista, int modalidad){
+
+        if(modalidad==0){
+            ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
+            for (int i=0;i<(lista.size()/2);i++){
+                Model2 competitorOne = new Model2(lista.get(i), "-");
+                Model2 competitordos = new Model2(lista.get(i+1), "-");
+                Model3 model31 = new Model3(competitorOne, competitordos);
+                Colomn1matchesList.add(model31);
+            }
+            Model1 model11 = new Model1(Colomn1matchesList);
+            sectionList.remove(ronda);
+            sectionList.add(ronda,model11);
+        }else {
+            ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
+            for (int i=0;i<(lista.size()/4);i++){
+                Model2 competitorOne = new Model2(lista.get(i)+" "+lista.get(i+1), "-");
+                Model2 competitordos = new Model2(lista.get(i+2)+" "+lista.get(i+3), "-");
+                Model3 model31 = new Model3(competitorOne, competitordos);
+                Colomn1matchesList.add(model31);
+            }
+            Model1 model11 = new Model1(Colomn1matchesList);
+            sectionList.remove(ronda);
+            sectionList.add(ronda,model11);
+        }
     }
 
     private void intialiseViewPagerAdapter() {

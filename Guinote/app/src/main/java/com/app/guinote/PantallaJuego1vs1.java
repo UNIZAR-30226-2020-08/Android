@@ -109,13 +109,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mSocket.emit("disconnect", new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
+
+
         mSocket.off("message", onNewMessage);
     }
 
@@ -1042,6 +1037,16 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         resultado = resultado + "Puntos: " + puntosmios + "\n" + "Puntos rival: " + puntosrival;
         builder.setMessage(resultado);
         builder.show();
+
+        mSocket.emit("disconnect", new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
+
+        Pantalla_app.enPartidaIndividual="";
 
     }
 
