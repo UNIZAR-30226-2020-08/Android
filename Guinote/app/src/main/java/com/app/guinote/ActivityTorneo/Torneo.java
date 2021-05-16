@@ -76,6 +76,18 @@ public class Torneo extends AppCompatActivity {
         }
     };
 
+
+    private Emitter.Listener onJoin = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run(){
+                    Log.d("hola",args[0].toString());
+                }});
+        }
+    };
     private Emitter.Listener onMatches = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -117,6 +129,7 @@ public class Torneo extends AppCompatActivity {
 
         mSocket.on("completo",onCompleto);
         mSocket.on("matches",onMatches);
+        mSocket.on("joinedT",onJoin);
 
         Bundle b = getIntent().getExtras();
         if(b != null) {
