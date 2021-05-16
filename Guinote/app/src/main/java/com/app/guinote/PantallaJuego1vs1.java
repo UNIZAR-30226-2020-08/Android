@@ -71,6 +71,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private int torneo=0;
     private Socket mSocket;
     private SQLiteDatabase db;
+    static int gano=0;
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
@@ -112,7 +113,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        if (torneo==1){
+        if (torneo==1 && gano==1){
             Torneo.terminoPartida();
         }
         mSocket.off("message", onNewMessage);
@@ -599,16 +600,21 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     if(queEquipo == 0 && eq1 > eq2){
                         resultado = "¡Has ganado!\n";
+                        gano=1;
                     }else if(queEquipo == 0 && eq1 < eq2){
                         resultado = "¡Has perdido!\n";
                     }else if(queEquipo == 1 && eq1 > eq2){
                         resultado = "¡Has perdido!\n";
                     }else if(queEquipo == 1 && eq1 < eq2){
                         resultado = "¡Has ganado!\n";
+                        gano=1;
                     }
                     openGanador();
-                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    if(torneo!=1 || gano==0) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                    finish();
                 }
             });
         }

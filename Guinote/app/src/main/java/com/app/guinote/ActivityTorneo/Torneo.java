@@ -42,7 +42,7 @@ public class Torneo extends AppCompatActivity {
 
 
     private BracketsFragment bracketFragment;
-    private String nombrePartida="";
+    private static String nombrePartida="";
     public static SQLiteDatabase db;
     public static int modalidad=0;
     private static int ronda=1;
@@ -237,5 +237,20 @@ public class Torneo extends AppCompatActivity {
     public static void terminoPartida(){
         animacion.setVisibility(View.VISIBLE);
         animacion.playAnimation();
+        JSONObject auxiliar = new JSONObject();
+        try {
+            auxiliar.put("ronda", ronda);
+            auxiliar.put("torneo", nombrePartida);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        mSocket.emit("matchTournament", auxiliar, new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
     }
 }
