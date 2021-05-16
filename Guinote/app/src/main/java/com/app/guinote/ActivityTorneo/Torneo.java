@@ -59,7 +59,7 @@ public class Torneo extends AppCompatActivity {
                     JSONObject auxiliar = new JSONObject();
                     Log.d("hola","holasdasd");
                     try {
-                        auxiliar.put("ronda", ronda);
+                        auxiliar.put("fase", ronda);
                         auxiliar.put("torneo", nombrePartida);
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
@@ -95,7 +95,7 @@ public class Torneo extends AppCompatActivity {
 
                 @Override
                 public void run(){
-                    ronda++;
+                    Log.d("hola",args[0].toString());
                     List<String> lista=new ArrayList<>();
                     JSONArray data = (JSONArray) args[0];
                     for (int i=0;i<data.length();i++){
@@ -107,6 +107,8 @@ public class Torneo extends AppCompatActivity {
                     }
 
                     bracketFragment.modifyData(ronda,lista,modalidad);
+
+                    ronda++;
                 }});
         }
     };
