@@ -78,11 +78,11 @@
             android:id="@+id/registro_boton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:padding="13dp"
             android:backgroundTint="#ffffff"
+            android:padding="13dp"
+            android:text="Sign Up"
             android:textColor="#349702"
-            android:text="Sign Up" />
+            android:textStyle="bold" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
 </LinearLayout>

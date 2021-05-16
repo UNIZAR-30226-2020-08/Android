@@ -21,6 +21,8 @@ public class Registro extends Fragment {
         super(R.layout.activity_registro);
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class Registro extends Fragment {
                 TextInputLayout username= (TextInputLayout) view.findViewById(R.id.usernameRegister);
                 TextInputLayout email = (TextInputLayout) view.findViewById(R.id.emailRegister);
                 TextInputLayout passwd= (TextInputLayout) view.findViewById(R.id.passwdRegister);
+                validar(view,username,email,passwd);
                 Intent intent = new Intent(getActivity(),carga_registro.class);
                 Bundle b = new Bundle();
                 b.putString("username", username.getEditText().getText().toString()); //Your id
@@ -45,4 +48,26 @@ public class Registro extends Fragment {
         });
         return view;
     }
+    public boolean validar(View view, TextInputLayout username,TextInputLayout email,TextInputLayout passwd){
+        boolean validar=true;
+        String nombreusuario=username.getEditText().getText().toString();
+        String mail=email.getEditText().getText().toString();
+        String contra=passwd.getEditText().getText().toString();
+
+        if(nombreusuario.isEmpty()){
+            username.setError("Escribe un nombre de usuario");
+            validar=false;
+        }
+        if(mail.isEmpty()){
+            email.setError("Escribe un correo electrónico");
+            validar=false;
+        }
+        if(contra.isEmpty()){
+            passwd.setError("Escribe su password");
+            validar=false;
+        }
+        return validar;
+    }
+
+
 }
