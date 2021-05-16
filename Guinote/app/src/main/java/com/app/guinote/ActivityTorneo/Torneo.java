@@ -59,7 +59,7 @@ public class Torneo extends AppCompatActivity {
                     JSONObject auxiliar = new JSONObject();
                     Log.d("hola","holasdasd");
                     try {
-                        auxiliar.put("fase", ronda);
+                        auxiliar.put("ronda", ronda);
                         auxiliar.put("torneo", nombrePartida);
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
