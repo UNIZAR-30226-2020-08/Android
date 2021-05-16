@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.L;
+import com.app.guinote.ActivityTorneo.Torneo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
@@ -67,6 +68,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
     private int mRemainingTime = 30;
     private String room="";
+    private int torneo=0;
     private Socket mSocket;
     private SQLiteDatabase db;
     private String nameUser;
@@ -110,7 +112,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
-
+        if (torneo==1){
+            Torneo.terminoPartida();
+        }
         mSocket.off("message", onNewMessage);
     }
 
@@ -697,8 +701,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mensajeDeTextos = new ArrayList<>();
         nameUser=getName();
         Bundle b = getIntent().getExtras();
-        if(b != null)
+        if(b != null) {
             room = b.getString("key");
+            torneo= b.getInt("torneo");
+        }
 
         Pantalla_app.enPartidaIndividual=room;
         mSocket= Pantalla_app.mSocket;
