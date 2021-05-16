@@ -42,7 +42,7 @@ public class Torneo extends AppCompatActivity {
     private String nombrePartida="";
     private SQLiteDatabase db;
     private int modalidad=0;
-    private static int ronda=0;
+    private static int ronda=1;
     LottieAnimationView animacion;
     private int participantes=0;
 
