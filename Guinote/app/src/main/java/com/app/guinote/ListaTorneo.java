@@ -136,7 +136,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista8_2.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 8); //Your id
-                            b.putInt("modalidad", 2); //Your id
+                            b.putInt("modalidad", 1); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                             dialog.dismiss();
@@ -206,7 +206,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista16_2.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 16); //Your id
-                            b.putInt("modalidad", 2); //Your id
+                            b.putInt("modalidad", 1); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                             dialog.dismiss();
@@ -277,7 +277,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista8_1.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 8); //Your id
-                            b.putInt("modalidad", 1); //Your id
+                            b.putInt("modalidad", 0); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                             dialog.dismiss();
@@ -346,7 +346,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista16_1.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 16); //Your id
-                            b.putInt("modalidad", 1); //Your id
+                            b.putInt("modalidad", 0); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                             dialog.dismiss();

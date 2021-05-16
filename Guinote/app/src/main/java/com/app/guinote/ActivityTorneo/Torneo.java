@@ -57,6 +57,7 @@ public class Torneo extends AppCompatActivity {
                     animacion.setVisibility(View.INVISIBLE);
                     animacion.pauseAnimation();
                     JSONObject auxiliar = new JSONObject();
+                    Log.d("hola","holasdasd");
                     try {
                         auxiliar.put("ronda", ronda);
                         auxiliar.put("torneo", nombrePartida);
