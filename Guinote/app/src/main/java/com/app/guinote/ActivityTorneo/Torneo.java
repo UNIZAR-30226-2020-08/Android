@@ -46,7 +46,7 @@ public class Torneo extends AppCompatActivity {
     public static SQLiteDatabase db;
     public static int modalidad=0;
     private static int ronda=1;
-    LottieAnimationView animacion;
+    static LottieAnimationView animacion;
     private int participantes=0;
 
 
@@ -232,5 +232,10 @@ public class Torneo extends AppCompatActivity {
             intent.putExtras(b); //Put your id to your next Intent
             startActivity(intent);
         }
+    }
+
+    public static void terminoPartida(){
+        animacion.setVisibility(View.VISIBLE);
+        animacion.playAnimation();
     }
 }

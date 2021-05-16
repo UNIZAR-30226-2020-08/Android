@@ -80,6 +80,7 @@ public class Lista1vs1 extends Fragment {
 
                 Bundle b = new Bundle();
                 b.putString("key", ranking); //Your id
+                b.putInt("torneo", 0);
                 intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
             }

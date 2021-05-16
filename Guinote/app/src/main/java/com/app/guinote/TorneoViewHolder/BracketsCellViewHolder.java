@@ -56,12 +56,14 @@ public class BracketsCellViewHolder extends RecyclerView.ViewHolder {
                         Intent intent = new Intent(activity, PantallaJuego.class);
                         Bundle b = new Bundle();
                         b.putString("key", getTeamTitle().getText().toString()); //Your id
+                        b.putInt("torneo", 1); //Your id
                         intent.putExtras(b); //Put your id to your next Intent
                         activity.startActivity(intent);
                     }else{
                         Intent intent = new Intent(activity, PantallaJuego1vs1.class);
                         Bundle b = new Bundle();
                         b.putString("key", getTeamTitle().getText().toString()); //Your id
+                        b.putInt("torneo", 1);
                         intent.putExtras(b); //Put your id to your next Intent
                         activity.startActivity(intent);
                     }
