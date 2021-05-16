@@ -106,7 +106,12 @@ public class Torneo extends AppCompatActivity {
                         }
                     }
 
-                    bracketFragment.modifyData(ronda,lista,modalidad);
+                    Log.d("holatete",lista.toString());
+                    if(participantes==16){
+                        bracketFragment.modifyData(ronda,lista,modalidad);
+                    }else{
+                        bracketFragment.modifyData(ronda-1,lista,modalidad);
+                    }
 
                     ronda++;
                 }});
