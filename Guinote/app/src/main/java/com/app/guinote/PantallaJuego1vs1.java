@@ -610,21 +610,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         gano=1;
                     }
                     openGanador();
-<<<<<<< Updated upstream
                     if(torneo!=1 || gano==0) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
                     finish();
 >>>>>>> parent of 0846f65... minor changes
-=======
-                    finish();
-=======
->>>>>>> Stashed changes
->>>>>>> parent of cd35d57... Update PantallaJuego1vs1.java
                 }
             });
         }
@@ -719,7 +712,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null) {
             room = b.getString("key");
-<<<<<<< Updated upstream
             torneo= b.getInt("torneo");
         }
 
@@ -727,19 +719,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket= Pantalla_app.mSocket;
         //mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
 <<<<<<< HEAD
-<<<<<<< HEAD
             //tapete = b.getString("tapete");
             //dibujo_carta = b.getString("carta");
         mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
 =======
 >>>>>>> parent of 0846f65... minor changes
-=======
-=======
-            //tapete = b.getString("tapete");
-            //dibujo_carta = b.getString("carta");
-        mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
->>>>>>> Stashed changes
->>>>>>> parent of cd35d57... Update PantallaJuego1vs1.java
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
@@ -765,7 +749,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.d("jsonDePrueba",auxiliar.toString());
-<<<<<<< Updated upstream
 
         if(torneo==2){
             mSocket.emit("joinPartidaIA", auxiliar, new Ack() {
@@ -787,10 +770,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
 
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of cd35d57... Update PantallaJuego1vs1.java
         mSocket.emit("join", auxiliar, new Ack() {
             @Override
             public void call(Object... args) {
@@ -799,12 +778,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
         juego1vs1 = (LinearLayout) findViewById(R.id.juego_layout1vs1);
-<<<<<<< HEAD
 =======
 >>>>>>> parent of 0846f65... minor changes
-=======
->>>>>>> Stashed changes
->>>>>>> parent of cd35d57... Update PantallaJuego1vs1.java
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
         ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext);
         ptmiotext = (TextView) findViewById(R.id.puntosmiostext);
