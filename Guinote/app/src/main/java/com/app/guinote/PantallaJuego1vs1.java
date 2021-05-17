@@ -433,38 +433,60 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if(arrastre == true){
                             actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
                         }
-                    }else{
-                        Carta aux2 = new Carta("F");
-                        cardsj1[QueCarta] = aux2;
-                        estrella1.setVisibility(View.INVISIBLE);
-                        estrella2.setVisibility(View.VISIBLE);
-                        if(ultimo){
-                            ultimo = false;
-                            estrella1.setVisibility(View.INVISIBLE);
-                            estrella2.setVisibility(View.INVISIBLE);
+                    }else {
+                        if (torneo == 2) {
                             JSONObject aux = new JSONObject();
                             try {
+                                aux.put("jugador", getName());
                                 aux.put("partida", room);
                                 aux.put("nronda", nronda);
+                                aux.put("carta", cardsj1[QueCarta].getId());
+
                             } catch (JSONException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
-                            mSocket.emit("contarPuntos", aux, new Ack() {
+                            mSocket.emit("lanzarCartaIA", aux, new Ack() {
                                 @Override
                                 public void call(Object... args) {
                                     //JSONObject response = (JSONObject) args[0];
                                     //System.out.println(response); // "ok"
                                 }
                             });
-                            if(!arrastre) {
-                                mSocket.emit("robarCarta", aux, new Ack() {
+                        } else {
+
+                            Carta aux2 = new Carta("F");
+                            cardsj1[QueCarta] = aux2;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.VISIBLE);
+                            if (ultimo) {
+                                ultimo = false;
+                                estrella1.setVisibility(View.INVISIBLE);
+                                estrella2.setVisibility(View.INVISIBLE);
+                                JSONObject aux = new JSONObject();
+                                try {
+                                    aux.put("partida", room);
+                                    aux.put("nronda", nronda);
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                mSocket.emit("contarPuntos", aux, new Ack() {
                                     @Override
                                     public void call(Object... args) {
                                         //JSONObject response = (JSONObject) args[0];
                                         //System.out.println(response); // "ok"
                                     }
                                 });
+                                if (!arrastre) {
+                                    mSocket.emit("robarCarta", aux, new Ack() {
+                                        @Override
+                                        public void call(Object... args) {
+                                            //JSONObject response = (JSONObject) args[0];
+                                            //System.out.println(response); // "ok"
+                                        }
+                                    });
+                                }
                             }
                         }
                     }
@@ -503,6 +525,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             contador.start();
                         }
                     }
+                    aun_no = true;
                     disolverCartas();
                     nronda++;
                     cuantascartasint = cuantascartasint -2;
@@ -1331,23 +1354,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("jsonDePrueba", aux.toString());
-                if(torneo==2){
-                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                            }
-                    });
-                }else{
-                    mSocket.emit("lanzarCarta", aux, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                        }
-                    });
-                }
+                mSocket.emit("lanzarCarta", aux, new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
                 queOrden--;
                 if (i == 0) {
                     c1whole.setVisibility(View.INVISIBLE);
@@ -1445,6 +1458,32 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 setNotVisibilityLanzadasCard();
+                try{
+                    Thread.sleep(2000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                if (torneo == 2 && ultimo) {
+                    JSONObject aux = new JSONObject();
+                    try {
+                        aux.put("jugador", getName());
+                        aux.put("partida", room);
+                        aux.put("nronda", nronda);
+                        aux.put("carta", cardsj1[QueCarta].getId());
+
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                }
+                aun_no = false;
 
             }
         }.start();
