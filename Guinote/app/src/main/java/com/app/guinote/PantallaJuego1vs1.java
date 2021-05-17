@@ -331,12 +331,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             estrella1.setVisibility(View.VISIBLE);
                             estrella2.setVisibility(View.INVISIBLE);
                         }
-                        aun_no = true;
-                        animacionCartaFront();
-                        Carta aux = new Carta(carta);
-                        assignImages(aux,j2imagefront);
-                        if(arrastre == true){
-                            actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
+                        if((torneo == 2 && queOrden == 1) || torneo == 0) {
+                            animacionCartaFront();
+                            Carta aux = new Carta(carta);
+                            assignImages(aux, j2imagefront);
+                            aun_no = true;
+                            if (arrastre == true) {
+                                actualizar_datos_arrastre(aux.getPalo(), aux.getRanking());
+                            }
                         }
                         Log.d("Antes", "antes de ultimo");
                         if(!ultimo){
@@ -374,6 +376,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     }
                                 });
                             }
+                            robar_sigana_ia();
                         }
                     }
                 }
