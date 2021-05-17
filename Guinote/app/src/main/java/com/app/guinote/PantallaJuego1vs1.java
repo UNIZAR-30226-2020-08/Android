@@ -469,6 +469,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                         }
                                     });
                                 }
+                                robar_sigana_ia();
                             }
                         }
                     }
@@ -547,7 +548,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             }
                         });
                     }
-                    robar_sigana_ia();
                 }
             });
         }
@@ -1279,7 +1279,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if (cardsj1[i].getRanking() < RankingArrastre) {
                             RankingArrastre = cardsj1[i].getRanking();
                         }
-                    } else if ((cardsj1[i].getPalo() == cartaTriunfo.getPalo()) && (!paloArrastre.equals(cartaTriunfo.getPalo()))) {
+                    } else if ((cardsj1[i].getPalo() == cartaTriunfo.getPalo()) && !(paloArrastre.equals(cartaTriunfo.getPalo()))) {
                         for (int j = 0; j < 6; j++) {
                             if (j != i) {
                                 if (cardsj1[j].getPalo() == paloArrastre) {
@@ -1489,10 +1489,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Log.d("la ia le toca", "dentro del if");
                     JSONObject aux = new JSONObject();
                     try {
-                        aux.put("jugador", getName());
                         aux.put("partida", room);
                         aux.put("nronda", nronda);
-                        aux.put("carta", cardsj1[QueCarta].getId());
 
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
