@@ -362,7 +362,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     //System.out.println(response); // "ok"
                                 }
                             });
-                            if(!arrastre) {
+                            //if(!arrastre) {
                                 mSocket.emit("robarCarta", aux2, new Ack() {
                                     @Override
                                     public void call(Object... args) {
@@ -370,7 +370,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                         //System.out.println(response); // "ok"
                                     }
                                 });
-                            }
+                            //}
                         }
                     }
                 }
