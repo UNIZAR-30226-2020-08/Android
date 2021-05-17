@@ -324,7 +324,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     Log.d("carta",carta);
                     Log.d("quien",quien);
-                    if (!quien.equals(nameUser)){
                         queOrden--;
                         if(queOrden == 1){
                             contador.start();
@@ -377,7 +376,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             robar_sigana_ia();
                         }
                     }
-                }
             });
         }
     };
@@ -417,62 +415,26 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
                         }
                     }else {
-                        if (torneo == 2) {
+                        if (torneo == 2 && !ultimo) {
+                            JSONObject aux = new JSONObject();
+                            try {
+                                aux.put("jugador", getName());
+                                aux.put("partida", room);
+                                aux.put("nronda", nronda);
+                                aux.put("carta", cardsj1[QueCarta].getId());
 
-                            Carta aux2 = new Carta("F");
-                            cardsj1[QueCarta] = aux2;
-                            estrella1.setVisibility(View.INVISIBLE);
-                            estrella2.setVisibility(View.VISIBLE);
-                            if (ultimo) {
-                                ultimo = false;
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                JSONObject aux = new JSONObject();
-                                try {
-                                    aux.put("partida", room);
-                                    aux.put("nronda", nronda);
-                                } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                                mSocket.emit("contarPuntos", aux, new Ack() {
-                                    @Override
-                                    public void call(Object... args) {
-                                        //JSONObject response = (JSONObject) args[0];
-                                        //System.out.println(response); // "ok"
-                                    }
-                                });
-                                if (!arrastre) {
-                                    mSocket.emit("robarCarta", aux, new Ack() {
-                                        @Override
-                                        public void call(Object... args) {
-                                            //JSONObject response = (JSONObject) args[0];
-                                            //System.out.println(response); // "ok"
-                                        }
-                                    });
-                                }
-                                robar_sigana_ia();
-                            }else{
-                                JSONObject aux = new JSONObject();
-                                try {
-                                    aux.put("jugador", getName());
-                                    aux.put("partida", room);
-                                    aux.put("nronda", nronda);
-                                    aux.put("carta", cardsj1[QueCarta].getId());
-
-                                } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                                mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                                    @Override
-                                    public void call(Object... args) {
-                                        //JSONObject response = (JSONObject) args[0];
-                                        //System.out.println(response); // "ok"
-                                    }
-                                });
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
                             }
-                        } else {
+                            mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                        }else{
 
                             Carta aux2 = new Carta("F");
                             cardsj1[QueCarta] = aux2;
