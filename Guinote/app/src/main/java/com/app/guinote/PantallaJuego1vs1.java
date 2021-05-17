@@ -1362,10 +1362,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("jsonDePrueba", aux.toString());
-<<<<<<< HEAD
-=======
-
->>>>>>> 67c3ac28dd7dccf3dcb28a4215abe2946d477040
                 mSocket.emit("lanzarCarta", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
@@ -1373,10 +1369,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         //System.out.println(response); // "ok"
                     }
                 });
-<<<<<<< HEAD
-=======
-
->>>>>>> 67c3ac28dd7dccf3dcb28a4215abe2946d477040
                 queOrden--;
                 if (i == 0) {
                     c1whole.setVisibility(View.INVISIBLE);
