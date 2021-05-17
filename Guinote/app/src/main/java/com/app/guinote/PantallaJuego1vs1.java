@@ -418,24 +418,41 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         }
                     }else {
                         if (torneo == 2) {
-                            JSONObject aux = new JSONObject();
-                            try {
-                                aux.put("jugador", getName());
-                                aux.put("partida", room);
-                                aux.put("nronda", nronda);
-                                aux.put("carta", cardsj1[QueCarta].getId());
 
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                                @Override
-                                public void call(Object... args) {
-                                    //JSONObject response = (JSONObject) args[0];
-                                    //System.out.println(response); // "ok"
+                            Carta aux2 = new Carta("F");
+                            cardsj1[QueCarta] = aux2;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.VISIBLE);
+                            if (ultimo) {
+                                ultimo = false;
+                                estrella1.setVisibility(View.INVISIBLE);
+                                estrella2.setVisibility(View.INVISIBLE);
+                                JSONObject aux = new JSONObject();
+                                try {
+                                    aux.put("partida", room);
+                                    aux.put("nronda", nronda);
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
                                 }
-                            });
+                                mSocket.emit("contarPuntos", aux, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
+                                if (!arrastre) {
+                                    mSocket.emit("robarCarta", aux, new Ack() {
+                                        @Override
+                                        public void call(Object... args) {
+                                            //JSONObject response = (JSONObject) args[0];
+                                            //System.out.println(response); // "ok"
+                                        }
+                                    });
+                                }
+                                robar_sigana_ia();
+                            }
                         } else {
 
                             Carta aux2 = new Carta("F");
