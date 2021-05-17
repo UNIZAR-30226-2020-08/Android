@@ -452,6 +452,25 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     });
                                 }
                                 robar_sigana_ia();
+                            }else{
+                                JSONObject aux = new JSONObject();
+                                try {
+                                    aux.put("jugador", getName());
+                                    aux.put("partida", room);
+                                    aux.put("nronda", nronda);
+                                    aux.put("carta", cardsj1[QueCarta].getId());
+
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
                             }
                         } else {
 
