@@ -57,7 +57,9 @@ public class EditProfile extends Fragment {
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity();
+                    if(validar(view)==true) {
+                        openActivity();
+                    }
             }
         });
         denegar.setOnClickListener(new View.OnClickListener() {
@@ -141,13 +143,13 @@ public class EditProfile extends Fragment {
 
         requestQueue.add(jsonObjectRequest);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(
-                        R.anim.side_in_left,
-                        R.anim.slide_out_left
-                )
-                .setReorderingAllowed(true)
-                .replace(R.id.fragmento_app,Perfil.class,null)
-                .commit();
+                    .setCustomAnimations(
+                            R.anim.side_in_left,
+                            R.anim.slide_out_left
+                    )
+                    .setReorderingAllowed(true)
+                    .replace(R.id.fragmento_app, Perfil.class, null)
+                    .commit();
     }
     public void openActivity2(){
         getActivity().getSupportFragmentManager().beginTransaction()
@@ -158,6 +160,21 @@ public class EditProfile extends Fragment {
                 .setReorderingAllowed(true)
                 .replace(R.id.fragmento_app,Perfil.class,null)
                 .commit();
+    }
+
+    public boolean validar(View view){
+            boolean validar=true;
+            TextInputLayout correo= (TextInputLayout) view.findViewById(R.id.full_email);
+            String mail=correo.getEditText().getText().toString();
+
+            if(mail.isEmpty()){
+                correo.setError("Rellene el campo a modificar");
+                validar=false;
+            }
+            else{
+                correo.setError(null);
+            }
+            return validar;
     }
 
 
