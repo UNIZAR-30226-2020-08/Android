@@ -113,9 +113,17 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
+        Log.d("salgo","finalizo");
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
         }
+        mSocket.emit("disconnect",new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
         mSocket.off("message", onNewMessage);
     }
 
@@ -1230,15 +1238,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         builder.setMessage(resultado);
         builder.show();
 
-        mSocket.emit("disconnect", new Ack() {
+        /*mSocket.emit("disconnect", new Ack() {
             @Override
             public void call(Object... args) {
                 //JSONObject response = (JSONObject) args[0];
                 //System.out.println(response); // "ok"
             }
-        });
+        });*/
 
-        Pantalla_app.enPartidaIndividual="";
 
     }
 
@@ -1354,6 +1361,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("jsonDePrueba", aux.toString());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67c3ac28dd7dccf3dcb28a4215abe2946d477040
                 mSocket.emit("lanzarCarta", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
@@ -1361,6 +1372,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         //System.out.println(response); // "ok"
                     }
                 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67c3ac28dd7dccf3dcb28a4215abe2946d477040
                 queOrden--;
                 if (i == 0) {
                     c1whole.setVisibility(View.INVISIBLE);
