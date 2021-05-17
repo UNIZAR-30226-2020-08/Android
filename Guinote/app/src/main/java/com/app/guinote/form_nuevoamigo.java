@@ -87,7 +87,9 @@ public class form_nuevoamigo extends Fragment {
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                botonAmigo();
+                if(validar(view)==true) {
+                    botonAmigo();
+                }
             }
         });
         return view;
@@ -134,4 +136,22 @@ public class form_nuevoamigo extends Fragment {
         c.moveToNext();
         return c.getString(0);
     }
+
+
+    public boolean validar(View view){
+        boolean validar=true;
+        TextInputLayout cajaNombre= (TextInputLayout) view.findViewById(R.id.cajaAmigoAnadir);
+        String nombreUsername=cajaNombre.getEditText().getText().toString();
+
+
+        if(nombreUsername.isEmpty()){
+            cajaNombre.setError("Escribe un nombre de usuario");
+            validar=false;
+        }
+        else{
+            cajaNombre.setError(null);
+        }
+        return  validar;
+    }
+
 }
