@@ -55,13 +55,13 @@
 
     <TextView
         android:id="@+id/Tapete"
-        android:layout_width="119dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
-        android:textSize="18sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintLeft_toLeftOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
@@ -74,21 +74,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintLeft_toLeftOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <TextView
-        android:id="@+id/Duracion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/ImagenUsuario"
@@ -104,16 +94,31 @@
         app:layout_constraintRight_toLeftOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-    <TextView
-        android:id="@+id/Puntuación"
-        android:layout_width="137dp"
-        android:layout_height="33dp"
-        android:layout_marginLeft="8dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintVertical_bias="0.341"
-        android:text="TextView"/>
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="12dp">
+        <TextView
+            android:id="@+id/Duracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="8dp"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/Puntuación"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.341"
+            android:text="TextView"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/Victoria"

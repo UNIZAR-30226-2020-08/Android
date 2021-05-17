@@ -15,12 +15,14 @@ public class HistAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     Context context;
     String [][] datos;
+    int cantidad;
     int [] imagenes;
 
-    public HistAdapter(Context context, String[][] datos, int[] imagenes) {
+    public HistAdapter(Context context, String[][] datos, int[] imagenes,int _cantidad) {
         this.context = context;
         this.datos = datos;
         this.imagenes = imagenes;
+        cantidad=_cantidad;
         inflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -28,7 +30,7 @@ public class HistAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return imagenes.length;
+        return cantidad;
     }
 
     @Override
@@ -55,18 +57,19 @@ public class HistAdapter extends BaseAdapter {
 
         titulo.setText(datos[position][0]);
         tapete.setText(datos[position][1]);
-        duracion.setText("Duración " + datos[position][4]);
+        duracion.setText(datos[position][4]);
         puntuacion.setText(datos[position][3]);
         jugadores.setText(datos[position][2]);
-        imagen.setImageResource(imagenes[position]);
 
 
         if (datos[position][0]=="VICTORIA"){
             int myColor = ContextCompat.getColor(context, R.color.ganada);
             vista.setBackgroundColor(myColor);
+            imagen.setImageResource(imagenes[1]);
         }else{
             int myColor2 = ContextCompat.getColor(context, R.color.perdida);
             vista.setBackgroundColor(myColor2);
+            imagen.setImageResource(imagenes[0]);
         }
         return vista;
 
