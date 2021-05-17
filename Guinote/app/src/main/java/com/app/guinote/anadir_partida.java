@@ -114,6 +114,7 @@ public class anadir_partida extends Fragment {
 
                                 Bundle b = new Bundle();
                                 b.putString("key", ranking); //Your id
+                                b.putInt("torneo", 0);
                                 intent.putExtras(b); //Put your id to your next Intent
                                 startActivity(intent);
                             }else{
@@ -123,6 +124,7 @@ public class anadir_partida extends Fragment {
 
                                 Bundle b = new Bundle();
                                 b.putString("key", ranking);
+                                b.putInt("torneo", 0);
                                 intent.putExtras(b);
                                 startActivity(intent);
                             }
