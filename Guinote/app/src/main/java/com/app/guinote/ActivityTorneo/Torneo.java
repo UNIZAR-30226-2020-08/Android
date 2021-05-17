@@ -50,6 +50,18 @@ public class Torneo extends AppCompatActivity {
     private int participantes=0;
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSocket.emit("leaveTorneo",new Ack() {
+            @Override
+            public void call(Object... args) {
+                //JSONObject response = (JSONObject) args[0];
+                //System.out.println(response); // "ok"
+            }
+        });
+    }
+
     private Emitter.Listener onCompleto = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
