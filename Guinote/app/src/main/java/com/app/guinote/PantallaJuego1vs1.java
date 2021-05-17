@@ -339,6 +339,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
                         }
                         if(!ultimo){
+                            Carta aux3 = new Carta("F");
+                            cardsj1[QueCarta] = aux3;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.VISIBLE);
                             Log.d("username",nameUser);
                             ultimo = false;
                             estrella1.setVisibility(View.INVISIBLE);
@@ -360,40 +364,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             });
                             if(!arrastre) {
                                 mSocket.emit("robarCarta", aux2, new Ack() {
-                                    @Override
-                                    public void call(Object... args) {
-                                        //JSONObject response = (JSONObject) args[0];
-                                        //System.out.println(response); // "ok"
-                                    }
-                                });
-                            }
-                        }
-                    }else{
-                        Carta aux2 = new Carta("F");
-                        cardsj1[QueCarta] = aux2;
-                        estrella1.setVisibility(View.INVISIBLE);
-                        estrella2.setVisibility(View.VISIBLE);
-                        if(ultimo){
-                            ultimo = false;
-                            estrella1.setVisibility(View.INVISIBLE);
-                            estrella2.setVisibility(View.INVISIBLE);
-                            JSONObject aux = new JSONObject();
-                            try {
-                                aux.put("partida", room);
-                                aux.put("nronda", nronda);
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            mSocket.emit("contarPuntos", aux, new Ack() {
-                                @Override
-                                public void call(Object... args) {
-                                    //JSONObject response = (JSONObject) args[0];
-                                    //System.out.println(response); // "ok"
-                                }
-                            });
-                            if(!arrastre) {
-                                mSocket.emit("robarCarta", aux, new Ack() {
                                     @Override
                                     public void call(Object... args) {
                                         //JSONObject response = (JSONObject) args[0];
