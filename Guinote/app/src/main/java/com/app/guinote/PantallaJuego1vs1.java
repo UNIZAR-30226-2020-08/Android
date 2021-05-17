@@ -73,6 +73,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private SQLiteDatabase db;
     static int gano=0;
     private String nameUser;
+    LinearLayout juego1vs1;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
     TextView nombreOponente,cuentaatras, cuantascartas, copasadversario, ptmio, ptrival, cartasrestantes, ptmiotext, ptorivaltext;
@@ -93,13 +94,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Boolean ultimo = false;
 
     boolean aun_no = false;
-
+    String tapete = "1";
+    String dibujo_carta;
     //Variables para el arrastre
     boolean arrastre;   //Si estamos en arrastre o no
     Integer paloArrastre;
     Integer RondaArrastre;
     Integer RankingArrastre;
-    boolean deVueltas;
+    boolean deVueltas = false;
 
     long duration = TimeUnit.SECONDS.toMillis(20);
     CountDownTimer contador;
@@ -369,17 +371,19 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    if (!ganador.equals(nameUser)){
+                    if(nronda != 19) {
+                        if (!ganador.equals(nameUser)) {
                             estrella1.setVisibility(View.INVISIBLE);
                             estrella2.setVisibility(View.VISIBLE);
-                            queOrden=2;
+                            queOrden = 2;
                             ultimo = true;
 
-                    }else{
-                        estrella1.setVisibility(View.VISIBLE);
-                        estrella2.setVisibility(View.INVISIBLE);
-                        queOrden=1;
-                        contador.start();
+                        } else {
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            queOrden = 1;
+                            contador.start();
+                        }
                     }
                     disolverCartas();
                     nronda++;
@@ -614,10 +618,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
-<<<<<<< HEAD
-=======
-                    finish();
->>>>>>> parent of 0846f65... minor changes
                 }
             });
         }
@@ -718,12 +718,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Pantalla_app.enPartidaIndividual=room;
         mSocket= Pantalla_app.mSocket;
         //mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
-<<<<<<< HEAD
             //tapete = b.getString("tapete");
             //dibujo_carta = b.getString("carta");
         mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
-=======
->>>>>>> parent of 0846f65... minor changes
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
@@ -769,7 +766,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
 
 
-<<<<<<< HEAD
         mSocket.emit("join", auxiliar, new Ack() {
             @Override
             public void call(Object... args) {
@@ -778,8 +774,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
         juego1vs1 = (LinearLayout) findViewById(R.id.juego_layout1vs1);
-=======
->>>>>>> parent of 0846f65... minor changes
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
         ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext);
         ptmiotext = (TextView) findViewById(R.id.puntosmiostext);
@@ -834,7 +828,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         cartasrestantes.setVisibility(View.INVISIBLE);
         cuentaatras.setVisibility(View.INVISIBLE);
 
-        deVueltas = false;
+        setTapete();
 
         contador = new CountDownTimer(duration, 1000) {
             @Override
@@ -1070,6 +1064,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setTapete() {
+        if(tapete.equals("1")){
+            juego1vs1.setBackgroundResource(R.drawable.tapete2);
+        }else if(tapete.equals("2")){
+            juego1vs1.setBackgroundResource(R.drawable.tapete2);
+        }else if(tapete.equals("3")){
+            juego1vs1.setBackgroundResource(R.drawable.tapete2);
+        }else if(tapete.equals("4")){
+            juego1vs1.setBackgroundResource(R.drawable.tapete2);
+        }else if(tapete.equals("5")){
+            juego1vs1.setBackgroundResource(R.drawable.tapete2);
+        }
     }
 
     public void openGanador(){
