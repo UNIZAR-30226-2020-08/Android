@@ -547,7 +547,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             }
                         });
                     }
-
+                    robar_sigana_ia();
                 }
             });
         }
@@ -1444,6 +1444,41 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 setNotVisibilityLanzadasCard();
+                try{
+                    Thread.sleep(2000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                if (torneo == 2 && ultimo) {
+                    JSONObject aux = new JSONObject();
+                    try {
+                        aux.put("jugador", getName());
+                        aux.put("partida", room);
+                        aux.put("nronda", nronda);
+                        aux.put("carta", cardsj1[QueCarta].getId());
+
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                }
+                aun_no = false;
+
+            }
+        }.start();
+    }
+
+    private void robar_sigana_ia(){
+        new Thread() {
+            @Override
+            public void run() {
                 try{
                     Thread.sleep(2000);
                 } catch (Exception e){
