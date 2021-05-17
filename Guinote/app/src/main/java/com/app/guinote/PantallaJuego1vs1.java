@@ -630,6 +630,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d("veamosC",args[0].toString());
+                    /*JSONArray data=new JSONArray();
+                    if(!args[0].toString().equals("")){
+                        data = (JSONArray) args[0];
+                    }*/
                     JSONArray data = (JSONArray) args[0];
                     JSONObject datos;
                     String username = "";
