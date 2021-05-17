@@ -1484,7 +1484,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+                Log.d("la ia le toca", "le toca wey fuera del if");
                 if (torneo == 2 && ultimo) {
+                    Log.d("la ia le toca", "dentro del if");
                     JSONObject aux = new JSONObject();
                     try {
                         aux.put("jugador", getName());
