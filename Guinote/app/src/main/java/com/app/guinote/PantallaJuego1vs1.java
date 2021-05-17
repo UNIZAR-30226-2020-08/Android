@@ -281,6 +281,110 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener oncartaJugadaIA = new Emitter.Listener(){
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    JSONObject todo;
+                    String carta;
+                    String quien;
+                    Log.d("ia",data.toString());
+                    try {
+                        carta = data.getString("carta");
+                        quien = data.getString("jugador");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("carta",carta);
+                    Log.d("quien",quien);
+                    if (!quien.equals(nameUser)){
+                        queOrden--;
+                        if(queOrden == 1){
+                            contador.start();
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                        }
+                        aun_no = true;
+                        animacionCartaFront();
+                        Carta aux = new Carta(carta);
+                        assignImages(aux,j2imagefront);
+                        if(arrastre == true){
+                            actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
+                        }
+                        if(!ultimo){
+                            Log.d("username",nameUser);
+                            ultimo = false;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            JSONObject aux2 = new JSONObject();
+                            try {
+                                aux2.put("partida", room);
+                                aux2.put("nronda", nronda);
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            mSocket.emit("contarPuntos", aux2, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                            if(!arrastre) {
+                                mSocket.emit("robarCarta", aux2, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
+                            }
+                        }
+                    }else{
+                        Carta aux2 = new Carta("F");
+                        cardsj1[QueCarta] = aux2;
+                        estrella1.setVisibility(View.INVISIBLE);
+                        estrella2.setVisibility(View.VISIBLE);
+                        if(ultimo){
+                            ultimo = false;
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            JSONObject aux = new JSONObject();
+                            try {
+                                aux.put("partida", room);
+                                aux.put("nronda", nronda);
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            mSocket.emit("contarPuntos", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                            if(!arrastre) {
+                                mSocket.emit("robarCarta", aux, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    };
+
     private Emitter.Listener oncartaJugada = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -719,7 +823,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
         mSocket.on("cartaJugada", oncartaJugada);
-        mSocket.on("cartaJugadaIA", oncartaJugada);
+        mSocket.on("cartaJugadaIA", oncartaJugadaIA);
         mSocket.on("winner", onRecuento);
         mSocket.on("roba", onRobo);
         mSocket.on("cartaCambio", onCambio);
