@@ -12,8 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.guinote.ActivityTorneo.Torneo;
 import com.google.android.material.appbar.MaterialToolbar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends Fragment {
 
@@ -23,8 +32,10 @@ public class MainActivity extends Fragment {
             "PHP"
     };
     CardView createroom;
+
     ListView lista1vs1;
     CardView cardvs1;
+    CardView iapartida;
     CardView fd;
     CardView jointorneo;
 
@@ -43,6 +54,7 @@ public class MainActivity extends Fragment {
 
         CardView play2 = view.findViewById(R.id.button_start_2vs2);
         createroom = view.findViewById(R.id.button_start_1vs1);
+        iapartida = view.findViewById(R.id.button_start_offline);
         fd = view.findViewById(R.id.button_start_private_room);
         jointorneo = view.findViewById(R.id.button_join_private_room);
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
@@ -74,6 +86,12 @@ public class MainActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 openActivity4();
+            }
+        });
+        iapartida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createPartidaIA();
             }
         });
 
@@ -122,6 +140,8 @@ public class MainActivity extends Fragment {
                 .replace(R.id.fragmento_app, ListaTorneo.class, null)
                 .commit();
     }
+
+
     public void openActivity3(){
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
@@ -141,5 +161,46 @@ public class MainActivity extends Fragment {
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
         return c.getString(0);
+    }
+
+    private void createPartidaIA(){
+        String postUrl = "https://las10ultimas-backend.herokuapp.com/api/partida/";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("triunfo", "");
+            postData.put("estado", 0);
+            postData.put("tipo", 0);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String ranking=response.getString("nombre");
+                    Intent intent = new Intent(getActivity(),PantallaJuego1vs1.class);
+
+                    Bundle b = new Bundle();
+                    b.putString("key", ranking); //Your id
+                    b.putInt("torneo", 2);
+                    intent.putExtras(b); //Put your id to your next Intent
+                    startActivity(intent);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 }

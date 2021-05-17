@@ -719,6 +719,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("RepartirCartas", onRepartirCartas);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
         mSocket.on("cartaJugada", oncartaJugada);
+        mSocket.on("cartaJugadaIA", oncartaJugada);
         mSocket.on("winner", onRecuento);
         mSocket.on("roba", onRobo);
         mSocket.on("cartaCambio", onCambio);
@@ -726,6 +727,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("Resultado", onResultado);
         mSocket.on("Vueltas", onVueltas);
         mSocket.on("puntos",onPuntos);
+
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -738,13 +740,26 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.d("jsonDePrueba",auxiliar.toString());
-        mSocket.emit("join", auxiliar, new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
+
+        if(torneo==2){
+            mSocket.emit("joinPartidaIA", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }else{
+            mSocket.emit("join", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
+
+
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
         ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext);
         ptmiotext = (TextView) findViewById(R.id.puntosmiostext);
@@ -1174,13 +1189,23 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("jsonDePrueba", aux.toString());
-                mSocket.emit("lanzarCarta", aux, new Ack() {
-                    @Override
-                    public void call(Object... args) {
-                        //JSONObject response = (JSONObject) args[0];
-                        //System.out.println(response); // "ok"
-                    }
-                });
+                if(torneo==2){
+                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                            }
+                    });
+                }else{
+                    mSocket.emit("lanzarCarta", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                }
                 queOrden--;
                 if (i == 0) {
                     c1whole.setVisibility(View.INVISIBLE);
