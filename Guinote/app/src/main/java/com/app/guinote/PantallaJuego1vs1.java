@@ -117,7 +117,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
         }
-        mSocket.emit("disconnect",new Ack() {
+
+        mSocket.emit("leavePartida",new Ack() {
             @Override
             public void call(Object... args) {
                 //JSONObject response = (JSONObject) args[0];
