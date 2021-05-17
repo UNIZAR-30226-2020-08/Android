@@ -76,7 +76,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
     TextView nombreOponente,cuentaatras, cuantascartas, copasadversario, ptmio, ptrival, cartasrestantes, ptmiotext, ptorivaltext;
-    Button cantar;
+    Button cantar,pausar;
     Integer cuantascartasint = 28;
     CircleImageView fperfiladversario;
     String resultado;
@@ -129,6 +129,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
     }
+
+    private Emitter.Listener onPause = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+    };
 
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
@@ -370,16 +384,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     if (!ganador.equals(nameUser)){
-                            estrella1.setVisibility(View.INVISIBLE);
-                            estrella2.setVisibility(View.VISIBLE);
-                            queOrden=2;
-                            ultimo = true;
+                            if(nronda != 19) {
+                                estrella1.setVisibility(View.INVISIBLE);
+                                estrella2.setVisibility(View.VISIBLE);
+                                queOrden = 2;
+                                ultimo = true;
+                            }
 
                     }else{
-                        estrella1.setVisibility(View.VISIBLE);
-                        estrella2.setVisibility(View.INVISIBLE);
-                        queOrden=1;
-                        contador.start();
+                        if(nronda != 19) {
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            queOrden = 1;
+                            contador.start();
+                        }
                     }
                     disolverCartas();
                     nronda++;
@@ -611,7 +629,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     openGanador();
                     if(torneo!=1 || gano==0) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                         startActivity(intent);
                     }
                     finish();
@@ -727,6 +745,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("Resultado", onResultado);
         mSocket.on("Vueltas", onVueltas);
         mSocket.on("puntos",onPuntos);
+        mSocket.on("pause",onPause);
 
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
@@ -759,7 +778,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             });
         }
 
-
+        pausar = (Button) findViewById(R.id.button_pausar1vs1);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
         ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext);
         ptmiotext = (TextView) findViewById(R.id.puntosmiostext);
@@ -1050,6 +1069,25 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             }
         });
 
+        pausar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject aux = new JSONObject();
+                try {
+                    aux.put("partida", room);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                mSocket.emit("pausar", aux, new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
+            }
+        });
     }
 
     public void openGanador(){

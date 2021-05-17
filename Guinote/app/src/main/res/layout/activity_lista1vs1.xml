@@ -37,6 +37,15 @@
         android:layout_centerVertical="true"
         android:layout_height="wrap_content" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/listaPartidaPausada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:layout_above="@id/anadirPartida"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/baseline_pause_circle_black_18"
+        android:layout_margin="16dp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/anadirPartida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
