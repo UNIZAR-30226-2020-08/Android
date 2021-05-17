@@ -338,7 +338,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if(arrastre == true){
                             actualizar_datos_arrastre(aux.getPalo(),aux.getRanking());
                         }
+                        Log.d("Antes", "antes de ultimo");
                         if(!ultimo){
+                            Log.d("Despues", "despues de ultimo");
                             Carta aux3 = new Carta("F");
                             cardsj1[QueCarta] = aux3;
                             estrella1.setVisibility(View.INVISIBLE);
@@ -362,7 +364,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     //System.out.println(response); // "ok"
                                 }
                             });
-                            //if(!arrastre) {
+                            if(!arrastre) {
+                                Log.d("RobarCarta", "hola estoy robando");
                                 mSocket.emit("robarCarta", aux2, new Ack() {
                                     @Override
                                     public void call(Object... args) {
@@ -370,7 +373,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                         //System.out.println(response); // "ok"
                                     }
                                 });
-                            //}
+                            }
                         }
                     }
                 }
