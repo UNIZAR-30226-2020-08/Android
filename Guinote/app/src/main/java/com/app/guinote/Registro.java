@@ -36,14 +36,15 @@ public class Registro extends Fragment {
                 TextInputLayout username= (TextInputLayout) view.findViewById(R.id.usernameRegister);
                 TextInputLayout email = (TextInputLayout) view.findViewById(R.id.emailRegister);
                 TextInputLayout passwd= (TextInputLayout) view.findViewById(R.id.passwdRegister);
-                validar(view,username,email,passwd);
-                Intent intent = new Intent(getActivity(),carga_registro.class);
-                Bundle b = new Bundle();
-                b.putString("username", username.getEditText().getText().toString()); //Your id
-                b.putString("email", email.getEditText().getText().toString()); //Your id
-                b.putString("passwd", passwd.getEditText().getText().toString()); //Your id
-                intent.putExtras(b); //Put your id to your next Intent
-                startActivity(intent);
+                if(validar(view,username,email,passwd)==true) {
+                    Intent intent = new Intent(getActivity(), carga_registro.class);
+                    Bundle b = new Bundle();
+                    b.putString("username", username.getEditText().getText().toString()); //Your id
+                    b.putString("email", email.getEditText().getText().toString()); //Your id
+                    b.putString("passwd", passwd.getEditText().getText().toString()); //Your id
+                    intent.putExtras(b); //Put your id to your next Intent
+                    startActivity(intent);
+                }
             }
         });
         return view;
@@ -58,13 +59,22 @@ public class Registro extends Fragment {
             username.setError("Escribe un nombre de usuario");
             validar=false;
         }
+        else{
+            username.setError(null);
+        }
         if(mail.isEmpty()){
             email.setError("Escribe un correo electrónico");
             validar=false;
         }
+        else{
+            email.setError(null);
+        }
         if(contra.isEmpty()){
             passwd.setError("Escribe su password");
             validar=false;
+        }
+        else{
+            passwd.setError(null);
         }
         return validar;
     }
