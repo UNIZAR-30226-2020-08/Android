@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -82,7 +83,33 @@ public class ListRanking extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 rank  ranking = lista.get(position);
-                Toast.makeText(getActivity(),ranking.name,Toast.LENGTH_SHORT).show();
+                final String amigo=ranking.getName();
+                final String [] opciones={"Eliminar amigo","Invitar a partida"};
+                MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
+                builder.setTitle("Opciones");
+                builder.setItems(opciones,new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (opciones[which].equals("Eliminar amigo")){
+                            denegarSolicitud(amigo);
+                        }else {
+                            //invitarPartida
+                        }
+                    }
+
+                });
+
+
+
+
+
+                builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
 
             }
         });
