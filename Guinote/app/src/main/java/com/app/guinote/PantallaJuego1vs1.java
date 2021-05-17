@@ -113,6 +113,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
+        Log.d("salgo","finalizo");
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
         }
@@ -1337,23 +1338,15 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("jsonDePrueba", aux.toString());
-                if(torneo==2){
-                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                            }
-                    });
-                }else{
-                    mSocket.emit("lanzarCarta", aux, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                        }
-                    });
-                }
+
+                mSocket.emit("lanzarCarta", aux, new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
+
                 queOrden--;
                 if (i == 0) {
                     c1whole.setVisibility(View.INVISIBLE);
