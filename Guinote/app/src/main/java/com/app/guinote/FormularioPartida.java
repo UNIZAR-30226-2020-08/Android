@@ -32,7 +32,7 @@ public class FormularioPartida extends Fragment {
     AutoCompleteTextView menumodalidad;
     AutoCompleteTextView menuparticipantes;
 
-    public FormularioPartida(){
+    public FormularioPartida() {
         super(R.layout.activity_formulario_partida);
     }
 
@@ -42,14 +42,14 @@ public class FormularioPartida extends Fragment {
         view = inflater.inflate(R.layout.activity_formulario_partida,
                 container, false);
 
-        menumodalidad=  view.findViewById(R.id.menuModalidad);
-        String lista[]={"Parejas","Individual"};
-        ArrayAdapter adaptador= new ArrayAdapter(getContext(),R.layout.itemdropdown,lista);
+        menumodalidad = view.findViewById(R.id.menuModalidad);
+        String lista[] = {"Parejas", "Individual"};
+        ArrayAdapter adaptador = new ArrayAdapter(getContext(), R.layout.itemdropdown, lista);
         menumodalidad.setAdapter(adaptador);
 
-        menuparticipantes=  view.findViewById(R.id.menuNumGente);
-        String lista2[]={"16 equipos","8 equipos"};
-        ArrayAdapter adaptadorGente= new ArrayAdapter(getContext(),R.layout.itemdropdown,lista2);
+        menuparticipantes = view.findViewById(R.id.menuNumGente);
+        String lista2[] = {"16 equipos", "8 equipos"};
+        ArrayAdapter adaptadorGente = new ArrayAdapter(getContext(), R.layout.itemdropdown, lista2);
         menuparticipantes.setAdapter(adaptadorGente);
 
         Button creacion = view.findViewById(R.id.CrearTorneo);
@@ -57,29 +57,31 @@ public class FormularioPartida extends Fragment {
         creacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                creacion();
+                if(validar(view)==true) {
+                    creacion();
+                }
             }
         });
         return view;
     }
 
 
-    private void creacion(){
-        final TextInputLayout cajaNombre= (TextInputLayout) view.findViewById(R.id.nombretorneo);
-        String nombrePartida=cajaNombre.getEditText().getText().toString();
+    private void creacion() {
+        final TextInputLayout cajaNombre = (TextInputLayout) view.findViewById(R.id.nombretorneo);
+        String nombrePartida = cajaNombre.getEditText().getText().toString();
 
-        final TextInputLayout cajaNombre2= (TextInputLayout) view.findViewById(R.id.contrasenatorneo);
-        String passwd=cajaNombre2.getEditText().getText().toString();
-        int modalidad=0;
-        int participantes=0;
+        final TextInputLayout cajaNombre2 = (TextInputLayout) view.findViewById(R.id.contrasenatorneo);
+        String passwd = cajaNombre2.getEditText().getText().toString();
+        int modalidad = 0;
+        int participantes = 0;
 
-        if (menuparticipantes.getText().toString().equals("8 equipos")){
-            participantes=8;
-        }else{
-            participantes=16;
+        if (menuparticipantes.getText().toString().equals("8 equipos")) {
+            participantes = 8;
+        } else {
+            participantes = 16;
         }
-        if (menumodalidad.getText().toString().equals("Parejas")){
-            modalidad=1;
+        if (menumodalidad.getText().toString().equals("Parejas")) {
+            modalidad = 1;
         }
 
         String postUrl = "https://las10ultimas-backend.herokuapp.com/api/torneo/";
@@ -95,7 +97,7 @@ public class FormularioPartida extends Fragment {
             e.printStackTrace();
         }
 
-        Log.d("envio",postData.toString());
+        Log.d("envio", postData.toString());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
@@ -106,7 +108,7 @@ public class FormularioPartida extends Fragment {
                     menuparticipantes.clearListSelection();
                     cajaNombre.getEditText().setText("");
                     cajaNombre2.getEditText().setText("");
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -120,7 +122,32 @@ public class FormularioPartida extends Fragment {
         });
 
         requestQueue.add(jsonObjectRequest);
-        Log.d("datos",modalidad+" "+nombrePartida+" "+participantes);
+        Log.d("datos", modalidad + " " + nombrePartida + " " + participantes);
+    }
+
+    public boolean validar(View view){
+        boolean validar=true;
+        menumodalidad=  view.findViewById(R.id.menuModalidad);
+        menuparticipantes=  view.findViewById(R.id.menuNumGente);
+        String menu1=menumodalidad.getText().toString();
+        String menu2=menuparticipantes.getText().toString();
+
+
+        if(menu1.isEmpty()){
+            menumodalidad.setError("Elige una modalidad adecuada");
+            validar=false;
+        }
+        else{
+            menumodalidad.setError(null);
+        }
+        if(menu2.isEmpty()){
+            menuparticipantes.setError("Elige el número de participantes");
+            validar=false;
+        }
+        else{
+            menuparticipantes.setError(null);
+        }
+        return validar;
     }
 
 }
