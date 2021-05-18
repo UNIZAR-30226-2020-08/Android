@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -46,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,6 +72,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private String room="";
     private int torneo=0;
     private Socket mSocket;
+
+    private String miCarta="";
+    private String miTapete="";
+
     private SQLiteDatabase db;
     static int gano=0;
     private String nameUser;
@@ -829,6 +835,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Chat1vs1 fragmentoChat = (Chat1vs1) fm.findFragmentById(R.id.fragmento_chat1vs1);
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
+
+        miCarta=getCartas();
+        miTapete=getTapete();
         mensajeDeTextos = new ArrayList<>();
         nameUser=getName();
         Bundle b = getIntent().getExtras();
@@ -1869,9 +1878,24 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     public void assignImages(Carta card, ImageView image){
+
         String cual = card.getId();
-        switch (cual){
+        Log.d("path",miCarta);
+        try {
+            // get input stream
+            InputStream ims = getAssets().open(miCarta+"/"+cual+".png");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            image.setImageDrawable(d);
+        }
+        catch(Exception ex) {
+            return;
+        }
+
+        /*switch (cual){
             case "0O":
+                int resID = getResources().getIdentifier(cual , "drawable", getPackageName());
                 image.setImageResource(R.drawable.asoros);
                 break;
             case "0E":
@@ -1995,12 +2019,26 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 image.setImageResource(R.drawable.reverso);
                 break;
 
-        }
+        }*/
 
     }
 
     public String getName() {
         String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
+
+    public String getCartas() {
+        String query="SELECT f_carta FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
+
+    public String getTapete() {
+        String query="SELECT f_tapete FROM auth";
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
         return c.getString(0);
