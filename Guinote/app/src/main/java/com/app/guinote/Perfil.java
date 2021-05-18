@@ -48,8 +48,10 @@ public class Perfil extends Fragment{
     private CardView tapete;
     Customadapter AdapterTapetes;
     LottieAnimationView animacion;
-    static int inicio=0;
-    static int antiguo;
+    static int inicioCartas=0;
+    static int antiguoCartas;
+    static int inicioTapetes=0;
+    static int antiguoTapetes;
     int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     private int mMenuId;
     private View view;
@@ -83,7 +85,8 @@ public class Perfil extends Fragment{
         View editar = view.findViewById(R.id.editperfil);
 
         //inicio=getCartas()
-        antiguo=inicio;
+        antiguoCartas=inicioCartas;
+        antiguoTapetes=inicioTapetes;
 
         CardView reglas = view.findViewById(R.id.info);
 
