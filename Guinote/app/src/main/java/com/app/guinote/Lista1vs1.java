@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment;
 import android.content.AsyncQueryHandler;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.Observable;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +40,7 @@ import java.util.List;
 public class Lista1vs1 extends Fragment {
 
     View view;
-
+    private SQLiteDatabase db;
     ListView listView;
     List<listItem> lista;
 
@@ -54,6 +56,8 @@ public class Lista1vs1 extends Fragment {
                 container, false);
         listView = view.findViewById(R.id.lista1vs1);
 
+        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+        db = dbHelper.getWritableDatabase();
 
         GetData();
 
@@ -136,10 +140,12 @@ public class Lista1vs1 extends Fragment {
     }
 
     private void newActivity1(){
-        final ArrayList<TipoLista> lista8_2 = new ArrayList<TipoLista>();
-        final Customadapterlista adapter8_2 = new Customadapterlista(getContext(), lista8_2);
+        final List<String> listaPausadastipo = new ArrayList<String>();
 
-        String url = "https://las10ultimas-backend.herokuapp.com/api/torneo/findAllTournament/1/8";
+
+
+
+        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/"+getName()+"/0";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -149,9 +155,10 @@ public class Lista1vs1 extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
-                        Integer puntuacion=objeto.getInt("jugadores_online");
-                        lista8_2.add(new TipoLista(nombre,puntuacion.toString()+"/2"));
+                        listaPausadastipo.add(nombre);
                     }
+
+                    final CharSequence[] listaPausadas = listaPausadastipo.toArray(new CharSequence[listaPausadastipo.size()]);
 
 
 
@@ -165,14 +172,13 @@ public class Lista1vs1 extends Fragment {
                         }
                     });
 
-                    builder.setSingleChoiceItems(adapter8_2,1,new DialogInterface.OnClickListener() {
+                    builder.setItems(listaPausadas,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.d("cual",lista8_2.get(which).get_subjectName());
                             Intent intent = new Intent(getContext(), PantallaJuego1vs1.class);
                             Bundle b = new Bundle();
-                            b.putString("key", lista8_2.get(which).get_subjectName()); //Your id
-                            b.putInt("torneo", 0);
+                            b.putString("key", listaPausadastipo.get(which)); //Your id
+                            b.putInt("torneo", 3);
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                         }
@@ -193,5 +199,13 @@ public class Lista1vs1 extends Fragment {
         });
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 }

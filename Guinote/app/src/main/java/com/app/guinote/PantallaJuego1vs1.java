@@ -1007,6 +1007,24 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
         }
 
+        if(torneo==3){
+            JSONObject partidareanudar = new JSONObject();
+            try {
+                partidareanudar.put("usuario", nameUser);
+                partidareanudar.put("partida", room);
+                partidareanudar.put("tipo", 0);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            mSocket.emit("reaudarPartida", partidareanudar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
 
         deVueltas = false;
 
