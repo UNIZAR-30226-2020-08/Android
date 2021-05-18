@@ -418,7 +418,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if (torneo == 2 && !ultimo) {
                             JSONObject aux = new JSONObject();
                             try {
-                                aux.put("jugador", getName());
                                 aux.put("partida", room);
                                 aux.put("nronda", nronda);
                                 aux.put("carta", cardsj1[QueCarta].getId());
@@ -1447,11 +1446,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Thread.sleep(2000);
                 } catch (Exception e){
                     e.printStackTrace();
-                }
+                }/*
                 if (torneo == 2 && ultimo) {
                     JSONObject aux = new JSONObject();
                     try {
-                        aux.put("jugador", getName());
                         aux.put("partida", room);
                         aux.put("nronda", nronda);
                         aux.put("carta", cardsj1[QueCarta].getId());
@@ -1467,7 +1465,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             //System.out.println(response); // "ok"
                         }
                     });
-                }
+                }*/
                 aun_no = false;
 
             }
