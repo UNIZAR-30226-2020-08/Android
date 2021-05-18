@@ -183,6 +183,7 @@ public class PantallaJuego extends AppCompatActivity {
                     // add the message to view
                     Log.d("username",username+" "+nameUser);
                     if (!username.equals(nameUser)) {
+                        chat.setImageResource(R.drawable.baseline_announcement_black_48);
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
                         mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                         FragmentManager fm = getSupportFragmentManager();
@@ -1272,6 +1273,7 @@ public class PantallaJuego extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                chat.setImageResource(R.drawable.baseline_chat_black_48);
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(R.id.fragmento_chat, Chat.class, null)
