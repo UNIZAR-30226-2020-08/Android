@@ -1553,7 +1553,7 @@ public class PantallaJuego extends AppCompatActivity {
                 if(RondaArrastre > 1 && companyero.getPalo() == paloArrastre && companyero.getRanking() == RankingArrastre){
                     return true;
                 }
-                if(cardsj1[i].getPalo() == paloArrastre){
+                if((cardsj1[i].getPalo() == paloArrastre) && (cardsj1[i].getRanking() > RankingArrastre)){
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if((cardsj1[j].getRanking() < RankingArrastre) && (cardsj1[j].getPalo() == paloArrastre)){
@@ -1593,7 +1593,7 @@ public class PantallaJuego extends AppCompatActivity {
                             }
                         }
                     }
-                }else if(cardsj1[i].getPalo() != paloArrastre && paloArrastre == cartaTriunfo.getPalo()){
+                }else if((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre == cartaTriunfo.getPalo())){
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getPalo() == cartaTriunfo.getPalo()){
