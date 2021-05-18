@@ -50,6 +50,7 @@ public class Perfil extends Fragment{
     private CardView cartas;
     private CardView tapete;
     Customadapter AdapterTapetes;
+    Customadapter AdapterCartas;
     LottieAnimationView animacion;
     static Integer inicioCartas=0;
     static Integer antiguoCartas;
@@ -88,8 +89,6 @@ public class Perfil extends Fragment{
         View editar = view.findViewById(R.id.editperfil);
 
         //inicio=getCartas()
-        antiguoCartas=inicioCartas;
-        antiguoTapetes=inicioTapetes;
 
         CardView reglas = view.findViewById(R.id.info);
 
@@ -100,6 +99,8 @@ public class Perfil extends Fragment{
             }
         });
         animacion = (LottieAnimationView) view.findViewById(R.id.animation_carga_perf);
+
+
         ArrayList<Tipocarta> arrayTapete = new ArrayList<Tipocarta>();
         arrayTapete.add(new Tipocarta("Primero",R.drawable.tapete2,true));
         arrayTapete.add(new Tipocarta("Segundo",R.drawable.tapete1,false));
@@ -110,6 +111,16 @@ public class Perfil extends Fragment{
         AdapterTapetes = new Customadapter(getContext(), arrayTapete);
 
 
+        ArrayList<Tipocarta> arrayCartas = new ArrayList<Tipocarta>();
+        arrayCartas.add(new Tipocarta("Primero",R.drawable.tapete2,true));
+        arrayCartas.add(new Tipocarta("Segundo",R.drawable.tapete1,false));
+        arrayCartas.add(new Tipocarta("Tercero",R.drawable.hierba,false));
+        arrayCartas.add(new Tipocarta("Cuarto",R.drawable.madera,false));
+        arrayCartas.add(new Tipocarta("Quinto",R.drawable.football,false));
+
+        AdapterCartas = new Customadapter(getContext(), arrayCartas);
+
+
 
 
         editar.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +129,17 @@ public class Perfil extends Fragment{
                 openActivity2();
             }
         });
+
+        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+        db = dbHelper.getWritableDatabase();
+
+        antiguoCartas=inicioCartas;
+        antiguoTapetes=inicioTapetes;
+
+        Log.d("tapete",getTapete());
+        Log.d("cartas",getCartas());
+
+
         cartas=view.findViewById(R.id.Cartascambio);
         tapete=view.findViewById(R.id.Tapetecambio);
 
@@ -134,8 +156,6 @@ public class Perfil extends Fragment{
             }
         });
 
-        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
-        db = dbHelper.getWritableDatabase();
 
         Button cerrar=view.findViewById(R.id.apagarSesion);
         cerrar.setOnClickListener(new View.OnClickListener() {
@@ -245,11 +265,13 @@ public class Perfil extends Fragment{
     public void Cartas(){
                 final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
                 final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
-                builder.setTitle("Tapetes");
+                builder.setTitle("Cartas");
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        AdapterCartas.arrayList.get(inicioCartas).set_elegido(false);
                         inicioCartas=antiguoCartas;
+                        AdapterCartas.arrayList.get(inicioCartas).set_elegido(true);
                         dialog.dismiss();
                     }
                 });
@@ -266,12 +288,12 @@ public class Perfil extends Fragment{
                     }
                 });
 
-                builder.setSingleChoiceItems(AdapterTapetes,inicioCartas,new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(AdapterCartas,inicioCartas,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Integer m=which;
-                        AdapterTapetes.arrayList.get(inicioCartas).set_elegido(false);
-                        AdapterTapetes.arrayList.get(which).set_elegido(true);
+                        AdapterCartas.arrayList.get(inicioCartas).set_elegido(false);
+                        AdapterCartas.arrayList.get(which).set_elegido(true);
                         inicioCartas=which;
 
                         dialog.dismiss();
@@ -304,13 +326,13 @@ public class Perfil extends Fragment{
                 Log.d("hola","jejej");
                 final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
                 final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
-                builder.setTitle("Cartas");
+                builder.setTitle("Tapetes");
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("holajeje",antiguoTapetes.toString());
-                        Log.d("holajojo",inicioTapetes.toString());
+                        AdapterTapetes.arrayList.get(inicioTapetes).set_elegido(false);
                         inicioTapetes=antiguoTapetes;
+                        AdapterTapetes.arrayList.get(inicioTapetes).set_elegido(true);
                         dialog.dismiss();
                     }
                 });
@@ -355,6 +377,7 @@ public class Perfil extends Fragment{
                         }, 1000);
                     }
                 });
+
                 builder.show();
     }
 

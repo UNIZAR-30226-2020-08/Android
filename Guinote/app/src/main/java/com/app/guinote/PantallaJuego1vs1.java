@@ -740,12 +740,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         gano=1;
                     }
                     openGanador();
-                    SystemClock.sleep(1000);
-                    if(torneo!=1 || gano==0) {
-                        Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
-                        startActivity(intent);
-                    }
-                    finish();
                 }
             });
         }
@@ -1208,8 +1202,13 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         builder.setTitle("Partida finalizada");
         builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which) { ;
+                if(torneo!=1 || gano==0) {
+                    Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
+                    startActivity(intent);
+                }
                 dialog.dismiss();
+                finish();
             }
         });
         resultado = resultado + "Puntos: " + puntosmios + "\n" + "Puntos rival: " + puntosrival;
