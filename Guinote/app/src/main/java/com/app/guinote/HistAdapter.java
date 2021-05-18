@@ -62,7 +62,7 @@ public class HistAdapter extends BaseAdapter {
         jugadores.setText(datos[position][2]);
 
 
-        if (datos[position][0]=="VICTORIA"){
+        if (datos[position][0].equals("VICTORIA")){
             int myColor = ContextCompat.getColor(context, R.color.ganada);
             vista.setBackgroundColor(myColor);
             imagen.setImageResource(imagenes[1]);

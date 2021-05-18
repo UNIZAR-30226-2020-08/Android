@@ -7,5 +7,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name = "AlertDialogTheme" parent = "ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorAccent"> @color/colorBackground </item>
+    </style>
+
 
 </resources>

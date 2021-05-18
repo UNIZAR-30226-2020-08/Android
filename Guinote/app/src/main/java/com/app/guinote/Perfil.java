@@ -49,6 +49,7 @@ public class Perfil extends Fragment{
     Customadapter AdapterTapetes;
     LottieAnimationView animacion;
     static int inicio=0;
+    static int antiguo;
     int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     private int mMenuId;
     private View view;
@@ -81,6 +82,8 @@ public class Perfil extends Fragment{
                 container, false);
         View editar = view.findViewById(R.id.editperfil);
 
+        //inicio=getCartas()
+        antiguo=inicio;
 
         CardView reglas = view.findViewById(R.id.info);
 
@@ -235,13 +238,13 @@ public class Perfil extends Fragment{
 
     public void Cartas(){
 
-                Log.d("hola","jejej");
                 final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
                 final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                 builder.setTitle("Tapetes");
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        inicio=antiguo;
                         dialog.dismiss();
                     }
                 });
@@ -249,6 +252,7 @@ public class Perfil extends Fragment{
                 builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        antiguo=inicio;
                         dialog.dismiss();
                     }
                 });
@@ -305,6 +309,7 @@ public class Perfil extends Fragment{
                         dialog.dismiss();
                     }
                 });
+
                 builder.setSingleChoiceItems(AdapterTapetes,0,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -344,6 +349,20 @@ public class Perfil extends Fragment{
     }
 
     public String getPuntos() {
+        String query="SELECT copas FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
+
+    public String getCartas() {
+        String query="SELECT copas FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
+
+    public String getTapete() {
         String query="SELECT copas FROM auth";
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
