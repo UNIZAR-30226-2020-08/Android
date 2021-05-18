@@ -12,8 +12,10 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,11 +48,15 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Perfil extends Fragment{
 
 
     private CardView cartas;
     private CardView tapete;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
     Customadapter AdapterTapetes;
     Customadapter AdapterCartas;
     LottieAnimationView animacion;
@@ -61,7 +67,10 @@ public class Perfil extends Fragment{
     int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     private int mMenuId;
     private View view;
+    ImageButton foto_gallery;
     private SQLiteDatabase db;
+
+
 
     private String reglas="● Se juega con la baraja española de 40 cartas. \n\n" +
             "● Se puede jugar individualmente (1vs1) o por parejas (2vs2). \n\n" +
@@ -556,10 +565,5 @@ public class Perfil extends Fragment{
         c.moveToNext();
         return c.getString(0);
     }
-
-
-
-
-
 
 }
