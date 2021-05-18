@@ -418,7 +418,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if (torneo == 2 && !ultimo) {
                             JSONObject aux = new JSONObject();
                             try {
-                                aux.put("jugador", getName());
                                 aux.put("partida", room);
                                 aux.put("nronda", nronda);
                                 aux.put("carta", cardsj1[QueCarta].getId());
@@ -741,6 +740,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         gano=1;
                     }
                     openGanador();
+                    SystemClock.sleep(1000);
                     if(torneo!=1 || gano==0) {
                         Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                         startActivity(intent);
@@ -1447,11 +1447,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Thread.sleep(2000);
                 } catch (Exception e){
                     e.printStackTrace();
-                }
+                }/*
                 if (torneo == 2 && ultimo) {
                     JSONObject aux = new JSONObject();
                     try {
-                        aux.put("jugador", getName());
                         aux.put("partida", room);
                         aux.put("nronda", nronda);
                         aux.put("carta", cardsj1[QueCarta].getId());
@@ -1467,7 +1466,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             //System.out.println(response); // "ok"
                         }
                     });
-                }
+                }*/
                 aun_no = false;
 
             }
@@ -1490,6 +1489,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     try {
                         aux.put("partida", room);
                         aux.put("nronda", nronda);
+                        aux.put("carta","NO");
 
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
