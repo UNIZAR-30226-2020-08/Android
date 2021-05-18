@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +51,8 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.app.Activity.RESULT_OK;
 
 public class Perfil extends Fragment{
@@ -69,6 +74,7 @@ public class Perfil extends Fragment{
     private View view;
     ImageButton foto_gallery;
     private SQLiteDatabase db;
+    CircleImageView mProfilePhoto;
 
 
 
@@ -100,6 +106,24 @@ public class Perfil extends Fragment{
         View editar = view.findViewById(R.id.editperfil);
 
         //inicio=getCartas()
+        mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_image);
+        mProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.profile_image:
+                        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        try {
+                            i.putExtra("return-data", true);
+                            startActivityForResult(
+                                    Intent.createChooser(i, "Select Picture"), 0);
+                        }catch (ActivityNotFoundException ex){
+                            ex.printStackTrace();
+                        }
+                        break;
+                }
+            }
+        });
 
         CardView reglas = view.findViewById(R.id.info);
 
@@ -278,8 +302,21 @@ public class Perfil extends Fragment{
         builder.show();
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+            try {
+                Bundle bundle = data.getExtras();
+                Bitmap bitmap = bundle.getParcelable("return-data");
+                mProfilePhoto.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-    public void openActivity2(){
+        public void openActivity2(){
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(
                         R.anim.side_in_left,
