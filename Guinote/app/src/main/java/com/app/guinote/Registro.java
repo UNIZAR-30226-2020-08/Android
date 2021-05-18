@@ -44,6 +44,14 @@ public class Registro extends Fragment {
                     b.putString("passwd", passwd.getEditText().getText().toString()); //Your id
                     intent.putExtras(b); //Put your id to your next Intent
                     startActivity(intent);
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(
+                                    R.anim.side_in_left,
+                                    R.anim.slide_out_left
+                            )
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmento_opcion, Login.class, null)
+                            .commit();
                 }
             }
         });
