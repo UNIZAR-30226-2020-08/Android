@@ -1300,25 +1300,17 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private boolean arrastre_y_puede(Integer i){
-        Log.d("ronda", RondaArrastre.toString());
-        Log.d("palo", paloArrastre.toString());
-        Log.d("ranking", RankingArrastre.toString());
-        Log.d("---------------------","hola");
-        Log.d("hola", cardsj1[i].getId());
         if(arrastre == true) {
             if (cardsj1[i].getPalo() == 5) {
                 return false;
             }
-                Log.d("dpsarrastre", "");
                 if (RondaArrastre == 0) {
                     paloArrastre = cardsj1[i].getPalo();
                     RondaArrastre = 1;
                     RankingArrastre = cardsj1[i].getRanking();
                     return true;
                 } else {
-                    Log.d("else obvio", "");
                     if (paloArrastre.equals(cardsj1[i].getPalo()) && (cardsj1[i].getRanking() > RankingArrastre)) {
-                        Log.d("es igual el palo", "");
                         for (int j = 0; j < 6; j++) {
                             if (j != i) {
                                 if ((cardsj1[j].getRanking() < RankingArrastre) && (cardsj1[j].getPalo() == paloArrastre)){

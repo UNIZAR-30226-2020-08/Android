@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#349702"
+        android:background="@drawable/tapete2"
         android:padding="0dp"
         android:id="@+id/juego_layout"
         tools:context=".PantallaJuego"
@@ -30,6 +30,15 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/chat" />
+            <TextView
+                android:id="@+id/cuentatras2vs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:drawableTop="@drawable/baseline_timer_black_48" />
 
             <LinearLayout
                 android:id="@+id/layout_linear_j2"
@@ -37,6 +46,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/foto_perfil_j22vs2"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:maxHeight="30dp" />
                 <TextView
                     android:id="@+id/nombre_j2"
                     android:layout_width="wrap_content"
@@ -44,11 +58,11 @@
                     android:layout_centerHorizontal="true"
                     android:text="Nombre2"/>
                 <TextView
+                    android:id="@+id/copasadversarioj2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dorado"
                     android:textStyle="bold"
-                    android:text="30"
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
@@ -56,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
-                    android:src="@drawable/ganar_icono" />
+                    android:src="@drawable/baseline_star_black_18" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_linear_j4"
@@ -65,17 +79,22 @@
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/foto_perfil_j42vs2"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:maxHeight="30dp" />
                 <TextView
                     android:id="@+id/nombre_j4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre4"/>
                 <TextView
+                    android:id="@+id/copasadversarioj4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dorado"
                     android:textStyle="bold"
-                    android:text="30"
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
@@ -83,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
-                    android:src="@drawable/ganar_icono" />
+                    android:src="@drawable/baseline_star_black_18" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_linear_j3"
@@ -92,17 +111,22 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/foto_perfil_j32vs2"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:maxHeight="30dp" />
                 <TextView
                     android:id="@+id/nombre_j3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre3"/>
                 <TextView
+                    android:id="@+id/copasadversarioj3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dorado"
                     android:textStyle="bold"
-                    android:text="30"
                     android:paddingTop="2dp"
                     android:layout_marginLeft="4dp"/>
                 <ImageView
@@ -110,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
-                    android:src="@drawable/ganar_icono" />
+                    android:src="@drawable/baseline_star_black_18" />
             </LinearLayout>
             <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/easyFlipViewtriumphe"
@@ -277,32 +301,75 @@
                     android:layout_below="@id/layout_linear_j4"
                     />
             </com.wajahatkarim3.easyflipview.EasyFlipView>
-
             <TextView
-                android:id="@+id/text_puntos"
+                android:id="@+id/cartasrestantes2vs2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Puntos: "
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                />
+                android:layout_above="@id/mazo_central"
+                android:layout_centerInParent="true"
+                android:text="Cartas restantes: "/>
+            <TextView
+                android:id="@+id/cuantascartas2vs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/mazo_central"
+                android:layout_toRightOf="@+id/cartasrestantes"
+                android:layout_centerInParent="true"
+                android:text="28"/>
             <ImageView
                 android:id="@+id/estrella_turnj1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:src="@drawable/ganar_icono"
-                android:layout_above="@+id/text_puntos"
-                android:layout_alignStart="@+id/text_puntos"/>
+                android:src="@drawable/baseline_star_black_18"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:id="@+id/puntosmiostext2vs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/puntosrivaltext2vs2"
+                android:layout_toLeftOf="@id/estrella_turnj1"
+                android:text="Puntos:  "/>
+            <TextView
+                android:id="@+id/puntosrivaltext2vs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/estrella_turnj1"
+                android:layout_toLeftOf="@id/estrella_turnj1"
+                android:text="Puntos rival:  "/>
+            <TextView
+                android:id="@+id/puntosrival2vs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/estrella_turnj1"
+                android:layout_toRightOf="@id/puntosrivaltext2vs2"
+                android:text="0"/>
+            <TextView
+                android:id="@+id/puntosmios2vs2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/puntosrivaltext2vs2"
+                android:layout_toRightOf="@id/puntosmiostext2vs2"
+                android:text="0"/>
             <Button
-                android:id="@+id/button_cantar"
+                android:backgroundTint="@color/colorNegro"
+                android:textColor="@color/cardview_light_background"
+                android:id="@+id/button_pausar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Cantar"
-                android:layout_alignParentBottom="true"
+                android:layout_above="@+id/button_cantar1vs1"
+                android:text="Pausar" />
+            <Button
+                android:backgroundTint="@color/colorNegro"
+                android:textColor="@color/cardview_light_background"
+                android:id="@+id/button_cantar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                />
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:text="Cantar" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/relativelayout2_juego"
