@@ -48,6 +48,8 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Perfil extends Fragment{
 
 
@@ -96,14 +98,6 @@ public class Perfil extends Fragment{
         view = inflater.inflate(R.layout.activity_perfil,
                 container, false);
         View editar = view.findViewById(R.id.editperfil);
-        foto_gallery = (ImageButton) view.findViewById(R.id.profile_image);
-
-        foto_gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
 
         //inicio=getCartas()
 
@@ -571,16 +565,5 @@ public class Perfil extends Fragment{
         c.moveToNext();
         return c.getString(0);
     }
-
-    private void openGallery(){
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery,PICK_IMAGE);
-    }
-
-
-
-
-
-
 
 }
