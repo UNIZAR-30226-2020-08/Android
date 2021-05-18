@@ -313,9 +313,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/mazo_central"
-                android:layout_toRightOf="@+id/cartasrestantes"
+                android:layout_toRightOf="@+id/cartasrestantes2vs2"
                 android:layout_centerInParent="true"
-                android:text="28"/>
+                android:text="16"/>
             <ImageView
                 android:id="@+id/estrella_turnj1"
                 android:layout_width="wrap_content"
