@@ -789,6 +789,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             puntosrival= data.getInt("puntos_e0");
                             puntosmios= data.getInt("puntos_e1");
                         }
+                        ptmio.setText(puntosmios.toString());
+                        ptrival.setText(puntosrival.toString());
                     }catch (Exception e){
                         e.printStackTrace();
                     }
