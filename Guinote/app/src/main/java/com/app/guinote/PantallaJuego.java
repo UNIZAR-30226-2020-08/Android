@@ -96,7 +96,7 @@ public class PantallaJuego extends AppCompatActivity {
     Integer queOrden;
     Boolean ultimo = false;
 
-    int aun_no = 0;
+    Boolean aun_no = false;
 
     String name1,name2,name3;
     Integer orden1,orden2,orden3;
@@ -565,7 +565,7 @@ public class PantallaJuego extends AppCompatActivity {
                     }
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
-                    aun_no++;
+                    aun_no = true;
                     iniciarPartida();
                 }
             });
@@ -743,7 +743,7 @@ public class PantallaJuego extends AppCompatActivity {
                             contador.start();
                         }
                     }
-                    aun_no++;
+                    aun_no = true;
                     nronda++;
                     disolverCartas();
                     cuantascartasint = cuantascartasint -4;
@@ -807,7 +807,7 @@ public class PantallaJuego extends AppCompatActivity {
                     if (usuario.equals(nameUser)) {
                         Carta nueva = new Carta(card);
                         cardsj1[QueCarta] = nueva;
-                        aun_no++;
+                        aun_no = true;
                         assignImages(nueva, queImagen(QueCarta));
                         animacionRobarCarta(QueCarta);
                     }
@@ -835,7 +835,7 @@ public class PantallaJuego extends AppCompatActivity {
                         return;
                     }
                     if(jugador.equals(nameUser)){
-                        aun_no++;
+                        aun_no = true;
                         animacion7(find7());
                     }else{
                         Carta aux = null;
@@ -1610,7 +1610,7 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     private boolean puedeLanzar(Integer i){
-        if(aun_no >= 0) {
+        if(aun_no == false) {
             if (queOrden == 1) {
                 QueCarta = i;
                 assignImages(cardsj1[i], j1image);
@@ -1718,7 +1718,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
 
             }
         }.start();
@@ -1740,7 +1740,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
             }
         }.start();
     }
@@ -1761,7 +1761,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
             }
         }.start();
     }
@@ -1782,7 +1782,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
             }
         }.start();
     }
@@ -1803,7 +1803,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
             }
         }.start();
     }
@@ -1824,7 +1824,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
             }
         }.start();
     }
@@ -2022,7 +2022,7 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                aun_no--;
+                aun_no = false;
             }
         }.start();
     }
