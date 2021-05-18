@@ -48,10 +48,10 @@ public class Perfil extends Fragment{
     private CardView tapete;
     Customadapter AdapterTapetes;
     LottieAnimationView animacion;
-    static int inicioCartas=0;
-    static int antiguoCartas;
-    static int inicioTapetes=0;
-    static int antiguoTapetes;
+    static Integer inicioCartas=0;
+    static Integer antiguoCartas;
+    static Integer inicioTapetes=0;
+    static Integer antiguoTapetes;
     int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     private int mMenuId;
     private View view;
@@ -247,7 +247,7 @@ public class Perfil extends Fragment{
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        inicio=antiguo;
+                        inicioCartas=antiguoCartas;
                         dialog.dismiss();
                     }
                 });
@@ -255,18 +255,18 @@ public class Perfil extends Fragment{
                 builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        antiguo=inicio;
+                        antiguoCartas=inicioCartas;
                         dialog.dismiss();
                     }
                 });
 
-                builder.setSingleChoiceItems(AdapterTapetes,inicio,new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(AdapterTapetes,inicioCartas,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Integer m=which;
-                        AdapterTapetes.arrayList.get(inicio).set_elegido(false);
+                        AdapterTapetes.arrayList.get(inicioCartas).set_elegido(false);
                         AdapterTapetes.arrayList.get(which).set_elegido(true);
-                        inicio=which;
+                        inicioCartas=which;
 
                         dialog.dismiss();
                         getActivity().runOnUiThread(new Runnable() {
@@ -302,6 +302,9 @@ public class Perfil extends Fragment{
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Log.d("holajeje",antiguoTapetes.toString());
+                        Log.d("holajojo",inicioTapetes.toString());
+                        inicioTapetes=antiguoTapetes;
                         dialog.dismiss();
                     }
                 });
@@ -309,17 +312,18 @@ public class Perfil extends Fragment{
                 builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        antiguoTapetes=inicioTapetes;
                         dialog.dismiss();
                     }
                 });
 
-                builder.setSingleChoiceItems(AdapterTapetes,0,new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(AdapterTapetes,inicioTapetes,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Integer m=which;
+                        AdapterTapetes.arrayList.get(inicioTapetes).set_elegido(false);
                         AdapterTapetes.arrayList.get(which).set_elegido(true);
-                        AdapterTapetes.arrayList.get(inicio).set_elegido(false);
-                        inicio=which;
+                        inicioTapetes=which;
 
                         dialog.dismiss();
                         getActivity().runOnUiThread(new Runnable() {
