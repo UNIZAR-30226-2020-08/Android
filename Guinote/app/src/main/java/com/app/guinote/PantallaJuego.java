@@ -623,7 +623,7 @@ public class PantallaJuego extends AppCompatActivity {
                             estrella3.setVisibility(View.INVISIBLE);
                             estrella4.setVisibility(View.INVISIBLE);
                         }
-                        else if(queOrden == 0){
+                        else if(queOrden == -1){
                             aux = new Carta(carta);
                             assignImages(aux,j3imagefront);
                             animacionCartaj3Front();
@@ -632,7 +632,7 @@ public class PantallaJuego extends AppCompatActivity {
                             estrella3.setVisibility(View.INVISIBLE);
                             estrella4.setVisibility(View.INVISIBLE);
                         }
-                        else if(queOrden == -1){
+                        else if(queOrden == -2){
                             aux = new Carta(carta);
                             assignImages(aux,j2imagefront);
                             animacionCartaj2Front();
@@ -641,7 +641,7 @@ public class PantallaJuego extends AppCompatActivity {
                             estrella3.setVisibility(View.INVISIBLE);
                             estrella4.setVisibility(View.VISIBLE);
                         }
-                        else if(queOrden == -2){
+                        else if(queOrden == -3){
                             aux = new Carta(carta);
                             assignImages(aux,j4imagefront);
                             animacionCartaj4Front();
@@ -1610,7 +1610,7 @@ public class PantallaJuego extends AppCompatActivity {
     }
 
     private boolean puedeLanzar(Integer i){
-        if(aun_no == 0) {
+        if(aun_no >= 0) {
             if (queOrden == 1) {
                 QueCarta = i;
                 assignImages(cardsj1[i], j1image);
