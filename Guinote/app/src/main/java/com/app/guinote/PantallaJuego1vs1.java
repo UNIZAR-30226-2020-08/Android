@@ -954,6 +954,37 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         cartasrestantes.setVisibility(View.INVISIBLE);
         cuentaatras.setVisibility(View.INVISIBLE);
 
+        ImageView imagen1reverso = (ImageView) findViewById(R.id.casilla_carta_1_back1vs1);
+        ImageView imagen2reverso = (ImageView) findViewById(R.id.casilla_carta_2_back1vs1);
+        ImageView imagen3reverso = (ImageView) findViewById(R.id.casilla_carta_3_back1vs1);
+        ImageView imagen4reverso = (ImageView) findViewById(R.id.casilla_carta_4_back1vs1);
+        ImageView imagen5reverso = (ImageView) findViewById(R.id.casilla_carta_5_back1vs1);
+        ImageView imagen6reverso = (ImageView) findViewById(R.id.casilla_carta_6_back1vs1);
+        ImageView imagen7reverso = (ImageView) findViewById(R.id.backcartaj21vs1);
+        ImageView imagen8reverso = (ImageView) findViewById(R.id.mazo_central_volteado_back1vs1);
+        ImageView imagen9reverso = (ImageView) findViewById(R.id.frontcartaj21vs1);
+        ImageView imagen10reverso = (ImageView) findViewById(R.id.mazo_central1vs1);
+
+        try {
+            InputStream ims = getAssets().open(miCarta+"/reverso.png");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            imagen1reverso.setImageDrawable(d);
+            imagen2reverso.setImageDrawable(d);
+            imagen3reverso.setImageDrawable(d);
+            imagen4reverso.setImageDrawable(d);
+            imagen5reverso.setImageDrawable(d);
+            imagen6reverso.setImageDrawable(d);
+            imagen7reverso.setImageDrawable(d);
+            imagen8reverso.setImageDrawable(d);
+            imagen9reverso.setImageDrawable(d);
+            imagen10reverso.setImageDrawable(d);
+        }catch (Exception e){
+
+        }
+
+
         deVueltas = false;
 
         contador = new CountDownTimer(duration, 1000) {
