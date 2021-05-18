@@ -43,6 +43,7 @@ public class Registro extends Fragment {
                     b.putString("email", email.getEditText().getText().toString()); //Your id
                     b.putString("passwd", passwd.getEditText().getText().toString()); //Your id
                     intent.putExtras(b); //Put your id to your next Intent
+                    startActivity(intent);
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(
                                     R.anim.side_in_left,
