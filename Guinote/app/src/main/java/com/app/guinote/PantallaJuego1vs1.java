@@ -324,12 +324,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     Log.d("carta",carta);
                     Log.d("quien",quien);
-                        queOrden--;
-                        if(queOrden == 1){
-                            contador.start();
-                            estrella1.setVisibility(View.VISIBLE);
-                            estrella2.setVisibility(View.INVISIBLE);
-                        }
+
                         animacionCartaFront();
                         Carta aux = new Carta(carta);
                         assignImages(aux, j2imagefront);
@@ -337,11 +332,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if (arrastre == true) {
                             actualizar_datos_arrastre(aux.getPalo(), aux.getRanking());
                         }
-                        Log.d("Antes", "antes de ultimo");
-                        if(!ultimo){
-                            Log.d("Despues", "despues de ultimo");
-                            Carta aux3 = new Carta("F");
-                            cardsj1[QueCarta] = aux3;
+                        queOrden--;
+                        if(queOrden == 1){
+                            contador.start();
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                        }else{
+                            //Carta aux3 = new Carta("F");
+                            //cardsj1[QueCarta] = aux3;
                             estrella1.setVisibility(View.INVISIBLE);
                             estrella2.setVisibility(View.VISIBLE);
                             Log.d("username",nameUser);
@@ -363,6 +361,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     //System.out.println(response); // "ok"
                                 }
                             });
+                            Carta aux3 = new Carta("F");
+                            cardsj1[QueCarta] = aux3;
                             if(!arrastre) {
                                 Log.d("RobarCarta", "hola estoy robando");
                                 mSocket.emit("robarCarta", aux2, new Ack() {
@@ -372,8 +372,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                         //System.out.println(response); // "ok"
                                     }
                                 });
+                            }else{
+                                robar_sigana_ia();
                             }
-                            robar_sigana_ia();
                         }
                     }
             });
@@ -416,6 +417,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         }
                     }else {
                         if (torneo == 2 && !ultimo) {
+                            Log.d("Envio el lanzar carta", "xd");
                             JSONObject aux = new JSONObject();
                             try {
                                 aux.put("partida", room);
@@ -433,8 +435,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     //System.out.println(response); // "ok"
                                 }
                             });
+                            Carta aux3 = new Carta("F");
+                            cardsj1[QueCarta] = aux3;
                         }else{
-
                             Carta aux2 = new Carta("F");
                             cardsj1[QueCarta] = aux2;
                             estrella1.setVisibility(View.INVISIBLE);
@@ -466,8 +469,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                             //System.out.println(response); // "ok"
                                         }
                                     });
+                                }else{
+                                    robar_sigana_ia();
                                 }
-                                robar_sigana_ia();
                             }
                         }
                     }
@@ -574,6 +578,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             assignImages(nueva, queImagen(QueCarta));
                             aun_no = true;
                             animacionRobarCarta(QueCarta);
+                            robar_sigana_ia();
                     }
                 }
             });
@@ -1267,7 +1272,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         Log.d("es igual el palo", "");
                         for (int j = 0; j < 6; j++) {
                             if (j != i) {
-                                if (cardsj1[j].getRanking() < RankingArrastre && cardsj1[j].getPalo() == paloArrastre) {
+                                if ((cardsj1[j].getRanking() < RankingArrastre) && (cardsj1[j].getPalo() == paloArrastre)){
                                     String texto = "Debes superar la carta que han echado";
                                     Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
                                     return false;
@@ -1304,7 +1309,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 }
                             }
                         }
-                    } else if (cardsj1[i].getPalo() != paloArrastre && paloArrastre == cartaTriunfo.getPalo()) {
+                    } else if ((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre == cartaTriunfo.getPalo())) {
                         for (int j = 0; j < 6; j++) {
                             if (j != i) {
                                 if (cardsj1[j].getPalo() == cartaTriunfo.getPalo()) {
@@ -1443,29 +1448,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
                 setNotVisibilityLanzadasCard();
                 try{
-                    Thread.sleep(2000);
+                    Thread.sleep(6000);
                 } catch (Exception e){
                     e.printStackTrace();
-                }/*
-                if (torneo == 2 && ultimo) {
-                    JSONObject aux = new JSONObject();
-                    try {
-                        aux.put("partida", room);
-                        aux.put("nronda", nronda);
-                        aux.put("carta", cardsj1[QueCarta].getId());
-
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                        }
-                    });
-                }*/
+                }
                 aun_no = false;
 
             }
@@ -1481,7 +1467,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                Log.d("la ia le toca", "le toca wey fuera del if");
                 if (torneo == 2 && ultimo) {
                     Log.d("la ia le toca", "dentro del if");
                     JSONObject aux = new JSONObject();
@@ -1805,13 +1790,18 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         });
     }
 
-    private void intercambiosiete(Integer a) {
-        Carta aux = cartaTriunfo;
-        cartaTriunfo = cardsj1[a];
-        cardsj1[a] = aux;
-        ImageView aux1 = queImagen(a);
-        assignImages(cardsj1[a],aux1);
-        assignImages(cartaTriunfo,triumphe);
+    private void intercambiosiete(final Integer a) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Carta aux = cartaTriunfo;
+                cartaTriunfo = cardsj1[a];
+                cardsj1[a] = aux;
+                ImageView aux1 = queImagen(a);
+                assignImages(cardsj1[a],aux1);
+                assignImages(cartaTriunfo,triumphe);
+                }
+        });
     }
 
     private ImageView queImagen(Integer a) {
