@@ -740,6 +740,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         gano=1;
                     }
                     openGanador();
+                    SystemClock.sleep(1000);
                     if(torneo!=1 || gano==0) {
                         Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                         startActivity(intent);
