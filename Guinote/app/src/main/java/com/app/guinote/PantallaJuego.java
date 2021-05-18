@@ -264,7 +264,6 @@ public class PantallaJuego extends AppCompatActivity {
                         queEquipo = equipo;
                         queOrden = orden;
                         if(queOrden == 1){
-                            ultimo = true;
                             estrella1.setVisibility(View.VISIBLE);
                         }
                         if(queOrden == 2){
@@ -275,6 +274,7 @@ public class PantallaJuego extends AppCompatActivity {
                         }
                         if(queOrden == 4){
                             estrella3.setVisibility(View.VISIBLE);
+                            ultimo = true;
                         }
                         cardsj1[0] = new Carta(carta1);
                         cardsj1[1] = new Carta(carta2);
