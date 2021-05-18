@@ -780,6 +780,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     deVueltas = true;
                     cuantascartasint=28;
+
+                    try {
+                        if(queEquipo==0){
+                            puntosmios= data.getInt("puntos_e0");
+                            puntosrival= data.getInt("puntos_e1");
+                        }else{
+                            puntosrival= data.getInt("puntos_e0");
+                            puntosmios= data.getInt("puntos_e1");
+                        }
+                        ptmio.setText(puntosmios.toString());
+                        ptrival.setText(puntosrival.toString());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     Log.d(vueltas,"de vueltas");
                 }
             });
