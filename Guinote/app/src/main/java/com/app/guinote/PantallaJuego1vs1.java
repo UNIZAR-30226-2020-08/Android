@@ -741,12 +741,20 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     if(queEquipo == 0 && eq1 > eq2){
                         resultado = "¡Has ganado!\n";
+                        puntosmios=eq1;
+                        puntosrival=eq2;
                         gano=1;
                     }else if(queEquipo == 0 && eq1 < eq2){
+                        puntosmios=eq1;
+                        puntosrival=eq2;
                         resultado = "¡Has perdido!\n";
                     }else if(queEquipo == 1 && eq1 > eq2){
+                        puntosmios=eq2;
+                        puntosrival=eq1;
                         resultado = "¡Has perdido!\n";
                     }else if(queEquipo == 1 && eq1 < eq2){
+                        puntosmios=eq2;
+                        puntosrival=eq1;
                         resultado = "¡Has ganado!\n";
                         gano=1;
                     }
@@ -771,6 +779,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     deVueltas = true;
+                    cuantascartasint=28;
                     Log.d(vueltas,"de vueltas");
                 }
             });
