@@ -360,8 +360,9 @@ public class Perfil extends Fragment{
                         antiguoCartas=inicioCartas;
                         String query="UPDATE auth SET f_carta='"+inicioCartas+"' WHERE user='"+getName()+"'";
                         Log.d("query",query);
-                        db.rawQuery(query,null);
+                        db.execSQL(query);
                         updateCartas(inicioCartas);
+                        Log.d("holaPO",getCartas());
                         dialog.dismiss();
                     }
                 });
@@ -422,7 +423,7 @@ public class Perfil extends Fragment{
                         antiguoTapetes=inicioTapetes;
                         String query="UPDATE auth SET f_tapete='"+inicioTapetes+"' WHERE user='"+getName()+"'";
                         Log.d("query",query);
-                        db.rawQuery(query,null);
+                        db.execSQL(query,null);
                         updateTapete(inicioTapetes);
                         dialog.dismiss();
                     }
@@ -515,7 +516,7 @@ public class Perfil extends Fragment{
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println(response);
+                System.out.println(response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
