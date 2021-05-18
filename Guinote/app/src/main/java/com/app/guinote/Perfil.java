@@ -358,9 +358,9 @@ public class Perfil extends Fragment{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         antiguoCartas=inicioCartas;
-                        ContentValues cv = new ContentValues();
-                        cv.put("f_cartas", inicioCartas);
-                        db.update("auth", cv,"where user="+getName(),null);
+                        String query="UPDATE auth SET f_carta='"+inicioCartas+"' WHERE user='"+getName()+"'";
+                        Log.d("query",query);
+                        db.rawQuery(query,null);
                         updateCartas(inicioCartas);
                         dialog.dismiss();
                     }
@@ -420,9 +420,9 @@ public class Perfil extends Fragment{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         antiguoTapetes=inicioTapetes;
-                        ContentValues cv = new ContentValues();
-                        cv.put("f_cartas", inicioTapetes);
-                        db.update("auth", cv,"where user="+getName(),null);
+                        String query="UPDATE auth SET f_tapete='"+inicioTapetes+"' WHERE user='"+getName()+"'";
+                        Log.d("query",query);
+                        db.rawQuery(query,null);
                         updateTapete(inicioTapetes);
                         dialog.dismiss();
                     }
