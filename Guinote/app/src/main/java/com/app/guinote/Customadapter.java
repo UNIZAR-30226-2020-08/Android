@@ -87,7 +87,7 @@ public class Customadapter implements ListAdapter {
                 convertView.setBackgroundColor(Color.parseColor("#60ffffff"));
             }
             tittle.setText(subjectData._subjectName);
-            imag.setImageResource(subjectData._imagen);
+            imag.setImageDrawable(subjectData._imagen);
         }
         return convertView;
     }

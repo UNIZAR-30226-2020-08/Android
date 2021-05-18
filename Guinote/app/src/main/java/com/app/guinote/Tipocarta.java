@@ -5,11 +5,11 @@ import android.widget.ImageView;
 
 public class Tipocarta {
 
-    int _imagen;
+    Drawable _imagen;
     String _subjectName;
     boolean _elegido;
 
-    public void set_imagen(int _imagen) {
+    public void set_imagen(Drawable _imagen) {
         this._imagen = _imagen;
     }
 
@@ -17,7 +17,7 @@ public class Tipocarta {
         this._subjectName = _subjectName;
     }
 
-    public int get_imagen() {
+    public Drawable get_imagen() {
         return _imagen;
     }
 
@@ -33,7 +33,7 @@ public class Tipocarta {
         this._elegido = _elegido;
     }
 
-    Tipocarta(String subjectName, int imagen, boolean elegido){
+    Tipocarta(String subjectName, Drawable imagen, boolean elegido){
         _subjectName=subjectName;
         _imagen=imagen;
         _elegido=elegido;

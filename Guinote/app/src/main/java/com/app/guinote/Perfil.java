@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -42,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Perfil extends Fragment{
@@ -52,10 +54,10 @@ public class Perfil extends Fragment{
     Customadapter AdapterTapetes;
     Customadapter AdapterCartas;
     LottieAnimationView animacion;
-    static Integer inicioCartas=0;
-    static Integer antiguoCartas;
-    static Integer inicioTapetes=0;
-    static Integer antiguoTapetes;
+    static String inicioCartas="";
+    static String  antiguoCartas="";
+    static String inicioTapetes="";
+    static String  antiguoTapetes="";
     int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     private int mMenuId;
     private View view;
@@ -102,23 +104,12 @@ public class Perfil extends Fragment{
 
 
         ArrayList<Tipocarta> arrayTapete = new ArrayList<Tipocarta>();
-        arrayTapete.add(new Tipocarta("Primero",R.drawable.tapete2,true));
-        arrayTapete.add(new Tipocarta("Segundo",R.drawable.tapete1,false));
-        arrayTapete.add(new Tipocarta("Tercero",R.drawable.hierba,false));
-        arrayTapete.add(new Tipocarta("Cuarto",R.drawable.madera,false));
-        arrayTapete.add(new Tipocarta("Quinto",R.drawable.football,false));
 
-        AdapterTapetes = new Customadapter(getContext(), arrayTapete);
+        InputStream ims=null;
+        InputStream ims1=null;
+        InputStream ims2=null;
+        InputStream ims3=null;
 
-
-        ArrayList<Tipocarta> arrayCartas = new ArrayList<Tipocarta>();
-        arrayCartas.add(new Tipocarta("Primero",R.drawable.tapete2,true));
-        arrayCartas.add(new Tipocarta("Segundo",R.drawable.tapete1,false));
-        arrayCartas.add(new Tipocarta("Tercero",R.drawable.hierba,false));
-        arrayCartas.add(new Tipocarta("Cuarto",R.drawable.madera,false));
-        arrayCartas.add(new Tipocarta("Quinto",R.drawable.football,false));
-
-        AdapterCartas = new Customadapter(getContext(), arrayCartas);
 
 
 
@@ -133,9 +124,93 @@ public class Perfil extends Fragment{
         MyOpenHelper dbHelper = new MyOpenHelper(getContext());
         db = dbHelper.getWritableDatabase();
 
+        inicioCartas=getCartas();
+        inicioTapetes=getTapete();
+
+
+
+
+        try {
+            ims = getActivity().getAssets().open("baraja1/reverso.png");
+            ims1 = getActivity().getAssets().open("baraja2/reverso.png");
+            ims2 = getActivity().getAssets().open("baraja3/reverso.png");
+            ims3 = getActivity().getAssets().open("baraja4/reverso.png");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Drawable d = Drawable.createFromStream(ims, null);
+        Drawable d1 = Drawable.createFromStream(ims1, null);
+        Drawable d2 = Drawable.createFromStream(ims2, null);
+        Drawable d3 = Drawable.createFromStream(ims3, null);
+
+        switch (Character.getNumericValue(inicioTapetes.charAt(6))-1){
+            case 0:
+                arrayTapete.add(new Tipocarta("Primero",d,true));
+                arrayTapete.add(new Tipocarta("Segundo",d1,false));
+                arrayTapete.add(new Tipocarta("Tercero",d2,false));
+                arrayTapete.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 1:
+                arrayTapete.add(new Tipocarta("Primero",d,false));
+                arrayTapete.add(new Tipocarta("Segundo",d1,true));
+                arrayTapete.add(new Tipocarta("Tercero",d2,false));
+                arrayTapete.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 2:
+                arrayTapete.add(new Tipocarta("Primero",d,false));
+                arrayTapete.add(new Tipocarta("Segundo",d1,false));
+                arrayTapete.add(new Tipocarta("Tercero",d2,true));
+                arrayTapete.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 3:
+                arrayTapete.add(new Tipocarta("Primero",d,false));
+                arrayTapete.add(new Tipocarta("Segundo",d1,false));
+                arrayTapete.add(new Tipocarta("Tercero",d2,false));
+                arrayTapete.add(new Tipocarta("Cuarto",d3,true));
+                break;
+            default:
+                break;
+        }
+
+        AdapterTapetes = new Customadapter(getContext(), arrayTapete);
+
+
+        ArrayList<Tipocarta> arrayCartas = new ArrayList<Tipocarta>();
+        switch (Character.getNumericValue(inicioCartas.charAt(6))-1){
+            case 0:
+                arrayCartas.add(new Tipocarta("Primero",d,true));
+                arrayCartas.add(new Tipocarta("Segundo",d1,false));
+                arrayCartas.add(new Tipocarta("Tercero",d2,false));
+                arrayCartas.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 1:
+                arrayCartas.add(new Tipocarta("Primero",d,false));
+                arrayCartas.add(new Tipocarta("Segundo",d1,true));
+                arrayCartas.add(new Tipocarta("Tercero",d2,false));
+                arrayCartas.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 2:
+                arrayCartas.add(new Tipocarta("Primero",d,false));
+                arrayCartas.add(new Tipocarta("Segundo",d1,false));
+                arrayCartas.add(new Tipocarta("Tercero",d2,true));
+                arrayCartas.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 3:
+                arrayCartas.add(new Tipocarta("Primero",d,false));
+                arrayCartas.add(new Tipocarta("Segundo",d1,false));
+                arrayCartas.add(new Tipocarta("Tercero",d2,false));
+                arrayCartas.add(new Tipocarta("Cuarto",d3,true));
+                break;
+            default:
+                break;
+        }
+
+
+        AdapterCartas = new Customadapter(getContext(), arrayCartas);
+
         antiguoCartas=inicioCartas;
         antiguoTapetes=inicioTapetes;
-
         Log.d("tapete",getTapete());
         Log.d("cartas",getCartas());
 
@@ -269,9 +344,12 @@ public class Perfil extends Fragment{
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AdapterCartas.arrayList.get(inicioCartas).set_elegido(false);
+                        Log.d("pruea",inicioCartas);
+                        Log.d("prueaM",antiguoCartas);
+                        AdapterCartas.arrayList.get(Character.getNumericValue(inicioCartas.charAt(6))-1).set_elegido(false);
                         inicioCartas=antiguoCartas;
-                        AdapterCartas.arrayList.get(inicioCartas).set_elegido(true);
+                        Log.d("pruea2",inicioCartas);
+                        AdapterCartas.arrayList.get(Character.getNumericValue(inicioCartas.charAt(6))-1).set_elegido(true);
                         dialog.dismiss();
                     }
                 });
@@ -288,13 +366,14 @@ public class Perfil extends Fragment{
                     }
                 });
 
-                builder.setSingleChoiceItems(AdapterCartas,inicioCartas,new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(AdapterCartas,Character.getNumericValue(inicioCartas.charAt(6))-1,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Integer m=which;
-                        AdapterCartas.arrayList.get(inicioCartas).set_elegido(false);
+                        Integer m=which+1;
+                        Log.d("num",inicioCartas);
+                        AdapterCartas.arrayList.get(Character.getNumericValue(inicioCartas.charAt(6))-1).set_elegido(false);
                         AdapterCartas.arrayList.get(which).set_elegido(true);
-                        inicioCartas=which;
+                        inicioCartas="baraja"+m.toString();
 
                         dialog.dismiss();
                         getActivity().runOnUiThread(new Runnable() {
@@ -330,9 +409,9 @@ public class Perfil extends Fragment{
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AdapterTapetes.arrayList.get(inicioTapetes).set_elegido(false);
+                        AdapterTapetes.arrayList.get(Character.getNumericValue(inicioTapetes.charAt(6))-1).set_elegido(false);
                         inicioTapetes=antiguoTapetes;
-                        AdapterTapetes.arrayList.get(inicioTapetes).set_elegido(true);
+                        AdapterTapetes.arrayList.get(Character.getNumericValue(inicioTapetes.charAt(6))-1).set_elegido(true);
                         dialog.dismiss();
                     }
                 });
@@ -344,18 +423,20 @@ public class Perfil extends Fragment{
                         ContentValues cv = new ContentValues();
                         cv.put("f_cartas", inicioTapetes);
                         db.update("auth", cv,"where user="+getName(),null);
-                        updateCartas(inicioTapetes);
+                        updateTapete(inicioTapetes);
                         dialog.dismiss();
                     }
                 });
 
-                builder.setSingleChoiceItems(AdapterTapetes,inicioTapetes,new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(AdapterTapetes,Character.getNumericValue(inicioTapetes.charAt(6))-1,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Integer m=which;
-                        AdapterTapetes.arrayList.get(inicioTapetes).set_elegido(false);
+                        Integer m=which+1;
+                        AdapterTapetes.arrayList.get(Character.getNumericValue(inicioTapetes.charAt(6))-1).set_elegido(false);
                         AdapterTapetes.arrayList.get(which).set_elegido(true);
-                        inicioTapetes=which;
+
+                        inicioTapetes="tapete"+m.toString();
+
 
                         dialog.dismiss();
                         getActivity().runOnUiThread(new Runnable() {
@@ -382,9 +463,9 @@ public class Perfil extends Fragment{
     }
 
 
-    public void updateTapete(Integer tapetico){
+    public void updateTapete(String tapetico){
 
-        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getTapete();
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getName();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JSONObject postData = new JSONObject();
@@ -411,20 +492,12 @@ public class Perfil extends Fragment{
             }
         });
 
-        /*requestQueue.add(jsonObjectRequest);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(
-                        R.anim.side_in_left,
-                        R.anim.slide_out_left
-                )
-                .setReorderingAllowed(true)
-                .replace(R.id.fragmento_app, Perfil.class, null)
-                .commit();*/
+        requestQueue.add(jsonObjectRequest);
     }
 
-    public void updateCartas(Integer cartas){
+    public void updateCartas(String cartas){
 
-        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getCartas();
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getName();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JSONObject postData = new JSONObject();
@@ -451,15 +524,8 @@ public class Perfil extends Fragment{
             }
         });
 
-        /*requestQueue.add(jsonObjectRequest);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(
-                        R.anim.side_in_left,
-                        R.anim.slide_out_left
-                )
-                .setReorderingAllowed(true)
-                .replace(R.id.fragmento_app, Perfil.class, null)
-                .commit();*/
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     public String getName() {
