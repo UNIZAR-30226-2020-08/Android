@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -35,8 +36,10 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -240,7 +243,6 @@ public class Perfil extends Fragment{
     }
 
     public void Cartas(){
-
                 final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
                 final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                 builder.setTitle("Tapetes");
@@ -256,6 +258,10 @@ public class Perfil extends Fragment{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         antiguoCartas=inicioCartas;
+                        ContentValues cv = new ContentValues();
+                        cv.put("f_cartas", inicioCartas);
+                        db.update("auth", cv,"where user="+getName(),null);
+                        updateCartas(inicioCartas);
                         dialog.dismiss();
                     }
                 });
@@ -313,6 +319,10 @@ public class Perfil extends Fragment{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         antiguoTapetes=inicioTapetes;
+                        ContentValues cv = new ContentValues();
+                        cv.put("f_cartas", inicioTapetes);
+                        db.update("auth", cv,"where user="+getName(),null);
+                        updateCartas(inicioTapetes);
                         dialog.dismiss();
                     }
                 });
@@ -348,6 +358,87 @@ public class Perfil extends Fragment{
                 builder.show();
     }
 
+
+    public void updateTapete(Integer tapetico){
+
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getTapete();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("f_tapete", tapetico);
+            Log.d("prueba",postData.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("holaaa",postData.toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        /*requestQueue.add(jsonObjectRequest);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, Perfil.class, null)
+                .commit();*/
+    }
+
+    public void updateCartas(Integer cartas){
+
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getCartas();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("f_carta", cartas);
+            Log.d("prueba",postData.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("holaaa",postData.toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        /*requestQueue.add(jsonObjectRequest);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.side_in_left,
+                        R.anim.slide_out_left
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, Perfil.class, null)
+                .commit();*/
+    }
+
     public String getName() {
         String query="SELECT user FROM auth";
         Cursor c=db.rawQuery(query,null);
@@ -363,17 +454,22 @@ public class Perfil extends Fragment{
     }
 
     public String getCartas() {
-        String query="SELECT copas FROM auth";
+        String query="SELECT f_carta FROM auth";
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
         return c.getString(0);
     }
 
     public String getTapete() {
-        String query="SELECT copas FROM auth";
+        String query="SELECT f_tapete FROM auth";
         Cursor c=db.rawQuery(query,null);
         c.moveToNext();
         return c.getString(0);
     }
+
+
+
+
+
 
 }
