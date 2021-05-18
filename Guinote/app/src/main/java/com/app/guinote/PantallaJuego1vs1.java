@@ -1490,6 +1490,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     try {
                         aux.put("partida", room);
                         aux.put("nronda", nronda);
+                        aux.put("carta","NO");
 
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
