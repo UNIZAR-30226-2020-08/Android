@@ -79,6 +79,7 @@ public class Perfil extends Fragment{
     ImageButton foto_gallery;
     private SQLiteDatabase db;
     CircleImageView mProfilePhoto;
+    int cuantasPartidas;
 
 
 
@@ -135,9 +136,6 @@ public class Perfil extends Fragment{
         InputStream ims1=null;
         InputStream ims2=null;
         InputStream ims3=null;
-
-
-
 
 
         editar.setOnClickListener(new View.OnClickListener() {
@@ -335,10 +333,34 @@ public class Perfil extends Fragment{
             }
         });
 
+
+        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/listarHistorial/"+getName();
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONArray contenido = response;
+                    cuantasPartidas = contenido.length();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
         TextView name=view.findViewById(R.id.nameUserPerfil);
         name.setText(getName());
         TextView puntos=view.findViewById(R.id.puntosPerfil);
         puntos.setText(getPuntos());
+        TextView partidasTotales=view.findViewById(R.id.partidasNumero);
+        Integer cuantas = cuantasPartidas;
+        Log.d("hola cuantas", cuantas.toString());
+        partidasTotales.setText(cuantas.toString());
         assignProfilePicture(mProfilePhoto);
         return view;
     }
