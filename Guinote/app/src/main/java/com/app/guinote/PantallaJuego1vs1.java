@@ -107,7 +107,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Integer RankingArrastre;
     boolean deVueltas;
 
-    long duration = TimeUnit.SECONDS.toMillis(20);
+    long duration = TimeUnit.SECONDS.toMillis(30);
     CountDownTimer contador;
     Integer puntosmios, puntosrival = 0;
 
@@ -289,7 +289,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         Log.d("reparto: ", cardsj1[5].getId());
                     }else {
                         nombreOponente.setText(username);
-                        //fperfiladversario.setImageResource(f_perfil);
+                        assignFPerfil(f_perfil,fperfiladversario);
                         copasadversario.setText(copas.toString());
 
                     }
@@ -364,7 +364,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             ultimo = false;
                             estrella1.setVisibility(View.INVISIBLE);
                             estrella2.setVisibility(View.INVISIBLE);
-                            JSONObject aux2 = new JSONObject();
+                            final JSONObject aux2 = new JSONObject();
                             try {
                                 aux2.put("partida", room);
                                 aux2.put("nronda", nronda);
@@ -372,27 +372,34 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
-                            mSocket.emit("contarPuntos", aux2, new Ack() {
+                            new Thread() {
                                 @Override
-                                public void call(Object... args) {
-                                    //JSONObject response = (JSONObject) args[0];
-                                    //System.out.println(response); // "ok"
-                                }
-                            });
-                            Carta aux3 = new Carta("F");
-                            cardsj1[QueCarta] = aux3;
-                            if(!arrastre) {
-                                Log.d("RobarCarta", "hola estoy robando");
-                                mSocket.emit("robarCarta", aux2, new Ack() {
-                                    @Override
-                                    public void call(Object... args) {
-                                        //JSONObject response = (JSONObject) args[0];
-                                        //System.out.println(response); // "ok"
+                                public void run() {
+                                    try{
+                                        Thread.sleep(2000);
+                                    } catch (Exception e){
+                                        e.printStackTrace();
                                     }
-                                });
-                            }else{
-                                robar_sigana_ia();
-                            }
+                                    mSocket.emit("contarPuntos", aux2, new Ack() {
+                                        @Override
+                                        public void call(Object... args) {
+                                            //JSONObject response = (JSONObject) args[0];
+                                            //System.out.println(response); // "ok"
+                                        }
+                                    });
+                                    if(!arrastre) {
+                                        mSocket.emit("robarCarta", aux2, new Ack() {
+                                            @Override
+                                            public void call(Object... args) {
+                                                //JSONObject response = (JSONObject) args[0];
+                                                //System.out.println(response); // "ok"
+                                            }
+                                        });
+                                    }else{
+                                        robar_sigana_ia();
+                                    }
+                                }
+                            }.start();
                         }
                     }
             });
@@ -472,6 +479,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
+
                                 mSocket.emit("contarPuntos", aux, new Ack() {
                                     @Override
                                     public void call(Object... args) {
@@ -954,7 +962,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
             });
         }
-
+        LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout1vs1);
         pausar = (Button) findViewById(R.id.button_pausar1vs1);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
         ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext);
@@ -1039,9 +1047,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }catch (Exception e){
 
         }
-
-
-
+        assignTapete(juegotapete);
         deVueltas = false;
 
         contador = new CountDownTimer(duration, 1000) {
@@ -1965,133 +1971,37 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             return;
         }
 
-        /*switch (cual){
-            case "0O":
-                int resID = getResources().getIdentifier(cual , "drawable", getPackageName());
-                image.setImageResource(R.drawable.asoros);
-                break;
-            case "0E":
-                image.setImageResource(R.drawable.asespadas);
-                break;
-            case "0B":
-                image.setImageResource(R.drawable.asbastos);
-                break;
-            case "0C":
-                image.setImageResource(R.drawable.ascopas);
-                break;
-            case "2O":
-                image.setImageResource(R.drawable.tresoros);
-                break;
-            case "2E":
-                image.setImageResource(R.drawable.tresespadas);
-                break;
-            case "2B":
-                image.setImageResource(R.drawable.tresbastos);
-                break;
-            case "2C":
-                image.setImageResource(R.drawable.trescopas);
-                break;
-            case "9O":
-                image.setImageResource(R.drawable.reyoros);
-                break;
-            case "9E":
-                image.setImageResource(R.drawable.reyespadas);
-                break;
-            case "9B":
-                image.setImageResource(R.drawable.reybastos);
-                break;
-            case "9C":
-                image.setImageResource(R.drawable.reycopas);
-                break;
-            case "7O":
-                image.setImageResource(R.drawable.sotaoros);
-                break;
-            case "7E":
-                image.setImageResource(R.drawable.sotaespadas);
-                break;
-            case "7B":
-                image.setImageResource(R.drawable.sotabastos);
-                break;
-            case "7C":
-                image.setImageResource(R.drawable.sotacopas);
-                break;
-            case "8O":
-                image.setImageResource(R.drawable.caballooros);
-                break;
-            case "8E":
-                image.setImageResource(R.drawable.caballoespadas);
-                break;
-            case "8B":
-                image.setImageResource(R.drawable.caballobastos);
-                break;
-            case "8C":
-                image.setImageResource(R.drawable.caballocopas);
-                break;
-            case "6O":
-                image.setImageResource(R.drawable.sieteoros);
-                break;
-            case "6E":
-                image.setImageResource(R.drawable.sieteespadas);
-                break;
-            case "6B":
-                image.setImageResource(R.drawable.sietebastos);
-                break;
-            case "6C":
-                image.setImageResource(R.drawable.sietecopas);
-                break;
-            case "5O":
-                image.setImageResource(R.drawable.seisoros);
-                break;
-            case "5E":
-                image.setImageResource(R.drawable.seisespadas);
-                break;
-            case "5B":
-                image.setImageResource(R.drawable.seisbastos);
-                break;
-            case "5C":
-                image.setImageResource(R.drawable.seiscopas);
-                break;
-            case "4O":
-                image.setImageResource(R.drawable.cincooros);
-                break;
-            case "4E":
-                image.setImageResource(R.drawable.cincoespadas);
-                break;
-            case "4B":
-                image.setImageResource(R.drawable.cincobastos);
-                break;
-            case "4C":
-                image.setImageResource(R.drawable.cincocopas);
-                break;
-            case "3O":
-                image.setImageResource(R.drawable.cuatrooros);
-                break;
-            case "3E":
-                image.setImageResource(R.drawable.cuatroespadas);
-                break;
-            case "3B":
-                image.setImageResource(R.drawable.cuatrobastos);
-                break;
-            case "3C":
-                image.setImageResource(R.drawable.cuatrocopas);
-                break;
-            case "1O":
-                image.setImageResource(R.drawable.dosoros);
-                break;
-            case "1E":
-                image.setImageResource(R.drawable.dosespadas);
-                break;
-            case "1B":
-                image.setImageResource(R.drawable.dosbastos);
-                break;
-            case "1C":
-                image.setImageResource(R.drawable.doscopas);
-                break;
-            default:
-                image.setImageResource(R.drawable.reverso);
-                break;
+    }
 
-        }*/
+    public void assignTapete(LinearLayout juegotapete){
+
+        try {
+            // get input stream
+            InputStream ims = getAssets().open(miTapete+".jpg");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            juegotapete.setBackground(d);
+        }
+        catch(Exception ex) {
+            return;
+        }
+
+    }
+
+    public void assignFPerfil(String queFoto, CircleImageView image){
+
+        try {
+            // get input stream
+            InputStream ims = getAssets().open(queFoto+".png");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            image.setImageDrawable(d);
+        }
+        catch(Exception ex) {
+            return;
+        }
 
     }
 
