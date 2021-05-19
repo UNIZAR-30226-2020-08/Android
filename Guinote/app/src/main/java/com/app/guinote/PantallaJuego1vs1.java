@@ -124,7 +124,19 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             Torneo.terminoPartida();
         }
 
-        mSocket.emit("leavePartida",new Ack() {
+
+        JSONObject aux = new JSONObject();
+        try {
+            aux.put("partida", room);
+            aux.put("jugador", nameUser);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Log.d("que",aux.toString());
+
+        mSocket.emit("leavePartida",aux,new Ack() {
             @Override
             public void call(Object... args) {
                 //JSONObject response = (JSONObject) args[0];
@@ -741,6 +753,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
+                    Log.d("me llega",eq1.toString());
                     if(queEquipo == 0 && eq1 > eq2){
                         resultado = "¡Has ganado!\n";
                         puntosmios=eq1;
