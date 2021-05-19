@@ -73,10 +73,11 @@ public class PantallaJuego extends AppCompatActivity {
     private String room="";
     private Socket mSocket;
     private int torneo=0;
-
+    static int pauso=0;
     private String miCarta="";
     private String miTapete="";
-
+    private int puntosProv=0;
+    private int puntosProv1=0;
 
     private SQLiteDatabase db;
     static int gano=0;
@@ -136,6 +137,7 @@ public class PantallaJuego extends AppCompatActivity {
             Torneo.terminoPartida();
         }
 
+
         JSONObject aux = new JSONObject();
         try {
             aux.put("partida", room);
@@ -147,14 +149,39 @@ public class PantallaJuego extends AppCompatActivity {
 
         Log.d("que",aux.toString());
 
-        mSocket.emit("leavePartida",aux,new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
+        if(pauso!=1) {
+            mSocket.emit("leavePartida", aux, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }else{
+            mSocket.emit("leavePartidaRP", new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
+
         mSocket.off("message", onNewMessage);
+        mSocket.off("RepartirCartas", onRepartirCartas);
+        //mSocket.off("RepartirCartasRP", onRepartirCartasRP);
+        mSocket.off("RepartirTriunfo", onRepartirTriunfo);
+        mSocket.off("RepartirTriunfoRP", onRepartirTriunfoRP);
+        mSocket.off("cartaJugada", oncartaJugada);
+        mSocket.off("winner", onRecuento);
+        mSocket.off("roba", onRobo);
+        mSocket.off("cartaCambio", onCambio);
+        mSocket.off("cante", onCante);
+        mSocket.off("Resultado", onResultado);
+        mSocket.off("Vueltas", onVueltas);
+        mSocket.off("puntos", onPuntos);
+        mSocket.off("pause", onPause);
+        mSocket.off("copasActualizadas",onCopasActualizadas);
     }
 
     public void attemptSend(String message) {
@@ -174,6 +201,7 @@ public class PantallaJuego extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    pauso=1;
                     Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                     startActivity(intent);
                     finish();
@@ -654,6 +682,43 @@ public class PantallaJuego extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         return;
+                    }
+                    cartaTriunfo = new Carta(triunfo);
+                    assignImages(cartaTriunfo, triumphe);
+                    aun_no = true;
+                    iniciarPartida();
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRepartirTriunfoRP = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String triunfo;
+                    String ganador;
+                    try {
+                        triunfo = data.getString("triunfoRepartido");
+                        nronda = data.getInt("nronda");
+                        ganador = data.getString("winner");
+                        puntosProv= data.getInt("puntos_e0");
+                        puntosProv1= data.getInt("puntos_e1");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (!ganador.equals(nameUser)){
+                        //if(nronda != 19) {
+                        queOrden = 2;
+                        //}
+                    }else{
+                        //if(nronda != 19) {
+                        queOrden = 1;
+                        //}
                     }
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
@@ -1182,6 +1247,8 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket=Pantalla_app.mSocket;
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
+        //mSocket.on("RepartirCartasRP", onRepartirCartasRP);
+        mSocket.on("RepartirTriunfoRP", onRepartirTriunfoRP);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
         mSocket.on("cartaJugada", oncartaJugada);
         mSocket.on("winner", onRecuento);

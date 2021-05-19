@@ -1133,51 +1133,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
         Log.d("jsonDePrueba", auxiliar.toString());
 
-        if (torneo == 2) {
-            mSocket.emit("joinPartidaIA", auxiliar, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
-                }
-            });
-            nombreOponente.setText("IA");
-            InputStream ims = null;
-            try {
-                ims = getAssets().open("userlogo1.png");
-                // load image as Drawable
-                Drawable d = Drawable.createFromStream(ims, null);
-                fperfiladversario.setImageDrawable(d);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (torneo == 3){
-            JSONObject partidareanudar = new JSONObject();
-            try {
-                partidareanudar.put("usuario", nameUser);
-                partidareanudar.put("partida", room);
-                partidareanudar.put("tipo", 0);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            Log.d("veamosestp",partidareanudar.toString());
-            mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
-                }
-            });
-        }else{
-            mSocket.emit("join", auxiliar, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
-                }
-            });
-        }
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout1vs1);
         pausar = (Button) findViewById(R.id.button_pausar1vs1);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
@@ -1262,6 +1217,51 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             imagen10reverso.setImageDrawable(d);
         }catch (Exception e){
 
+        }
+        if (torneo == 2) {
+            mSocket.emit("joinPartidaIA", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+            nombreOponente.setText("IA");
+            InputStream ims = null;
+            try {
+                ims = getAssets().open("userlogo1.png");
+                // load image as Drawable
+                Drawable d = Drawable.createFromStream(ims, null);
+                fperfiladversario.setImageDrawable(d);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (torneo == 3){
+            JSONObject partidareanudar = new JSONObject();
+            try {
+                partidareanudar.put("usuario", nameUser);
+                partidareanudar.put("partida", room);
+                partidareanudar.put("tipo", 0);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Log.d("veamosestp",partidareanudar.toString());
+            mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }else{
+            mSocket.emit("join", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
         }
         assignTapete(juegotapete);
         deVueltas = false;
