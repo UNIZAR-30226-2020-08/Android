@@ -864,18 +864,18 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        miCarta=getCartas();
-        miTapete=getTapete();
+        miCarta = getCartas();
+        miTapete = getTapete();
         mensajeDeTextos = new ArrayList<>();
-        nameUser=getName();
+        nameUser = getName();
         Bundle b = getIntent().getExtras();
-        if(b != null) {
+        if (b != null) {
             room = b.getString("key");
-            torneo= b.getInt("torneo");
+            torneo = b.getInt("torneo");
         }
 
-        Pantalla_app.enPartidaIndividual=room;
-        mSocket= Pantalla_app.mSocket;
+        Pantalla_app.enPartidaIndividual = room;
+        mSocket = Pantalla_app.mSocket;
         //mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
@@ -888,8 +888,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("cante", onCante);
         mSocket.on("Resultado", onResultado);
         mSocket.on("Vueltas", onVueltas);
-        mSocket.on("puntos",onPuntos);
-        mSocket.on("pause",onPause);
+        mSocket.on("puntos", onPuntos);
+        mSocket.on("pause", onPause);
 
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
@@ -902,10 +902,28 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Log.d("jsonDePrueba",auxiliar.toString());
+        Log.d("jsonDePrueba", auxiliar.toString());
 
-        if(torneo==2){
+        if (torneo == 2) {
             mSocket.emit("joinPartidaIA", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        } else if (torneo == 3){
+            JSONObject partidareanudar = new JSONObject();
+            try {
+                partidareanudar.put("usuario", nameUser);
+                partidareanudar.put("partida", room);
+                partidareanudar.put("tipo", 0);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Log.d("veamosestp",partidareanudar.toString());
+            mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //JSONObject response = (JSONObject) args[0];
@@ -1007,25 +1025,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
         }
 
-        if(torneo==3){
-            JSONObject partidareanudar = new JSONObject();
-            try {
-                partidareanudar.put("usuario", nameUser);
-                partidareanudar.put("partida", room);
-                partidareanudar.put("tipo", 0);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            Log.d("veamosestp",partidareanudar.toString());
-            mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
-                }
-            });
-        }
+
 
         deVueltas = false;
 
