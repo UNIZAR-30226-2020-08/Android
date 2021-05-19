@@ -123,6 +123,16 @@ public class FormularioPartida extends Fragment {
 
         requestQueue.add(jsonObjectRequest);
         Log.d("datos", modalidad + " " + nombrePartida + " " + participantes);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmento_app, MainActivity.class, null)
+                .commit();
     }
 
     public boolean validar(View view){
