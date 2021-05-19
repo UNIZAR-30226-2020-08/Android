@@ -1017,7 +1017,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            mSocket.emit("reaudarPartida", partidareanudar, new Ack() {
+            Log.d("veamosestp",partidareanudar.toString());
+            mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //JSONObject response = (JSONObject) args[0];
