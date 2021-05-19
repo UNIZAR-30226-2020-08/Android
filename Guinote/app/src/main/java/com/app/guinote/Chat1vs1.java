@@ -31,7 +31,7 @@ public class Chat1vs1 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private View view;
     private EditText bEscribirMensaje;
-    private Button bEnviarMensaje;
+    private Button bEnviarMensaje,bP1,bP2,bP3;
     private MensajesAdapter adapter;
     private RecyclerView rv;
     private SQLiteDatabase db;
@@ -80,6 +80,9 @@ public class Chat1vs1 extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar_back_chat);
         bEscribirMensaje = (EditText) view.findViewById(R.id.edittextchat);
         bEnviarMensaje = (Button) view.findViewById(R.id.buttonchat);
+        bP1 = (Button) view.findViewById(R.id.buttonchatpredefined1);
+        bP2 = (Button) view.findViewById(R.id.buttonchatpredefined2);
+        bP3 = (Button) view.findViewById(R.id.buttonchatpredefined3);
 
 
 
@@ -120,6 +123,38 @@ public class Chat1vs1 extends Fragment {
                 CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),bEscribirMensaje.getText().toString(),1);
                 ((PantallaJuego1vs1)getActivity()).attemptSend(texto);
                 bEscribirMensaje.setText("");
+            }
+        });
+
+        bP1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","👍",1,((PantallaJuego1vs1)getActivity()).getName());
+                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"👍",1);
+                ((PantallaJuego1vs1)getActivity()).attemptSend("👍");
+            }
+        });
+
+        bP2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String texto=bEscribirMensaje.getText().toString();
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😡",1,((PantallaJuego1vs1)getActivity()).getName());
+                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😡",1);
+                ((PantallaJuego1vs1)getActivity()).attemptSend("😡");
+            }
+        });
+
+        bP3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String texto=bEscribirMensaje.getText().toString();
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😂",1,((PantallaJuego1vs1)getActivity()).getName());
+                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😂",1);
+                ((PantallaJuego1vs1)getActivity()).attemptSend("😂");
             }
         });
 

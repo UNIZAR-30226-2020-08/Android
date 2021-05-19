@@ -35,7 +35,38 @@
         android:textColorHint="#000000"
         android:layout_alignParentEnd="true"
         android:id="@+id/buttonchat"
-        android:hint="Enviar"/>
+        android:hint="Enviar" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_above="@+id/edittextchat"
+            android:backgroundTint="#ffffff"
+            android:textColorHint="#000000"
+            android:layout_toRightOf="@+id/buttonchatpredefined2"
+            android:id="@+id/buttonchatpredefined1"
+            android:hint="👍"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_above="@+id/edittextchat"
+            android:backgroundTint="#ffffff"
+            android:textColorHint="#000000"
+            android:layout_toRightOf="@+id/buttonchatpredefined1"
+            android:id="@+id/buttonchatpredefined3"
+            android:hint="😂"/>
+
+        <Button
+            android:id="@+id/buttonchatpredefined2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/edittextchat"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="#ffffff"
+            android:hint="😡"
+            android:textColorHint="#000000" />
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
