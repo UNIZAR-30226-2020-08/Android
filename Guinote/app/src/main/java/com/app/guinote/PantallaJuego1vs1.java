@@ -753,6 +753,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
+                    Log.d("me llega",eq1.toString());
                     if(queEquipo == 0 && eq1 > eq2){
                         resultado = "¡Has ganado!\n";
                         puntosmios=eq1;

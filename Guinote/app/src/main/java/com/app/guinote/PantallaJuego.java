@@ -129,7 +129,18 @@ public class PantallaJuego extends AppCompatActivity {
             Torneo.terminoPartida();
         }
 
-        mSocket.emit("leavePartida",new Ack() {
+        JSONObject aux = new JSONObject();
+        try {
+            aux.put("partida", room);
+            aux.put("jugador", nameUser);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Log.d("que",aux.toString());
+
+        mSocket.emit("leavePartida",aux,new Ack() {
             @Override
             public void call(Object... args) {
                 //JSONObject response = (JSONObject) args[0];
