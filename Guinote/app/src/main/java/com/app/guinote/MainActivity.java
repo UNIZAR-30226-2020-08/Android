@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -35,6 +36,7 @@ public class MainActivity extends Fragment {
 
     ListView lista1vs1;
     CardView cardvs1;
+    CardView play2;
     CardView iapartida;
     CardView fd;
     CardView jointorneo;
@@ -52,11 +54,18 @@ public class MainActivity extends Fragment {
         View view = inflater.inflate(R.layout.activity_main,
                 container, false);
 
-        CardView play2 = view.findViewById(R.id.button_start_2vs2);
+
+
+        play2 = view.findViewById(R.id.button_start_2vs2);
+        play2.setEnabled(true);
         createroom = view.findViewById(R.id.button_start_1vs1);
+        createroom.setEnabled(true);
         iapartida = view.findViewById(R.id.button_start_offline);
+        iapartida.setEnabled(true);
         fd = view.findViewById(R.id.button_start_private_room);
+        fd.setEnabled(true);
         jointorneo = view.findViewById(R.id.button_join_private_room);
+        jointorneo.setEnabled(true);
         MaterialToolbar toolbar = (MaterialToolbar) view.findViewById(R.id.topAppBar);
 
 
@@ -67,30 +76,35 @@ public class MainActivity extends Fragment {
         play2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play2.setEnabled(false);
                 openActivity2();
             }
         });
         createroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createroom.setEnabled(false);
                 openActivity3();
             }
         });
         jointorneo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                jointorneo.setEnabled(false);
                 openActivity5();
             }
         });
         fd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fd.setEnabled(false);
                 openActivity4();
             }
         });
         iapartida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                iapartida.setEnabled(false);
                 createPartidaIA();
             }
         });

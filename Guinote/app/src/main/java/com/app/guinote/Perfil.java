@@ -108,22 +108,26 @@ public class Perfil extends Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_perfil,
                 container, false);
-        View editar = view.findViewById(R.id.editperfil);
+        final View editar = view.findViewById(R.id.editperfil);
 
         //inicio=getCartas()
         mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_image);
+        mProfilePhoto.setEnabled(true);
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProfilePhoto.setEnabled(false);
                 Fperfil();
             }
         });
 
-        CardView reglas = view.findViewById(R.id.info);
+        final CardView reglas = view.findViewById(R.id.info);
+        reglas.setEnabled(true);
 
         reglas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reglas.setEnabled(false);
                 openReglas();
             }
         });
@@ -138,9 +142,13 @@ public class Perfil extends Fragment{
         InputStream ims3=null;
 
 
+
+
+        editar.setEnabled(true);
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editar.setEnabled(false);
                 openActivity2();
             }
         });
