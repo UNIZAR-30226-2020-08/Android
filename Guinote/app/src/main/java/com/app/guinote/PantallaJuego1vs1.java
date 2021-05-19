@@ -82,6 +82,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
     private String miCarta="";
     private String miTapete="";
+    private int puntosProv=0;
+    private int puntosProv1=0;
 
     private SQLiteDatabase db;
     static int gano=0;
@@ -370,6 +372,14 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         RondaArrastre = 0;
                         RankingArrastre = 11;
                         queEquipo = equipo;
+
+                        if(equipo==0){
+                            puntosmios=puntosProv;
+                            puntosrival=puntosProv1;
+                        }else{
+                            puntosmios=puntosProv1;
+                            puntosrival=puntosProv;
+                        }
                         if(queOrden == 2){
                             ultimo = true;
                             estrella2.setVisibility(View.VISIBLE);
@@ -450,6 +460,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         triunfo = data.getString("triunfoRepartido");
                         nronda = data.getInt("nronda");
                         ganador = data.getString("winner");
+                        puntosProv= data.getInt("puntos_e0");
+                        puntosProv1= data.getInt("puntos_e1");
 
                     } catch (JSONException e) {
                         return;
