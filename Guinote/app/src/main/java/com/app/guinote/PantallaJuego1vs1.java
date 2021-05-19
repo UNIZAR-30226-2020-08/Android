@@ -378,6 +378,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Log.d("cards", carta2);
                     Log.d("cards", carta3);
                     Log.d("cards", carta4);
+                    Log.d("cards", carta5);
+                    Log.d("cards", carta6);
+
                     if (username.equals(nameUser)) {
                         if(nronda>19) {
                             arrastre = true;

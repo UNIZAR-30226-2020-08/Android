@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment;
 import android.content.AsyncQueryHandler;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.Observable;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +42,7 @@ public class Lista2vs2 extends Fragment {
 
     ListView listView;
     List<listItem> lista;
+    private SQLiteDatabase db;
 
     public Lista2vs2(){
         super(R.layout.activity_lista1vs1);
@@ -54,6 +57,8 @@ public class Lista2vs2 extends Fragment {
         listView = view.findViewById(R.id.lista1vs1);
 
 
+        MyOpenHelper dbHelper = new MyOpenHelper(getContext());
+        db = dbHelper.getWritableDatabase();
 
         GetData();
 
@@ -137,7 +142,7 @@ public class Lista2vs2 extends Fragment {
         final ArrayList<TipoLista> lista8_2 = new ArrayList<TipoLista>();
         final Customadapterlista adapter8_2 = new Customadapterlista(getContext(), lista8_2);
 
-        String url = "https://las10ultimas-backend.herokuapp.com/api/torneo/findAllTournament/1/8";
+        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/listarPausadas/"+getName()+"/1";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -147,8 +152,7 @@ public class Lista2vs2 extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
-                        Integer puntuacion=objeto.getInt("jugadores_online");
-                        lista8_2.add(new TipoLista(nombre,puntuacion.toString()+"/4"));
+                        lista8_2.add(new TipoLista(nombre,""));
                     }
 
                     final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
@@ -189,5 +193,12 @@ public class Lista2vs2 extends Fragment {
         });
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 }

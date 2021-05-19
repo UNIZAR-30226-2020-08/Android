@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -140,8 +141,8 @@ public class Lista1vs1 extends Fragment {
     }
 
     private void newActivity1(){
-        final List<String> listaPausadastipo = new ArrayList<String>();
-
+        final ArrayList<TipoLista> listaPausadastipo = new ArrayList<TipoLista>();
+        final Customadapterlista adapter8_2 = new Customadapterlista(getContext(), listaPausadastipo);
 
 
 
@@ -155,10 +156,9 @@ public class Lista1vs1 extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
-                        listaPausadastipo.add(nombre);
+                        listaPausadastipo.add(new TipoLista(nombre,""));
                     }
 
-                    final CharSequence[] listaPausadas = listaPausadastipo.toArray(new CharSequence[listaPausadastipo.size()]);
 
 
 
@@ -172,12 +172,12 @@ public class Lista1vs1 extends Fragment {
                         }
                     });
 
-                    builder.setItems(listaPausadas,new DialogInterface.OnClickListener() {
+                    builder.setSingleChoiceItems(adapter8_2,1,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(getContext(), PantallaJuego1vs1.class);
                             Bundle b = new Bundle();
-                            b.putString("key", listaPausadastipo.get(which)); //Your id
+                            b.putString("key", listaPausadastipo.get(which)._subjectName); //Your id
                             b.putInt("torneo", 3);
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);

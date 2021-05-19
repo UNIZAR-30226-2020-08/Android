@@ -128,6 +128,7 @@ public class anadir_partida extends Fragment {
                                 intent.putExtras(b);
                                 startActivity(intent);
                             }
+                            getView().setVisibility(View.GONE);
                         } catch (Exception e){
                             e.printStackTrace();
                         }
