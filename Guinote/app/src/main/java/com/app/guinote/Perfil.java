@@ -340,9 +340,11 @@ public class Perfil extends Fragment{
                 eliminarCuenta();
             }
         });
+        TextView name=view.findViewById(R.id.nameUserPerfil);
+        TextView puntos=view.findViewById(R.id.puntosPerfil);
+        final TextView partidasTotales=view.findViewById(R.id.partidasNumero);
 
-
-        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/listarHistorial/"+getName();
+        String url =  "https://las10ultimas-backend.herokuapp.com/api/partida/listarHistorial/"+getName();
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -350,6 +352,8 @@ public class Perfil extends Fragment{
                 try {
                     JSONArray contenido = response;
                     cuantasPartidas = contenido.length();
+                    Integer cuantas = cuantasPartidas;
+                    partidasTotales.setText(cuantas.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -361,14 +365,12 @@ public class Perfil extends Fragment{
             }
         });
 
-        TextView name=view.findViewById(R.id.nameUserPerfil);
+
+        requestQueue.add(jsonObjectRequest);
+
         name.setText(getName());
-        TextView puntos=view.findViewById(R.id.puntosPerfil);
         puntos.setText(getPuntos());
-        TextView partidasTotales=view.findViewById(R.id.partidasNumero);
-        Integer cuantas = cuantasPartidas;
-        Log.d("hola cuantas", cuantas.toString());
-        partidasTotales.setText(cuantas.toString());
+
         assignProfilePicture(mProfilePhoto);
         return view;
     }
