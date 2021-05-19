@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_CREATE = "CREATE TABLE auth(_id " +
             "INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT," +
-            "copas TEXT, f_carta TEXT,f_tapete TEXT, token BLOB)";
+            "copas TEXT, f_carta TEXT,f_tapete TEXT,f_perfil TEXT, token BLOB)";
     private static final String DB_NAME = "auth.sqlite";
 
     private static final int DB_VERSION = 1;

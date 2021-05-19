@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -64,11 +65,14 @@ public class Perfil extends Fragment{
     Uri imageUri;
     Customadapter AdapterTapetes;
     Customadapter AdapterCartas;
+    Customadapter AdapterFPerfil;
     LottieAnimationView animacion;
     static String inicioCartas="";
     static String  antiguoCartas="";
     static String inicioTapetes="";
+    static String inicioFotoperfil="";
     static String  antiguoTapetes="";
+    static String  antiguoFotoperfil="";
     int[] sampleImages = {R.drawable.tapete2, R.drawable.tapete1, R.drawable.hierba, R.drawable.madera, R.drawable.football};
     private int mMenuId;
     private View view;
@@ -110,18 +114,7 @@ public class Perfil extends Fragment{
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.profile_image:
-                        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        try {
-                            i.putExtra("return-data", true);
-                            startActivityForResult(
-                                    Intent.createChooser(i, "Select Picture"), 0);
-                        }catch (ActivityNotFoundException ex){
-                            ex.printStackTrace();
-                        }
-                        break;
-                }
+                Fperfil();
             }
         });
 
@@ -159,15 +152,16 @@ public class Perfil extends Fragment{
 
         inicioCartas=getCartas();
         inicioTapetes=getTapete();
+        inicioFotoperfil=getFoto();
 
 
 
 
         try {
-            ims = getActivity().getAssets().open("baraja1/reverso.png");
-            ims1 = getActivity().getAssets().open("baraja2/reverso.png");
-            ims2 = getActivity().getAssets().open("baraja3/reverso.png");
-            ims3 = getActivity().getAssets().open("baraja4/reverso.png");
+            ims = getActivity().getAssets().open("tapete1.jpg");
+            ims1 = getActivity().getAssets().open("tapete2.jpg");
+            ims2 = getActivity().getAssets().open("tapete3.jpg");
+            ims3 = getActivity().getAssets().open("tapete4.jpg");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -208,7 +202,19 @@ public class Perfil extends Fragment{
 
         AdapterTapetes = new Customadapter(getContext(), arrayTapete);
 
+        try {
+            ims = getActivity().getAssets().open("baraja1/reverso.png");
+            ims1 = getActivity().getAssets().open("baraja2/reverso.png");
+            ims2 = getActivity().getAssets().open("baraja3/reverso.png");
+            ims3 = getActivity().getAssets().open("baraja4/reverso.png");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        d = Drawable.createFromStream(ims, null);
+        d1 = Drawable.createFromStream(ims1, null);
+        d2 = Drawable.createFromStream(ims2, null);
+        d3 = Drawable.createFromStream(ims3, null);
         ArrayList<Tipocarta> arrayCartas = new ArrayList<Tipocarta>();
         switch (Character.getNumericValue(inicioCartas.charAt(6))-1){
             case 0:
@@ -242,8 +248,55 @@ public class Perfil extends Fragment{
 
         AdapterCartas = new Customadapter(getContext(), arrayCartas);
 
+        try {
+            ims = getActivity().getAssets().open("userlogo1.png");
+            ims1 = getActivity().getAssets().open("userlogo2.png");
+            ims2 = getActivity().getAssets().open("userlogo3.png");
+            ims3 = getActivity().getAssets().open("userlogo4.png");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        d = Drawable.createFromStream(ims, null);
+        d1 = Drawable.createFromStream(ims1, null);
+        d2 = Drawable.createFromStream(ims2, null);
+        d3 = Drawable.createFromStream(ims3, null);
+        ArrayList<Tipocarta> arrayFPerfil = new ArrayList<Tipocarta>();
+        switch (Character.getNumericValue(inicioFotoperfil.charAt(8))-1){
+            case 0:
+                arrayFPerfil.add(new Tipocarta("Primero",d,true));
+                arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
+                arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
+                arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 1:
+                arrayFPerfil.add(new Tipocarta("Primero",d,false));
+                arrayFPerfil.add(new Tipocarta("Segundo",d1,true));
+                arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
+                arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 2:
+                arrayFPerfil.add(new Tipocarta("Primero",d,false));
+                arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
+                arrayFPerfil.add(new Tipocarta("Tercero",d2,true));
+                arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                break;
+            case 3:
+                arrayFPerfil.add(new Tipocarta("Primero",d,false));
+                arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
+                arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
+                arrayFPerfil.add(new Tipocarta("Cuarto",d3,true));
+                break;
+            default:
+                break;
+        }
+
+
+        AdapterFPerfil = new Customadapter(getContext(), arrayFPerfil);
+
         antiguoCartas=inicioCartas;
         antiguoTapetes=inicioTapetes;
+        antiguoFotoperfil=inicioFotoperfil;
         Log.d("tapete",getTapete());
         Log.d("cartas",getCartas());
 
@@ -286,7 +339,22 @@ public class Perfil extends Fragment{
         name.setText(getName());
         TextView puntos=view.findViewById(R.id.puntosPerfil);
         puntos.setText(getPuntos());
+        assignProfilePicture(mProfilePhoto);
         return view;
+    }
+
+    private void assignProfilePicture(CircleImageView mProfilePhoto) {
+        try {
+            // get input stream
+            InputStream ims = getActivity().getAssets().open(getFoto()+".png");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            mProfilePhoto.setImageDrawable(d);
+        }
+        catch(Exception ex) {
+            return;
+        }
     }
 
     public void openReglas(){
@@ -469,7 +537,7 @@ public class Perfil extends Fragment{
                         antiguoTapetes=inicioTapetes;
                         String query="UPDATE auth SET f_tapete='"+inicioTapetes+"' WHERE user='"+getName()+"'";
                         Log.d("query",query);
-                        db.execSQL(query,null);
+                        db.execSQL(query);
                         updateTapete(inicioTapetes);
                         dialog.dismiss();
                     }
@@ -507,6 +575,72 @@ public class Perfil extends Fragment{
                 });
 
                 builder.show();
+    }
+
+    public void Fperfil(){
+        final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
+        final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
+        builder.setTitle("Fotos de perfil");
+        builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("pruea",inicioFotoperfil);
+                Log.d("prueaM",antiguoFotoperfil);
+                AdapterFPerfil.arrayList.get(Character.getNumericValue(inicioFotoperfil.charAt(8))-1).set_elegido(false);
+                inicioFotoperfil=antiguoFotoperfil;
+                Log.d("pruea2",inicioFotoperfil);
+                AdapterFPerfil.arrayList.get(Character.getNumericValue(inicioFotoperfil.charAt(8))-1).set_elegido(true);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                antiguoFotoperfil=inicioFotoperfil;
+                String query="UPDATE auth SET f_perfil='"+inicioFotoperfil+"' WHERE user='"+getName()+"'";
+                Log.d("query",query);
+                db.execSQL(query);
+                updateFPerfil(inicioFotoperfil);
+                Log.d("holaPO",getFoto());
+                dialog.dismiss();
+            }
+        });
+
+        builder.setSingleChoiceItems(AdapterFPerfil,Character.getNumericValue(inicioFotoperfil.charAt(8))-1,new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Integer m=which+1;
+                Log.d("num",inicioFotoperfil);
+                AdapterFPerfil.arrayList.get(Character.getNumericValue(inicioFotoperfil.charAt(8))-1).set_elegido(false);
+                AdapterFPerfil.arrayList.get(which).set_elegido(true);
+                inicioFotoperfil="userlogo"+m.toString();
+
+                dialog.dismiss();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        animacion.setVisibility(View.VISIBLE);
+                        animacion.playAnimation();
+                    }
+                });
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        builder.show();
+                        animacion.setVisibility(View.INVISIBLE);
+                        animacion.pauseAnimation();
+                    }
+                }, 1000);
+            }
+
+        });
+
+
+
+        builder.show();
     }
 
 
@@ -575,6 +709,39 @@ public class Perfil extends Fragment{
 
     }
 
+    public void updateFPerfil(String fotos){
+
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getName();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("f_perfil", fotos);
+            Log.d("prueba",postData.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("holaaa",postData.toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+        assignProfilePicture(mProfilePhoto);
+    }
+
     public String getName() {
         String query="SELECT user FROM auth";
         Cursor c=db.rawQuery(query,null);
@@ -603,4 +770,10 @@ public class Perfil extends Fragment{
         return c.getString(0);
     }
 
+    public String getFoto() {
+        String query="SELECT f_perfil FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
 }

@@ -93,10 +93,10 @@ public class Login extends Fragment {
                                 Log.d("msg", jsonArray.toString());
 
                                 if (jsonArray != null) {
-                                    db.execSQL("INSERT INTO auth (user,copas,f_carta,f_tapete,token) VALUES " +
+                                    db.execSQL("INSERT INTO auth (user,copas,f_carta,f_tapete,f_perfil,token) VALUES " +
                                             "('" + contenido.getString("username") + "','" + contenido.getString("copas") + "','" +
                                             contenido.getString("f_carta") + "','" + contenido.getString("f_tapete") + "','" +
-                                            jsonArray + "')");
+                                            contenido.getString("f_perfil") + "','" +jsonArray + "')");
                                     new CountDownTimer(2000, 1000) {
                                         public void onTick(long millisUntilFinished) {
                                             //animacion.cancelAnimation();
