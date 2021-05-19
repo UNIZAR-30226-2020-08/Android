@@ -38,6 +38,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.L;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.guinote.ActivityTorneo.Torneo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -47,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
@@ -653,6 +660,31 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onCopasActualizadas = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String hola;
+                    String jugador;
+                    try {
+                        hola = data.getString("copas");
+                        jugador = data.getString("jugador");
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if(jugador.equals(nameUser)){
+                        String query="UPDATE auth SET copas='"+hola+"' WHERE user='"+getName()+"'";
+                        Log.d("query",query);
+                        db.execSQL(query);
+                        updateCopas(hola);
+                    }
+                }
+            });
+        }
+    };
     private Emitter.Listener onCante = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -913,6 +945,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("Vueltas", onVueltas);
         mSocket.on("puntos", onPuntos);
         mSocket.on("pause", onPause);
+        mSocket.on("copasActualizadas",onCopasActualizadas);
 
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
@@ -935,6 +968,16 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     //System.out.println(response); // "ok"
                 }
             });
+            nombreOponente.setText("IA");
+            InputStream ims = null;
+            try {
+                ims = getAssets().open("userlogo1.png");
+                // load image as Drawable
+                Drawable d = Drawable.createFromStream(ims, null);
+                fperfiladversario.setImageDrawable(d);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (torneo == 3){
             JSONObject partidareanudar = new JSONObject();
             try {
@@ -2025,5 +2068,38 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         c.moveToNext();
         return c.getString(0);
     }
+    public void updateCopas(String copas){
+
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getName();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("copas", copas);
+            Log.d("prueba",postData.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("holaaa",postData.toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
 
 }
