@@ -145,7 +145,7 @@ public class Lista1vs1 extends Fragment {
 
 
 
-        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/"+getName()+"/0";
+        String url = "https://las10ultimas-backend.herokuapp.com/api/partida/listarPausadas/"+getName()+"/0";
         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
