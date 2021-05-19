@@ -85,6 +85,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Button cantar,pausar;
     Integer cuantascartasint = 28;
     CircleImageView fperfiladversario;
+    static int pauso=0;
     String resultado;
 
     Integer queEquipo;                 // En que equipo estoy, 1 o 0.
@@ -136,13 +137,23 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
         Log.d("que",aux.toString());
 
-        mSocket.emit("leavePartida",aux,new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
+        if(pauso!=1) {
+            mSocket.emit("leavePartida", aux, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }else{
+            mSocket.emit("leavePartidaRP", new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
         mSocket.off("message", onNewMessage);
     }
 
@@ -163,6 +174,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    pauso=1;
                     Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                     startActivity(intent);
                     finish();
@@ -299,6 +311,102 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onRepartirCartasRP = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String todo;
+                    String username;
+                    String partida;
+                    String carta1;
+                    String carta2;
+                    String carta3;
+                    String carta4;
+                    String carta5;
+                    String carta6;
+                    Integer orden;
+                    Integer equipo;
+                    Integer copas;
+                    String f_perfil;
+                    try {
+                        JSONObject datos = data.getJSONObject("repartidas");
+                        username = datos.getString("jugador");
+                        partida = datos.getString("partida");
+                        equipo = datos.getInt("equipo");
+                        carta1 = datos.getString("c1");
+                        carta2 = datos.getString("c2");
+                        carta3 = datos.getString("c3");
+                        carta4 = datos.getString("c4");
+                        carta5 = datos.getString("c5");
+                        carta6 = datos.getString("c6");
+                        copas = datos.getInt("copas");
+                        f_perfil = datos.getString("f_perfil");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    Log.d("jugador", username);
+                    Log.d("cards", carta1);
+                    Log.d("cards", carta2);
+                    Log.d("cards", carta3);
+                    Log.d("cards", carta4);
+                    if (username.equals(nameUser)) {
+                        if(nronda>19) {
+                            arrastre = true;
+                        }else{
+                            arrastre = false;
+                        }
+                        paloArrastre = 0;
+                        RondaArrastre = 0;
+                        RankingArrastre = 11;
+                        queEquipo = equipo;
+                        if(queOrden == 2){
+                            ultimo = true;
+                            estrella2.setVisibility(View.VISIBLE);
+                        }
+                        if(queOrden == 1){
+                            contador.start();
+                            estrella1.setVisibility(View.VISIBLE);
+                        }
+                        Carta aux = new Carta(carta1);
+                        cardsj1[0] = aux;
+                        aux = new Carta(carta2);
+                        cardsj1[1] = aux;
+                        aux = new Carta(carta3);
+                        cardsj1[2] = aux;
+                        aux = new Carta(carta4);
+                        cardsj1[3] = aux;
+                        aux = new Carta(carta5);
+                        cardsj1[4] = aux;
+                        aux = new Carta(carta6);
+                        cardsj1[5] = aux;
+                        assignImages(cardsj1[0], c1);
+                        assignImages(cardsj1[1], c2);
+                        assignImages(cardsj1[2], c3);
+                        assignImages(cardsj1[3], c4);
+                        assignImages(cardsj1[4], c5);
+                        assignImages(cardsj1[5], c6);
+                        Log.d("reparto: ", cardsj1[0].getId());
+                        Log.d("reparto: ", cardsj1[1].getId());
+                        Log.d("reparto: ", cardsj1[2].getId());
+                        Log.d("reparto: ", cardsj1[3].getId());
+                        Log.d("reparto: ", cardsj1[4].getId());
+                        Log.d("reparto: ", cardsj1[5].getId());
+                    }else {
+                        nombreOponente.setText(username);
+                        //fperfiladversario.setImageResource(f_perfil);
+                        copasadversario.setText(copas.toString());
+
+                    }
+
+                }
+            });
+        }
+    };
+
     private Emitter.Listener onRepartirTriunfo = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -312,6 +420,41 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         return;
+                    }
+                    cartaTriunfo = new Carta(triunfo);
+                    assignImages(cartaTriunfo, triumphe);
+                    aun_no = true;
+                    iniciarPartida();
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onRepartirTriunfoRP = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String triunfo;
+                    String ganador;
+                    try {
+                        triunfo = data.getString("triunfoRepartido");
+                        nronda = data.getInt("nronda");
+                        ganador = data.getString("winner");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (!ganador.equals(nameUser)){
+                        //if(nronda != 19) {
+                            queOrden = 2;
+                        //}
+                    }else{
+                        //if(nronda != 19) {
+                            queOrden = 1;
+                        //}
                     }
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
@@ -894,7 +1037,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         //mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
+        mSocket.on("RepartirCartasRP", onRepartirCartasRP);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
+        mSocket.on("RepartirTriunfoRP", onRepartirTriunfoRP);
         mSocket.on("cartaJugada", oncartaJugada);
         mSocket.on("cartaJugadaIA", oncartaJugadaIA);
         mSocket.on("winner", onRecuento);
