@@ -943,7 +943,9 @@ public class PantallaJuego extends AppCompatActivity {
                             }
                         }
                     }
-                    Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
+                    if(!texto.equals("")){
+                        Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }

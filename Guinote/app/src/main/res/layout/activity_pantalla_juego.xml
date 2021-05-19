@@ -138,14 +138,13 @@
             </LinearLayout>
             <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/easyFlipViewtriumphe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
+                android:maxWidth="100dp"
+                android:rotation="90"
+                android:layout_below="@id/mazo_central"
                 android:layout_centerInParent="true"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:rotation="90.0"
-                android:paddingLeft="100dp"
                 app:flipOnTouch="false"
                 app:flipEnabled="true"
                 app:flipDuration="600"
@@ -172,28 +171,30 @@
 
             <ImageView
             android:id="@+id/mazo_central"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxHeight="100dp"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+                android:maxHeight="100dp"
+                android:maxWidth="100dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
             android:src="@drawable/reverso" />
 
             <ImageView
                 android:id="@+id/carta_jugador1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
+                android:maxWidth="70dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitEnd"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true" />
 
             <com.wajahatkarim3.easyflipview.EasyFlipView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
+                android:maxWeight="100dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -208,8 +209,8 @@
                 <!-- Front Layout Goes Here -->
                 <ImageView
                     android:id="@+id/frontcartaj2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:maxHeight="100dp"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
@@ -218,8 +219,8 @@
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/backcartaj2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@drawable/reverso"
                     android:maxHeight="100dp"
                     android:layout_centerInParent="true"
@@ -230,8 +231,8 @@
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/carta_jugador3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
                 android:layout_alignParentRight="true"
                 android:adjustViewBounds="true"
@@ -246,8 +247,8 @@
                 <!-- Front Layout Goes Here -->
                 <ImageView
                     android:id="@+id/frontcartaj3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:maxHeight="100dp"
                     android:layout_alignParentRight="true"
                     android:adjustViewBounds="true"
@@ -256,8 +257,8 @@
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/backcartaj3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@drawable/reverso"
                     android:maxHeight="100dp"
                     android:layout_alignParentRight="true"
@@ -268,9 +269,10 @@
             </com.wajahatkarim3.easyflipview.EasyFlipView>
             <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/carta_jugador4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
+                android:maxWeight="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:layout_below="@id/layout_linear_j4"
@@ -283,8 +285,8 @@
                 <!-- Front Layout Goes Here -->
                 <ImageView
                     android:id="@+id/frontcartaj4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:maxHeight="100dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
@@ -292,8 +294,8 @@
                 <!-- Back Layout Goes Here -->
                 <ImageView
                     android:id="@+id/backcartaj4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@drawable/reverso"
                     android:maxHeight="100dp"
                     android:adjustViewBounds="true"

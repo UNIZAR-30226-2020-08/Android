@@ -19,6 +19,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.25">
+        <RelativeLayout
+            android:id="@+id/relativelayout3_juego1vs1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmento_chat1vs1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp" />
+        </RelativeLayout>
             <ImageView
                 android:id="@+id/icono_chat1vs1"
                 android:layout_width="wrap_content"
@@ -73,16 +88,18 @@
             </LinearLayout>
             <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/easyFlipViewtriumphe1vs1"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:maxHeight="100dp"
+                android:maxWidth="100dp"
+                android:rotation="90"
                 android:layout_centerInParent="true"
-                android:rotation="90.0"
-                android:paddingLeft="100dp"
                 app:flipOnTouch="false"
                 app:flipEnabled="true"
                 app:flipDuration="600"
                 app:flipType="vertical"
                 app:flipFrom="front"
+                android:layout_toRightOf="@id/mazo_central1vs1"
                 >
                 <!-- Front Layout Goes Here -->
                 <ImageView
@@ -128,22 +145,23 @@
 
             <ImageView
                 android:id="@+id/carta_jugador11vs1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
+                android:maxWidth="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitEnd"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"/>
 
 
             <com.wajahatkarim3.easyflipview.EasyFlipView
                 android:id="@+id/carta_jugador21vs1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
                 android:maxHeight="100dp"
+                android:maxWidth="70dp"
                 android:layout_centerInParent="true"
-                android:scaleType="fitXY"
                 android:layout_below="@id/layout_linear_j21vs1"
                 app:flipOnTouch="false"
                 app:flipEnabled="true"
@@ -154,8 +172,8 @@
             <!-- Front Layout Goes Here -->
             <ImageView
                 android:id="@+id/frontcartaj21vs1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:maxHeight="100dp"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
@@ -164,8 +182,8 @@
             <!-- Back Layout Goes Here -->
             <ImageView
                 android:id="@+id/backcartaj21vs1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/reverso"
                 android:maxHeight="100dp"
                 android:layout_centerInParent="true"
@@ -395,8 +413,5 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmento_chat1vs1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 </RelativeLayout>
