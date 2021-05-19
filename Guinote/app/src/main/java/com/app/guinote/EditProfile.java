@@ -52,12 +52,15 @@ public class EditProfile extends Fragment {
         MyOpenHelper dbHelper = new MyOpenHelper(getContext());
         db = dbHelper.getWritableDatabase();
         GetData();
-        View actualizar = view.findViewById(R.id.Actualizar);
+        final View actualizar = view.findViewById(R.id.Actualizar);
+        actualizar.setEnabled(true);
         View denegar = view.findViewById(R.id.Cancelarperfil);
+        denegar.setEnabled(true);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     if(validar(view)==true) {
+                        actualizar.setEnabled(false);
                         openActivity();
                     }
             }
@@ -65,6 +68,7 @@ public class EditProfile extends Fragment {
         denegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                actualizar.setEnabled(false);
                 openActivity2();
             }
         });

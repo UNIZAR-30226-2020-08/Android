@@ -82,12 +82,14 @@ public class form_nuevoamigo extends Fragment {
         MyOpenHelper dbHelper = new MyOpenHelper(getContext());
         db = dbHelper.getWritableDatabase();
 
-        Button anadir= view.findViewById(R.id.boton_anadir_amigo);
+        final Button anadir= view.findViewById(R.id.boton_anadir_amigo);
+        anadir.setEnabled(true);
 
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validar(view)==true) {
+                    anadir.setEnabled(false);
                     botonAmigo();
                 }
             }
