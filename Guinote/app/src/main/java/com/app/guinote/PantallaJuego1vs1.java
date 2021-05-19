@@ -163,7 +163,23 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
             });
         }
+
         mSocket.off("message", onNewMessage);
+        mSocket.off("RepartirCartas", onRepartirCartas);
+        mSocket.off("RepartirCartasRP", onRepartirCartasRP);
+        mSocket.off("RepartirTriunfo", onRepartirTriunfo);
+        mSocket.off("RepartirTriunfoRP", onRepartirTriunfoRP);
+        mSocket.off("cartaJugada", oncartaJugada);
+        mSocket.off("cartaJugadaIA", oncartaJugadaIA);
+        mSocket.off("winner", onRecuento);
+        mSocket.off("roba", onRobo);
+        mSocket.off("cartaCambio", onCambio);
+        mSocket.off("cante", onCante);
+        mSocket.off("Resultado", onResultado);
+        mSocket.off("Vueltas", onVueltas);
+        mSocket.off("puntos", onPuntos);
+        mSocket.off("pause", onPause);
+        mSocket.off("copasActualizadas",onCopasActualizadas);
     }
 
     public void attemptSend(String message) {
