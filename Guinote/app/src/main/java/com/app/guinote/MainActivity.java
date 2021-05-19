@@ -77,33 +77,53 @@ public class MainActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 play2.setEnabled(false);
+                createroom.setEnabled(false);
+                jointorneo.setEnabled(false);
+                fd.setEnabled(false);
+                iapartida.setEnabled(false);
                 openActivity2();
             }
         });
         createroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play2.setEnabled(false);
                 createroom.setEnabled(false);
+                jointorneo.setEnabled(false);
+                fd.setEnabled(false);
+                iapartida.setEnabled(false);;
                 openActivity3();
             }
         });
         jointorneo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play2.setEnabled(false);
+                createroom.setEnabled(false);
                 jointorneo.setEnabled(false);
+                fd.setEnabled(false);
+                iapartida.setEnabled(false);
                 openActivity5();
             }
         });
         fd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play2.setEnabled(false);
+                createroom.setEnabled(false);
+                jointorneo.setEnabled(false);
                 fd.setEnabled(false);
+                iapartida.setEnabled(false);
                 openActivity4();
             }
         });
         iapartida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play2.setEnabled(false);
+                createroom.setEnabled(false);
+                jointorneo.setEnabled(false);
+                fd.setEnabled(false);
                 iapartida.setEnabled(false);
                 createPartidaIA();
             }

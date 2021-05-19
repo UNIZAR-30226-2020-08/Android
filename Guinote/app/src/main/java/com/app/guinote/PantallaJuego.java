@@ -35,6 +35,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.guinote.ActivityTorneo.Torneo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -101,6 +107,7 @@ public class PantallaJuego extends AppCompatActivity {
     String name1,name2,name3;
     Integer orden1,orden2,orden3;
     Integer copas1,copas2,copas3;
+    String foto1,foto2,foto3;
     Integer cuentaNombres = 0;
     Integer cuentaVeces = 0;
 
@@ -305,14 +312,17 @@ public class PantallaJuego extends AppCompatActivity {
                             name1 = username;
                             orden1 = orden;
                             copas1 = copas;
+                            foto1 = f_perfil;
                         }else if(cuentaNombres == 1){
                             name2 = username;
                             orden2 = orden;
                             copas2 = copas;
+                            foto2 = f_perfil;
                         }else if(cuentaNombres == 2){
                             name3 = username;
                             orden3 = orden;
                             copas3 = copas;
+                            foto3 = f_perfil;
                         }
                         cuentaNombres++;
                         cuentaVeces++;
@@ -325,54 +335,70 @@ public class PantallaJuego extends AppCompatActivity {
                                     case 2:
                                         nombreOponente3.setText(name1);
                                         copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
                                         switch (orden2){
                                             case 3:
                                                 nombreOponente2.setText(name2);
                                                 nombreOponente4.setText(name3);
                                                 copasadversarioj2.setText(copas2.toString());
                                                 copasadversarioj4.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
                                                 break;
                                             case 4:
                                                 nombreOponente2.setText(name3);
                                                 nombreOponente4.setText(name2);
                                                 copasadversarioj2.setText(copas3.toString());
                                                 copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
                                                 break;
                                         }
                                         break;
                                     case 3:
                                         nombreOponente2.setText(name1);
                                         copasadversarioj2.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj2);
                                         switch (orden2){
                                             case 2:
                                                 nombreOponente3.setText(name2);
                                                 nombreOponente4.setText(name3);
                                                 copasadversarioj3.setText(copas2.toString());
                                                 copasadversarioj4.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
                                                 break;
                                             case 4:
                                                 nombreOponente3.setText(name3);
                                                 nombreOponente4.setText(name2);
                                                 copasadversarioj3.setText(copas3.toString());
                                                 copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
                                                 break;
                                         }
                                         break;
                                     case 4:
                                         nombreOponente4.setText(name1);
                                         copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
                                         switch (orden2){
                                             case 2:
                                                 nombreOponente3.setText(name2);
                                                 nombreOponente2.setText(name3);
                                                 copasadversarioj3.setText(copas2.toString());
                                                 copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+
                                                 break;
                                             case 3:
                                                 nombreOponente3.setText(name3);
                                                 nombreOponente2.setText(name2);
                                                 copasadversarioj3.setText(copas3.toString());
                                                 copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj2);
                                                 break;
                                         }
                                         break;
@@ -383,54 +409,69 @@ public class PantallaJuego extends AppCompatActivity {
                                     case 1:
                                         nombreOponente4.setText(name1);
                                         copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
                                         switch (orden2){
                                             case 3:
                                                 nombreOponente3.setText(name2);
                                                 nombreOponente2.setText(name3);
                                                 copasadversarioj3.setText(copas2.toString());
                                                 copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
                                                 break;
                                             case 4:
                                                 nombreOponente3.setText(name3);
                                                 nombreOponente2.setText(name2);
                                                 copasadversarioj3.setText(copas3.toString());
                                                 copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
                                                 break;
                                         }
                                         break;
                                     case 3:
                                         nombreOponente3.setText(name1);
                                         copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
                                         switch (orden2){
                                             case 1:
                                                 nombreOponente2.setText(name3);
                                                 nombreOponente4.setText(name2);
                                                 copasadversarioj2.setText(copas3.toString());
                                                 copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
                                                 break;
                                             case 4:
                                                 nombreOponente2.setText(name2);
                                                 nombreOponente4.setText(name3);
                                                 copasadversarioj2.setText(copas3.toString());
                                                 copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
                                                 break;
                                         }
                                         break;
                                     case 4:
                                         nombreOponente4.setText(name1);
                                         copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
                                         switch (orden2){
                                             case 1:
                                                 nombreOponente3.setText(name2);
                                                 nombreOponente2.setText(name3);
                                                 copasadversarioj3.setText(copas2.toString());
                                                 copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
                                                 break;
                                             case 3:
                                                 nombreOponente3.setText(name3);
                                                 nombreOponente2.setText(name2);
                                                 copasadversarioj3.setText(copas3.toString());
                                                 copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj2);
                                                 break;
                                         }
                                         break;
@@ -441,42 +482,53 @@ public class PantallaJuego extends AppCompatActivity {
                                     case 1:
                                         nombreOponente2.setText(name1);
                                         copasadversarioj2.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj2);
                                         switch (orden2){
                                             case 2:
                                                 nombreOponente3.setText(name3);
                                                 nombreOponente4.setText(name2);
                                                 copasadversarioj3.setText(copas3.toString());
                                                 copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
                                                 break;
                                             case 4:
                                                 nombreOponente3.setText(name2);
                                                 nombreOponente4.setText(name3);
                                                 copasadversarioj3.setText(copas2.toString());
                                                 copasadversarioj4.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
                                                 break;
                                         }
                                         break;
                                     case 2:
                                         nombreOponente4.setText(name1);
                                         copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
                                         switch (orden2){
                                             case 1:
                                                 nombreOponente3.setText(name3);
                                                 nombreOponente2.setText(name2);
                                                 copasadversarioj3.setText(copas3.toString());
                                                 copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj2);
                                                 break;
                                             case 4:
                                                 nombreOponente3.setText(name2);
                                                 nombreOponente2.setText(name3);
                                                 copasadversarioj3.setText(copas2.toString());
                                                 copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
                                                 break;
                                         }
                                         break;
                                     case 4:
                                         nombreOponente3.setText(name1);
                                         copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
                                         switch (orden2){
                                             case 1:
                                                 nombreOponente2.setText(name2);
@@ -499,6 +551,7 @@ public class PantallaJuego extends AppCompatActivity {
                                     case 1:
                                         nombreOponente3.setText(name1);
                                         copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
                                         switch (orden2){
                                             case 2:
                                                 nombreOponente2.setText(name2);
@@ -517,6 +570,7 @@ public class PantallaJuego extends AppCompatActivity {
                                     case 2:
                                         nombreOponente2.setText(name1);
                                         copasadversarioj2.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj2);
                                         switch (orden2){
                                             case 1:
                                                 nombreOponente3.setText(name2);
@@ -536,6 +590,7 @@ public class PantallaJuego extends AppCompatActivity {
                                     case 3:
                                         nombreOponente4.setText(name1);
                                         copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
                                         switch (orden2){
                                             case 1:
                                                 nombreOponente3.setText(name2);
@@ -554,6 +609,32 @@ public class PantallaJuego extends AppCompatActivity {
                                 }
                                 break;
                         }
+                    }
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onCopasActualizadas = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String hola;
+                    String jugador;
+                    try {
+                        hola = data.getString("copas");
+                        jugador = data.getString("jugador");
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if(jugador.equals(nameUser)){
+                        String query="UPDATE auth SET copas='"+hola+"' WHERE user='"+getName()+"'";
+                        Log.d("query",query);
+                        db.execSQL(query);
+                        updateCopas(hola);
                     }
                 }
             });
@@ -1111,6 +1192,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.on("Vueltas", onVueltas);
         mSocket.on("puntos",onPuntos);
         mSocket.on("pause",onPause);
+        mSocket.on("copasActualizadas",onCopasActualizadas);
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
@@ -1130,6 +1212,7 @@ public class PantallaJuego extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+        LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout);
         pausar = (Button) findViewById(R.id.button_pausar);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes2vs2);
         ptorivaltext = (TextView) findViewById(R.id.puntosrivaltext2vs2);
@@ -1242,8 +1325,7 @@ public class PantallaJuego extends AppCompatActivity {
         }catch (Exception e){
 
         }
-
-
+        assignTapete(juegotapete);
         deVueltas = false;
 
         contador = new CountDownTimer(duration, 1000) {
@@ -2206,6 +2288,38 @@ public class PantallaJuego extends AppCompatActivity {
             return -1;
         }
     }
+    public void assignFPerfil(String queFoto, CircleImageView image){
+
+        try {
+            // get input stream
+            InputStream ims = getAssets().open(queFoto+".png");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            image.setImageDrawable(d);
+        }
+        catch(Exception ex) {
+            return;
+        }
+
+    }
+
+    public void assignTapete(LinearLayout juegotapete){
+
+        try {
+            // get input stream
+            InputStream ims = getAssets().open(miTapete+".jpg");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            juegotapete.setBackground(d);
+            Log.d("TAPETE", miTapete);
+        }
+        catch(Exception ex) {
+            return;
+        }
+
+    }
 
     public void assignImages(Carta card, ImageView image){
 
@@ -2373,5 +2487,36 @@ public class PantallaJuego extends AppCompatActivity {
         c.moveToNext();
         return c.getString(0);
     }
+    public void updateCopas(String copas){
 
+        String url = "https://las10ultimas-backend.herokuapp.com/api/usuario/updateUser/"+getName();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("copas", copas);
+            Log.d("prueba",postData.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("holaaa",postData.toString());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+
+    }
 }
