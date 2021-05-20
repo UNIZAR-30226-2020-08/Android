@@ -1758,7 +1758,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                if(torneo !=3 && nronda < 13) {
+                if(torneo ==3 && ((nronda < 13) || (nronda > 19))) {
                     setVisibilitytriumphe();
                 }
                 try{
@@ -1766,7 +1766,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                if(torneo !=3 && nronda < 13) {
+                if(torneo ==3) {
+                    if (((nronda < 13) || (nronda > 19))){
+                        updatecenterCard();
+                    }
+                }else{
                     updatecenterCard();
                 }
                 try{
@@ -1774,7 +1778,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                if(torneo !=3 && nronda < 13) {
+                if(torneo ==3) {
+                    if (((nronda < 13) || (nronda > 19))){
+                        setVisibilityreverse();
+                    }
+                }else{
                     setVisibilityreverse();
                 }
                 setlotsVisibilities();
@@ -1964,11 +1972,15 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 ptmio.setVisibility(View.VISIBLE);
                 ptorivaltext.setVisibility(View.VISIBLE);
                 ptrival.setVisibility(View.VISIBLE);
-                if(torneo !=3 && nronda < 13){
+                if(torneo ==3 ){
+                    if((nronda < 13) || (nronda > 19)){
+                        cuantascartas.setVisibility(View.VISIBLE);
+                        cartasrestantes.setVisibility(View.VISIBLE);
+                    }
+                }else{
                     cuantascartas.setVisibility(View.VISIBLE);
                     cartasrestantes.setVisibility(View.VISIBLE);
                 }
-
                 cuentaatras.setVisibility(View.VISIBLE);
             }
         });
