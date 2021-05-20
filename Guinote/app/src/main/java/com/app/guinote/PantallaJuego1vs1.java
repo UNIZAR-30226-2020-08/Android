@@ -226,7 +226,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     JSONObject data = (JSONObject) args[0];
                     try {
                         final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(ctx);
-                        builder.setTitle(data.getInt("pauseMessage"));
+                        builder.setTitle(data.getString("pauseMessage"));
                         builder.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) { ;
@@ -254,6 +254,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 });
                             }
                         });
+                        builder.show();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
