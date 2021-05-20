@@ -1,6 +1,7 @@
 package com.app.guinote;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.socket.client.Ack;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,15 +96,65 @@ public class ListRanking extends Fragment {
                         if (opciones[which].equals("Eliminar amigo")){
                             denegarSolicitud(amigo);
                         }else {
-                            //invitarPartida
+                            String postUrl = "https://las10ultimas-backend.herokuapp.com/api/partida/";
+                            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+                            JSONObject postData = new JSONObject();
+                            try {
+                                postData.put("triunfo", "");
+                                postData.put("estado", 0);
+                                postData.put("tipo", 0);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        String ranking=response.getString("nombre");
+                                        JSONObject envio = new JSONObject();
+                                        try {
+                                            envio.put("username", getName());
+                                            envio.put("nombrePartida", ranking);
+                                            envio.put("tipo", 0);
+                                            envio.put("destinatario",amigo);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Pantalla_app.mSocket.emit("enviarInvitacion", envio, new Ack() {
+                                            @Override
+                                            public void call(Object... args) {
+                                                //JSONObject response = (JSONObject) args[0];
+                                                //System.out.println(response); // "ok"
+                                            }
+                                        });
+                                        Intent intent = new Intent(getActivity(),PantallaJuego1vs1.class);
+                                        Bundle b = new Bundle();
+                                        b.putString("key", ranking); //Your id
+                                        b.putInt("torneo", 0);
+                                        intent.putExtras(b); //Put your id to your next Intent
+                                        startActivity(intent);
+                                    } catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println(response);
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    error.printStackTrace();
+                                }
+                            });
+
+                            requestQueue.add(jsonObjectRequest);
                         }
                     }
 
                 });
-
-
-
-
 
                 builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
                     @Override
