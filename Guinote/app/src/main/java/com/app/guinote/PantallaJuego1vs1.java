@@ -1964,8 +1964,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 ptmio.setVisibility(View.VISIBLE);
                 ptorivaltext.setVisibility(View.VISIBLE);
                 ptrival.setVisibility(View.VISIBLE);
-                cuantascartas.setVisibility(View.VISIBLE);
-                cartasrestantes.setVisibility(View.VISIBLE);
+                if(torneo !=3 && nronda < 13){
+                    cuantascartas.setVisibility(View.VISIBLE);
+                    cartasrestantes.setVisibility(View.VISIBLE);
+                }
+
                 cuentaatras.setVisibility(View.VISIBLE);
             }
         });
