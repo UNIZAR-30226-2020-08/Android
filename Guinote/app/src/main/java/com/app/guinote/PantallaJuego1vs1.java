@@ -385,8 +385,18 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         if(nronda>13) {
                             if (nronda>19){
                                 deVueltas=true;
+                                arrastre = false;
                             }else{
                                 arrastre = true;
+                                triumphewhole.setVisibility(View.GONE);
+                                reverse.setVisibility(View.GONE);
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        updatecenterCard();
+                                    }
+                                }.start();
+                                cuantascartas.setVisibility(View.GONE);
                             }
                         }else{
                             arrastre = false;
