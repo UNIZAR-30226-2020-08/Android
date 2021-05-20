@@ -383,7 +383,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
                     if (username.equals(nameUser)) {
                         if(nronda>13) {
-                            if (nronda>19){
+                            if (nronda>18){
                                 deVueltas=true;
                                 arrastre = false;
                             }else{
@@ -399,7 +399,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 cuantascartas.setVisibility(View.GONE);
                             }
                         }else{
-                            arrastre = false;
+                            arrastre  = false;
+                            deVueltas = false;
                         }
                         paloArrastre = 0;
                         RondaArrastre = 0;
@@ -447,7 +448,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         Log.d("reparto: ", cardsj1[5].getId());
                     }else {
                         nombreOponente.setText(username);
-                        //fperfiladversario.setImageResource(f_perfil);
+                        assignFPerfil(f_perfil,fperfiladversario);
                         copasadversario.setText(copas.toString());
 
                     }
@@ -502,6 +503,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     if (!ganador.equals(nameUser)){
                         //if(nronda != 19) {
                             queOrden = 2;
+                            ultimo = true;
                         //}
                     }else{
                         //if(nronda != 19) {
