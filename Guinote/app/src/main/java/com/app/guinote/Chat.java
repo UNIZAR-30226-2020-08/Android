@@ -128,7 +128,7 @@ public class Chat extends Fragment {
         bP1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","👍",1,((PantallaJuego1vs1)getActivity()).getName());
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","👍",1,((PantallaJuego)getActivity()).getName());
                 ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                 CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"👍",1);
                 ((PantallaJuego1vs1)getActivity()).attemptSend("👍");
@@ -139,7 +139,7 @@ public class Chat extends Fragment {
             @Override
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
-                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😡",1,((PantallaJuego1vs1)getActivity()).getName());
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😡",1,((PantallaJuego)getActivity()).getName());
                 ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                 CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😡",1);
                 ((PantallaJuego1vs1)getActivity()).attemptSend("😡");
@@ -150,7 +150,7 @@ public class Chat extends Fragment {
             @Override
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
-                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😂",1,((PantallaJuego1vs1)getActivity()).getName());
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😂",1,((PantallaJuego)getActivity()).getName());
                 ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                 CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😂",1);
                 ((PantallaJuego1vs1)getActivity()).attemptSend("😂");

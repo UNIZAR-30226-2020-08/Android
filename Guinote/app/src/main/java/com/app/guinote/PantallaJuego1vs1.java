@@ -1542,7 +1542,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                contador.cancel();
                 mSocket.emit("pausar", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
@@ -1670,7 +1669,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private boolean puedeLanzar(Integer i){
-        Log.d("que","co");
         if(aun_no == false) {
             if (queOrden == 1) {
                 QueCarta = i;
@@ -1758,7 +1756,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                if(torneo ==3 && ((nronda < 13) || (nronda > 19))) {
+                if(torneo ==3) {
+                    if((nronda < 13) || (nronda > 19))
                     setVisibilitytriumphe();
                 }
                 try{
