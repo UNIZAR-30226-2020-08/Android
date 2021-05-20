@@ -384,7 +384,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Log.d("cards", carta4);
                     Log.d("cards", carta5);
                     Log.d("cards", carta6);
-
+                    Log.d("nronda",nronda.toString());
                     if (username.equals(nameUser)) {
                         if(nronda>12) {
                             if (nronda>18){
