@@ -200,6 +200,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 @Override
                 public void run() {
                     pauso=1;
+                    contador.cancel();
                     Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                     startActivity(intent);
                     finish();
@@ -382,7 +383,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Log.d("cards", carta6);
 
                     if (username.equals(nameUser)) {
-                        if(nronda>13) {
+                        if(nronda>12) {
                             if (nronda>18){
                                 deVueltas=true;
                                 arrastre = false;
@@ -657,10 +658,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     //System.out.println(response); // "ok"
                                 }
                             });
-                            Carta aux3 = new Carta("F");
+                            Carta aux3 = new Carta("NO");
                             cardsj1[QueCarta] = aux3;
                         }else{
-                            Carta aux2 = new Carta("F");
+                            Carta aux2 = new Carta("NO");
                             cardsj1[QueCarta] = aux2;
                             estrella1.setVisibility(View.INVISIBLE);
                             estrella2.setVisibility(View.VISIBLE);
