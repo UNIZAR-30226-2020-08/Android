@@ -73,7 +73,7 @@ public class PantallaJuego extends AppCompatActivity {
     private String room="";
     private Socket mSocket;
     private int torneo=0;
-    static int pauso=0;
+
     private String miCarta="";
     private String miTapete="";
     private int puntosProv=0;
@@ -90,6 +90,7 @@ public class PantallaJuego extends AppCompatActivity {
     Button cantar,pausar;
     Integer cuantascartasint = 16;
     CircleImageView fperfiladversarioj2,fperfiladversarioj3,fperfiladversarioj4;
+    static int pauso=0;
     String resultado;
 
     Integer queEquipo;
@@ -119,6 +120,7 @@ public class PantallaJuego extends AppCompatActivity {
     Integer RankingArrastre;
     Carta companyero;
     boolean deVueltas;
+    String winner = "";
 
     long duration = TimeUnit.SECONDS.toMillis(20);
     CountDownTimer contador;
@@ -133,6 +135,7 @@ public class PantallaJuego extends AppCompatActivity {
         super.onDestroy();
 
         Log.d("salgo","finalizo");
+        contador.cancel();
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
         }
@@ -150,6 +153,7 @@ public class PantallaJuego extends AppCompatActivity {
         Log.d("que",aux.toString());
 
         if(pauso!=1) {
+            contador.cancel();
             mSocket.emit("leavePartida", aux, new Ack() {
                 @Override
                 public void call(Object... args) {
@@ -158,6 +162,7 @@ public class PantallaJuego extends AppCompatActivity {
                 }
             });
         }else{
+            contador.cancel();
             mSocket.emit("leavePartidaRP", new Ack() {
                 @Override
                 public void call(Object... args) {
@@ -169,7 +174,7 @@ public class PantallaJuego extends AppCompatActivity {
 
         mSocket.off("message", onNewMessage);
         mSocket.off("RepartirCartas", onRepartirCartas);
-        //mSocket.off("RepartirCartasRP", onRepartirCartasRP);
+        mSocket.off("RepartirCartasRP", onRepartirCartasRP);
         mSocket.off("RepartirTriunfo", onRepartirTriunfo);
         mSocket.off("RepartirTriunfoRP", onRepartirTriunfoRP);
         mSocket.off("cartaJugada", oncartaJugada);
@@ -202,6 +207,7 @@ public class PantallaJuego extends AppCompatActivity {
                 @Override
                 public void run() {
                     pauso=1;
+                    contador.cancel();
                     Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                     startActivity(intent);
                     finish();
@@ -240,24 +246,6 @@ public class PantallaJuego extends AppCompatActivity {
                         if (fragment != null) {
                             fragment.CreateMensaje(username, message, 2);
                         }
-                    }
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener roomInfo = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String room;
-                    try {
-                        room = data.getString("room");
-                    } catch (JSONException e) {
-                        return;
                     }
                 }
             });
@@ -643,6 +631,404 @@ public class PantallaJuego extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onRepartirCartasRP = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String todo;
+                    String username;
+                    String partida;
+                    Integer equipo;
+                    Integer orden;
+                    String carta1;
+                    String carta2;
+                    String carta3;
+                    String carta4;
+                    String carta5;
+                    String carta6;
+                    String f_perfil;
+                    Integer copas;
+                    try {
+                        JSONObject datos = data.getJSONObject("repartidas");
+                        username = datos.getString("jugador");
+                        partida = datos.getString("partida");
+                        equipo = datos.getInt("equipo");
+                        carta1 = datos.getString("c1");
+                        carta2 = datos.getString("c2");
+                        carta3 = datos.getString("c3");
+                        carta4 = datos.getString("c4");
+                        carta5 = datos.getString("c5");
+                        carta6 = datos.getString("c6");
+                        orden = datos.getInt("orden");
+                        copas = datos.getInt("copas");
+                        f_perfil = datos.getString("f_perfil");
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    if (username.equals(nameUser)) {
+                        if(nronda>3) {
+                            if (nronda>8){
+                                deVueltas=true;
+                                arrastre = false;
+                            }else{
+                                arrastre = true;
+                                triumphewhole.setVisibility(View.GONE);
+                                reverse.setVisibility(View.GONE);
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        updatecenterCard();
+                                    }
+                                }.start();
+                                cuantascartas.setVisibility(View.GONE);
+                            }
+                        }else{
+                            arrastre  = false;
+                            deVueltas = false;
+                        }
+                        paloArrastre = 0;
+                        RondaArrastre = 0;
+                        RankingArrastre = 11;
+                        queEquipo = equipo;
+                        cardsj1[0] = new Carta(carta1);
+                        cardsj1[1] = new Carta(carta2);
+                        cardsj1[2] = new Carta(carta3);
+                        cardsj1[3] = new Carta(carta4);
+                        cardsj1[4] = new Carta(carta5);
+                        cardsj1[5] = new Carta(carta6);
+                        assignImages(cardsj1[0], c1);
+                        assignImages(cardsj1[1], c2);
+                        assignImages(cardsj1[2], c3);
+                        assignImages(cardsj1[3], c4);
+                        assignImages(cardsj1[4], c5);
+                        assignImages(cardsj1[5], c6);
+                        cuentaVeces++;
+                    }else{
+                        if(cuentaNombres == 0){
+                            name1 = username;
+                            orden1 = orden;
+                            copas1 = copas;
+                            foto1 = f_perfil;
+                        }else if(cuentaNombres == 1){
+                            name2 = username;
+                            orden2 = orden;
+                            copas2 = copas;
+                            foto2 = f_perfil;
+                        }else if(cuentaNombres == 2){
+                            name3 = username;
+                            orden3 = orden;
+                            copas3 = copas;
+                            foto3 = f_perfil;
+                        }
+                        cuentaNombres++;
+                        cuentaVeces++;
+                        //////////////ACORDARSE DE LUEGO HACER EL SETTEXT CON MI NOMBRE Y MI ORDEN
+                    }
+                    if(cuentaVeces == 4){
+                        switch (queOrden){
+                            case 1:
+                                switch (orden1){
+                                    case 2:
+                                        nombreOponente3.setText(name1);
+                                        copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
+                                        switch (orden2){
+                                            case 3:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj2.setText(copas2.toString());
+                                                copasadversarioj4.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
+                                                break;
+                                            case 4:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj2.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
+                                                break;
+                                        }
+                                        break;
+                                    case 3:
+                                        nombreOponente2.setText(name1);
+                                        copasadversarioj2.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj2);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj4.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        nombreOponente4.setText(name1);
+                                        copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+
+                                                break;
+                                            case 3:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (orden1){
+                                    case 1:
+                                        nombreOponente4.setText(name1);
+                                        copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
+                                        switch (orden2){
+                                            case 3:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                break;
+                                        }
+                                        break;
+                                    case 3:
+                                        nombreOponente3.setText(name1);
+                                        copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj2.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
+                                                break;
+                                            case 4:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj2.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        nombreOponente4.setText(name1);
+                                        copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                break;
+                                            case 3:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (orden1){
+                                    case 1:
+                                        nombreOponente2.setText(name1);
+                                        copasadversarioj2.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj2);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj4);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj4.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj4);
+                                                break;
+                                        }
+                                        break;
+                                    case 2:
+                                        nombreOponente4.setText(name1);
+                                        copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj2.setText(copas2.toString());
+                                                assignFPerfil(foto3,fperfiladversarioj3);
+                                                assignFPerfil(foto2,fperfiladversarioj2);
+                                                break;
+                                            case 4:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj2.setText(copas3.toString());
+                                                assignFPerfil(foto2,fperfiladversarioj3);
+                                                assignFPerfil(foto3,fperfiladversarioj2);
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        nombreOponente3.setText(name1);
+                                        copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj2.setText(copas2.toString());
+                                                copasadversarioj4.setText(copas3.toString());
+                                                break;
+                                            case 2:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj2.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (orden1){
+                                    case 1:
+                                        nombreOponente3.setText(name1);
+                                        copasadversarioj3.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj3);
+                                        switch (orden2){
+                                            case 2:
+                                                nombreOponente2.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj2.setText(copas2.toString());
+                                                copasadversarioj4.setText(copas3.toString());
+                                                break;
+                                            case 3:
+                                                nombreOponente2.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj2.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                break;
+                                        }
+                                        break;
+                                    case 2:
+                                        nombreOponente2.setText(name1);
+                                        copasadversarioj2.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj2);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente4.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj4.setText(copas3.toString());
+
+                                                break;
+                                            case 3:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente4.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj4.setText(copas2.toString());
+                                                break;
+                                        }
+                                        break;
+                                    case 3:
+                                        nombreOponente4.setText(name1);
+                                        copasadversarioj4.setText(copas1.toString());
+                                        assignFPerfil(foto1,fperfiladversarioj4);
+                                        switch (orden2){
+                                            case 1:
+                                                nombreOponente3.setText(name2);
+                                                nombreOponente2.setText(name3);
+                                                copasadversarioj3.setText(copas2.toString());
+                                                copasadversarioj2.setText(copas3.toString());
+                                                break;
+                                            case 2:
+                                                nombreOponente3.setText(name3);
+                                                nombreOponente2.setText(name2);
+                                                copasadversarioj3.setText(copas3.toString());
+                                                copasadversarioj2.setText(copas2.toString());
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+                    if(winner.equals(nameUser)){
+                        queOrden= 1;
+                        estrella1.setVisibility(View.VISIBLE);
+                    }else if(winner.equals(nombreOponente3.toString())){
+                        queOrden = 4;
+                        ultimo = true;
+                        estrella3.setVisibility(View.VISIBLE);
+                    }else if(winner.equals(nombreOponente2.toString())){
+                        queOrden = 3;
+                        estrella2.setVisibility(View.VISIBLE);
+                    }else if(winner.equals(nombreOponente4.toString())){
+                        queOrden = 2;
+                        estrella4.setVisibility(View.VISIBLE);
+                    }
+                    }
+                }
+            });
+        }
+    };
+
     private Emitter.Listener onCopasActualizadas = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -711,15 +1097,9 @@ public class PantallaJuego extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    if (!ganador.equals(nameUser)){
-                        //if(nronda != 19) {
-                        queOrden = 2;
-                        //}
-                    }else{
-                        //if(nronda != 19) {
-                        queOrden = 1;
-                        //}
-                    }
+                    winner = ganador;
+                    nronda++;
+                    cuantascartasint=26-(nronda*4);
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
                     aun_no = true;
@@ -838,6 +1218,11 @@ public class PantallaJuego extends AppCompatActivity {
                                     //System.out.println(response); // "ok"
                                 }
                             });
+                            try{
+                                Thread.sleep(3000);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
                             if(!arrastre) {
                                 mSocket.emit("robarCarta", aux, new Ack() {
                                     @Override
@@ -1272,13 +1657,7 @@ public class PantallaJuego extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.d("jsonDePrueba",auxiliar.toString());
-        mSocket.emit("join", auxiliar, new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
-            }
-        });
+
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout);
         pausar = (Button) findViewById(R.id.button_pausar);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes2vs2);
@@ -1391,6 +1770,33 @@ public class PantallaJuego extends AppCompatActivity {
             imagen14reverso.setImageDrawable(d);
         }catch (Exception e){
 
+        }
+        if (torneo == 3){
+            JSONObject partidareanudar = new JSONObject();
+            try {
+                partidareanudar.put("usuario", nameUser);
+                partidareanudar.put("partida", room);
+                partidareanudar.put("tipo", 1);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Log.d("veamosestp",partidareanudar.toString());
+            mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }else{
+            mSocket.emit("join", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
         }
         assignTapete(juegotapete);
         deVueltas = false;
@@ -1861,19 +2267,34 @@ public class PantallaJuego extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                setVisibilitytriumphe();
+                if(torneo ==3) {
+                    if((nronda < 3) || (nronda > 9))
+                        setVisibilitytriumphe();
+                }else{
+                    setVisibilitytriumphe();
+                }
                 try{
                     Thread.sleep(500);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                updatecenterCard();
+                if(torneo ==3) {
+                    if((nronda < 3) || (nronda > 9))
+                        updatecenterCard();
+                }else{
+                    updatecenterCard();
+                }
                 try{
                     Thread.sleep(1000);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                setVisibilityreverse();
+                if(torneo ==3) {
+                    if((nronda < 3) || (nronda > 9))
+                        setVisibilityreverse();
+                }else{
+                    setVisibilityreverse();
+                }
                 setlotsVisibilities();
                 try{
                     Thread.sleep(100);
@@ -2111,8 +2532,15 @@ public class PantallaJuego extends AppCompatActivity {
                 ptmio.setVisibility(View.VISIBLE);
                 ptorivaltext.setVisibility(View.VISIBLE);
                 ptrival.setVisibility(View.VISIBLE);
-                cuantascartas.setVisibility(View.VISIBLE);
-                cartasrestantes.setVisibility(View.VISIBLE);
+                if(torneo ==3 ){
+                    if((nronda < 3) || (nronda > 9)){
+                        cuantascartas.setVisibility(View.VISIBLE);
+                        cartasrestantes.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    cuantascartas.setVisibility(View.VISIBLE);
+                    cartasrestantes.setVisibility(View.VISIBLE);
+                }
                 cuentaatras.setVisibility(View.VISIBLE);
             }
         });
