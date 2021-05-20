@@ -88,7 +88,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private Context ctx;
 
     private SQLiteDatabase db;
-    static int gano=0;
+    private int gano=0;
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
@@ -96,7 +96,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     Button cantar,pausar;
     Integer cuantascartasint = 28;
     CircleImageView fperfiladversario;
-    static int pauso=0;
+    private int pauso;
     String resultado;
 
     Integer queEquipo;                 // En que equipo estoy, 1 o 0.
@@ -149,6 +149,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
         Log.d("que",aux.toString());
 
+
+        Integer m=pauso;
+        Log.d("valor",m.toString());
         if(pauso!=1) {
             contador.cancel();
             mSocket.emit("leavePartida", aux, new Ack() {
@@ -1164,6 +1167,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        pauso=0;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pantalla_juego1vs1);

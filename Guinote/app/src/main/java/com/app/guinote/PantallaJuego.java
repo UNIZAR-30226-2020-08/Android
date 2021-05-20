@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -73,6 +74,7 @@ public class PantallaJuego extends AppCompatActivity {
     private String room="";
     private Socket mSocket;
     private int torneo=0;
+    private Context ctx;
 
     private String miCarta="";
     private String miTapete="";
@@ -80,7 +82,7 @@ public class PantallaJuego extends AppCompatActivity {
     private int puntosProv1=0;
 
     private SQLiteDatabase db;
-    static int gano=0;
+    private int gano=0;
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,
             j2imagefront,j2imageback,j3imagefront,
@@ -90,7 +92,7 @@ public class PantallaJuego extends AppCompatActivity {
     Button cantar,pausar;
     Integer cuantascartasint = 16;
     CircleImageView fperfiladversarioj2,fperfiladversarioj3,fperfiladversarioj4;
-    static int pauso=0;
+    private int pauso;
     String resultado;
 
     Integer queEquipo;
@@ -187,6 +189,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.off("puntos", onPuntos);
         mSocket.off("pause", onPause);
         mSocket.off("copasActualizadas",onCopasActualizadas);
+        mSocket.off("pauseRequest", onPauseRequest);
     }
 
     public void attemptSend(String message) {
@@ -1624,12 +1627,64 @@ public class PantallaJuego extends AppCompatActivity {
         }
     };
 
+    private Emitter.Listener onPauseRequest = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    contador.cancel();
+                    JSONObject data = (JSONObject) args[0];
+                    try {
+                        final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(ctx);
+                        builder.setTitle(data.getString("pauseMessage"));
+                        builder.setMessage("Solicitud de pausa de partida. La partida puede" +
+                                "ser reanudada posteriormente");
+                        builder.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) { ;
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) { ;
+                                JSONObject aux = new JSONObject();
+                                try {
+                                    aux.put("partida", room);
+                                    aux.put("usuario", getName());
+                                    aux.put("tipo", 0);
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                mSocket.emit("pausar", aux, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
+                            }
+                        });
+                        builder.show();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pauso=0;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pantalla_juego);
+
+        ctx=this;
 
         FragmentManager fm = getSupportFragmentManager();
         Chat fragmentoChat = (Chat) fm.findFragmentById(R.id.fragmento_chat);
@@ -1662,6 +1717,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket.on("puntos",onPuntos);
         mSocket.on("pause",onPause);
         mSocket.on("copasActualizadas",onCopasActualizadas);
+        mSocket.on("pauseRequest", onPauseRequest);
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
