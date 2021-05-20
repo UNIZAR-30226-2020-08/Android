@@ -117,7 +117,7 @@ public class ListRanking extends Fragment {
                                         JSONObject envio = new JSONObject();
                                         try {
                                             envio.put("username", getName());
-                                            envio.put("nombrePartida", ranking);
+                                            envio.put("nombre", ranking);
                                             envio.put("tipo", 0);
                                             envio.put("destinatario",amigo);
 
