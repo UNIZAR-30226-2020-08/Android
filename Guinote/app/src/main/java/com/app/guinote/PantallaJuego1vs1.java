@@ -514,7 +514,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             queOrden = 1;
                         //}
                     }
-
+                    nronda++;
                     cuantascartasint=28-(nronda*2);
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
@@ -1758,19 +1758,25 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                setVisibilitytriumphe();
+                if(torneo !=3 && nronda < 13) {
+                    setVisibilitytriumphe();
+                }
                 try{
                     Thread.sleep(500);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                updatecenterCard();
+                if(torneo !=3 && nronda < 13) {
+                    updatecenterCard();
+                }
                 try{
                     Thread.sleep(1000);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                setVisibilityreverse();
+                if(torneo !=3 && nronda < 13) {
+                    setVisibilityreverse();
+                }
                 setlotsVisibilities();
                 try{
                     Thread.sleep(100);
