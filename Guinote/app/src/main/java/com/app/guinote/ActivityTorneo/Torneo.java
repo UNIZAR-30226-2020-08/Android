@@ -251,13 +251,13 @@ public class Torneo extends AppCompatActivity {
         animacion.playAnimation();
         JSONObject auxiliar = new JSONObject();
         try {
-            auxiliar.put("ronda", ronda);
+            auxiliar.put("fase", ronda);
             auxiliar.put("torneo", nombrePartida);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        mSocket.emit("matchTournament", auxiliar, new Ack() {
+        mSocket.emit("partidaTorneoFin", auxiliar, new Ack() {
             @Override
             public void call(Object... args) {
                 //JSONObject response = (JSONObject) args[0];
