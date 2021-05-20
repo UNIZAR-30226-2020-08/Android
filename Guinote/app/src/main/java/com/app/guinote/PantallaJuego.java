@@ -2047,6 +2047,7 @@ public class PantallaJuego extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                contador.cancel();
                 mSocket.emit("pausar", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
