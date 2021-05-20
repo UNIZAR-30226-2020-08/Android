@@ -1010,20 +1010,24 @@ public class PantallaJuego extends AppCompatActivity {
                                 }
                                 break;
                         }
-                    }
-                    if(winner.equals(nameUser)){
-                        queOrden= 1;
-                        estrella1.setVisibility(View.VISIBLE);
-                    }else if(winner.equals(nombreOponente3.toString())){
-                        queOrden = 4;
-                        ultimo = true;
-                        estrella3.setVisibility(View.VISIBLE);
-                    }else if(winner.equals(nombreOponente2.toString())){
-                        queOrden = 3;
-                        estrella2.setVisibility(View.VISIBLE);
-                    }else if(winner.equals(nombreOponente4.toString())){
-                        queOrden = 2;
-                        estrella4.setVisibility(View.VISIBLE);
+                        CharSequence n3 = nombreOponente3.getText();
+                        CharSequence n2 = nombreOponente2.getText();
+                        CharSequence n4 = nombreOponente4.getText();
+
+                        if(winner.equals(nameUser)){
+                            queOrden= 1;
+                            estrella1.setVisibility(View.VISIBLE);
+                        }else if(winner.equals(n3.toString())){
+                            queOrden = 4;
+                            ultimo = true;
+                            estrella3.setVisibility(View.VISIBLE);
+                        }else if(winner.equals(n2.toString())){
+                            queOrden = 3;
+                            estrella2.setVisibility(View.VISIBLE);
+                        }else if(winner.equals(n4.toString())){
+                            queOrden = 2;
+                            estrella4.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             });
