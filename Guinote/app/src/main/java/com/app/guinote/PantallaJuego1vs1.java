@@ -578,11 +578,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             new Thread() {
                                 @Override
                                 public void run() {
-                                    try{
-                                        Thread.sleep(2000);
-                                    } catch (Exception e){
-                                        e.printStackTrace();
-                                    }
                                     mSocket.emit("contarPuntos", aux2, new Ack() {
                                         @Override
                                         public void call(Object... args) {
@@ -590,6 +585,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                             //System.out.println(response); // "ok"
                                         }
                                     });
+                                    try{
+                                        Thread.sleep(3000);
+                                    } catch (Exception e){
+                                        e.printStackTrace();
+                                    }
                                     if(!arrastre) {
                                         mSocket.emit("robarCarta", aux2, new Ack() {
                                             @Override
@@ -690,6 +690,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                         //System.out.println(response); // "ok"
                                     }
                                 });
+                                try{
+                                    Thread.sleep(3000);
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
                                 if (!arrastre) {
                                     mSocket.emit("robarCarta", aux, new Ack() {
                                         @Override
