@@ -1085,7 +1085,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         ptrival.setText(puntosrival.toString());
                     }
                     if (deVueltas == true) {
-                        if (puntosmios >= 101) {
+                        if ((puntosmios >= 101) || (torneo == 2 && puntosrival >=101)) {
                             JSONObject aux = new JSONObject();
                             try {
                                 aux.put("partida", room);
