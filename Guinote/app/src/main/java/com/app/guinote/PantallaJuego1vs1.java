@@ -1308,6 +1308,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
         }
         if (torneo == 2) {
+            pausar.setVisibility(View.INVISIBLE);
             mSocket.emit("joinPartidaIA", auxiliar, new Ack() {
                 @Override
                 public void call(Object... args) {
@@ -1344,6 +1345,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
             });
         }else{
+            if(torneo==1){
+                pausar.setVisibility(View.INVISIBLE);
+            }
             mSocket.emit("join", auxiliar, new Ack() {
                 @Override
                 public void call(Object... args) {
