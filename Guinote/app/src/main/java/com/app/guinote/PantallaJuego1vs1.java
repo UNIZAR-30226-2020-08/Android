@@ -514,6 +514,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             queOrden = 1;
                         //}
                     }
+
+                    cuantascartasint=28-(nronda*2);
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
                     aun_no = true;
