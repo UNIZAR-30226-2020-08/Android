@@ -173,6 +173,7 @@
             android:id="@+id/mazo_central"
             android:layout_width="70dp"
             android:layout_height="100dp"
+                android:scaleType="fitXY"
                 android:maxHeight="100dp"
                 android:maxWidth="70dp"
                 android:layout_centerInParent="true"
