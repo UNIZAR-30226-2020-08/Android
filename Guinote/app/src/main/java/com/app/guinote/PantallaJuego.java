@@ -1015,6 +1015,7 @@ public class PantallaJuego extends AppCompatActivity {
                         CharSequence n4 = nombreOponente4.getText();
 
                         if(winner.equals(nameUser)){
+                            contador.start();
                             queOrden= 1;
                             estrella1.setVisibility(View.VISIBLE);
                         }else if(winner.equals(n3.toString())){
