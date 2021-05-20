@@ -1075,6 +1075,7 @@ public class PantallaJuego extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
+                    Log.d("triunfoooooooooo", triunfo);
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
                     aun_no = true;

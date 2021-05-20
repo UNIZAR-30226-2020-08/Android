@@ -1759,6 +1759,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 if(torneo ==3) {
                     if((nronda < 13) || (nronda > 19))
                     setVisibilitytriumphe();
+                }else{
+                    setVisibilitytriumphe();
                 }
                 try{
                     Thread.sleep(500);
