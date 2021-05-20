@@ -130,6 +130,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         super.onDestroy();
 
         Log.d("salgo","finalizo");
+        contador.cancel();
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
         }
@@ -147,6 +148,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Log.d("que",aux.toString());
 
         if(pauso!=1) {
+            contador.cancel();
             mSocket.emit("leavePartida", aux, new Ack() {
                 @Override
                 public void call(Object... args) {
@@ -155,6 +157,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
             });
         }else{
+            contador.cancel();
             mSocket.emit("leavePartidaRP", new Ack() {
                 @Override
                 public void call(Object... args) {
