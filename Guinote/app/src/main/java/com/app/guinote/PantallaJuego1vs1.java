@@ -382,8 +382,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Log.d("cards", carta6);
 
                     if (username.equals(nameUser)) {
-                        if(nronda>19) {
-                            arrastre = true;
+                        if(nronda>13) {
+                            if (nronda>19){
+                                deVueltas=true;
+                            }else{
+                                arrastre = true;
+                            }
                         }else{
                             arrastre = false;
                         }
@@ -1642,6 +1646,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private boolean puedeLanzar(Integer i){
+        Log.d("que","co");
         if(aun_no == false) {
             if (queOrden == 1) {
                 QueCarta = i;
