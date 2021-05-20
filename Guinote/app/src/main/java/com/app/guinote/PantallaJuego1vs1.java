@@ -11,6 +11,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -84,6 +85,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private String miTapete="";
     private int puntosProv=0;
     private int puntosProv1=0;
+    private Context ctx;
 
     private SQLiteDatabase db;
     static int gano=0;
@@ -175,6 +177,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.off("cartaJugada", oncartaJugada);
         mSocket.off("cartaJugadaIA", oncartaJugadaIA);
         mSocket.off("winner", onRecuento);
+        mSocket.off("pauseRequest", onPauseRequest);
         mSocket.off("roba", onRobo);
         mSocket.off("cartaCambio", onCambio);
         mSocket.off("cante", onCante);
@@ -207,6 +210,53 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
                     startActivity(intent);
                     finish();
+                }
+            });
+        }
+    };
+
+
+    private Emitter.Listener onPauseRequest = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    contador.cancel();
+                    JSONObject data = (JSONObject) args[0];
+                    try {
+                        final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(ctx);
+                        builder.setTitle(data.getInt("pauseMessage"));
+                        builder.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) { ;
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) { ;
+                                JSONObject aux = new JSONObject();
+                                try {
+                                    aux.put("partida", room);
+                                    aux.put("usuario", getName());
+                                    aux.put("tipo", 0);
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                mSocket.emit("pausar", aux, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
+                            }
+                        });
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -1148,8 +1198,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         mSocket.on("Vueltas", onVueltas);
         mSocket.on("puntos", onPuntos);
         mSocket.on("pause", onPause);
+        mSocket.on("pauseRequest", onPauseRequest);
         mSocket.on("copasActualizadas",onCopasActualizadas);
 
+        ctx=this;
         //mSocket.connect();
         JSONObject auxiliar = new JSONObject();
         try {
