@@ -728,6 +728,20 @@ public class PantallaJuego extends AppCompatActivity {
                         cuentaVeces++;
                         //////////////ACORDARSE DE LUEGO HACER EL SETTEXT CON MI NOMBRE Y MI ORDEN
                     }
+                    if(winner.equals(nameUser)){
+                        queOrden= 1;
+                        estrella1.setVisibility(View.VISIBLE);
+                    }else if(winner.equals(nombreOponente3.toString())){
+                        queOrden = 4;
+                        ultimo = true;
+                        estrella3.setVisibility(View.VISIBLE);
+                    }else if(winner.equals(nombreOponente2.toString())){
+                        queOrden = 3;
+                        estrella2.setVisibility(View.VISIBLE);
+                    }else if(winner.equals(nombreOponente4.toString())){
+                        queOrden = 2;
+                        estrella4.setVisibility(View.VISIBLE);
+                    }
                     if(cuentaVeces == 4){
                         switch (queOrden){
                             case 1:
@@ -1009,20 +1023,6 @@ public class PantallaJuego extends AppCompatActivity {
                                 }
                                 break;
                         }
-                    if(winner.equals(nameUser)){
-                        queOrden= 1;
-                        estrella1.setVisibility(View.VISIBLE);
-                    }else if(winner.equals(nombreOponente3.toString())){
-                        queOrden = 4;
-                        ultimo = true;
-                        estrella3.setVisibility(View.VISIBLE);
-                    }else if(winner.equals(nombreOponente2.toString())){
-                        queOrden = 3;
-                        estrella2.setVisibility(View.VISIBLE);
-                    }else if(winner.equals(nombreOponente4.toString())){
-                        queOrden = 2;
-                        estrella4.setVisibility(View.VISIBLE);
-                    }
                     }
                 }
             });
