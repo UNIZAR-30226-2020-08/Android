@@ -227,6 +227,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     try {
                         final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(ctx);
                         builder.setTitle(data.getString("pauseMessage"));
+                        builder.setMessage("Solicitud de pausa de partida. La partida puede" +
+                                "ser reanudada posteriormente");
                         builder.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) { ;
