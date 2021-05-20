@@ -129,9 +129,9 @@ public class Chat extends Fragment {
             @Override
             public void onClick(View v) {
                 MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","👍",1,((PantallaJuego)getActivity()).getName());
-                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"👍",1);
-                ((PantallaJuego1vs1)getActivity()).attemptSend("👍");
+                ((PantallaJuego)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego)getActivity()).getName(),"👍",1);
+                ((PantallaJuego)getActivity()).attemptSend("👍");
             }
         });
 
@@ -140,9 +140,9 @@ public class Chat extends Fragment {
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
                 MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😡",1,((PantallaJuego)getActivity()).getName());
-                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😡",1);
-                ((PantallaJuego1vs1)getActivity()).attemptSend("😡");
+                ((PantallaJuego)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego)getActivity()).getName(),"😡",1);
+                ((PantallaJuego)getActivity()).attemptSend("😡");
             }
         });
 
@@ -151,9 +151,9 @@ public class Chat extends Fragment {
             public void onClick(View v) {
                 String texto=bEscribirMensaje.getText().toString();
                 MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","😂",1,((PantallaJuego)getActivity()).getName());
-                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
-                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😂",1);
-                ((PantallaJuego1vs1)getActivity()).attemptSend("😂");
+                ((PantallaJuego)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego)getActivity()).getName(),"😂",1);
+                ((PantallaJuego)getActivity()).attemptSend("😂");
             }
         });
 
