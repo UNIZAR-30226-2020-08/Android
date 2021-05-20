@@ -1632,7 +1632,7 @@ public class PantallaJuego extends AppCompatActivity {
         mSocket=Pantalla_app.mSocket;
         mSocket.on("message", onNewMessage);
         mSocket.on("RepartirCartas", onRepartirCartas);
-        //mSocket.on("RepartirCartasRP", onRepartirCartasRP);
+        mSocket.on("RepartirCartasRP", onRepartirCartasRP);
         mSocket.on("RepartirTriunfoRP", onRepartirTriunfoRP);
         mSocket.on("RepartirTriunfo", onRepartirTriunfo);
         mSocket.on("cartaJugada", oncartaJugada);
