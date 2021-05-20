@@ -172,7 +172,7 @@ public class Lista2vs2 extends Fragment {
                             Intent intent = new Intent(getContext(), PantallaJuego.class);
                             Bundle b = new Bundle();
                             b.putString("key", lista8_2.get(which).get_subjectName()); //Your id
-                            b.putInt("torneo", 0);
+                            b.putInt("torneo", 3);
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                         }
