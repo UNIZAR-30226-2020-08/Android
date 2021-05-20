@@ -2042,7 +2042,7 @@ public class PantallaJuego extends AppCompatActivity {
                 try {
                     aux.put("partida", room);
                     aux.put("usuario", getName());
-                    aux.put("tipo", 0);
+                    aux.put("tipo", 1);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
