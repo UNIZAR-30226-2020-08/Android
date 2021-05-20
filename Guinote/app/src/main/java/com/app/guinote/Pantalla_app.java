@@ -39,6 +39,7 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
     public  static String enPartidaIndividual="";
     public static Socket mSocket;
     private Context ctx;
+    private SQLiteDatabase db;
 
 
     @Override
@@ -56,24 +57,26 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                 @Override
                 public void run() {
                     try {
-                        Log.d("notidica","ya");
-                        Intent intent = new Intent(ctx, PantallaJuego1vs1.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
                         JSONObject data = (JSONObject) args[0];
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, "CHANNEL_ID")
-                                .setSmallIcon(R.drawable.amigo_icon)
-                                .setContentTitle("Invitación a partida")
-                                .setContentText(data.getString("username")+" te ha invitado a la partida "+data.getString("nombre"))
-                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                .setContentIntent(pendingIntent)
-                                .setAutoCancel(true);
+                        if(data.getString("username").equals()) {
+                            Log.d("notidica", "ya");
+                            Intent intent = new Intent(ctx, PantallaJuego1vs1.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, "CHANNEL_ID")
+                                    .setSmallIcon(R.drawable.amigo_icon)
+                                    .setContentTitle("Invitación a partida")
+                                    .setContentText(data.getString("username") + " te ha invitado a la partida " + data.getString("nombre"))
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true);
 
-                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ctx);
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ctx);
 
-                        // notificationId is a unique int for each notification that you must define
-                        notificationManager.notify(1, builder.build());
-                    }catch (Exception e){
+                            // notificationId is a unique int for each notification that you must define
+                            notificationManager.notify(1, builder.build());
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -87,7 +90,13 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
 
         ctx=this;
+
+        MyOpenHelper dbHelper = new MyOpenHelper(this);
+        db = dbHelper.getWritableDatabase();
+
         createNotificationChannel();
+
+
 
         mSocket = IO.socket(URI.create("https://las10ultimas-backend-realtime.herokuapp.com"));
         mSocket.on("invitacionRecibida", invitaPartida);
@@ -185,6 +194,13 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    public String getName() {
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
     }
 
 }
