@@ -2041,6 +2041,8 @@ public class PantallaJuego extends AppCompatActivity {
                 JSONObject aux = new JSONObject();
                 try {
                     aux.put("partida", room);
+                    aux.put("usuario", getName());
+                    aux.put("tipo", 0);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
