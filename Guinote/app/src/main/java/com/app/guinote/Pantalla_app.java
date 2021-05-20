@@ -58,7 +58,7 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                 public void run() {
                     try {
                         JSONObject data = (JSONObject) args[0];
-                        if(data.getString("username").equals()) {
+                        if(data.getString("username").equals(getName())) {
                             Log.d("notidica", "ya");
                             Intent intent = new Intent(ctx, PantallaJuego1vs1.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
