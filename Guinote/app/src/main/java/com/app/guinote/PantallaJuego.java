@@ -1315,20 +1315,30 @@ public class PantallaJuego extends AppCompatActivity {
                     }
                     if(nronda == 10){
                         arrastre = false;
-                        JSONObject aux = new JSONObject();
-                        try {
-                            aux.put("partida", room);
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        mSocket.emit("finalizarPartida", aux, new Ack() {
+                        new Thread() {
                             @Override
-                            public void call(Object... args) {
-                                //JSONObject response = (JSONObject) args[0];
-                                //System.out.println(response); // "ok"
+                            public void run() {
+                                try{
+                                    Thread.sleep(5000);
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONObject aux = new JSONObject();
+                                try {
+                                    aux.put("partida", room);
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                mSocket.emit("finalizarPartida", aux, new Ack() {
+                                    @Override
+                                    public void call(Object... args) {
+                                        //JSONObject response = (JSONObject) args[0];
+                                        //System.out.println(response); // "ok"
+                                    }
+                                });
                             }
-                        });
+                        }.start();
                     }
                 }
             });
