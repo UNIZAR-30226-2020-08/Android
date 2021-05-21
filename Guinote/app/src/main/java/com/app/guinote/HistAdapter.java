@@ -63,8 +63,7 @@ public class HistAdapter extends BaseAdapter {
 
 
         if (datos[position][0].equals("VICTORIA")){
-            int myColor = ContextCompat.getColor(context, R.color.ganada);
-            vista.setBackgroundColor(myColor);
+            vista.setBackgroundColor(R.drawable.tapete2);
             imagen.setImageResource(imagenes[1]);
         }else{
             int myColor2 = ContextCompat.getColor(context, R.color.perdida);
