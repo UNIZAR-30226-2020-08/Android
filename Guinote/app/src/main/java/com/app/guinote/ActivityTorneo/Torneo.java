@@ -125,8 +125,6 @@ public class Torneo extends AppCompatActivity {
                     }else{
                         bracketFragment.modifyData(ronda-1,lista,modalidad,listaPartidas);
                     }
-
-                    ronda++;
                 }});
         }
     };
@@ -145,7 +143,7 @@ public class Torneo extends AppCompatActivity {
 
         animacion = (LottieAnimationView) findViewById(R.id.animation_carga_perf_torneo);
 
-        
+
         mSocket.on("matches",onMatches);
         mSocket.on("joinedT",onJoin);
 
@@ -260,5 +258,7 @@ public class Torneo extends AppCompatActivity {
                 //System.out.println(response); // "ok"
             }
         });
+
+        ronda++;
     }
 }
