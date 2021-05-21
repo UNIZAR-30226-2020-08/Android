@@ -41,7 +41,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#ffffff">
+                android:id="@+id/cardviewid">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:text="Puntuación"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:textSize="15dp"
 
                         android:textStyle="bold" />

@@ -1,6 +1,7 @@
 package com.app.guinote;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import java.util.List;
 
 public class RankAdapter extends BaseAdapter {
 
     Context contex;
     List<rank> lista;
+    CardView cartaview;
 
     public RankAdapter(Context contex, List<rank> lista) {
         this.contex = contex;
@@ -46,6 +50,9 @@ public class RankAdapter extends BaseAdapter {
         if( convertView == null){
             convertView = LayoutInflater.from(contex).inflate(R.layout.rank,null);
         }
+        cartaview = (CardView) convertView.findViewById(R.id.cardviewid);
+        cartaview.setVisibility(View.VISIBLE);
+        cartaview.setBackgroundColor(Color.TRANSPARENT);
         ImageViewRank= convertView.findViewById(R.id.imagerank);
         TextViewName = convertView.findViewById(R.id.textView1);
         TextViewPuntuacion= convertView.findViewById(R.id.textView2);
