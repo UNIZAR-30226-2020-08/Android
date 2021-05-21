@@ -99,7 +99,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     CircleImageView fperfiladversario;
     private int pauso;
     String resultado;
-
+    String quienWinner = "";
     Integer queEquipo;                 // En que equipo estoy, 1 o 0.
     Carta[] cardsj1 = new Carta[6]; //Las 6 cartas de nuestra mano
     Carta cartaTriunfo;             //La carta que esta en medio
@@ -349,13 +349,42 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         RankingArrastre = 11;
                         queEquipo = equipo;
                         queOrden = orden;
-                        if(queOrden == 2){
-                            ultimo = true;
-                            estrella2.setVisibility(View.VISIBLE);
-                        }
-                        if(queOrden == 1){
-                            contador.start();
-                            estrella1.setVisibility(View.VISIBLE);
+                        if(deVueltas){
+                            if(quienWinner.equals(username)){
+                                ultimo = true;
+                                estrella2.setVisibility(View.VISIBLE);
+                                if(torneo ==2){
+                                    JSONObject aux = new JSONObject();
+                                    try {
+                                        aux.put("partida", room);
+                                        aux.put("nronda", nronda);
+                                        aux.put("carta", cardsj1[QueCarta].getId());
+
+                                    } catch (JSONException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
+                                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                                        @Override
+                                        public void call(Object... args) {
+                                            //JSONObject response = (JSONObject) args[0];
+                                            //System.out.println(response); // "ok"
+                                        }
+                                    });
+                                }
+                            }else{
+                                contador.start();
+                                estrella1.setVisibility(View.VISIBLE);
+                            }
+                        }else{
+                            if(queOrden == 2){
+                                ultimo = true;
+                                estrella2.setVisibility(View.VISIBLE);
+                            }
+                            if(queOrden == 1){
+                                contador.start();
+                                estrella1.setVisibility(View.VISIBLE);
+                            }
                         }
                         Carta aux = new Carta(carta1);
                         cardsj1[0] = aux;
@@ -838,6 +867,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
 
                     if(nronda == 20){
+                        quienWinner = ganador;
                         arrastre = false;
                         JSONObject aux = new JSONObject();
                         try {
