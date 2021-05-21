@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="#27FFFFFF">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#27FFFFFF"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <ImageView
+            android:id="@+id/imagerank"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_alignParentLeft="true"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/imagerank" />
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:text="Name"
             android:layout_toRightOf="@+id/imagerank"
+            android:text="Name"
             android:textColor="#ffffff"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -31,35 +34,39 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:gravity="center"
             android:layout_alignParentRight="true"
+            android:gravity="center"
             android:orientation="vertical">
-                <com.google.android.material.card.MaterialCardView
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffffff">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#ffffff">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="8dp"
-                            android:src="@drawable/copatorneolista"/>
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Puntuación"
-                            android:layout_margin="8dp"
-                            android:textColor="#000000"
-                            android:textStyle="bold"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                            android:textSize="15dp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="8dp"
+                        android:src="@drawable/copatorneolista" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Puntuación"
+                        android:textColor="#000000"
+                        android:textSize="15dp"
+
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
