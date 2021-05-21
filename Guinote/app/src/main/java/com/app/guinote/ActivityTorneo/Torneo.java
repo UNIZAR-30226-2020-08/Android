@@ -47,6 +47,7 @@ public class Torneo extends AppCompatActivity {
     public static SQLiteDatabase db;
     public static int modalidad=0;
     private static int ronda=1;
+    private static int perdido=0;
     static LottieAnimationView animacion;
     private int participantes=0;
 
@@ -54,31 +55,33 @@ public class Torneo extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(enPartida==0) {
-            JSONObject auxiliar = new JSONObject();
-            Log.d("hola","holasdasd");
-            try {
-                auxiliar.put("jugador", getName());
-                auxiliar.put("torneo", nombrePartida);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        if(perdido==0){
+            if (enPartida == 0) {
+                JSONObject auxiliar = new JSONObject();
+                Log.d("hola", "holasdasd");
+                try {
+                    auxiliar.put("jugador", getName());
+                    auxiliar.put("torneo", nombrePartida);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                mSocket.emit("leaveTorneo", new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
+            } else {
+                mSocket.emit("leaveTorneoEmpezado", new Ack() {
+                    @Override
+                    public void call(Object... args) {
+                        //JSONObject response = (JSONObject) args[0];
+                        //System.out.println(response); // "ok"
+                    }
+                });
             }
-            mSocket.emit("leaveTorneo", new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
-                }
-            });
-        }else{
-            mSocket.emit("leaveTorneoEmpezado", new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
-                }
-            });
         }
     }
 
@@ -261,4 +264,5 @@ public class Torneo extends AppCompatActivity {
 
         ronda++;
     }
+    
 }
