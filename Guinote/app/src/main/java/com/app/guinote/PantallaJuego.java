@@ -81,7 +81,7 @@ public class PantallaJuego extends AppCompatActivity {
     private String miTapete="";
     private int puntosProv=0;
     private int puntosProv1=0;
-
+    String quienWinner ="";
     private SQLiteDatabase db;
     private int gano=0;
     private String nameUser;
@@ -624,6 +624,37 @@ public class PantallaJuego extends AppCompatActivity {
                                         break;
                                 }
                                 break;
+                        }
+                        CharSequence n3 = nombreOponente3.getText();
+                        CharSequence n2 = nombreOponente2.getText();
+                        CharSequence n4 = nombreOponente4.getText();
+
+                        if(quienWinner.equals(nameUser)){
+                            contador.start();
+                            queOrden= 1;
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(quienWinner.equals(n3.toString())){
+                            queOrden = 4;
+                            ultimo = true;
+                            estrella3.setVisibility(View.VISIBLE);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(quienWinner.equals(n2.toString())){
+                            queOrden = 3;
+                            estrella2.setVisibility(View.VISIBLE);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(quienWinner.equals(n4.toString())){
+                            queOrden = 2;
+                            estrella4.setVisibility(View.VISIBLE);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
@@ -1325,6 +1356,7 @@ public class PantallaJuego extends AppCompatActivity {
                         RankingArrastre = 11;
                     }
                     if(nronda == 10){
+                        quienWinner = ganador;
                         arrastre = false;
                         new Thread() {
                             @Override
