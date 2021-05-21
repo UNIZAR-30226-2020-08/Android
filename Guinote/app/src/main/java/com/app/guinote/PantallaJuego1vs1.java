@@ -349,43 +349,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         RankingArrastre = 11;
                         queEquipo = equipo;
                         queOrden = orden;
-                        if(deVueltas){
-                            if(quienWinner.equals(nameUser)){
-                                ultimo = true;
-                                estrella2.setVisibility(View.VISIBLE);
-                                if(torneo ==2){
-                                    JSONObject aux = new JSONObject();
-                                    try {
-                                        aux.put("partida", room);
-                                        aux.put("nronda", nronda);
-                                        aux.put("carta", cardsj1[QueCarta].getId());
 
-                                    } catch (JSONException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    }
-                                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                                        @Override
-                                        public void call(Object... args) {
-                                            //JSONObject response = (JSONObject) args[0];
-                                            //System.out.println(response); // "ok"
-                                        }
-                                    });
-                                }
-                            }else{
-                                contador.start();
-                                estrella1.setVisibility(View.VISIBLE);
-                            }
-                        }else{
-                            if(queOrden == 2){
-                                ultimo = true;
-                                estrella2.setVisibility(View.VISIBLE);
-                            }
-                            if(queOrden == 1){
-                                contador.start();
-                                estrella1.setVisibility(View.VISIBLE);
-                            }
-                        }
                         Carta aux = new Carta(carta1);
                         cardsj1[0] = aux;
                         aux = new Carta(carta2);
@@ -1836,80 +1800,127 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         }
         return false;
     }
+
+
+    private void vieneDevueltas(){
+        if(deVueltas){
+            if(quienWinner.equals(nameUser)){
+                ultimo = true;
+                queOrden=2;
+                estrella2.setVisibility(View.VISIBLE);
+                if(torneo ==2){
+                    final JSONObject aux = new JSONObject();
+                    try {
+                        aux.put("partida", room);
+                        aux.put("nronda", nronda);
+                        aux.put("carta", "NO");
+
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    //JSONObject response = (JSONObject) args[0];
+                                    //System.out.println(response); // "ok"
+                                }
+                            });
+                        }
+                    },2000);
+                }
+            }else{
+                contador.start();
+                estrella1.setVisibility(View.VISIBLE);
+            }
+        }else{
+            if(queOrden == 2){
+                ultimo = true;
+                estrella2.setVisibility(View.VISIBLE);
+            }
+            if(queOrden == 1){
+                contador.start();
+                estrella1.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     //Animación de iniciar la partida;
     private void iniciarPartida(){
-        new Thread() {
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(1000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                setVisibility3firstcards();
-                try{
-                    Thread.sleep(1000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                updatefirst3cards();
-                try{
-                    Thread.sleep(1000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                setVisibility3secondcards();
-                try{
-                    Thread.sleep(1000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                updatelast3cards();
-                try{
-                    Thread.sleep(1000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                if(torneo ==3) {
-                    if((nronda < 13) || (nronda > 19)) {
-                        setVisibilitytriumphe();
-                    }
-                }else{
-                    setVisibilitytriumphe();
-                }
-                try{
-                    Thread.sleep(500);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                if(torneo ==3) {
-                    if (((nronda < 13) || (nronda > 19))){
-                        updatecenterCard();
-                    }
-                }else{
-                    updatecenterCard();
-                }
-                try{
-                    Thread.sleep(1000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                if(torneo ==3) {
-                    if (((nronda < 13) || (nronda > 19))){
-                        setVisibilityreverse();
-                    }
-                }else{
-                    setVisibilityreverse();
-                }
-                setlotsVisibilities();
-                try{
-                    Thread.sleep(100);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                aun_no = false;
-            }
-        }.start();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                public void run() {
+                    setVisibility3firstcards();
+
+                        Handler handler1 = new Handler();
+                        handler1.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                updatefirst3cards();
+                                Handler handler2 = new Handler();
+                                handler2.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                                setVisibility3secondcards();
+                                                Handler handler4 = new Handler();
+                                                handler4.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        updatelast3cards();
+                                                        Handler handler5 = new Handler();
+                                                        handler5.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                if (torneo == 3) {
+                                                                    if ((nronda < 13) || (nronda > 19)) {
+                                                                        setVisibilitytriumphe();
+                                                                    }
+                                                                } else {
+                                                                    setVisibilitytriumphe();
+                                                                }
+                                                                Handler handler6 = new Handler();
+                                                                handler6.postDelayed(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        if (torneo == 3) {
+                                                                            if (((nronda < 13) || (nronda > 19))) {
+                                                                                updatecenterCard();
+                                                                            }
+                                                                        } else {
+                                                                            updatecenterCard();
+                                                                        }
+                                                                        Handler handler7 = new Handler();
+                                                                        handler7.postDelayed(new Runnable() {
+                                                                            @Override
+                                                                            public void run() {
+                                                                                if (torneo == 3) {
+                                                                                    if (((nronda < 13) || (nronda > 19))) {
+                                                                                        setVisibilityreverse();
+                                                                                    }
+                                                                                } else {
+                                                                                    setVisibilityreverse();
+                                                                                }
+                                                                                setlotsVisibilities();
+                                                                                aun_no = false;
+                                                                                vieneDevueltas();
+                                                                            }},1000);
+                                                                    }},1000);
+                                                            }},1000);
+                                                    }},1000);
+                                            }},1000);
+
+                            }},1000);
+
+                }},1000);
+
+
+
     }
 
     private void disolverCartas(){
