@@ -31,12 +31,11 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="124dp"
                 android:layout_marginTop="10dp"
+                android:orientation="vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
@@ -44,29 +43,30 @@
                     android:id="@+id/nameTorneo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="Nombre del torneo"
-                    android:textSize="20dp"
                     android:textColor="#ffffff"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nombretorneo"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     app:boxBackgroundColor="#60ffffff"
-                    app:suffixTextColor="#000000"
-                    app:hintTextColor="#000000"
                     app:boxStrokeColor="#000000"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintTextColor="#000000"
+                    app:suffixTextColor="#000000">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:textColorHighlight="#349702"
-                        android:padding="15dp"
                         android:id="@+id/torneo"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:textColorHighlight="#349702" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,24 +90,25 @@
                     android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/contrasenatorneo"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="88dp"
                     android:padding="10dp"
                     app:boxBackgroundColor="#60ffffff"
-                    app:suffixTextColor="#000000"
-                    app:hintTextColor="#000000"
                     app:boxStrokeColor="#000000"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintTextColor="#000000"
+                    app:suffixTextColor="#000000">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:inputType="textPassword"
-                        android:textColorHighlight="#349702"
-                        android:padding="15dp"
                         android:id="@+id/contraseña2"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:padding="15dp"
+                        android:textColorHighlight="#349702" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,12 +123,12 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="37dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="Elige un tipo de torneo"
-                    android:textSize="20dp"
                     android:textColor="#ffffff"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -138,41 +139,45 @@
                     android:layout_marginTop="15dp"
                     android:hint="Modalidad"
                     android:padding="10dp"
+                    android:textColorHint="#000000"
+                    app:boxBackgroundColor="#FFFFFFFF"
                     app:boxStrokeColor="#000000"
                     app:endIconTint="#000000"
                     app:hintTextColor="#000000"
-                    app:suffixTextColor="#000000"
-                    app:boxBackgroundColor="#60ffffff"
-                    android:textColorHint="#000000">
+                    app:suffixTextColor="#000000">
 
                     <AutoCompleteTextView
                         android:id="@+id/menuModalidad"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="46dp"
+                        android:alpha="0.5"
+                        android:background="#60FFFFFF"
                         android:inputType="none"
                         android:textColor="#000000" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
 
-                    android:layout_marginTop="6dp"
-                    android:padding="10dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    app:suffixTextColor="#000000"
-                    app:hintTextColor="#000000"
-                    app:boxStrokeColor="#000000"
-                    app:boxBackgroundColor="#60ffffff"
-                    android:layout_height="wrap_content"
-                    app:endIconTint="#000000"
+                    android:layout_height="88dp"
+                    android:layout_marginTop="6dp"
+                    android:hint="Participantes"
+                    android:padding="10dp"
                     android:textColorHint="#000000"
-                    android:hint="Participantes">
+                    app:boxBackgroundColor="#FFFFFFFF"
+                    app:boxStrokeColor="#000000"
+                    app:endIconTint="#000000"
+                    app:hintTextColor="#000000"
+                    app:suffixTextColor="#000000">
 
                     <AutoCompleteTextView
                         android:id="@+id/menuNumGente"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
+                        android:layout_height="45dp"
+                        android:alpha="0.5"
+                        android:background="#60FFFFFF"
                         android:inputType="none"
                         android:textColor="#000000" />
 
