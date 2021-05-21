@@ -630,15 +630,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
-                            new Thread() {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
                                 @Override
-                                    public void run() {
+                                public void run() {
 
-                                    try{
-                                        Thread.sleep(2000);
-                                    } catch (Exception e){
-                                        e.printStackTrace();
-                                    }
                                     mSocket.emit("contarPuntos", aux2, new Ack() {
                                         @Override
                                         public void call(Object... args) {
@@ -648,18 +644,24 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     });
 
                                     if(!arrastre) {
-                                        mSocket.emit("robarCarta", aux2, new Ack() {
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
                                             @Override
-                                            public void call(Object... args) {
-                                                //JSONObject response = (JSONObject) args[0];
-                                                //System.out.println(response); // "ok"
+                                            public void run() {
+                                                mSocket.emit("robarCarta", aux2, new Ack() {
+                                                    @Override
+                                                    public void call(Object... args) {
+                                                        //JSONObject response = (JSONObject) args[0];
+                                                        //System.out.println(response); // "ok"
+                                                    }
+                                                });
                                             }
-                                        });
+                                        },2000);
                                     }else{
                                         robar_sigana_ia();
                                     }
                                 }
-                            }.start();
+                            }, 3000);
                         }
                     }
             });
@@ -754,20 +756,21 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                             }
                                         });
 
-                                        //CUIDADO
-                                        try{
-                                            Thread.sleep(3000);
-                                        } catch (Exception e){
-                                            e.printStackTrace();
-                                        }
+
                                         if (!arrastre) {
-                                            mSocket.emit("robarCarta", aux, new Ack() {
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
                                                 @Override
-                                                public void call(Object... args) {
-                                                    //JSONObject response = (JSONObject) args[0];
-                                                    //System.out.println(response); // "ok"
+                                                public void run() {
+                                                    mSocket.emit("robarCarta", aux, new Ack() {
+                                                        @Override
+                                                        public void call(Object... args) {
+                                                            //JSONObject response = (JSONObject) args[0];
+                                                            //System.out.println(response); // "ok"
+                                                        }
+                                                    });
                                                 }
-                                            });
+                                            },2000);
                                         }else{
                                             robar_sigana_ia();
                                         }
@@ -1879,24 +1882,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private void disolverCartas(){
-        new Thread() {
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(2000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                setNotVisibilityLanzadasCard();
-                try{
-                    Thread.sleep(6000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                aun_no = false;
-
-            }
-        }.start();
+        setNotVisibilityLanzadasCard();
+        aun_no = false;
     }
 
     private void robar_sigana_ia(){
