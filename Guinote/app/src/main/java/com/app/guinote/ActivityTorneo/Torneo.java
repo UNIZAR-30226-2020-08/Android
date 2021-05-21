@@ -43,6 +43,7 @@ public class Torneo extends AppCompatActivity {
 
     private BracketsFragment bracketFragment;
     private static String nombrePartida="";
+    private int enPartida=0;
     public static SQLiteDatabase db;
     public static int modalidad=0;
     private static int ronda=1;
@@ -53,13 +54,32 @@ public class Torneo extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSocket.emit("leaveTorneo",new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
+        if(enPartida==0) {
+            JSONObject auxiliar = new JSONObject();
+            Log.d("hola","holasdasd");
+            try {
+                auxiliar.put("jugador", getName());
+                auxiliar.put("torneo", nombrePartida);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        });
+            mSocket.emit("leaveTorneo", new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }else{
+            mSocket.emit("leaveTorneoEmpezado", new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
     }
 
     private Emitter.Listener onCompleto = new Emitter.Listener() {
@@ -110,6 +130,7 @@ public class Torneo extends AppCompatActivity {
 
                 @Override
                 public void run(){
+                    enPartida=1;
                     Log.d("hola",args[0].toString());
                     List<String> lista=new ArrayList<>();
                     List<String> listaPartidas=new ArrayList<>();
