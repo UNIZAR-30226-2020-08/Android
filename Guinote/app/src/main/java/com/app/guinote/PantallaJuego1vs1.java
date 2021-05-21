@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -730,7 +731,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 ultimo = false;
                                 estrella1.setVisibility(View.INVISIBLE);
                                 estrella2.setVisibility(View.INVISIBLE);
-                                JSONObject aux = new JSONObject();
+                                final JSONObject aux = new JSONObject();
                                 try {
                                     aux.put("partida", room);
                                     aux.put("nronda", nronda);
@@ -739,31 +740,39 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                                mSocket.emit("contarPuntos", aux, new Ack() {
-                                    @Override
-                                    public void call(Object... args) {
-                                        //JSONObject response = (JSONObject) args[0];
-                                        //System.out.println(response); // "ok"
-                                    }
-                                });
 
-                                //CUIDADO
-                                try{
-                                    Thread.sleep(3000);
-                                } catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                if (!arrastre) {
-                                    mSocket.emit("robarCarta", aux, new Ack() {
-                                        @Override
-                                        public void call(Object... args) {
-                                            //JSONObject response = (JSONObject) args[0];
-                                            //System.out.println(response); // "ok"
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //builder.show();
+                                        mSocket.emit("contarPuntos", aux, new Ack() {
+                                            @Override
+                                            public void call(Object... args) {
+                                                //JSONObject response = (JSONObject) args[0];
+                                                //System.out.println(response); // "ok"
+                                            }
+                                        });
+
+                                        //CUIDADO
+                                        try{
+                                            Thread.sleep(3000);
+                                        } catch (Exception e){
+                                            e.printStackTrace();
                                         }
-                                    });
-                                }else{
-                                    robar_sigana_ia();
-                                }
+                                        if (!arrastre) {
+                                            mSocket.emit("robarCarta", aux, new Ack() {
+                                                @Override
+                                                public void call(Object... args) {
+                                                    //JSONObject response = (JSONObject) args[0];
+                                                    //System.out.println(response); // "ok"
+                                                }
+                                            });
+                                        }else{
+                                            robar_sigana_ia();
+                                        }
+                                    }
+                                }, 3000);
                             }
                         }
                     }
