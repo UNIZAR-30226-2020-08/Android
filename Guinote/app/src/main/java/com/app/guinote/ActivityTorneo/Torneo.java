@@ -82,19 +82,7 @@ public class Torneo extends AppCompatActivity {
         }
     }
 
-    private Emitter.Listener onCompleto = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
 
-                @Override
-                public void run(){
-                    animacion.setVisibility(View.INVISIBLE);
-                    animacion.pauseAnimation();
-                    JSONObject auxiliar = new JSONObject();
-                }});
-        }
-    };
 
 
     private Emitter.Listener onJoin = new Emitter.Listener() {
@@ -115,6 +103,8 @@ public class Torneo extends AppCompatActivity {
 
                 @Override
                 public void run(){
+                    animacion.setVisibility(View.INVISIBLE);
+                    animacion.pauseAnimation();
                     enPartida=1;
                     Log.d("hola",args[0].toString());
                     List<String> lista=new ArrayList<>();
@@ -155,9 +145,7 @@ public class Torneo extends AppCompatActivity {
 
         animacion = (LottieAnimationView) findViewById(R.id.animation_carga_perf_torneo);
 
-
-
-        mSocket.on("completo",onCompleto);
+        
         mSocket.on("matches",onMatches);
         mSocket.on("joinedT",onJoin);
 
