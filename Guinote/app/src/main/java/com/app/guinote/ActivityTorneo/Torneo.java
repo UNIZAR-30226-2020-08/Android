@@ -1,6 +1,8 @@
 package com.app.guinote.ActivityTorneo;
 
 import android.app.ActionBar;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,9 +22,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.app.guinote.MyOpenHelper;
 import com.app.guinote.PantallaJuego;
 import com.app.guinote.PantallaJuego1vs1;
+import com.app.guinote.Pantalla_app;
 import com.app.guinote.R;
 import com.app.guinote.TorneoFragment.BracketsFragment;
 import com.app.guinote.TorneoApp.App1;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +52,7 @@ public class Torneo extends AppCompatActivity {
     public static int modalidad=0;
     private static int ronda=1;
     private static int perdido=0;
+    private static Context mContext;
     static LottieAnimationView animacion;
     private int participantes=0;
 
@@ -137,6 +142,7 @@ public class Torneo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        mContext=this;
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
 
@@ -242,27 +248,48 @@ public class Torneo extends AppCompatActivity {
     }
 
     public static void terminoPartida(){
-        animacion.setVisibility(View.VISIBLE);
-        animacion.playAnimation();
-        JSONObject auxiliar = new JSONObject();
-        Integer rondaString=ronda;
-        Log.d("fase",rondaString.toString());
-        try {
-            auxiliar.put("fase", ronda);
-            auxiliar.put("torneo", nombrePartida);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        mSocket.emit("partidaTorneoFin", auxiliar, new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
+        if(ronda!=3) {
+            animacion.setVisibility(View.VISIBLE);
+            animacion.playAnimation();
+            JSONObject auxiliar = new JSONObject();
+            Integer rondaString = ronda;
+            Log.d("fase", rondaString.toString());
+            try {
+                auxiliar.put("fase", ronda);
+                auxiliar.put("torneo", nombrePartida);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        });
+            mSocket.emit("partidaTorneoFin", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
 
-        ronda++;
+            ronda++;
+        }else{
+            final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(mContext);
+            builder.setTitle("¡Felicitaciones has ganado!");
+            builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(mContext, Pantalla_app.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("EXIT", true);
+                    mContext.startActivity(intent);
+                    dialog.dismiss();
+                }
+            });
+            builder.setMessage(getName()+" se proclama ganador del torneo "+nombrePartida);
+            builder.show();
+        }
     }
-    
+
+
+
+
 }
