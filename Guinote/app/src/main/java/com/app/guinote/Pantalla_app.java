@@ -58,10 +58,17 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                 public void run() {
                     try {
                         JSONObject data = (JSONObject) args[0];
-                        if(data.getString("username").equals(getName())) {
+                        Log.d("quenvia",data.toString());
+                        final String nombrePartida=data.getString("nombre");
+                        if(data.getString("destinatario").equals(getName())) {
                             Log.d("notidica", "ya");
                             Intent intent = new Intent(ctx, PantallaJuego1vs1.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            Bundle b = new Bundle();
+                            b.putString("key", nombrePartida); //Your id
+                            b.putInt("torneo", 0);
+                            
+                            intent.putExtras(b); //Put your id to your next Intent
                             PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, "CHANNEL_ID")
                                     .setSmallIcon(R.drawable.amigo_icon)
