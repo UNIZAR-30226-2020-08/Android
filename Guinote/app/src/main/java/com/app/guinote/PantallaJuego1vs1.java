@@ -209,10 +209,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 @Override
                 public void run() {
                     pauso=1;
-                    contador.cancel();
-                    Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
-                    startActivity(intent);
-                    finish();
                 }
             });
         }
@@ -442,8 +438,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     Log.d("cards", carta6);
                     Log.d("nronda",nronda.toString());
                     if (username.equals(nameUser)) {
-                        if(nronda>12) {
-                            if (nronda>18){
+                        //nronda>12
+                        if(nronda>13) {
+                            //nronda>18
+                            if (nronda>19){
                                 deVueltas=true;
                                 arrastre = false;
                             }else{
@@ -839,6 +837,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 //System.out.println(response); // "ok"
                             }
                         });
+                    }
+                    if(pauso==1){
+                        contador.cancel();
+                        Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             });
@@ -1820,8 +1824,9 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if(torneo ==3) {
-                    if((nronda < 13) || (nronda > 19))
-                    setVisibilitytriumphe();
+                    if((nronda < 13) || (nronda > 19)) {
+                        setVisibilitytriumphe();
+                    }
                 }else{
                     setVisibilitytriumphe();
                 }

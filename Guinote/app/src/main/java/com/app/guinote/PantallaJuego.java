@@ -210,10 +210,6 @@ public class PantallaJuego extends AppCompatActivity {
                 @Override
                 public void run() {
                     pauso=1;
-                    contador.cancel();
-                    Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
-                    startActivity(intent);
-                    finish();
                 }
             });
         }
@@ -1343,6 +1339,12 @@ public class PantallaJuego extends AppCompatActivity {
                                 });
                             }
                         }.start();
+                    }
+                    if(pauso==1) {
+                        contador.cancel();
+                        Intent intent = new Intent(getApplicationContext(), Pantalla_app.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             });
