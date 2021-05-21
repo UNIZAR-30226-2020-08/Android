@@ -46,6 +46,7 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
     protected void onDestroy() {
         super.onDestroy();
 
+        Log.d("hola","salgo");
         mSocket.off("invitacionRecibida",invitaPartida);
         mSocket.disconnect();
     }
@@ -63,15 +64,16 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                         if(data.getString("destinatario").equals(getName())) {
                             Log.d("notidica", "ya");
                             Intent intent = new Intent(ctx, PantallaJuego1vs1.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             Bundle b = new Bundle();
                             b.putString("key", nombrePartida); //Your id
                             b.putInt("torneo", 0);
-                            
+
                             intent.putExtras(b); //Put your id to your next Intent
-                            PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, "CHANNEL_ID")
                                     .setSmallIcon(R.drawable.amigo_icon)
+                                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                                     .setContentTitle("Invitación a partida")
                                     .setContentText(data.getString("username") + " te ha invitado a la partida " + data.getString("nombre"))
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -79,7 +81,6 @@ public class Pantalla_app extends AppCompatActivity implements BottomNavigationV
                                     .setAutoCancel(true);
 
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ctx);
-
                             // notificationId is a unique int for each notification that you must define
                             notificationManager.notify(1, builder.build());
                         }

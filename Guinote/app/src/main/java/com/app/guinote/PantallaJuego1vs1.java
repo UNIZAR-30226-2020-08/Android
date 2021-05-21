@@ -1889,27 +1889,33 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
     private void robar_sigana_ia(){
 
-        if (torneo == 2 && ultimo) {
-            Log.d("la ia le toca", "dentro del if");
-            JSONObject aux = new JSONObject();
-            try {
-                aux.put("partida", room);
-                aux.put("nronda", nronda);
-                aux.put("carta","NO");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (torneo == 2 && ultimo) {
+                    Log.d("la ia le toca", "dentro del if");
+                    JSONObject aux = new JSONObject();
+                    try {
+                        aux.put("partida", room);
+                        aux.put("nronda", nronda);
+                        aux.put("carta", "NO");
 
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    //JSONObject response = (JSONObject) args[0];
-                    //System.out.println(response); // "ok"
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
                 }
-            });
-        }
-        aun_no = false;
+                aun_no = false;
+            }
+        }, 3000);
 
     }
 
