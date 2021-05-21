@@ -92,21 +92,6 @@ public class Torneo extends AppCompatActivity {
                     animacion.setVisibility(View.INVISIBLE);
                     animacion.pauseAnimation();
                     JSONObject auxiliar = new JSONObject();
-                    Log.d("hola","holasdasd");
-                    try {
-                        auxiliar.put("ronda", ronda);
-                        auxiliar.put("torneo", nombrePartida);
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    mSocket.emit("matchTournament", auxiliar, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                        }
-                    });
                 }});
         }
     };
@@ -271,6 +256,8 @@ public class Torneo extends AppCompatActivity {
         animacion.setVisibility(View.VISIBLE);
         animacion.playAnimation();
         JSONObject auxiliar = new JSONObject();
+        Integer rondaString=ronda;
+        Log.d("fase",rondaString.toString());
         try {
             auxiliar.put("fase", ronda);
             auxiliar.put("torneo", nombrePartida);
