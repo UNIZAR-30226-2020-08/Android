@@ -222,49 +222,33 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="#ffffff">
 
-                    <!-- Media -->
+                    <!-- Title, secondary and supporting text -->
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/mesa_icono" />
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:background="#ffffff">
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/mesa_icono"/>
-                        <!-- Title, secondary and supporting text -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Información del juego"
-                            android:textColor="#349702"
-                            android:textAppearance="?attr/textAppearanceHeadline6"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Aprende las normas de cómo jugar"
-                            android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="#349702"
-                            />
-
-
-                    </LinearLayout>
+                        android:text="Información del Juego"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#349702"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        />
 
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
             <Button
                 android:textColor="#349702"
