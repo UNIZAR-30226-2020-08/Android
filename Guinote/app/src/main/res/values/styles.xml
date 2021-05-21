@@ -10,6 +10,8 @@
     <style name = "AlertDialogTheme" parent = "ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorAccent"> @color/colorBackground </item>
     </style>
-
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 
 </resources>
