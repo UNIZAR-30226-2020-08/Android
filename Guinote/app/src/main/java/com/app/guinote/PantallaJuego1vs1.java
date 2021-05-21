@@ -656,12 +656,12 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                                     }
                                                 });
                                             }
-                                        },2000);
+                                        },500);
                                     }else{
                                         robar_sigana_ia();
                                     }
                                 }
-                            }, 3000);
+                            }, 1000);
                         }
                     }
             });
@@ -1337,9 +1337,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
             });
             nombreOponente.setText("IA");
+
             InputStream ims = null;
             try {
-                ims = getAssets().open("userlogo1.png");
+                ims = getAssets().open("userlogoIA.png");
                 // load image as Drawable
                 Drawable d = Drawable.createFromStream(ims, null);
                 fperfiladversario.setImageDrawable(d);
@@ -1887,38 +1888,29 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     }
 
     private void robar_sigana_ia(){
-        new Thread() {
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(4000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                if (torneo == 2 && ultimo) {
-                    Log.d("la ia le toca", "dentro del if");
-                    JSONObject aux = new JSONObject();
-                    try {
-                        aux.put("partida", room);
-                        aux.put("nronda", nronda);
-                        aux.put("carta","NO");
 
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    mSocket.emit("lanzarCartaIA", aux, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            //JSONObject response = (JSONObject) args[0];
-                            //System.out.println(response); // "ok"
-                        }
-                    });
-                }
-                aun_no = false;
+        if (torneo == 2 && ultimo) {
+            Log.d("la ia le toca", "dentro del if");
+            JSONObject aux = new JSONObject();
+            try {
+                aux.put("partida", room);
+                aux.put("nronda", nronda);
+                aux.put("carta","NO");
 
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        }.start();
+            mSocket.emit("lanzarCartaIA", aux, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
+        aun_no = false;
+
     }
 
     private void animacionCartaFront(){

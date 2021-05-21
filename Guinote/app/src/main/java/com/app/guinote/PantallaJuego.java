@@ -19,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -1209,7 +1210,7 @@ public class PantallaJuego extends AppCompatActivity {
                             estrella2.setVisibility(View.INVISIBLE);
                             estrella3.setVisibility(View.INVISIBLE);
                             estrella4.setVisibility(View.INVISIBLE);
-                            JSONObject aux = new JSONObject();
+                            final JSONObject aux = new JSONObject();
                             try {
                                 aux.put("partida", room);
                                 aux.put("nronda", nronda);
@@ -1217,27 +1218,37 @@ public class PantallaJuego extends AppCompatActivity {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
-                            mSocket.emit("contarPuntos", aux, new Ack() {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
                                 @Override
-                                public void call(Object... args) {
-                                    //JSONObject response = (JSONObject) args[0];
-                                    //System.out.println(response); // "ok"
-                                }
-                            });
-                            try{
-                                Thread.sleep(3000);
-                            } catch (Exception e){
-                                e.printStackTrace();
-                            }
-                            if(!arrastre) {
-                                mSocket.emit("robarCarta", aux, new Ack() {
-                                    @Override
-                                    public void call(Object... args) {
-                                        //JSONObject response = (JSONObject) args[0];
-                                        //System.out.println(response); // "ok"
+                                public void run() {
+                                    //builder.show();
+                                    mSocket.emit("contarPuntos", aux, new Ack() {
+                                        @Override
+                                        public void call(Object... args) {
+                                            //JSONObject response = (JSONObject) args[0];
+                                            //System.out.println(response); // "ok"
+                                        }
+                                    });
+
+
+                                    if (!arrastre) {
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mSocket.emit("robarCarta", aux, new Ack() {
+                                                    @Override
+                                                    public void call(Object... args) {
+                                                        //JSONObject response = (JSONObject) args[0];
+                                                        //System.out.println(response); // "ok"
+                                                    }
+                                                });
+                                            }
+                                        },2000);
                                     }
-                                });
-                            }
+                                }
+                            }, 3000);
                         }
                     }
                 }
@@ -2387,23 +2398,8 @@ public class PantallaJuego extends AppCompatActivity {
 
     //Set visibilities
     private void disolverCartas(){
-        new Thread() {
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(2000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                setNotVisibilityLanzadasCard();
-                try{
-                    Thread.sleep(4000);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                aun_no = false;
-            }
-        }.start();
+        setNotVisibilityLanzadasCard();
+        aun_no = false;
     }
 
     private void animacionCartaj2Front(){
