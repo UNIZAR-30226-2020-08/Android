@@ -350,7 +350,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         queEquipo = equipo;
                         queOrden = orden;
                         if(deVueltas){
-                            if(quienWinner.equals(username)){
+                            if(quienWinner.equals(nameUser)){
                                 ultimo = true;
                                 estrella2.setVisibility(View.VISIBLE);
                                 if(torneo ==2){
