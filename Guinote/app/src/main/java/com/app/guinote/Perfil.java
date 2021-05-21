@@ -522,7 +522,7 @@ public class Perfil extends Fragment{
                         AdapterCartas.arrayList.get(which).set_elegido(true);
                         inicioCartas="baraja"+m.toString();
 
-                        dialog.dismiss();
+                        //dialog.dismiss();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -535,7 +535,7 @@ public class Perfil extends Fragment{
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                builder.show();
+                                //builder.show();
                                 animacion.setVisibility(View.INVISIBLE);
                                 animacion.pauseAnimation();
                             }
