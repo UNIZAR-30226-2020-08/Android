@@ -10,8 +10,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/tapete2">
+    android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,7 +147,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="20dp"
-            android:background="#19580A"
             android:paddingBottom="10dp"
             android:orientation="vertical">
             <com.google.android.material.card.MaterialCardView
