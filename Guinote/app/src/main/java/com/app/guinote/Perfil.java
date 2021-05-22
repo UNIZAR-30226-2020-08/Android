@@ -318,27 +318,51 @@ public class Perfil extends Fragment{
         switch (Character.getNumericValue(inicioFotoperfil.charAt(8))-1){
             case 0:
                 arrayFPerfil.add(new Tipocarta("Primero",d,true));
-                arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
-                arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
-                arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                if(points >= 100 ){
+                    arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
+                }
+                if (points >= 200){
+                    arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
+                }
+                if (points >= 300){
+                    arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                }
                 break;
             case 1:
                 arrayFPerfil.add(new Tipocarta("Primero",d,false));
-                arrayFPerfil.add(new Tipocarta("Segundo",d1,true));
-                arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
-                arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                if(points >= 100 ){
+                    arrayFPerfil.add(new Tipocarta("Segundo",d1,true));
+                }
+                if (points >= 200){
+                    arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
+                }
+                if (points >= 300){
+                    arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                }
                 break;
             case 2:
                 arrayFPerfil.add(new Tipocarta("Primero",d,false));
-                arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
-                arrayFPerfil.add(new Tipocarta("Tercero",d2,true));
-                arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                if(points >= 100 ){
+                    arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
+                }
+                if (points >= 200){
+                    arrayFPerfil.add(new Tipocarta("Tercero",d2,true));
+                }
+                if (points >= 300){
+                    arrayFPerfil.add(new Tipocarta("Cuarto",d3,false));
+                }
                 break;
             case 3:
                 arrayFPerfil.add(new Tipocarta("Primero",d,false));
-                arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
-                arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
-                arrayFPerfil.add(new Tipocarta("Cuarto",d3,true));
+                if(points >= 100 ){
+                    arrayFPerfil.add(new Tipocarta("Segundo",d1,false));
+                }
+                if (points >= 200){
+                    arrayFPerfil.add(new Tipocarta("Tercero",d2,false));
+                }
+                if (points >= 300){
+                    arrayFPerfil.add(new Tipocarta("Cuarto",d3,true));
+                }
                 break;
             default:
                 break;
