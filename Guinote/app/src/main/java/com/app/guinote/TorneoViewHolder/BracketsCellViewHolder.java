@@ -49,21 +49,29 @@ public class BracketsCellViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(final View v) {
                 Log.d("minombre",Torneo.getName());
-                if(Torneo.getName().equals(getTeamOneName().getText()) || Torneo.getName().equals(getTeamTwoName().getText())){
-                    Log.d("partida",getTeamTitle().getText().toString());
-                    Activity activity = (Activity)itemView.getContext();
-                    if (Torneo.modalidad==1) {
-                        Intent intent = new Intent(activity, PantallaJuego.class);
-                        Bundle b = new Bundle();
-                        b.putString("key", getTeamTitle().getText().toString()); //Your id
-                        b.putInt("torneo", 1); //Your id
-                        intent.putExtras(b); //Put your id to your next Intent
-                        activity.startActivity(intent);
-                    }else{
+                String primero=getTeamOneName().getText().toString();
+                String segundo=getTeamTwoName().getText().toString();
+                String split[]= primero.split("-",0);
+                String split2[]= segundo.split("-",0);
+                if(Torneo.modalidad==1) {
+                    if (Torneo.getName().equals(getTeamOneName().getText()) || Torneo.getName().equals(getTeamTwoName().getText())) {
+                        Log.d("partida", getTeamTitle().getText().toString());
+                        Activity activity = (Activity) itemView.getContext();
                         Intent intent = new Intent(activity, PantallaJuego1vs1.class);
                         Bundle b = new Bundle();
                         b.putString("key", getTeamTitle().getText().toString()); //Your id
                         b.putInt("torneo", 1);
+                        intent.putExtras(b); //Put your id to your next Intent
+                        activity.startActivity(intent);
+                    }
+                }else{
+                    if (Torneo.getName().equals(split[0]) || Torneo.getName().equals(split[1]) || Torneo.getName().equals(split2[0]) || Torneo.getName().equals(split2[1])) {
+                        Log.d("partida", getTeamTitle().getText().toString());
+                        Activity activity = (Activity) itemView.getContext();
+                        Intent intent = new Intent(activity, PantallaJuego.class);
+                        Bundle b = new Bundle();
+                        b.putString("key", getTeamTitle().getText().toString()); //Your id
+                        b.putInt("torneo", 1); //Your id
                         intent.putExtras(b); //Put your id to your next Intent
                         activity.startActivity(intent);
                     }
