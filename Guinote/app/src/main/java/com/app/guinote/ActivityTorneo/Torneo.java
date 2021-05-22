@@ -52,6 +52,7 @@ public class Torneo extends AppCompatActivity {
     public static int modalidad=0;
     private static int ronda=1;
     private static int perdido=0;
+    private String miPartidaActual="";
     private static Context mContext;
     static LottieAnimationView animacion;
     private int participantes=0;
@@ -71,7 +72,7 @@ public class Torneo extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                mSocket.emit("leaveTorneo", new Ack() {
+                mSocket.emit("leaveTorneo",auxiliar,new Ack() {
                     @Override
                     public void call(Object... args) {
                         //JSONObject response = (JSONObject) args[0];
@@ -79,7 +80,18 @@ public class Torneo extends AppCompatActivity {
                     }
                 });
             } else {
-                mSocket.emit("leaveTorneoEmpezado", new Ack() {
+                JSONObject auxiliar2 = new JSONObject();
+                Log.d("hola", "holasdasd");
+                try {
+                    auxiliar2.put("jugador", getName());
+                    auxiliar2.put("torneo", nombrePartida);
+                    auxiliar2.put("fase", ronda);
+                    auxiliar2.put("partida", miPartidaActual);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                mSocket.emit("leaveTorneoEmpezado",auxiliar2, new Ack() {
                     @Override
                     public void call(Object... args) {
                         //JSONObject response = (JSONObject) args[0];
@@ -122,6 +134,9 @@ public class Torneo extends AppCompatActivity {
                         try {
                             lista.add(((JSONObject)data.get(i)).getString("jugador"));
                             listaPartidas.add(((JSONObject)data.get(i)).getString("partida"));
+                            if(((JSONObject)data.get(i)).getString("jugador").equals(getName())){
+                                miPartidaActual=((JSONObject)data.get(i)).getString("partida");
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
