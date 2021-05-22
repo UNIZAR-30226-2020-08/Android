@@ -131,8 +131,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        Log.d("salgo","finalizo");
         contador.cancel();
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
@@ -153,12 +151,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        Log.d("que",aux.toString());
-
-
         Integer m=pauso;
-        Log.d("valor",m.toString());
         if(pauso!=1) {
             contador.cancel();
             mSocket.emit("leavePartida", aux, new Ack() {
@@ -343,11 +336,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("jugador", username);
-                    Log.d("cards", carta1);
-                    Log.d("cards", carta2);
-                    Log.d("cards", carta3);
-                    Log.d("cards", carta4);
                     if (username.equals(nameUser)) {
                         arrastre = false;
                         paloArrastre = 0;
@@ -374,12 +362,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         assignImages(cardsj1[3], c4);
                         assignImages(cardsj1[4], c5);
                         assignImages(cardsj1[5], c6);
-                        Log.d("reparto: ", cardsj1[0].getId());
-                        Log.d("reparto: ", cardsj1[1].getId());
-                        Log.d("reparto: ", cardsj1[2].getId());
-                        Log.d("reparto: ", cardsj1[3].getId());
-                        Log.d("reparto: ", cardsj1[4].getId());
-                        Log.d("reparto: ", cardsj1[5].getId());
                     }else {
                         nombreOponente.setText(username);
                         assignFPerfil(f_perfil,fperfiladversario);
@@ -429,14 +411,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("jugador", username);
-                    Log.d("cards", carta1);
-                    Log.d("cards", carta2);
-                    Log.d("cards", carta3);
-                    Log.d("cards", carta4);
-                    Log.d("cards", carta5);
-                    Log.d("cards", carta6);
-                    Log.d("nronda",nronda.toString());
                     if (username.equals(nameUser)) {
                         //nronda>12
                         if(nronda>13) {
@@ -498,12 +472,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         assignImages(cardsj1[3], c4);
                         assignImages(cardsj1[4], c5);
                         assignImages(cardsj1[5], c6);
-                        Log.d("reparto: ", cardsj1[0].getId());
-                        Log.d("reparto: ", cardsj1[1].getId());
-                        Log.d("reparto: ", cardsj1[2].getId());
-                        Log.d("reparto: ", cardsj1[3].getId());
-                        Log.d("reparto: ", cardsj1[4].getId());
-                        Log.d("reparto: ", cardsj1[5].getId());
                     }else {
                         nombreOponente.setText(username);
                         assignFPerfil(f_perfil,fperfiladversario);
@@ -589,7 +557,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     JSONObject todo;
                     String carta;
                     String quien;
-                    Log.d("ia",data.toString());
                     try {
                         carta = data.getString("carta");
                         quien = data.getString("jugador");
@@ -597,9 +564,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("carta",carta);
-                    Log.d("quien",quien);
-
                         animacionCartaFront();
                         Carta aux = new Carta(carta);
                         assignImages(aux, j2imagefront);
@@ -613,11 +577,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             estrella1.setVisibility(View.VISIBLE);
                             estrella2.setVisibility(View.INVISIBLE);
                         }else{
-                            //Carta aux3 = new Carta("F");
-                            //cardsj1[QueCarta] = aux3;
-                            estrella1.setVisibility(View.INVISIBLE);
-                            estrella2.setVisibility(View.VISIBLE);
-                            Log.d("username",nameUser);
                             ultimo = false;
                             estrella1.setVisibility(View.INVISIBLE);
                             estrella2.setVisibility(View.INVISIBLE);
@@ -684,9 +643,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("carta",carta);
-                    Log.d("quien",quien);
-
                     if (!quien.equals(nameUser)){
                         queOrden--;
                         if(queOrden == 1){
@@ -703,7 +659,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         }
                     }else {
                         if (torneo == 2 && !ultimo) {
-                            Log.d("Envio el lanzar carta", "xd");
                             JSONObject aux = new JSONObject();
                             try {
                                 aux.put("partida", room);
@@ -929,7 +884,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         }
                         assignImages(aux,triumphe);
                     }
-                    Log.d("cambio7",jugador.toString());
                     String texto = "El usuario "+jugador+ " ha cambiado el 7";
                     Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
                 }
@@ -954,7 +908,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }
                     if(jugador.equals(nameUser)){
                         String query="UPDATE auth SET copas='"+hola+"' WHERE user='"+getName()+"'";
-                        Log.d("query",query);
                         db.execSQL(query);
                         updateCopas(hola);
                     }
@@ -968,11 +921,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("veamosC",args[0].toString());
-                    /*JSONArray data=new JSONArray();
-                    if(!args[0].toString().equals("")){
-                        data = (JSONArray) args[0];
-                    }*/
                     JSONArray data = (JSONArray) args[0];
                     JSONObject datos;
                     String username = "";
@@ -1070,7 +1018,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("me llega",eq1.toString());
                     if(queEquipo == 0 && eq1 > eq2){
                         resultado = "¡Has ganado!\n";
                         puntosmios=eq1;
@@ -1126,7 +1073,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-                    Log.d(vueltas,"de vueltas");
                 }
             });
         }
@@ -1240,7 +1186,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Log.d("jsonDePrueba", auxiliar.toString());
 
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout1vs1);
         pausar = (Button) findViewById(R.id.button_pausar1vs1);
@@ -1357,7 +1302,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Log.d("veamosestp",partidareanudar.toString());
             mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
                 @Override
                 public void call(Object... args) {
@@ -1671,8 +1615,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             paloArrastre = palo;
             RondaArrastre = 1;
             RankingArrastre = ranking;
-            Log.d("palo", palo.toString());
-            Log.d("ranking", ranking.toString());
         }else{
             if(palo.equals(paloArrastre)){
                 if( ranking < RankingArrastre){
@@ -1769,7 +1711,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                Log.d("jsonDePrueba", aux.toString());
                 mSocket.emit("lanzarCarta", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
@@ -1941,7 +1882,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             @Override
             public void run() {
                 if (torneo == 2 && ultimo) {
-                    Log.d("la ia le toca", "dentro del if");
                     JSONObject aux = new JSONObject();
                     try {
                         aux.put("partida", room);
@@ -2341,7 +2281,6 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     public void assignImages(Carta card, ImageView image){
 
         String cual = card.getId();
-        Log.d("path",miCarta);
         try {
             // get input stream
             InputStream ims = getAssets().open(miCarta+"/"+cual+".png");
@@ -2417,13 +2356,11 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
         try {
             postData.put("copas", copas);
-            Log.d("prueba",postData.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.d("holaaa",postData.toString());
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
             @Override

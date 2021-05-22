@@ -136,8 +136,6 @@ public class PantallaJuego extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        Log.d("salgo","finalizo");
         contador.cancel();
         if (torneo==1 && gano==1){
             Torneo.terminoPartida();
@@ -159,7 +157,6 @@ public class PantallaJuego extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.d("que",aux.toString());
 
         if(pauso!=1) {
             contador.cancel();
@@ -238,8 +235,6 @@ public class PantallaJuego extends AppCompatActivity {
                         return;
                     }
 
-                    // add the message to view
-                    Log.d("username",username+" "+nameUser);
                     if (!username.equals(nameUser)) {
                         chat.setImageResource(R.drawable.baseline_announcement_black_48);
                         MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0",message,2,username);
@@ -1089,7 +1084,6 @@ public class PantallaJuego extends AppCompatActivity {
                     }
                     if(jugador.equals(nameUser)){
                         String query="UPDATE auth SET copas='"+hola+"' WHERE user='"+getName()+"'";
-                        Log.d("query",query);
                         db.execSQL(query);
                         updateCopas(hola);
                     }
@@ -1112,7 +1106,6 @@ public class PantallaJuego extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("triunfoooooooooo", triunfo);
                     cartaTriunfo = new Carta(triunfo);
                     assignImages(cartaTriunfo, triumphe);
                     aun_no = true;
@@ -1170,8 +1163,6 @@ public class PantallaJuego extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.d("carta",carta);
-                    Log.d("quien",quien);
 
                     if (!quien.equals(nameUser)){
                         queOrden--;
@@ -1463,7 +1454,6 @@ public class PantallaJuego extends AppCompatActivity {
                         }
                         assignImages(aux,triumphe);
                     }
-                    Log.d("cambio7",jugador.toString());
                     String texto = "El usuario "+jugador+ " ha cambiado el 7";
                     Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
                 }
@@ -1478,11 +1468,6 @@ public class PantallaJuego extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("veamosC",args[0].toString());
-                    /*JSONArray data=new JSONArray();
-                    if(!args[0].toString().equals("")){
-                        data = (JSONArray) args[0];
-                    }*/
                     JSONArray data = (JSONArray) args[0];
                     JSONObject datos;
                     String username = "";
@@ -1621,7 +1606,6 @@ public class PantallaJuego extends AppCompatActivity {
                     }
                     deVueltas = true;
                     cuantascartasint=16;
-                    Log.d(vueltas,"de vueltas");
                 }
             });
         }
@@ -1780,7 +1764,6 @@ public class PantallaJuego extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Log.d("jsonDePrueba",auxiliar.toString());
 
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout);
         pausar = (Button) findViewById(R.id.button_pausar);
@@ -1905,7 +1888,6 @@ public class PantallaJuego extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Log.d("veamosestp",partidareanudar.toString());
             mSocket.emit("reanudarPartida", partidareanudar, new Ack() {
                 @Override
                 public void call(Object... args) {
@@ -2321,7 +2303,6 @@ public class PantallaJuego extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                Log.d("jsonDePrueba", aux.toString());
                 mSocket.emit("lanzarCarta", aux, new Ack() {
                     @Override
                     public void call(Object... args) {
@@ -2920,7 +2901,6 @@ public class PantallaJuego extends AppCompatActivity {
             Drawable d = Drawable.createFromStream(ims, null);
             // set image to ImageView
             juegotapete.setBackground(d);
-            Log.d("TAPETE", miTapete);
         }
         catch(Exception ex) {
             return;
@@ -2931,7 +2911,6 @@ public class PantallaJuego extends AppCompatActivity {
     public void assignImages(Carta card, ImageView image){
 
         String cual = card.getId();
-        Log.d("path",miCarta);
         try {
             // get input stream
             InputStream ims = getAssets().open(miCarta+"/"+cual+".png");
@@ -3103,13 +3082,10 @@ public class PantallaJuego extends AppCompatActivity {
 
         try {
             postData.put("copas", copas);
-            Log.d("prueba",postData.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Log.d("holaaa",postData.toString());
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, postData, new Response.Listener<JSONObject>() {
             @Override
