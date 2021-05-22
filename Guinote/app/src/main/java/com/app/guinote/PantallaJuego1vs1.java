@@ -420,15 +420,15 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                 arrastre = false;
                             }else{
                                 arrastre = true;
-                                triumphewhole.setVisibility(View.GONE);
-                                reverse.setVisibility(View.GONE);
+                                triumphewhole.setVisibility(View.INVISIBLE);
+                                reverse.setVisibility(View.INVISIBLE);
                                 new Thread() {
                                     @Override
                                     public void run() {
                                         updatecenterCard();
                                     }
                                 }.start();
-                                cuantascartas.setVisibility(View.GONE);
+                                cuantascartas.setVisibility(View.INVISIBLE);
                             }
                         }else{
                             arrastre  = false;
@@ -775,15 +775,15 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     cuantascartas.setText(cuantascartasint.toString());
                     if(nronda == 14){
                         arrastre = true;
-                        triumphewhole.setVisibility(View.GONE);
-                        reverse.setVisibility(View.GONE);
+                        triumphewhole.setVisibility(View.INVISIBLE);
+                        reverse.setVisibility(View.INVISIBLE);
                         new Thread() {
                             @Override
                             public void run() {
                                 updatecenterCard();
                             }
                         }.start();
-                        cuantascartas.setVisibility(View.GONE);
+                        cuantascartas.setVisibility(View.INVISIBLE);
                     }
                     if(arrastre == true){
                         RondaArrastre = 0;
@@ -1335,7 +1335,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                cuentaatras.setVisibility(View.GONE);
+                cuentaatras.setVisibility(View.INVISIBLE);
                 numeroTimer = 0;
                 if(arrastre_y_puede(0)){
                     puedeLanzar(0);
@@ -1740,7 +1740,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }
                 estrella1.setVisibility(View.INVISIBLE);
                 contador.cancel();
-                cuentaatras.setVisibility(View.GONE);
+                cuentaatras.setVisibility(View.INVISIBLE);
                 numeroTimer = 0;
                 return true;
             }
