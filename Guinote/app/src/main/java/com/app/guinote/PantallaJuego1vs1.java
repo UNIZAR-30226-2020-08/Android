@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -77,6 +78,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     public int TEXT_LINES=1;
     private Toolbar toolbar;
 
+    MediaPlayer mediaPlayer;
     private int mRemainingTime = 30;
     private String room="";
     private int torneo=0;
@@ -131,6 +133,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mediaPlayer.stop();
         contador.cancel();
         if (torneo==1 && gano==1){
             Torneo.terminoPartida(room);
@@ -1142,6 +1145,10 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         Chat1vs1 fragmentoChat = (Chat1vs1) fm.findFragmentById(R.id.fragmento_chat1vs1);
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.musica);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
 
         miCarta = getCartas();
         miTapete = getTapete();
