@@ -53,7 +53,7 @@ public class BracketsCellViewHolder extends RecyclerView.ViewHolder {
                 String segundo=getTeamTwoName().getText().toString();
                 String split[]= primero.split("-",0);
                 String split2[]= segundo.split("-",0);
-                if(Torneo.modalidad==1) {
+                if(Torneo.modalidad==0) {
                     if (Torneo.getName().equals(getTeamOneName().getText()) || Torneo.getName().equals(getTeamTwoName().getText())) {
                         Log.d("partida", getTeamTitle().getText().toString());
                         Activity activity = (Activity) itemView.getContext();

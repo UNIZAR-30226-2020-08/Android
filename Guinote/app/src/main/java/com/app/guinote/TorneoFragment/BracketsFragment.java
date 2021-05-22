@@ -159,8 +159,8 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
         }else {
             ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
             for (int i=0;i<lista.size();i+=4){
-                Model2 competitorOne = new Model2(lista.get(i)+"-"+lista.get(i+1), "-");
-                Model2 competitordos = new Model2(lista.get(i+2)+"-"+lista.get(i+3), "-");
+                Model2 competitorOne = new Model2(lista.get(i)+"-"+lista.get(i+2), "-");
+                Model2 competitordos = new Model2(lista.get(i+1)+"-"+lista.get(i+3), "-");
                 Model3 model31 = new Model3(competitorOne, competitordos,partidas.get(i));
                 Colomn1matchesList.add(model31);
             }
