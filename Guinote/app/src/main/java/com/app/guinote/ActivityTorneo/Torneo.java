@@ -51,7 +51,9 @@ public class Torneo extends AppCompatActivity {
     public static SQLiteDatabase db;
     public static int modalidad=0;
     private static int ronda=1;
+    private String []participantesPartida;
     private static int perdido=0;
+    private int miEquipo=0;
     private String miPartidaActual="";
     private static Context mContext;
     static LottieAnimationView animacion;
@@ -100,6 +102,8 @@ public class Torneo extends AppCompatActivity {
                 });
             }
         }
+
+        mSocket.off("abandonoTorneo",onSalidaRepentina);
     }
 
 
@@ -126,21 +130,69 @@ public class Torneo extends AppCompatActivity {
                 public void run(){
                     try {
                         JSONObject data = (JSONObject) args[0];
-                        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
-                        builder.setTitle("El jugador " + data.getString("jugador") + " ha abandonado la partida.");
-                        builder.setMessage("Espera a que acaben las siguientes rondas para seguir jugando.");
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                animacion.setVisibility(View.VISIBLE);
-                                animacion.playAnimation();
-                            }
-                        });
-                        builder.setMessage(getName() + " se proclama ganador del torneo " + nombrePartida);
-                        builder.show();
-                    }catch (Exception e){
+                        String partidaJugada=data.getString("partida");
+                        if(modalidad==1){
+                            if(partidaJugada.equals(miPartidaActual) ) {
+                                int j;
+                                for (int i = 0; i < participantesPartida.length; i++) {
+                                    if (participantesPartida[i].equals(data.getString("jugador"))) {
+                                        j = i;
+                                    }
+                                }
 
+                                j = j % 2;
+
+                                if (j == miEquipo) {
+
+                                    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+                                    builder.setTitle("Tu compañero " + data.getString("jugador") + " ha abandonado la partida.");
+                                    builder.setMessage("Quedas eliminado del torneo.");
+                                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(mContext, Pantalla_app.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.putExtra("EXIT", true);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    builder.show();
+
+                                } else {
+                                    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+                                    builder.setTitle("El jugador " + data.getString("jugador") + " ha abandonado la partida.");
+                                    builder.setMessage("Espera a que acaben las siguientes rondas para seguir jugando.");
+                                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            animacion.setVisibility(View.VISIBLE);
+                                            animacion.playAnimation();
+                                        }
+                                    });
+                                    builder.show();
+                                }
+                            }
+                        }else {
+                            if(partidaJugada.equals(miPartidaActual) && !getName().equals(data.getString("jugador"))) {
+                                final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+                                builder.setTitle("El jugador " + data.getString("jugador") + " ha abandonado la partida.");
+                                builder.setMessage("Espera a que acaben las siguientes rondas para seguir jugando.");
+                                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        animacion.setVisibility(View.VISIBLE);
+                                        animacion.playAnimation();
+                                    }
+                                });
+                                builder.show();
+                            }
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
                 }});
         }
@@ -173,6 +225,23 @@ public class Torneo extends AppCompatActivity {
                         }
                     }
 
+                    if(modalidad==1){
+                        int j=0;
+                        for (int i=0;i<data.length();i++){
+                            try {
+                                if(miPartidaActual.equals(listaPartidas.get(i))){
+                                    if(lista.get(i).equals(getName())){
+                                        miEquipo=i%2;
+                                    }
+                                    participantesPartida[j]=lista.get(i);
+                                    j++;
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
                     Log.d("holatete",lista.toString());
                     if(participantes==16){
                         bracketFragment.modifyData(ronda,lista,modalidad,listaPartidas);
@@ -188,6 +257,7 @@ public class Torneo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        participantesPartida=new String[4];
         mContext=this;
         MyOpenHelper dbHelper = new MyOpenHelper(this);
         db = dbHelper.getWritableDatabase();
@@ -201,6 +271,7 @@ public class Torneo extends AppCompatActivity {
 
         mSocket.on("matches",onMatches);
         mSocket.on("joinedT",onJoin);
+        mSocket.on("abandonoTorneo",onSalidaRepentina);
 
         Bundle b = getIntent().getExtras();
         if(b != null) {
