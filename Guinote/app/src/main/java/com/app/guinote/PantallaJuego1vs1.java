@@ -133,7 +133,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         super.onDestroy();
         contador.cancel();
         if (torneo==1 && gano==1){
-            Torneo.terminoPartida();
+            Torneo.terminoPartida(room);
         }else if(torneo==1 && gano==0){
             Intent intent = new Intent(this, Pantalla_app.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

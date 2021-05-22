@@ -247,7 +247,7 @@ public class Torneo extends AppCompatActivity {
         }
     }
 
-    public static void terminoPartida(){
+    public static void terminoPartida(String partida){
         if(ronda!=3) {
             animacion.setVisibility(View.VISIBLE);
             animacion.playAnimation();
@@ -257,6 +257,7 @@ public class Torneo extends AppCompatActivity {
             try {
                 auxiliar.put("fase", ronda);
                 auxiliar.put("torneo", nombrePartida);
+                auxiliar.put("partida", partida);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
