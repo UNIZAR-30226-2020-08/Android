@@ -116,6 +116,37 @@ public class Torneo extends AppCompatActivity {
                 }});
         }
     };
+
+    private Emitter.Listener onSalidaRepentina = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run(){
+                    try {
+                        JSONObject data = (JSONObject) args[0];
+                        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+                        builder.setTitle("El jugador " + data.getString("jugador") + " ha abandonado la partida.");
+                        builder.setMessage("Espera a que acaben las siguientes rondas para seguir jugando.");
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                animacion.setVisibility(View.VISIBLE);
+                                animacion.playAnimation();
+                            }
+                        });
+                        builder.setMessage(getName() + " se proclama ganador del torneo " + nombrePartida);
+                        builder.show();
+                    }catch (Exception e){
+
+                    }
+                }});
+        }
+    };
+
+
     private Emitter.Listener onMatches = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
