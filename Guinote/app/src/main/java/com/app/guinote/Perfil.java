@@ -556,7 +556,7 @@ public class Perfil extends Fragment{
 
     public void Cartas(){
                 final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
-                final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext(),R.style.MyDialogTheme);
+                final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                 builder.setTitle("Cartas");
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override
@@ -623,7 +623,7 @@ public class Perfil extends Fragment{
     public void Tapetes(){
                 Log.d("hola","jejej");
                 final CharSequence[] charSequence = new CharSequence[] {"As Guest","I have account here"};
-                final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext(),R.style.MyDialogTheme);
+                final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                 builder.setTitle("Tapetes");
                 builder.setNeutralButton("Cancelar",new DialogInterface.OnClickListener() {
                     @Override

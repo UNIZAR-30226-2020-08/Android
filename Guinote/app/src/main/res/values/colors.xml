@@ -11,7 +11,7 @@
     <color name="colorNegro">#000000</color>
     <color name="dorado">#F5CA02</color>
     <color name="chat">#8ee3fa</color>
-    <color name= "transp">#999999</color>
+    <color name= "transp">#cccccc</color>
     <color name="elColorDePablo">#008300</color>
 
 </resources>
