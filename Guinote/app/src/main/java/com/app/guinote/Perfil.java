@@ -515,7 +515,7 @@ public class Perfil extends Fragment{
 
                 builder.setSingleChoiceItems(AdapterCartas,Character.getNumericValue(inicioCartas.charAt(6))-1,new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, int which) {
                         Integer m=which+1;
                         Log.d("num",inicioCartas);
                         AdapterCartas.arrayList.get(Character.getNumericValue(inicioCartas.charAt(6))-1).set_elegido(false);
@@ -538,8 +538,9 @@ public class Perfil extends Fragment{
                                 //builder.show();
                                 animacion.setVisibility(View.INVISIBLE);
                                 animacion.pauseAnimation();
+                                dialog.dismiss();
                             }
-                        }, 1000);
+                        }, 3000);
                     }
 
                 });
@@ -577,7 +578,7 @@ public class Perfil extends Fragment{
 
                 builder.setSingleChoiceItems(AdapterTapetes,Character.getNumericValue(inicioTapetes.charAt(6))-1,new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, int which) {
                         Integer m=which+1;
                         AdapterTapetes.arrayList.get(Character.getNumericValue(inicioTapetes.charAt(6))-1).set_elegido(false);
                         AdapterTapetes.arrayList.get(which).set_elegido(true);
@@ -598,11 +599,11 @@ public class Perfil extends Fragment{
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                builder.show();
                                 animacion.setVisibility(View.INVISIBLE);
                                 animacion.pauseAnimation();
+                                dialog.dismiss();
                             }
-                        }, 1000);
+                        }, 3000);
                     }
                 });
 
