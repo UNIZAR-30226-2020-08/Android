@@ -133,7 +133,7 @@ public class Torneo extends AppCompatActivity {
                         String partidaJugada=data.getString("partida");
                         if(modalidad==1){
                             if(partidaJugada.equals(miPartidaActual) ) {
-                                int j;
+                                int j=0;
                                 for (int i = 0; i < participantesPartida.length; i++) {
                                     if (participantesPartida[i].equals(data.getString("jugador"))) {
                                         j = i;
