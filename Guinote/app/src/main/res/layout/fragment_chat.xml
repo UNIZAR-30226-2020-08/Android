@@ -56,6 +56,16 @@
             android:layout_toRightOf="@+id/buttonchatpredefined1"
             android:id="@+id/buttonchatpredefined3"
             android:hint="😂"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_above="@+id/edittextchat"
+            android:backgroundTint="#ffffff"
+            android:textColorHint="#000000"
+            android:layout_toRightOf="@+id/buttonchatpredefined3"
+            android:id="@+id/buttonchatpredefined4"
+            android:hint="¡Hola!"/>
 
         <Button
             android:id="@+id/buttonchatpredefined2"

@@ -31,7 +31,7 @@ public class Chat1vs1 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private View view;
     private EditText bEscribirMensaje;
-    private Button bEnviarMensaje,bP1,bP2,bP3;
+    private Button bEnviarMensaje,bP1,bP2,bP3,bP4;
     private MensajesAdapter adapter;
     private RecyclerView rv;
     private SQLiteDatabase db;
@@ -83,6 +83,7 @@ public class Chat1vs1 extends Fragment {
         bP1 = (Button) view.findViewById(R.id.buttonchatpredefined1);
         bP2 = (Button) view.findViewById(R.id.buttonchatpredefined2);
         bP3 = (Button) view.findViewById(R.id.buttonchatpredefined3);
+        bP4 = (Button) view.findViewById(R.id.buttonchatpredefined4);
 
 
 
@@ -155,6 +156,17 @@ public class Chat1vs1 extends Fragment {
                 ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
                 CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"😂",1);
                 ((PantallaJuego1vs1)getActivity()).attemptSend("😂");
+            }
+        });
+
+        bP4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String texto=bEscribirMensaje.getText().toString();
+                MensajeDeTexto mensajeDeTextoAuxiliar = new MensajeDeTexto("0","¡Hola!",1,((PantallaJuego1vs1)getActivity()).getName());
+                ((PantallaJuego1vs1)getActivity()).mensajeDeTextos.add(mensajeDeTextoAuxiliar);
+                CreateMensaje(((PantallaJuego1vs1)getActivity()).getName(),"¡Hola!",1);
+                ((PantallaJuego1vs1)getActivity()).attemptSend("¡Hola!");
             }
         });
 
