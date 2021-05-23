@@ -431,6 +431,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     }
                                 }.start();
                                 cuantascartas.setVisibility(View.INVISIBLE);
+                                cartasrestantes.setVisibility(View.INVISIBLE);
                             }
                         }else{
                             arrastre  = false;
@@ -501,6 +502,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     cartaTriunfo = new Carta(triunfo);
+                    cuantascartasint=28;
                     assignImages(cartaTriunfo, triumphe);
                     aun_no = true;
                     iniciarPartida();
@@ -787,6 +789,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             }
                         }.start();
                         cuantascartas.setVisibility(View.INVISIBLE);
+                        cartasrestantes.setVisibility(View.INVISIBLE);
+
                     }
                     if(arrastre == true){
                         RondaArrastre = 0;
@@ -1061,7 +1065,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     deVueltas = true;
-                    cuantascartasint=28;
+                    //cuantascartasint=28;
 
                     try {
                         if(queEquipo==0){
@@ -2072,6 +2076,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }else{
                     cuantascartas.setVisibility(View.VISIBLE);
                     cartasrestantes.setVisibility(View.VISIBLE);
+                    cuantascartas.setText(cuantascartasint.toString());
                 }
                 cuentaatras.setVisibility(View.VISIBLE);
                 cantar.setVisibility(View.VISIBLE);

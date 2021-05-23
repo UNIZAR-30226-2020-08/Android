@@ -63,13 +63,11 @@
                     android:layout_gravity="center"
                     android:orientation="horizontal">
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
+                        android:id="@+id/profile_image_editar"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/fotoperfil"
-                        android:layout_gravity="center"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="#FF000000"/>
+                        android:layout_gravity="center" />
                 </LinearLayout>
             </LinearLayout>
 
