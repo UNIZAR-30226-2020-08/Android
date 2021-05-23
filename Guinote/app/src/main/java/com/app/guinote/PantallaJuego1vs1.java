@@ -434,6 +434,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                                     }
                                 }.start();
                                 cuantascartas.setVisibility(View.INVISIBLE);
+                                cartasrestantes.setVisibility(View.INVISIBLE);
                             }
                         }else{
                             arrastre  = false;
@@ -791,6 +792,8 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             }
                         }.start();
                         cuantascartas.setVisibility(View.INVISIBLE);
+                        cartasrestantes.setVisibility(View.INVISIBLE);
+
                     }
                     if(arrastre == true){
                         RondaArrastre = 0;
