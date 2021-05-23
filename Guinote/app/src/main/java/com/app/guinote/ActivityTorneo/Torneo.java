@@ -51,7 +51,7 @@ public class Torneo extends AppCompatActivity {
 
     private BracketsFragment bracketFragment;
     private static String nombrePartida="";
-    private int enPartida=0;
+    public static int enPartida=0;
     public static SQLiteDatabase db;
     String contra="";
     public static int modalidad=0;
@@ -415,6 +415,7 @@ public class Torneo extends AppCompatActivity {
         manager.executePendingTransactions();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -497,6 +498,15 @@ public class Torneo extends AppCompatActivity {
             builder.setMessage(getName()+" se proclama ganador del torneo "+nombrePartida);
             builder.show();
         }
+    }
+
+    public static void pierdoPartida(){
+        enPartida=0;
+        Intent intent = new Intent(mContext, Pantalla_app.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("EXIT", true);
+        mContext.startActivity(intent);
     }
 
 

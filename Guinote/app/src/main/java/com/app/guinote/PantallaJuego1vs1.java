@@ -138,6 +138,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         if (torneo==1 && gano==1){
             Torneo.terminoPartida(room);
         }else if(torneo==1 && gano==0){
+            Torneo.enPartida=0;
             Intent intent = new Intent(this, Pantalla_app.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
