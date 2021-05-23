@@ -3,7 +3,7 @@
     android:id="@+id/menuOptIni">
     <item
         android:id="@+id/more"
-        android:title="Configuración"
+        android:title=""
         android:contentDescription="Mas"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>
