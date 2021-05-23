@@ -20,17 +20,6 @@
             android:layout_height="match_parent"
             android:layout_weight="0.25">
             <ImageView
-                android:id="@+id/icono_musica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxHeight="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@+id/icono_chat"
-                android:layout_marginRight="10dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/baseline_volume_up_black_48" />
-            <ImageView
                 android:id="@+id/icono_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -341,14 +330,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/puntosrivaltext2vs2"
-                android:layout_toLeftOf="@id/estrella_turnj1"
+                android:layout_toRightOf="@id/carta_jugador1"
                 android:text="Puntos:  "/>
             <TextView
                 android:id="@+id/puntosrivaltext2vs2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/estrella_turnj1"
-                android:layout_toLeftOf="@id/estrella_turnj1"
+                android:layout_toRightOf="@id/carta_jugador1"
                 android:text="Puntos rival:  "/>
             <TextView
                 android:id="@+id/puntosrival2vs2"
@@ -356,14 +345,14 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@id/estrella_turnj1"
                 android:layout_toRightOf="@id/puntosrivaltext2vs2"
-                android:text="0"/>
+                android:text="0 malas"/>
             <TextView
                 android:id="@+id/puntosmios2vs2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/puntosrivaltext2vs2"
                 android:layout_toRightOf="@id/puntosmiostext2vs2"
-                android:text="0"/>
+                android:text="0 malas"/>
             <Button
                 android:backgroundTint="@color/colorNegro"
                 android:textColor="@color/cardview_light_background"

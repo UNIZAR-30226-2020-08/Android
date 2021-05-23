@@ -17,7 +17,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -89,7 +88,7 @@ public class PantallaJuego extends AppCompatActivity {
     private String nameUser;
     ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,
             j2imagefront,j2imageback,j3imagefront,
-            j3imageback,j4imagefront,j4imageback,estrella1,estrella2,estrella3,estrella4,icono_musica;
+            j3imageback,j4imagefront,j4imageback,estrella1,estrella2,estrella3,estrella4;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image,j3image,j4image;
     TextView nombreOponente2, nombreOponente3, nombreOponente4, cuentaatras, cuantascartas, copasadversarioj2,copasadversarioj3,copasadversarioj4, ptmio, ptrival, cartasrestantes, ptmiotext, ptorivaltext;
     Button cantar,pausar;
@@ -127,7 +126,6 @@ public class PantallaJuego extends AppCompatActivity {
     Carta companyero = new Carta("NO");
     boolean deVueltas;
     String winner = "";
-    MediaPlayer mediaPlayer;
     long duration = TimeUnit.SECONDS.toMillis(20);
     CountDownTimer contador;
     Integer puntosmios, puntosrival = 0;
@@ -139,7 +137,6 @@ public class PantallaJuego extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mediaPlayer.stop();
         contador.cancel();
         if (torneo==1 && gano==1){
             Torneo.terminoPartida(room);
@@ -1577,22 +1574,22 @@ public class PantallaJuego extends AppCompatActivity {
                         return;
                     }
                     if(queEquipo == 0 && eq1 > eq2){
-                        resultado = "¡Has ganado!\n";
+                        resultado = "¡Has ganado!\n+30 copas\n";
                         puntosmios=eq1;
                         puntosrival=eq2;
                         gano=1;
                     }else if(queEquipo == 0 && eq1 < eq2){
                         puntosmios=eq1;
                         puntosrival=eq2;
-                        resultado = "¡Has perdido!\n";
+                        resultado = "¡Has perdido!\n-15 copas\n";
                     }else if(queEquipo == 1 && eq1 > eq2){
                         puntosmios=eq2;
                         puntosrival=eq1;
-                        resultado = "¡Has perdido!\n";
+                        resultado = "¡Has perdido!\n-15 copas\n";
                     }else if(queEquipo == 1 && eq1 < eq2){
                         puntosmios=eq2;
                         puntosrival=eq1;
-                        resultado = "¡Has ganado!\n";
+                        resultado = "¡Has ganado!\n+30 copas\n";
                         gano=1;
                     }
                     openGanador();
@@ -1641,14 +1638,26 @@ public class PantallaJuego extends AppCompatActivity {
                     if (queEquipo == 0) {
                         puntosmios = p0;
                         puntosrival = p1;
-                        ptmio.setText(puntosmios.toString());
-                        ptrival.setText(puntosrival.toString());
 
                     } else if (queEquipo == 1) {
                         puntosmios = p1;
                         puntosrival = p0;
-                        ptmio.setText(puntosmios.toString());
-                        ptrival.setText(puntosrival.toString());
+                    }
+                    if(puntosmios >= 50){
+                        Integer puntosaux = puntosmios-50;
+                        String aux = puntosaux.toString()+ " buenas";
+                        ptmio.setText(aux);
+                    }else{
+                        String aux = puntosmios.toString()+ " malas";
+                        ptmio.setText(aux);
+                    }
+                    if(puntosrival >= 50){
+                        Integer puntosaux = puntosrival-50;
+                        String aux = puntosaux.toString()+ " buenas";
+                        ptrival.setText(aux);
+                    }else{
+                        String aux = puntosrival.toString()+ " malas";
+                        ptrival.setText(aux);
                     }
                     if (deVueltas == true) {
                         if (puntosmios >= 101) {
@@ -1738,10 +1747,6 @@ public class PantallaJuego extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
 
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.musica);
-        mediaPlayer.start();
-        mediaPlayer.setLooping(true);
-
         miCarta=getCartas();
         miTapete=getTapete();
         mensajeDeTextos = new ArrayList<>();
@@ -1781,7 +1786,6 @@ public class PantallaJuego extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        icono_musica = (ImageView) findViewById(R.id.icono_musica);
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout);
         pausar = (Button) findViewById(R.id.button_pausar);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes2vs2);
@@ -1962,20 +1966,6 @@ public class PantallaJuego extends AppCompatActivity {
         c5.setOnDragListener(mDragListen);
         c6.setOnDragListener(mDragListen);
 
-        icono_musica.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(esta_sonando){
-                    icono_musica.setImageResource(R.drawable.baseline_volume_off_black_48);
-                    mediaPlayer.pause();
-                    esta_sonando = false;
-                }else{
-                    icono_musica.setImageResource(R.drawable.baseline_volume_up_black_48);
-                    mediaPlayer.start();
-                    esta_sonando = true;
-                }
-            }
-        });
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2223,7 +2213,20 @@ public class PantallaJuego extends AppCompatActivity {
                 finish();
             }
         });
-        resultado = resultado + "Puntos: " + puntosmios + "\n" + "Puntos rival: " + puntosrival;
+        String aux="", aux2="";
+        if(puntosmios >= 50){
+            Integer puntosaux = puntosmios-50;
+            aux = puntosaux.toString()+ " buenas";
+        }else{
+            aux = puntosmios.toString()+ " malas";
+        }
+        if(puntosrival >= 50){
+            Integer puntosaux = puntosrival-50;
+            aux2 = puntosaux.toString()+ " buenas";
+        }else{
+            aux2 = puntosrival.toString()+ " malas";
+        }
+        resultado = resultado + "Puntos: " + aux + "\n" + "Puntos rival: " + aux2;
         builder.setMessage(resultado);
         builder.show();
 

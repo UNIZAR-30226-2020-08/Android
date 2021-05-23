@@ -200,14 +200,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/puntosrivaltext"
-                android:layout_toLeftOf="@id/estrella_turnoj1"
+                android:layout_toRightOf="@id/carta_jugador11vs1"
                 android:text="Puntos:  "/>
             <TextView
                 android:id="@+id/puntosrivaltext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/estrella_turnoj1"
-                android:layout_toLeftOf="@id/estrella_turnoj1"
+                android:layout_toRightOf="@id/carta_jugador11vs1"
                 android:text="Puntos rival:  "/>
             <TextView
                 android:id="@+id/puntosrival"
@@ -242,6 +242,15 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp"
                 android:text="Cantar" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmento_chat1vs1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="-1dp"
+                android:layout_marginBottom="0dp" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/relativelayout2_juego1vs1"
@@ -409,12 +418,5 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmento_chat1vs1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" />
+
 </RelativeLayout>
