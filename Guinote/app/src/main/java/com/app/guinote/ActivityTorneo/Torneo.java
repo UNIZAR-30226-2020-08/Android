@@ -90,7 +90,7 @@ public class Torneo extends AppCompatActivity {
                     });
                 } else {
                     JSONObject auxiliar2 = new JSONObject();
-                    Log.d("hola", "holasdasd");
+                    Log.d("hola", "me salgo del torneo");
                     try {
                         auxiliar2.put("jugador", getName());
                         auxiliar2.put("torneo", nombrePartida);
@@ -145,7 +145,7 @@ public class Torneo extends AppCompatActivity {
                     animacion.setVisibility(View.INVISIBLE);
                     conectadoCorrectamente=1;
                     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
-                    builder.setTitle("Contraseña icorrecta");
+                    builder.setTitle("Contraseña incorrecta");
                     builder.setMessage("Intente unirse más tarde.");
                     builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
