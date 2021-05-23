@@ -773,6 +773,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                             contador.start();
                         }
                     }
+                    quienWinner = ganador;
                     aun_no = true;
                     disolverCartas();
                     nronda++;
@@ -1543,41 +1544,51 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         triumphewhole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject aux = new JSONObject();
-                try {
-                    aux.put("jugador", nameUser);
-                    aux.put("nombre", room);
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                mSocket.emit("cambiar7", aux, new Ack() {
-                    @Override
-                    public void call(Object... args) {
-                        //JSONObject response = (JSONObject) args[0];
-                        //System.out.println(response); // "ok"
+                if(quienWinner.equals(nameUser)){
+                    JSONObject aux = new JSONObject();
+                    try {
+                        aux.put("jugador", nameUser);
+                        aux.put("nombre", room);
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
-                });
+                    mSocket.emit("cambiar7", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                }else{
+                    String texto = "Para cambiar el 7 debes hacer baza";
+                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         cantar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject aux = new JSONObject();
-                try {
-                    aux.put("jugador", nameUser);
-                    aux.put("nombre", room);
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                mSocket.emit("cantar", aux, new Ack() {
-                    @Override
-                    public void call(Object... args) {
-                        //JSONObject response = (JSONObject) args[0];
-                        //System.out.println(response); // "ok"
+                if(quienWinner.equals(nameUser)){
+                    JSONObject aux = new JSONObject();
+                    try {
+                        aux.put("jugador", nameUser);
+                        aux.put("nombre", room);
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
-                });
+                    mSocket.emit("cantar", aux, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                }else{
+                    String texto = "Para cantar debes hacer baza";
+                    Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
