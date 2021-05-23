@@ -504,6 +504,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     cartaTriunfo = new Carta(triunfo);
+                    cuantascartasint=28;
                     assignImages(cartaTriunfo, triumphe);
                     aun_no = true;
                     iniciarPartida();
@@ -1064,7 +1065,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                         return;
                     }
                     deVueltas = true;
-                    cuantascartasint=28;
+                    //cuantascartasint=28;
 
                     try {
                         if(queEquipo==0){
