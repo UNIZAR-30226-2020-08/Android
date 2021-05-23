@@ -1918,6 +1918,9 @@ public class PantallaJuego extends AppCompatActivity {
                 }
             });
         }else{
+            if(torneo==1){
+                pausar.setVisibility(View.INVISIBLE);
+            }
             mSocket.emit("join", auxiliar, new Ack() {
                 @Override
                 public void call(Object... args) {
