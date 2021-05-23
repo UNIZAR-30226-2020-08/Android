@@ -121,6 +121,7 @@ public class PantallaJuego extends AppCompatActivity {
     //Variables para el arrastre
     boolean arrastre;   //Si estamos en arrastre o no
     Integer paloArrastre;
+    Integer paloArrastreIni;
     Integer RondaArrastre;
     Integer RankingArrastre;
     Carta companyero = new Carta("NO");
@@ -298,6 +299,7 @@ public class PantallaJuego extends AppCompatActivity {
                     if (username.equals(nameUser)) {
                         arrastre = false;
                         paloArrastre = 0;
+                        paloArrastreIni = 0;
                         RondaArrastre = 0;
                         RankingArrastre = 11;
                         queEquipo = equipo;
@@ -729,6 +731,7 @@ public class PantallaJuego extends AppCompatActivity {
                             deVueltas = false;
                         }
                         paloArrastre = 0;
+                        paloArrastreIni = 0;
                         RondaArrastre = 0;
                         RankingArrastre = 11;
                         queEquipo = equipo;
@@ -1356,6 +1359,7 @@ public class PantallaJuego extends AppCompatActivity {
                     if(arrastre){
                         RondaArrastre = 0;
                         paloArrastre = 0;
+                        paloArrastreIni = 0;
                         RankingArrastre = 11;
                     }
                     if(nronda == 10){
@@ -2237,6 +2241,7 @@ public class PantallaJuego extends AppCompatActivity {
             paloArrastre = hola.getPalo();
             RondaArrastre = 1;
             RankingArrastre = hola.getRanking();
+            paloArrastreIni = hola.getPalo();
             if(queOrden == 2){
                 companyero = new Carta(hola.getId());
             }
@@ -2313,7 +2318,7 @@ public class PantallaJuego extends AppCompatActivity {
                             }
                         }
                     }
-                }else if((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre == cartaTriunfo.getPalo())){
+                }else if((cardsj1[i].getPalo() != paloArrastre) && (paloArrastre == cartaTriunfo.getPalo()) && (paloArrastre == paloArrastreIni)){
                     for(int j = 0; j<6;j++){
                         if(j!=i){
                             if(cardsj1[j].getPalo() == cartaTriunfo.getPalo()){
