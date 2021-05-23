@@ -1195,7 +1195,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        icono_musica = (ImageView) findViewById(R.id.icono_musica);
+        icono_musica = (ImageView) findViewById(R.id.icono_musica1vs1);
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout1vs1);
         pausar = (Button) findViewById(R.id.button_pausar1vs1);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
