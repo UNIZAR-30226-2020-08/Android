@@ -2234,7 +2234,13 @@ public class PantallaJuego extends AppCompatActivity {
                 RankingArrastre = cardsj1[i].getRanking();
                 return true;
             }else{
-                if(RondaArrastre > 1 && companyero.getPalo() == paloArrastre && companyero.getRanking() == RankingArrastre){
+                Integer palocompa = companyero.getPalo();
+                Integer rankingcompa = companyero.getRanking();
+                Log.d("palo compañero", palocompa.toString());
+                Log.d("palo arrastre", paloArrastre.toString());
+                Log.d("ranking compañero", rankingcompa.toString());
+                Log.d("ranking arrastre", RankingArrastre.toString());
+                if((RondaArrastre > 1) && (companyero.getPalo() == paloArrastre) && (companyero.getRanking() == RankingArrastre)){
                     return true;
                 }
                 if((cardsj1[i].getPalo() == paloArrastre) && (cardsj1[i].getRanking() > RankingArrastre)){
