@@ -92,7 +92,7 @@ public class FormularioPartida extends Fragment {
             postData.put("nombre", nombrePartida);
             postData.put("tipo", modalidad);
             postData.put("nparticipantes", participantes);
-            postData.put("password", passwd);
+            postData.put("contrasenya", passwd);
 
         } catch (JSONException e) {
             e.printStackTrace();
