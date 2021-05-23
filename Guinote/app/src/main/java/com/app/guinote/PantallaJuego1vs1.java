@@ -83,6 +83,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private String room="";
     private int torneo=0;
     private Socket mSocket;
+    Boolean esta_sonando = true;
 
     private String miCarta="";
     private String miTapete="";
@@ -93,7 +94,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
     private SQLiteDatabase db;
     private int gano=0;
     private String nameUser;
-    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2;
+    ImageView c1,c2,c3,c4,c5,c6,reverse,triumphe,j1image,chat,j2imagefront,j2imageback,estrella1,estrella2,icono_musica;
     EasyFlipView c1whole,c2whole,c3whole,c4whole,c5whole,c6whole,triumphewhole,j2image;
     TextView nombreOponente,cuentaatras, cuantascartas, copasadversario, ptmio, ptrival, cartasrestantes, ptmiotext, ptorivaltext;
     Button cantar,pausar;
@@ -1194,7 +1195,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        icono_musica = (ImageView) findViewById(R.id.icono_musica);
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout1vs1);
         pausar = (Button) findViewById(R.id.button_pausar1vs1);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
@@ -1367,6 +1368,21 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         c4.setOnDragListener(mDragListen);
         c5.setOnDragListener(mDragListen);
         c6.setOnDragListener(mDragListen);
+
+        icono_musica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(esta_sonando){
+                    icono_musica.setImageResource(R.drawable.baseline_volume_off_black_48);
+                    mediaPlayer.stop();
+                    esta_sonando = false;
+                }else{
+                    icono_musica.setImageResource(R.drawable.baseline_volume_up_black_48);
+                    mediaPlayer.start();
+                    esta_sonando = true;
+                }
+            }
+        });
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
