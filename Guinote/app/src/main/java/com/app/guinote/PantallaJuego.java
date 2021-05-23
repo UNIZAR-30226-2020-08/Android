@@ -122,7 +122,7 @@ public class PantallaJuego extends AppCompatActivity {
     Integer paloArrastre;
     Integer RondaArrastre;
     Integer RankingArrastre;
-    Carta companyero;
+    Carta companyero = new Carta("NO");
     boolean deVueltas;
     String winner = "";
     MediaPlayer mediaPlayer;
