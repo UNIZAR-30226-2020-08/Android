@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,8 +30,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfile extends Fragment {
 
@@ -53,6 +57,11 @@ public class EditProfile extends Fragment {
         db = dbHelper.getWritableDatabase();
         GetData();
         final View actualizar = view.findViewById(R.id.Actualizar);
+
+        CircleImageView mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_image_editar);
+
+        assignProfilePicture(mProfilePhoto);
+
         actualizar.setEnabled(true);
         View denegar = view.findViewById(R.id.Cancelarperfil);
         denegar.setEnabled(true);
@@ -185,12 +194,33 @@ public class EditProfile extends Fragment {
 
 
 
-        public String getName(){
-            String query="SELECT user FROM auth";
-            Cursor c=db.rawQuery(query,null);
-            c.moveToNext();
-            return c.getString(0);
+    public String getName(){
+        String query="SELECT user FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
 
+    }
+
+    private void assignProfilePicture(CircleImageView mProfilePhoto) {
+        try {
+            // get input stream
+            InputStream ims = getActivity().getAssets().open(getFoto()+".png");
+            // load image as Drawable
+            Drawable d = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            mProfilePhoto.setImageDrawable(d);
         }
+        catch(Exception ex) {
+            return;
+        }
+    }
+
+    public String getFoto() {
+        String query="SELECT f_perfil FROM auth";
+        Cursor c=db.rawQuery(query,null);
+        c.moveToNext();
+        return c.getString(0);
+    }
 
 }

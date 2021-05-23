@@ -18,7 +18,7 @@
         app:hintTextColor="#ffffff"
         app:boxStrokeColor="#ffffff"
         app:boxBackgroundColor="#33ffffff"
-        android:hint="Write your username"
+        android:hint="Escribe tu usuario"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -37,7 +37,7 @@
         android:layout_marginTop="3dp"
         android:padding="0dp"
         app:boxStrokeColor="#ffffff"
-        android:hint="Write your email"
+        android:hint="Escribe tu email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -53,7 +53,7 @@
         android:layout_height="0dp"
         app:boxBackgroundColor="#33ffffff"
         android:layout_weight="1"
-        android:hint="Write your password"
+        android:hint="Contraseña"
         app:hintTextColor="#ffffff"
         android:layout_marginTop="3dp"
         app:boxStrokeColor="#ffffff"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#ffffff"
             android:padding="13dp"
-            android:text="Sign Up"
+            android:text="Crear cuenta"
             android:textColor="#349702"
             android:textStyle="bold" />
     </com.google.android.material.button.MaterialButtonToggleGroup>

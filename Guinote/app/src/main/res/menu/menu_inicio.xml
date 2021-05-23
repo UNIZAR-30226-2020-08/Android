@@ -3,10 +3,10 @@
         android:id="@+id/page_1"
         android:enabled="true"
         android:icon="@drawable/user_login"
-        android:title="Log In"/>
+        android:title="Iniciar sesión"/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/user_register"
-        android:title="Sign Up"/>
+        android:title="Registrarse"/>
 </menu>

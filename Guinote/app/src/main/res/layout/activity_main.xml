@@ -203,7 +203,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:layout_gravity="center"
-                                android:text="Practica  contra la máquina"
+                                android:text="Practica contra la máquina"
                                 android:textAppearance="?attr/textAppearanceBody2"
                                 android:textColor="#ffffff"
                                 />
