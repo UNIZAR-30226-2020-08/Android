@@ -1195,7 +1195,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        icono_musica = (ImageView) findViewById(R.id.icono_musica1vs1);
+        //icono_musica = (ImageView) findViewById(R.id.icono_musica1vs1);
         LinearLayout juegotapete = (LinearLayout) findViewById(R.id.juego_layout1vs1);
         pausar = (Button) findViewById(R.id.button_pausar1vs1);
         cartasrestantes = (TextView) findViewById(R.id.cartasrestantes);
@@ -1369,7 +1369,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         c5.setOnDragListener(mDragListen);
         c6.setOnDragListener(mDragListen);
 
-        icono_musica.setOnClickListener(new View.OnClickListener() {
+        /*icono_musica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(esta_sonando){
@@ -1382,7 +1382,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     esta_sonando = true;
                 }
             }
-        });
+        });*/
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
