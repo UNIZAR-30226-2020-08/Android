@@ -2070,6 +2070,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                 }else{
                     cuantascartas.setVisibility(View.VISIBLE);
                     cartasrestantes.setVisibility(View.VISIBLE);
+                    cuantascartas.setText(cuantascartasint.toString());
                 }
                 cuentaatras.setVisibility(View.VISIBLE);
                 cantar.setVisibility(View.VISIBLE);
