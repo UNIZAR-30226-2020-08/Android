@@ -143,7 +143,7 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
 
     }
 
-    public void modifyData(int ronda, List<String> lista, int modalidad,  List<String> partidas){
+    public void modifyData(int ronda, List<String> lista, int modalidad,  List<String> partidas, boolean primero){
 
         if(modalidad==0){
             ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
@@ -158,11 +158,20 @@ public class BracketsFragment extends Fragment implements ViewPager.OnPageChange
             sectionList.add(ronda,model11);
         }else {
             ArrayList<Model3> Colomn1matchesList = new ArrayList<>();
-            for (int i=0;i<lista.size();i+=4){
-                Model2 competitorOne = new Model2(lista.get(i)+"-"+lista.get(i+2), "-");
-                Model2 competitordos = new Model2(lista.get(i+1)+"-"+lista.get(i+3), "-");
-                Model3 model31 = new Model3(competitorOne, competitordos,partidas.get(i));
-                Colomn1matchesList.add(model31);
+            if(primero) {
+                for (int i = 0; i < lista.size(); i += 4) {
+                    Model2 competitorOne = new Model2(lista.get(i) + "-" + lista.get(i + 2), "-");
+                    Model2 competitordos = new Model2(lista.get(i + 1) + "-" + lista.get(i + 3), "-");
+                    Model3 model31 = new Model3(competitorOne, competitordos, partidas.get(i));
+                    Colomn1matchesList.add(model31);
+                }
+            }else{
+                for (int i = 0; i < lista.size(); i += 4) {
+                    Model2 competitorOne = new Model2(lista.get(i) + "-" + lista.get(i + 1), "-");
+                    Model2 competitordos = new Model2(lista.get(i + 2) + "-" + lista.get(i + 3), "-");
+                    Model3 model31 = new Model3(competitorOne, competitordos, partidas.get(i));
+                    Colomn1matchesList.add(model31);
+                }
             }
             Model1 model11 = new Model1(Colomn1matchesList);
             sectionList.remove(ronda);

@@ -58,6 +58,7 @@ public class Torneo extends AppCompatActivity {
     private static int ronda=1;
     private String []participantesPartida;
     private static int perdido=0;
+    private boolean primeroEmpieza=true;
     private int miEquipo=0;
     private String miPartidaActual="";
     private static Context mContext;
@@ -286,9 +287,19 @@ public class Torneo extends AppCompatActivity {
 
                     Log.d("holatete",lista.toString());
                     if(participantes==16){
-                        bracketFragment.modifyData(ronda,lista,modalidad,listaPartidas);
+                        if(modalidad==1) {
+                            bracketFragment.modifyData(ronda, lista, modalidad, listaPartidas, primeroEmpieza);
+                            primeroEmpieza=false;
+                        }else{
+                            bracketFragment.modifyData(ronda, lista, modalidad, listaPartidas, false);
+                        }
                     }else{
-                        bracketFragment.modifyData(ronda-1,lista,modalidad,listaPartidas);
+                        if(modalidad==1) {
+                            bracketFragment.modifyData(ronda - 1, lista, modalidad, listaPartidas, primeroEmpieza);
+                            primeroEmpieza=false;
+                        }else{
+                            bracketFragment.modifyData(ronda - 1, lista, modalidad, listaPartidas, false);
+                        }
                     }
                 }});
         }
