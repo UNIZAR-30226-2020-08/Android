@@ -87,15 +87,13 @@ public class ListRanking extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 rank  ranking = lista.get(position);
                 final String amigo=ranking.getName();
-                final String [] opciones={"Eliminar amigo","Invitar a partida","Invitar a torneo"};
+                final String [] opciones={"Eliminar amigo","Invitar a partida"};
                 MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                 builder.setTitle("Opciones");
                 builder.setItems(opciones,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(opciones[which].equals("Invitar a torneo")){
-
-                        } else if (opciones[which].equals("Eliminar amigo")){
+                        if (opciones[which].equals("Eliminar amigo")){
                             denegarSolicitud(amigo);
                         }else {
                             String postUrl = "https://las10ultimas-backend.herokuapp.com/api/partida/";

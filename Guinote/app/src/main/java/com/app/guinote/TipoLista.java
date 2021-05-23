@@ -4,6 +4,7 @@ public class TipoLista {
 
     String _subjectName;
     String _numeros;
+    public String contra;
     public TipoLista(String _subjectName, String _numeros) {
         this._subjectName = _subjectName;
         this._numeros = _numeros;

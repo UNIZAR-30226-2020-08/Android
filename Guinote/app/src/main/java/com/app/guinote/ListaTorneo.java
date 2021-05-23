@@ -111,9 +111,15 @@ public class ListaTorneo extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
+                        String contra=objeto.getString("contrasenya");
                         Integer puntuacion=objeto.getInt("jugadores_online");
                         Log.d("msg82",nombre);
-                        lista8_2.add(new TipoLista(nombre,puntuacion.toString()+"/16"));
+                        if(contra.equals("NO")) {
+                            lista8_2.add(new TipoLista(nombre, puntuacion.toString() + "/16"));
+                        }else{
+                            lista8_2.add(new TipoLista(nombre, puntuacion.toString() + "/16   \uD83D\uDD12"));
+                        }
+                        lista8_2.get(i).contra=contra;
                     }
 
 
@@ -137,6 +143,7 @@ public class ListaTorneo extends Fragment {
                             b.putString("key", lista8_2.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 8); //Your id
                             b.putInt("modalidad", 1); //Your id
+                            b.putString("contrasenya",lista8_2.get(which).contra);
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
                             dialog.dismiss();
@@ -184,9 +191,15 @@ public class ListaTorneo extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
+                        String contra=objeto.getString("contrasenya");
                         Integer puntuacion=objeto.getInt("jugadores_online");
                         Log.d("msg162",nombre);
-                        lista16_2.add(new TipoLista(nombre,puntuacion.toString()+"/32"));
+                        if(contra.equals("NO")) {
+                            lista16_2.add(new TipoLista(nombre, puntuacion.toString() + "/32"));
+                        }else{
+                            lista16_2.add(new TipoLista(nombre, puntuacion.toString() + "/32   \uD83D\uDD12"));
+                        }
+                        lista16_2.get(i).contra=contra;
                     }
                     final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                     builder.setTitle("Partidas");
@@ -206,6 +219,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista16_2.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 16); //Your id
+                            b.putString("contrasenya",lista16_2.get(which).contra);
                             b.putInt("modalidad", 1); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
@@ -255,9 +269,15 @@ public class ListaTorneo extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
+                        String contra=objeto.getString("contrasenya");
                         Integer puntuacion=objeto.getInt("jugadores_online");
                         Log.d("msg81",nombre);
-                        lista8_1.add(new TipoLista(nombre,puntuacion.toString()+"/8"));
+                        if(contra.equals("NO")) {
+                            lista8_1.add(new TipoLista(nombre, puntuacion.toString() + "/8"));
+                        }else{
+                            lista8_1.add(new TipoLista(nombre, puntuacion.toString() + "/8   \uD83D\uDD12"));
+                        }
+                        lista8_1.get(i).contra=contra;
                     }
                     final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                     builder.setTitle("Partidas");
@@ -277,6 +297,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista8_1.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 8); //Your id
+                            b.putString("contrasenya",lista8_1.get(which).contra);
                             b.putInt("modalidad", 0); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);
@@ -324,9 +345,15 @@ public class ListaTorneo extends Fragment {
                     for (int i=0;i<contenido.length();i++){
                         JSONObject objeto=contenido.getJSONObject(i);
                         String nombre=objeto.getString("nombre");
+                        String contra=objeto.getString("contrasenya");
                         Integer puntuacion=objeto.getInt("jugadores_online");
                         Log.d("msg161",nombre);
-                        lista16_1.add(new TipoLista(nombre,puntuacion.toString()+"/16"));
+                        if(contra.equals("NO")) {
+                            lista16_1.add(new TipoLista(nombre, puntuacion.toString() + "/16"));
+                        }else{
+                            lista16_1.add(new TipoLista(nombre, puntuacion.toString() + "/16   \uD83D\uDD12"));
+                        }
+                        lista16_1.get(i).contra=contra;
                     }
                     final MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(getContext());
                     builder.setTitle("Partidas");
@@ -346,6 +373,7 @@ public class ListaTorneo extends Fragment {
                             Bundle b = new Bundle();
                             b.putString("key", lista16_1.get(which).get_subjectName()); //Your id
                             b.putInt("participantes", 16); //Your id
+                            b.putString("contrasenya",lista16_1.get(which).contra);
                             b.putInt("modalidad", 0); //Your id
                             intent.putExtras(b); //Put your id to your next Intent
                             startActivity(intent);

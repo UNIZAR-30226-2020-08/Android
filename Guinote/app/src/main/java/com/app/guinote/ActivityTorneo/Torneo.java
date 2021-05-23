@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,6 +29,8 @@ import com.app.guinote.R;
 import com.app.guinote.TorneoFragment.BracketsFragment;
 import com.app.guinote.TorneoApp.App1;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +53,7 @@ public class Torneo extends AppCompatActivity {
     private static String nombrePartida="";
     private int enPartida=0;
     public static SQLiteDatabase db;
+    String contra="";
     public static int modalidad=0;
     private static int ronda=1;
     private String []participantesPartida;
@@ -58,52 +63,58 @@ public class Torneo extends AppCompatActivity {
     private static Context mContext;
     static LottieAnimationView animacion;
     private int participantes=0;
+    private int conectadoCorrectamente=0;
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(perdido==0){
-            if (enPartida == 0) {
-                JSONObject auxiliar = new JSONObject();
-                Log.d("hola", "holasdasd");
-                try {
-                    auxiliar.put("jugador", getName());
-                    auxiliar.put("torneo", nombrePartida);
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                mSocket.emit("leaveTorneo",auxiliar,new Ack() {
-                    @Override
-                    public void call(Object... args) {
-                        //JSONObject response = (JSONObject) args[0];
-                        //System.out.println(response); // "ok"
+        if(conectadoCorrectamente==0) {
+            if (perdido == 0) {
+                if (enPartida == 0) {
+                    JSONObject auxiliar = new JSONObject();
+                    Log.d("hola", "holasdasd");
+                    try {
+                        auxiliar.put("jugador", getName());
+                        auxiliar.put("torneo", nombrePartida);
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
-                });
-            } else {
-                JSONObject auxiliar2 = new JSONObject();
-                Log.d("hola", "holasdasd");
-                try {
-                    auxiliar2.put("jugador", getName());
-                    auxiliar2.put("torneo", nombrePartida);
-                    auxiliar2.put("fase", ronda);
-                    auxiliar2.put("partida", miPartidaActual);
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                mSocket.emit("leaveTorneoEmpezado",auxiliar2, new Ack() {
-                    @Override
-                    public void call(Object... args) {
-                        //JSONObject response = (JSONObject) args[0];
-                        //System.out.println(response); // "ok"
+                    mSocket.emit("leaveTorneo", auxiliar, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                } else {
+                    JSONObject auxiliar2 = new JSONObject();
+                    Log.d("hola", "holasdasd");
+                    try {
+                        auxiliar2.put("jugador", getName());
+                        auxiliar2.put("torneo", nombrePartida);
+                        auxiliar2.put("fase", ronda);
+                        auxiliar2.put("partida", miPartidaActual);
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
-                });
+                    mSocket.emit("leaveTorneoEmpezado", auxiliar2, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            //JSONObject response = (JSONObject) args[0];
+                            //System.out.println(response); // "ok"
+                        }
+                    });
+                }
             }
         }
 
         mSocket.off("abandonoTorneo",onSalidaRepentina);
+        mSocket.off("matches",onMatches);
+        mSocket.off("joinedT",onJoin);
+        mSocket.off("accesoDenegado",onAccesoDenegado);
     }
 
 
@@ -117,6 +128,37 @@ public class Torneo extends AppCompatActivity {
                 @Override
                 public void run(){
                     Log.d("hola",args[0].toString());
+                }});
+        }
+    };
+
+
+    private Emitter.Listener onAccesoDenegado = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run(){
+                    Log.d("hola",args[0].toString());
+                    animacion.pauseAnimation();
+                    animacion.setVisibility(View.INVISIBLE);
+                    conectadoCorrectamente=1;
+                    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+                    builder.setTitle("Contraseña icorrecta");
+                    builder.setMessage("Intente unirse más tarde.");
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(mContext, Pantalla_app.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("EXIT", true);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.show();
                 }});
         }
     };
@@ -267,18 +309,20 @@ public class Torneo extends AppCompatActivity {
         setContentView(R.layout.activity_torneo);
 
         animacion = (LottieAnimationView) findViewById(R.id.animation_carga_perf_torneo);
+        final CardView carta= findViewById(R.id.formularioAnadirContra);
 
 
         mSocket.on("matches",onMatches);
         mSocket.on("joinedT",onJoin);
         mSocket.on("abandonoTorneo",onSalidaRepentina);
+        mSocket.on("accesoDenegado",onAccesoDenegado);
 
         Bundle b = getIntent().getExtras();
         if(b != null) {
             nombrePartida = b.getString("key");
             modalidad= b.getInt("modalidad");
             participantes= b.getInt("participantes");
-
+            contra=b.getString("contrasenya");
         }
 
         if (participantes==16){
@@ -286,30 +330,78 @@ public class Torneo extends AppCompatActivity {
         }else{
             ronda=1;
         }
+
+
         initialiseBracketsFragment();
 
-        JSONObject auxiliar = new JSONObject();
-        try {
-            auxiliar.put("name", getName());
-            auxiliar.put("tournament", nombrePartida);
-            auxiliar.put("tipo", modalidad);
-            auxiliar.put("nTeams", participantes);
+        if(!contra.equals("NO")){
+            carta.setVisibility(View.VISIBLE);
+            Button enviar=findViewById(R.id.boton_anadir_contra);
 
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Log.d("jsonDePrueba",auxiliar.toString());
-        animacion.setVisibility(View.VISIBLE);
-        animacion.playAnimation();
 
-        mSocket.emit("joinTournament", auxiliar, new Ack() {
-            @Override
-            public void call(Object... args) {
-                //JSONObject response = (JSONObject) args[0];
-                //System.out.println(response); // "ok"
+            enviar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    final TextInputLayout nombreContraCaja= (TextInputLayout) findViewById(R.id.cajaPartidaAnadirContra);
+                    String nombrePasswd = nombreContraCaja.getEditText().getText().toString();
+
+                    if (nombrePasswd.isEmpty()){
+                        nombreContraCaja.setError("La contraseña no puede ser vacía.");
+                    }else{
+                        contra=nombrePasswd;
+                        carta.setVisibility(View.INVISIBLE);
+                        JSONObject auxiliar = new JSONObject();
+                        try {
+                            auxiliar.put("name", getName());
+                            auxiliar.put("tournament", nombrePartida);
+                            auxiliar.put("tipo", modalidad);
+                            auxiliar.put("nTeams", participantes);
+                            auxiliar.put("contrasenya", contra);
+
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        Log.d("jsonDePrueba",auxiliar.toString());
+                        animacion.setVisibility(View.VISIBLE);
+                        animacion.playAnimation();
+
+                        mSocket.emit("joinTournament", auxiliar, new Ack() {
+                            @Override
+                            public void call(Object... args) {
+                                //JSONObject response = (JSONObject) args[0];
+                                //System.out.println(response); // "ok"
+                            }
+                        });
+                    }
+                }
+            });
+        }else{
+            JSONObject auxiliar = new JSONObject();
+            try {
+                auxiliar.put("name", getName());
+                auxiliar.put("tournament", nombrePartida);
+                auxiliar.put("tipo", modalidad);
+                auxiliar.put("nTeams", participantes);
+                auxiliar.put("contrasenya", contra);
+
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        });
+            Log.d("jsonDePrueba",auxiliar.toString());
+            animacion.setVisibility(View.VISIBLE);
+            animacion.playAnimation();
+
+            mSocket.emit("joinTournament", auxiliar, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    //JSONObject response = (JSONObject) args[0];
+                    //System.out.println(response); // "ok"
+                }
+            });
+        }
+
     }
 
     private void initialiseBracketsFragment() {
