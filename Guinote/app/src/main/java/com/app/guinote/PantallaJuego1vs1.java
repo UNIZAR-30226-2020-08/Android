@@ -1252,6 +1252,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
         cuantascartas.setVisibility(View.INVISIBLE);
         cartasrestantes.setVisibility(View.INVISIBLE);
         cuentaatras.setVisibility(View.INVISIBLE);
+        cantar.setVisibility(View.INVISIBLE);
 
         ImageView imagen1reverso = (ImageView) findViewById(R.id.casilla_carta_1_back1vs1);
         ImageView imagen2reverso = (ImageView) findViewById(R.id.casilla_carta_2_back1vs1);
@@ -2070,6 +2071,7 @@ public class PantallaJuego1vs1 extends AppCompatActivity {
                     cartasrestantes.setVisibility(View.VISIBLE);
                 }
                 cuentaatras.setVisibility(View.VISIBLE);
+                cantar.setVisibility(View.VISIBLE);
             }
         });
     }
