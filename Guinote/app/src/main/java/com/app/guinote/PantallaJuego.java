@@ -1960,7 +1960,7 @@ public class PantallaJuego extends AppCompatActivity {
             public void onClick(View v) {
                 if(esta_sonando){
                     icono_musica.setImageResource(R.drawable.baseline_volume_off_black_48);
-                    mediaPlayer.stop();
+                    mediaPlayer.pause();
                     esta_sonando = false;
                 }else{
                     icono_musica.setImageResource(R.drawable.baseline_volume_up_black_48);
