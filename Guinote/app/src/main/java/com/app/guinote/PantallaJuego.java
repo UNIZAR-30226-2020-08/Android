@@ -346,6 +346,7 @@ public class PantallaJuego extends AppCompatActivity {
                         }
                         cuentaNombres++;
                         cuentaVeces++;
+                        //////////////ACORDARSE DE LUEGO HACER EL SETTEXT CON MI NOMBRE Y MI ORDEN
                     }
                     if(cuentaVeces == 4){
                         switch (queOrden){
@@ -632,62 +633,32 @@ public class PantallaJuego extends AppCompatActivity {
                         CharSequence n2 = nombreOponente2.getText();
                         CharSequence n4 = nombreOponente4.getText();
 
-                        if(nronda == 10){
-                            if(quienWinner.equals(nameUser)){
-                                queOrden= 4;
-                                ultimo = true;
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.VISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n3.toString())){
-                                queOrden = 3;
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                    estrella2.setVisibility(View.VISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n2.toString())){
-                                queOrden = 2;
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.VISIBLE);
-                            }else if(quienWinner.equals(n4.toString())){
-                                contador.start();
-                                queOrden = 1;
-                                estrella4.setVisibility(View.INVISIBLE);
-                                estrella1.setVisibility(View.VISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                            }
-                        }else{
-                            if(quienWinner.equals(nameUser)){
-                                contador.start();
-                                queOrden= 1;
-                                estrella1.setVisibility(View.VISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n3.toString())){
-                                queOrden = 4;
-                                ultimo = true;
-                                estrella3.setVisibility(View.VISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n2.toString())){
-                                queOrden = 3;
-                                estrella2.setVisibility(View.VISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n4.toString())){
-                                queOrden = 2;
-                                estrella4.setVisibility(View.VISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                            }
+                        if(quienWinner.equals(nameUser)){
+                            contador.start();
+                            queOrden= 1;
+                            estrella1.setVisibility(View.VISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(quienWinner.equals(n3.toString())){
+                            queOrden = 4;
+                            ultimo = true;
+                            estrella3.setVisibility(View.VISIBLE);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(quienWinner.equals(n2.toString())){
+                            queOrden = 3;
+                            estrella2.setVisibility(View.VISIBLE);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
+                            estrella4.setVisibility(View.INVISIBLE);
+                        }else if(quienWinner.equals(n4.toString())){
+                            queOrden = 2;
+                            estrella4.setVisibility(View.VISIBLE);
+                            estrella1.setVisibility(View.INVISIBLE);
+                            estrella2.setVisibility(View.INVISIBLE);
+                            estrella3.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
@@ -1080,62 +1051,20 @@ public class PantallaJuego extends AppCompatActivity {
                         CharSequence n2 = nombreOponente2.getText();
                         CharSequence n4 = nombreOponente4.getText();
 
-                        if(nronda == 10){
-                            if(quienWinner.equals(nameUser)){
-                                queOrden= 4;
-                                ultimo = true;
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.VISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n3.toString())){
-                                queOrden = 3;
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.VISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n2.toString())){
-                                queOrden = 2;
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.VISIBLE);
-                            }else if(quienWinner.equals(n4.toString())){
-                                contador.start();
-                                queOrden = 1;
-                                estrella4.setVisibility(View.INVISIBLE);
-                                estrella1.setVisibility(View.VISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                            }
-                        }else{
-                            if(quienWinner.equals(nameUser)){
-                                contador.start();
-                                queOrden= 1;
-                                estrella1.setVisibility(View.VISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n3.toString())){
-                                queOrden = 4;
-                                ultimo = true;
-                                estrella3.setVisibility(View.VISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n2.toString())){
-                                queOrden = 3;
-                                estrella2.setVisibility(View.VISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                                estrella4.setVisibility(View.INVISIBLE);
-                            }else if(quienWinner.equals(n4.toString())){
-                                queOrden = 2;
-                                estrella4.setVisibility(View.VISIBLE);
-                                estrella1.setVisibility(View.INVISIBLE);
-                                estrella2.setVisibility(View.INVISIBLE);
-                                estrella3.setVisibility(View.INVISIBLE);
-                            }
+                        if(winner.equals(nameUser)){
+                            contador.start();
+                            queOrden= 1;
+                            estrella1.setVisibility(View.VISIBLE);
+                        }else if(winner.equals(n3.toString())){
+                            queOrden = 4;
+                            ultimo = true;
+                            estrella3.setVisibility(View.VISIBLE);
+                        }else if(winner.equals(n2.toString())){
+                            queOrden = 3;
+                            estrella2.setVisibility(View.VISIBLE);
+                        }else if(winner.equals(n4.toString())){
+                            queOrden = 2;
+                            estrella4.setVisibility(View.VISIBLE);
                         }
                     }
                 }
